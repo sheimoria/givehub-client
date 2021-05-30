@@ -1,82 +1,98 @@
 import Head from 'next/head'
+import Image from 'next/image'
+import { useUser } from '@auth0/nextjs-auth0'
 
-export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+/* import { useQuery } from '@apollo/client'
+import GET_USER_BY_LOGIN from '../lib/queries/getUserByLogin'
+import { initializeApollo } from '../lib/apollo' */
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+export default function Index() {
+  const { user, error, isLoading } = useUser()
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
+  if (isLoading)
+    return (
+      <>
+        <Head>
+          <title>Givehub: Loading...</title>
+        </Head>
+        <main className="flex flex-col items-center justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
+          <p className="text-rose-600">Loading...</p>
+        </main>
+      </>
+    )
+  if (error)
+    return (
+      <>
+        <Head>
+          <title>Givehub: Error</title>
+        </Head>
+        <main className="flex flex-col items-center justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
+          <p className="text-rose-600">{error.message}</p>
+        </main>
+      </>
+    )
+
+  if (user) {
+    /* const { data, error, loading } = useQuery(GET_USER_BY_LOGIN, {
+      variables: { code: VARIABLE } // user_id ...
+    }) */
+
+    return (
+      <>
+        <Head>
+          <title>Givehub: Dashboard</title>
+        </Head>
+        <main className="flex flex-col items-start justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
+          <Image src="/logoText.svg" width={213} height={45} alt="Givehub" />
+          <img
+            className="w-20 h-20 border rounded-full border-rose-600"
+            src={user.picture}
+            alt={user.name}
+          />
+          <p className="text-rose-600">
+            Welcome {user.name}! Here's the data we received from you signing
+            up:
+          </p>
+          <code className="px-4 py-2 border rounded-md text-rose-600 border-rose-600">
+            {JSON.stringify(user, null, 2)}
           </code>
+          <a
+            href="/api/auth/logout"
+            className="inline-flex items-center flex-none px-4 py-2 text-white border rounded-md bg-rose-600 border-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+          >
+            Log out
+          </a>
+        </main>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Givehub: Login</title>
+      </Head>
+      <main className="flex flex-col items-start justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
+        <Image src="/logoText.svg" width={213} height={45} />
+        <p className="text-rose-600">
+          Welcome! Givehub is a one-stop platform for the community to discover
+          volunteering opportunities and charities to manage their volunteers.
         </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
+        <div className="flex gap-2">
           <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
+            href="/api/auth/login"
+            className="inline-flex items-center flex-none px-4 py-2 border rounded-md border-rose-600 text-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
           >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
+            Log in
           </a>
-
           <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
+            href="/api/auth/login"
+            className="inline-flex items-center flex-none px-4 py-2 text-white border rounded-md bg-rose-600 border-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
           >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+            Sign up
           </a>
         </div>
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
+    </>
   )
 }
