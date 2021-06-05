@@ -5,4 +5,5 @@ This client is built with [Next.js](https://nextjs.org/), [Tailwind CSS](https:/
 ## Installation
 
 1. Install dependencies by running `yarn` or `npm install`
-2. Start a development instance by running `yarn dev` or `npm run dev`
+2. Start the development server by running `yarn dev` or `npm run dev`
+3. Go to [https://localhost:3000/]

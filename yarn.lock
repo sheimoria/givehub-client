@@ -35,9 +35,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth0/nextjs-auth0@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "@auth0/nextjs-auth0@npm:1.3.1"
+"@auth0/nextjs-auth0@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@auth0/nextjs-auth0@npm:1.4.0"
   dependencies:
     base64url: ^3.0.1
     cookie: ^0.4.1
@@ -52,7 +52,7 @@ __metadata:
     url-join: ^4.0.1
   peerDependencies:
     next: ">=10"
-  checksum: 94df50307bcfdfea3d19483554d1de19dba96f1e90e745457292e5fcb51007569a98fa521451337b1dc9c8e6265022a0b6a2405563337b470bd52c595195daad
+  checksum: 9ebb4b7bdc6f3ae73ddaf37a4b61ffe7fc69e730fca04e041a2700f749583fdf89bc41ec5b4fa73b4eb7676d948e54e3ec8685e5eda500c36f99df35dca5aa99
   languageName: node
   linkType: hard
 
@@ -223,30 +223,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nodelib/fs.scandir@npm:2.1.4":
-  version: 2.1.4
-  resolution: "@nodelib/fs.scandir@npm:2.1.4"
+"@nodelib/fs.scandir@npm:2.1.5":
+  version: 2.1.5
+  resolution: "@nodelib/fs.scandir@npm:2.1.5"
   dependencies:
-    "@nodelib/fs.stat": 2.0.4
+    "@nodelib/fs.stat": 2.0.5
     run-parallel: ^1.1.9
-  checksum: 30b3102ee37e1c1a0cb939a8e93f9a58b1637e2b4b546bb9143b3fb5efacd2abde3237a5313d5329bf1bc4231c418a77c3cb7f5434ce410e61a91ff4051cf215
+  checksum: 91b3de88d9ba843b74057ebec53d97bb1ca006fcb794f1eb2becfe6faf114cb575c90b10fc20f7390358106ffa5e6bbc493506c24f2263a33aa69f90c1e77f74
   languageName: node
   linkType: hard
 
-"@nodelib/fs.stat@npm:2.0.4, @nodelib/fs.stat@npm:^2.0.2":
-  version: 2.0.4
-  resolution: "@nodelib/fs.stat@npm:2.0.4"
-  checksum: 6454a79e945dd55102b5c2e158813804ed349f9c1cc806f8754fca4587688a5d8e4115fc3eedbdf3d8a6b343169a6b664ecd8a7a42289eed210c686a4d0897c4
+"@nodelib/fs.stat@npm:2.0.5, @nodelib/fs.stat@npm:^2.0.2":
+  version: 2.0.5
+  resolution: "@nodelib/fs.stat@npm:2.0.5"
+  checksum: a4fcf7408f2a1e11737856629b1259fb9ed658c464fabb17f77db1069fea5dd47abd5e92325b217617dbc116138d82ea6d33ffc07a426de940c5f6e08603da88
   languageName: node
   linkType: hard
 
 "@nodelib/fs.walk@npm:^1.2.3":
-  version: 1.2.6
-  resolution: "@nodelib/fs.walk@npm:1.2.6"
+  version: 1.2.7
+  resolution: "@nodelib/fs.walk@npm:1.2.7"
   dependencies:
-    "@nodelib/fs.scandir": 2.1.4
+    "@nodelib/fs.scandir": 2.1.5
     fastq: ^1.6.0
-  checksum: d0503ffd0bb4172d5ac5d23993b14665f5f6d42a460a719ad97743ce71e60588d134cc60df12ca76be0e5e3a93c9a3156904d9296b78a8cdf19425c3423c0b58
+  checksum: ac8e2d9ca000b9f7fca2a7b005b9e476ba7b2f416d2873f64b94b207ed1854bd30f63ced4c221969c5e470ec82fbeb353c97504a86c3838cda11f98660fac284
   languageName: node
   linkType: hard
 
@@ -331,14 +331,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/forms@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "@tailwindcss/forms@npm:0.3.2"
+"@tailwindcss/forms@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@tailwindcss/forms@npm:0.3.3"
   dependencies:
     mini-svg-data-uri: ^1.2.3
   peerDependencies:
     tailwindcss: ">=2.0.0"
-  checksum: a400fa0dbc9773a29484c0d9d20b95b6f4e8364b9ed598fd8529e08ad99962612e102b20efd0f0b5320c9bf41f38dae89416af13dd8ac1ad17fbbf811113c656
+  checksum: 75637650c5a528ec577f26d6bd043bb9295c2fa443fe943b7391914b0ecd0570624be18bb69da8ca460743538d27b46a18d80936efb6806df991cce2face40d7
   languageName: node
   linkType: hard
 
@@ -391,10 +391,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 15.6.1
-  resolution: "@types/node@npm:15.6.1"
-  checksum: 07b3855bc0a1ba2215455a3ef4ed5e88711321b3cdc0ba1ea0286f6facbdf61530970b9fa7eec79eb1d46231f986c21ef3b7c1f1e0c365cf1b887d76b0addb86
+"@types/node@npm:*, @types/node@npm:^15.12.1":
+  version: 15.12.1
+  resolution: "@types/node@npm:15.12.1"
+  checksum: 8a111dc99281e07b1a6408437a09eafb081760aa8bd73d481793345b302a565772c45f2be7fdd7386a8a7ce589a999ccfb513dba15a0b3320dba03c94308253f
+  languageName: node
+  linkType: hard
+
+"@types/prop-types@npm:*":
+  version: 15.7.3
+  resolution: "@types/prop-types@npm:15.7.3"
+  checksum: bd0eab69d5120ad3784d0c9985f902653d5924707a7f2b3702a330e762dfd61b6494954cb54ad0c52b918ffd6f1e7e27c9270e4442bc15250de348596f2f60cb
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^17.0.9":
+  version: 17.0.9
+  resolution: "@types/react@npm:17.0.9"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 12f1962a317cad805bd6fcd1da3ac1a58a782db28e522bdded163f1bdfc8388f8a110d200a6925cccbf3d442e1325199ce5da710f11ee73f0f140c6734fea127
   languageName: node
   linkType: hard
 
@@ -404,6 +422,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
+  languageName: node
+  linkType: hard
+
+"@types/scheduler@npm:*":
+  version: 0.16.1
+  resolution: "@types/scheduler@npm:0.16.1"
+  checksum: 0124c2e4dee5e9b8c8524fcd6b1b8ea0b807b132e593925db04cdcc92ca2779a0d27c79414e60454b4458361a4d8319fa2b59d20585054f21617d1e9acf46a6f
   languageName: node
   linkType: hard
 
@@ -626,7 +651,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.0.4":
+"autoprefixer@npm:latest":
   version: 10.2.6
   resolution: "autoprefixer@npm:10.2.6"
   dependencies:
@@ -928,9 +953,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001202, caniuse-lite@npm:^1.0.30001219, caniuse-lite@npm:^1.0.30001228, caniuse-lite@npm:^1.0.30001230":
-  version: 1.0.30001230
-  resolution: "caniuse-lite@npm:1.0.30001230"
-  checksum: bb319bedf33722a2d16e28a7e0d13fabde59be4fccd48d80939254228c7a49059b74bd99b313596f75c997480f9097cc3e7cda7c7687e5a096bb9c75260c145d
+  version: 1.0.30001234
+  resolution: "caniuse-lite@npm:1.0.30001234"
+  checksum: 0c8e2b68e227eb47121ca0c93bda530bbe8475a3e2ab14138a3d751258817c1a16c8a86a0809637fb90d48f92b63e47740f863c806f3e6de012e417dc3cb54c4
   languageName: node
   linkType: hard
 
@@ -1256,6 +1281,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csstype@npm:^3.0.2":
+  version: 3.0.8
+  resolution: "csstype@npm:3.0.8"
+  checksum: e15233592a2c580fd72c4346a5c921044b8f4f29bcb81628a81199c4d6a91eb8f8e4875f440ef9c990e85f179a3370f3b842fe55e4743119ad0ce712519e7123
+  languageName: node
+  linkType: hard
+
 "data-uri-to-buffer@npm:3.0.1":
   version: 3.0.1
   resolution: "data-uri-to-buffer@npm:3.0.1"
@@ -1393,9 +1425,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.3.723":
-  version: 1.3.742
-  resolution: "electron-to-chromium@npm:1.3.742"
-  checksum: 77bb203bb37180da8f6bc3dd566bb683d24115b11b7c364e054365347ba3449d2b8b525da83f3620ddb79da74af3c42904676662e442786e963551c73c067a56
+  version: 1.3.749
+  resolution: "electron-to-chromium@npm:1.3.749"
+  checksum: 7140caa32d93b8377280263aefae18aa27abddcac5426cd1c487f615ff3b0c99e5a8f474b7d27cb6d7f70de1c5872b89ea3d3f6476f052d6ddb24b567d39143c
   languageName: node
   linkType: hard
 
@@ -1725,20 +1757,23 @@ fsevents@~2.3.1:
   resolution: "givehub-next-client@workspace:."
   dependencies:
     "@apollo/client": ^3.3.19
-    "@auth0/nextjs-auth0": ^1.3.1
+    "@auth0/nextjs-auth0": ^1.4.0
     "@headlessui/react": ^1.2.0
     "@heroicons/react": ^1.0.1
     "@tailwindcss/aspect-ratio": ^0.2.1
-    "@tailwindcss/forms": ^0.3.2
+    "@tailwindcss/forms": ^0.3.3
     "@tailwindcss/typography": ^0.4.1
-    autoprefixer: ^10.0.4
-    gql: ^1.1.2
-    graphql: ^15.5.0
+    "@types/node": ^15.12.1
+    "@types/react": ^17.0.9
+    autoprefixer: latest
+    gql: latest
+    graphql: latest
     next: latest
-    postcss: ^8.1.10
-    react: ^17.0.1
-    react-dom: ^17.0.1
-    tailwindcss: ^2.1.1
+    postcss: latest
+    react: latest
+    react-dom: latest
+    tailwindcss: latest
+    typescript: ^4.3.2
   languageName: unknown
   linkType: soft
 
@@ -1810,7 +1845,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gql@npm:^1.1.2":
+"gql@npm:latest":
   version: 1.1.2
   resolution: "gql@npm:1.1.2"
   checksum: aa5f509c5a3454f2300938474c8d69119175ea72319beddec2a350833d24e2a9c219547ea07c9dc097babc9f7e52948d59f121a5ee67ff3a942c16bd258d4721
@@ -1835,7 +1870,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"graphql@npm:^15.5.0":
+"graphql@npm:latest":
   version: 15.5.0
   resolution: "graphql@npm:15.5.0"
   checksum: 789cdcb069a3e00592e779002217a6bc5fd09efad63ee8c4190c4b3ea96c89010e74f085fb1cba876a0bb0e324e01df2eddb84d79dca90a28e582bc425fef9ef
@@ -3324,7 +3359,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.1.10, postcss@npm:^8.1.6, postcss@npm:^8.2.1":
+"postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:latest":
   version: 8.3.0
   resolution: "postcss@npm:8.3.0"
   dependencies:
@@ -3509,7 +3544,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.1":
+"react-dom@npm:latest":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -3536,7 +3571,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.1":
+"react@npm:latest":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -4090,9 +4125,9 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.1.1":
-  version: 2.1.2
-  resolution: "tailwindcss@npm:2.1.2"
+"tailwindcss@npm:latest":
+  version: 2.1.4
+  resolution: "tailwindcss@npm:2.1.4"
   dependencies:
     "@fullhuman/postcss-purgecss": ^3.1.3
     bytes: ^3.0.0
@@ -4127,7 +4162,7 @@ resolve@^1.20.0:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 0e1c12073ab3a86016ac417b06aee014e868cf93f7d9c71cf11cd725d1cb3ab576cd0d776f5a3eaab179e427a35575f9bc39ae5a912a81040f35a61ad2008e45
+  checksum: 478fc098fa9b7e57c5bc16dc0a51179c05bca7d82bffdcfdb61a0057e0e0e5004851d6d22bcaaffd4f64bfd0863ad9b897827d54296538c869b930cec71aa0dc
   languageName: node
   linkType: hard
 
@@ -4244,6 +4279,26 @@ resolve@^1.20.0:
   version: 0.7.1
   resolution: "type-fest@npm:0.7.1"
   checksum: 13aa0b28ad4e3464eb62c33e7fe5165b41305abab68222507a6f728be9fc43da2aa61d25f5422296137f7751dbd4a71d6dbd7c7030dc1d897769ef09e8c1588c
+  languageName: node
+  linkType: hard
+
+typescript@^4.3.2:
+  version: 4.3.2
+  resolution: "typescript@npm:4.3.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 21e1285402e32fd240f6ad3f97b6fea81b90d2591f412677d01b570a8bd93151d1e08460d58f43689fc758671a5baaebb16fa93d3c8260181612c8e619bd24f7
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.3.2#builtin<compat/typescript>":
+  version: 4.3.2
+  resolution: "typescript@patch:typescript@npm%3A4.3.2#builtin<compat/typescript>::version=4.3.2&hash=ddfc1b"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 68d48dc86dacfeab59a22414ff061c976c46b679a9717a3a710051ea7bab779fd23f4edb856434da8155e8e8646c90b3912e342cc0010dfd15ed321a42cb0578
   languageName: node
   linkType: hard
 
