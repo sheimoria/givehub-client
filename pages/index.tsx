@@ -1,87 +1,61 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useUser } from '@auth0/nextjs-auth0'
+import Body from 'components/Body'
+import { EditDeletePostButtons } from 'components/EditDeletePostButtons'
+import Like from 'components/Like'
+import Link from 'next/link'
+import { usePostsQuery } from 'generated/graphql'
+import { withApollo } from 'utils/withApollo'
 
-export default function Index() {
-  const { user, error, isLoading } = useUser()
-
-  if (isLoading)
-    return (
-      <>
-        <main className="flex flex-col items-center justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
-          <p className="text-rose-600">Loading...</p>
-        </main>
-      </>
-    )
-  if (error)
-    return (
-      <>
-        <Head>
-          <title>Givehub: Error</title>
-        </Head>
-        <main className="flex flex-col items-center justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
-          <p className="text-rose-600">{error.message}</p>
-        </main>
-      </>
-    )
-
-  if (user) {
-    return (
-      <>
-        <Head>
-          <title>Givehub: Dashboard</title>
-        </Head>
-        <main className="flex flex-col items-start justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
-          <Image src="/logoText.svg" width={213} height={45} alt="Givehub" />
-          <img
-            className="w-20 h-20 border rounded-full border-rose-600"
-            src={user.picture}
-            alt={user.name}
-          />
-          <p className="text-rose-600">
-            Welcome {user.name}! Here's the data we received from you signing
-            up:
-          </p>
-          <code className="px-4 py-2 border rounded-md text-rose-600 border-rose-600">
-            {JSON.stringify(user, null, 2)}
-          </code>
-          <a
-            href="/api/auth/logout"
-            className="inline-flex items-center flex-none px-4 py-2 text-white border rounded-md bg-rose-600 border-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-          >
-            Log out
-          </a>
-        </main>
-      </>
-    )
-  }
+function Index() {
+  const { data, error, loading, fetchMore, variables } = usePostsQuery({
+    variables: {
+      limit: 3,
+      cursor: '1623210378909'
+    },
+    notifyOnNetworkStatusChange: true
+  })
 
   return (
-    <>
-      <Head>
-        <title>Givehub: Login</title>
-      </Head>
-      <main className="flex flex-col items-start justify-center max-w-lg min-h-screen gap-4 p-6 mx-auto">
-        <Image src="/logoText.svg" width={213} height={45} />
-        <p className="text-rose-600">
-          Welcome! Givehub is a one-stop platform for the community to discover
-          volunteering opportunities and charities to manage their volunteers.
-        </p>
-        <div className="flex gap-2">
-          <a
-            href="/api/auth/login"
-            className="inline-flex items-center flex-none px-4 py-2 border rounded-md border-rose-600 text-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-          >
-            Log in
-          </a>
-          <a
-            href="/api/auth/login"
-            className="inline-flex items-center flex-none px-4 py-2 text-white border rounded-md bg-rose-600 border-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-          >
-            Sign up
-          </a>
-        </div>
-      </main>
-    </>
+    <Body>
+      {error && <p>{error.message}</p>}
+      {loading && <h6>Loading...</h6>}
+      {data && (
+        <section>
+          {data!.posts.posts.map((post) =>
+            !post ? null : (
+              <article key={post.id}>
+                <div>
+                  <p>{post.creator.username}</p>
+                  <EditDeletePostButtons
+                    id={post.id}
+                    creatorId={post.creator.id}
+                  />
+                </div>
+                <Link href={`/post/${post.id}`}>
+                  <a>{post.title}</a>
+                </Link>
+                <p>{post.textSnippet}</p>
+                <Like post={post} />
+              </article>
+            )
+          )}
+        </section>
+      )}
+      {data && data.posts.hasMore && (
+        <button
+          onClick={() => {
+            fetchMore({
+              variables: {
+                limit: variables?.limit,
+                cursor: data.posts.posts[data.posts.posts.length - 1].createdAt
+              }
+            })
+          }}
+        >
+          Load more posts
+        </button>
+      )}
+    </Body>
   )
 }
+
+export default withApollo({ ssr: true })(Index)

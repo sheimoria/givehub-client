@@ -1,5 +1,15 @@
-export default function Body() {
+import Footer from 'components/Footer'
+import Header from 'components/Header'
+import { ReactElement } from 'react'
+
+interface bodyProps {}
+
+export default function Body({ children }): ReactElement<bodyProps> {
   return (
-    <body className="flex flex-col items-center justify-center gap-6 p-6 mx-auto max-w-7xl"></body>
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
   )
 }
