@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik'
+import { Form, Formik, Field, ErrorMessage } from 'formik'
 import {
   MeDocument,
   MeQuery,
@@ -6,7 +6,6 @@ import {
 } from 'generated/graphql'
 import React, { useState } from 'react'
 
-import InputField from 'components/InputField'
 import Link from 'next/link'
 import { NextPage } from 'next'
 import { toErrorMap } from 'utils/toErrorMap'
@@ -14,11 +13,11 @@ import { useRouter } from 'next/router'
 import { withApollo } from 'utils/withApollo'
 import Body from 'components/Body'
 
-const ChangePassword(): NextPage {
+function ChangePassword() {
   const router = useRouter()
   const [changePassword] = useChangePasswordMutation()
   const [tokenError, setTokenError] = useState('')
-  
+
   return (
     <Body>
       <Formik
@@ -53,26 +52,18 @@ const ChangePassword(): NextPage {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField
-              name="newPassword"
-              label="New Password"
-              type="password"
-            />
+            <label htmlFor="newPassword">New password</label>
+            <Field name="newPassword" type="password" />
+            <ErrorMessage name="newPassword" component="p" />
             {tokenError && (
               <>
-                <p className="text-red-500">
-                  {tokenError}
-                </p>
+                <p className="text-red-500">{tokenError}</p>
                 <Link href="/forgot-password">
                   <a>Click here to get a new one</a>
                 </Link>
               </>
             )}
-            <button
-              type="submit"
-            >
-              Change password
-            </button>
+            <button type="submit">Change password</button>
           </Form>
         )}
       </Formik>

@@ -1,8 +1,7 @@
-import { Form, Formik } from 'formik'
+import { Form, Formik, Field, ErrorMessage } from 'formik'
 import { usePostQuery, useUpdatePostMutation } from 'generated/graphql'
 
 import Body from 'components/Body'
-import InputField from 'components/InputField'
 import { useGetIntId } from 'utils/useGetIntId'
 import { useRouter } from 'next/router'
 import { withApollo } from 'utils/withApollo'
@@ -32,8 +31,12 @@ function EditPost() {
         >
           {({ isSubmitting }) => (
             <Form>
-              <InputField name="title" label="Title" />
-              <InputField textarea name="text" label="Body" />
+              <label htmlFor="title">Title</label>
+              <Field name="title" />
+              <ErrorMessage name="title" component="p" />
+              <label htmlFor="text">Text</label>
+              <Field as="textarea" name="text" />
+              <ErrorMessage name="text" component="p" />
               <button type="submit">Update post</button>
             </Form>
           )}

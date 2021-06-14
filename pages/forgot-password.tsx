@@ -1,9 +1,9 @@
-import { Form, Formik } from 'formik'
-import { useState, ReactElement } from 'react'
-import InputField from 'components/InputField'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ReactElement, useState } from 'react'
+
+import Body from 'components/Body'
 import { useForgotPasswordMutation } from 'generated/graphql'
 import { withApollo } from 'utils/withApollo'
-import Body from 'components/Body'
 
 function ForgotPassword({}): ReactElement<{}> {
   const [complete, setComplete] = useState(false)
@@ -26,7 +26,9 @@ function ForgotPassword({}): ReactElement<{}> {
             </p>
           ) : (
             <Form>
-              <InputField name="email" label="Email" type="email" />
+              <label htmlFor="email">Email</label>
+              <Field name="email" />
+              <ErrorMessage name="email" component="p" />
               <button type="submit">Send password reset email</button>
             </Form>
           )

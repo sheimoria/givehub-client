@@ -1,12 +1,12 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { MeDocument, MeQuery, useLoginMutation } from 'generated/graphql'
+
+import Body from 'components/Body'
+import Link from 'next/link'
 import { ReactElement } from 'react'
-import { Formik, Form } from 'formik'
-import InputField from 'components/InputField'
-import { useLoginMutation, MeQuery, MeDocument } from 'generated/graphql'
 import { toErrorMap } from 'utils/toErrorMap'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { withApollo } from 'utils/withApollo'
-import Body from 'components/Body'
 
 function Login(): ReactElement<{}> {
   const router = useRouter()
@@ -44,8 +44,12 @@ function Login(): ReactElement<{}> {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField name="usernameOrEmail" label="Username or Email" />
-            <InputField name="password" label="Password" type="password" />
+            <label htmlFor="usernameOrEmail">Username or Email</label>
+            <Field name="usernameOrEmail" />
+            <ErrorMessage name="usernameOrEmail" component="p" />
+            <label htmlFor="password">Password</label>
+            <Field name="password" type="password" />
+            <ErrorMessage name="password" component="p" />
             <Link href="/forgot-password">
               <a>Forgot password?</a>
             </Link>

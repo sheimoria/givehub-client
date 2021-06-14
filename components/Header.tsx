@@ -20,8 +20,14 @@ export default function Header(): ReactElement<HeaderProps> {
   return (
     <header>
       <nav>
-        <Link href="/"><Image src="/logoText.svg" alt="Givehub logo" height="36" width="171" /></Link>
-        
+        <Link href="/">
+          <Image
+            src="/logoText.svg"
+            alt="Givehub logo"
+            height={36}
+            width={171}
+          />
+        </Link>
         {loading && <h6>Loading...</h6>}
         {!data?.me ? (
           <div className="flex gap-4">

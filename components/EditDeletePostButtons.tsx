@@ -19,7 +19,7 @@ export function EditDeletePostButtons({
 
   return (
     <div className="flex gap-4">
-      <Link href="{`/post/edit/${id}`}">
+      <Link href={`/post/edit/${id}`}>
         <a>Edit post</a>
       </Link>
       <button

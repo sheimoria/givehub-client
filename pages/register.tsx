@@ -1,11 +1,11 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { MeDocument, MeQuery, useRegisterMutation } from 'generated/graphql'
+
+import Body from 'components/Body'
 import { ReactElement } from 'react'
-import { Formik, Form } from 'formik'
-import InputField from 'components/InputField'
-import { useRegisterMutation, MeQuery, MeDocument } from 'generated/graphql'
 import { toErrorMap } from 'utils/toErrorMap'
 import { useRouter } from 'next/router'
-import { withApollo } from '../utils/withApollo'
-import Body from 'components/Body'
+import { withApollo } from 'utils/withApollo'
 
 interface registerProps {}
 
@@ -15,7 +15,7 @@ function Register({}): ReactElement<registerProps> {
 
   return (
     <Body>
-      <h3>Forgot password</h3>
+      <h3>Register</h3>
       <Formik
         initialValues={{ email: '', username: '', password: '' }}
         onSubmit={async (values, { setErrors }) => {
@@ -40,12 +40,15 @@ function Register({}): ReactElement<registerProps> {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField name="username" label="Username" />
-
-            <InputField name="email" label="Email" />
-
-            <InputField name="password" label="Password" type="password" />
-
+            <label htmlFor="username">Username</label>
+            <Field name="username" />
+            <ErrorMessage name="username" component="p" />
+            <label htmlFor="email">Email</label>
+            <Field name="email" />
+            <ErrorMessage name="email" component="p" />
+            <label htmlFor="password">Password</label>
+            <Field name="password" type="password" />
+            <ErrorMessage name="password" component="p" />
             <button type="submit">Register</button>
           </Form>
         )}

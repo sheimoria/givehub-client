@@ -1,7 +1,6 @@
-import { Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 import Body from 'components/Body'
-import InputField from 'components/InputField'
 import { ReactElement } from 'react'
 import { useCreatePostMutation } from 'generated/graphql'
 import { useIsAuth } from 'utils/useIsAuth'
@@ -31,13 +30,13 @@ function CreatePost({}): ReactElement<{}> {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField name="title" label="Title" />
-            <InputField
-              textarea
-              name="text"
-              label="Body"
-            />
-            <button type="submit">Create post</button>
+            <label htmlFor="title">Title</label>
+            <Field name="title" />
+            <ErrorMessage name="title" component="p" />
+            <label htmlFor="text">Text</label>
+            <Field as="textarea" name="text" />
+            <ErrorMessage name="text" component="p" />
+            <button type="submit">Submit</button>
           </Form>
         )}
       </Formik>
