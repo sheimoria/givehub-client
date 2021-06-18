@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useMeQuery } from '../generated/graphql'
+import { useMeQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 
 export const useIsAuth = () => {

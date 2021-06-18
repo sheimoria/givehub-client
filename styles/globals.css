@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* Layout */
   #__next {
     @apply flex flex-col max-w-2xl min-h-screen mx-auto bg-white;
   }
@@ -16,7 +15,6 @@
   footer {
     @apply flex justify-between flex-initial p-6 pt-24;
   }
-  /* Containers */
   nav {
     @apply flex items-center justify-between;
   }
@@ -32,7 +30,6 @@
   dl {
     @apply flex flex-col gap-4 p-6 bg-white rounded-lg shadow;
   }
-  /* Text */
   h1 {
     @apply text-4xl font-semibold tracking-wide text-red-500 font-display;
   }
