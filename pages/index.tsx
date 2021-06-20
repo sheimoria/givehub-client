@@ -9,7 +9,7 @@ function Index() {
   const { data, error, loading, fetchMore, variables } = usePostsQuery({
     variables: {
       limit: 3,
-      cursor: '1623210378909'
+      cursor: null
     },
     notifyOnNetworkStatusChange: true
   })
@@ -38,6 +38,7 @@ function Index() {
               </article>
             )
           )}
+          cc
         </section>
       )}
       {data && data.posts.hasMore && (
