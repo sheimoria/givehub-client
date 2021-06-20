@@ -1,46 +1,35 @@
 {
-  "name": "givehub-next-client",
+  "name": "givehub-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "gen": "graphql-codegen --config codegen.yml"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.20",
-    "@headlessui/react": "^1.2.0",
-    "@heroicons/react": "^1.0.1",
-    "@tailwindcss/aspect-ratio": "^0.2.1",
-    "@tailwindcss/forms": "^0.3.3",
-    "@tailwindcss/typography": "^0.4.1",
-    "formik": "^2.2.9",
-    "graphql": "^15.5.0",
-    "graphql-tag": "^2.12.4",
-    "install": "^0.13.0",
-    "isomorphic-unfetch": "^3.1.0",
-    "next": "^10.2.3",
-    "next-apollo": "^5.0.4",
-    "next-urql": "^3.1.0",
-    "npm": "^7.17.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-is": "^17.0.2",
-    "styled-jsx": "^3.4.4",
-    "urql": "^2.0.3",
-    "vercel": "^23.0.0"
+    "@apollo/client": "latest",
+    "@headlessui/react": "latest",
+    "@heroicons/react": "latest",
+    "@hookform/resolvers": "latest",
+    "@tailwindcss/aspect-ratio": "latest",
+    "@tailwindcss/forms": "latest",
+    "@tailwindcss/typography": "latest",
+    "graphql": "latest",
+    "next": "latest",
+    "next-themes": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-hook-form": "latest",
+    "tailwindcss-invalid-variant-plugin": "latest",
+    "yup": "latest"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.5",
-    "@graphql-codegen/typescript": "^1.22.1",
-    "@graphql-codegen/typescript-operations": "^1.18.0",
-    "@graphql-codegen/typescript-react-apollo": "^2.2.5",
-    "@types/node": "^15.12.2",
-    "@types/react": "^17.0.11",
     "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest",
-    "typescript": "^4.3.2"
+    "tailwindcss": "latest"
   }
 }

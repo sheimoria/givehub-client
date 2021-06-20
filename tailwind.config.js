@@ -1,31 +1,24 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   mode: 'jit',
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
-    colors: colors,
     extend: {
       fontFamily: {
-        sans: 'Inter var',
-        ...defaultTheme.fontFamily.sans,
-        display: 'Gilroy'
-      },
-      colors: {
-        orange: {
-          550: '#F8670B'
-        }
+        sans: 'haboro-soft-extended'
       }
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      borderWidth: ['invalid'],
+      borderColor: ['invalid']
+    }
   },
   plugins: [
+    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio')
+    require('tailwindcss-invalid-variant-plugin')
   ]
 }
