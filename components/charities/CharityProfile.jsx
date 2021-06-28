@@ -1,4 +1,4 @@
-import EditCharity from 'components/EditCharity'
+import EditCharity from 'components/charities/EditCharity'
 import useCharityQuery from 'hooks/useCharityQuery'
 
 export default function CharityProfile({ id }) {

@@ -22,6 +22,7 @@ export default function UpdateEventForm() {
     control,
     register,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(
@@ -35,30 +36,36 @@ export default function UpdateEventForm() {
     defaultValues: {
       name: router.query.name,
       description: router.query.description,
-      dateStart: new Date(parseInt(router.query.dateStart)),
-      dateEnd: new Date(parseInt(router.query.dateEnd))
+      dateStart: parseInt(router.query.dateStart),
+      dateEnd: parseInt(router.query.dateEnd)
     }
   })
 
   const [updateEvent] = useUpdateEventMutation()
-  const [deleteEvent] = useDeleteEventMutation()
 
   async function handleUpdate(values) {
     const response = await updateEvent({
       variables: { id: parseInt(router.query.id), input: values }
     })
     if (response.data.updateEvent.errors) {
-      return <p>{response.data.updateEvent.errors.message}</p>
+      response.data.updateEvent.errors.forEach(({ field, message }) =>
+        setError(field, { type: 'manual', message: message })
+      )
     } else if (response.data.updateEvent.success) {
       router.back()
     }
   }
 
+  const [deleteEvent] = useDeleteEventMutation()
+
   async function handleDelete() {
     const response = await deleteEvent({
       variables: { id: parseInt(router.query.id) }
     })
-    router.back()
+    if (response.data.deleteEvent.errors) {
+    } else if (response.data.deleteEvent.success) {
+      router.back()
+    }
   }
 
   return (
@@ -90,6 +97,7 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateStart"
+            defaultValue={new Date(parseInt(router.query.dateStart))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}
@@ -113,6 +121,7 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateEnd"
+            defaultValue={new Date(parseInt(router.query.dateEnd))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}

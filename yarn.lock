@@ -2296,7 +2296,7 @@ __metadata:
     next-themes: latest
     postcss: latest
     react: latest
-    react-datepicker: ^4.1.1
+    react-datepicker: latest
     react-dom: latest
     react-hook-form: latest
     tailwindcss: latest
@@ -4326,7 +4326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-datepicker@npm:^4.1.1":
+"react-datepicker@npm:latest":
   version: 4.1.1
   resolution: "react-datepicker@npm:4.1.1"
   dependencies:
