@@ -20,7 +20,7 @@ export default function Event({ id, truncate }) {
     <article className={(loading && 'bg-opacity-50 animate-pulse') || ''}>
       {error && <p>{error.message}</p>}
       {data && data.event && (
-        <div className="flex flex-col gap-4">
+        <>
           {!truncate && (
             <div className="flex justify-between">
               <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function Event({ id, truncate }) {
             <LikeNumber likeNumber={data.event.likeNumber} />
             <RequestNumber volunteerNumber={data.event.volunteerNumber} />
           </div>
-        </div>
+        </>
       )}
     </article>
   )

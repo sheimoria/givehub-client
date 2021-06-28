@@ -35,9 +35,7 @@ export default function UpdateEventForm() {
     ),
     defaultValues: {
       name: router.query.name,
-      description: router.query.description,
-      dateStart: parseInt(router.query.dateStart),
-      dateEnd: parseInt(router.query.dateEnd)
+      description: router.query.description
     }
   })
 
@@ -97,7 +95,6 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateStart"
-            defaultValue={new Date(parseInt(router.query.dateStart))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}
@@ -121,7 +118,6 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateEnd"
-            defaultValue={new Date(parseInt(router.query.dateEnd))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}
