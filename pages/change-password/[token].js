@@ -1,8 +1,8 @@
-import { gql, useMutation } from '@apollo/client'
-
 import Body from 'components/layout/Body'
 import Form from 'components/forms/Form'
 import { changePasswordSchema } from 'utils/formSchemas'
+import { gql } from '@apollo/client'
+import useChangePasswordMutation from 'hooks/useChangePasswordMutation'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -11,7 +11,8 @@ export default function ChangePassword() {
   const [tokenError, setTokenError] = useState('')
   const router = useRouter()
   const { setError } = useForm()
-  const [changePassword] = useMutation(CHANGE_PASSWORD)
+  const [changePassword] = useChangePasswordMutation()
+
   async function handleSubmit(values) {
     const response = await changePassword({
       variables: {
@@ -43,6 +44,7 @@ export default function ChangePassword() {
       router.push('/')
     }
   }
+
   const tokenErrorLink = tokenError && (
     <>
       <p className="text-red-500">{tokenError}</p>
@@ -67,21 +69,6 @@ const ME = gql`
   query Me {
     me {
       id
-    }
-  }
-`
-
-const CHANGE_PASSWORD = gql`
-  mutation ChangePassword($token: String!, $newPassword: String!) {
-    changePassword(token: $token, newPassword: $newPassword) {
-      errors {
-        field
-        message
-      }
-      user {
-        id
-        username
-      }
     }
   }
 `

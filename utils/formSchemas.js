@@ -187,7 +187,7 @@ export const editPost = {
   submitLabel: 'Save'
 }
 
-export const changePassword = {
+export const changePasswordSchema = {
   name: 'changePassword',
   label: 'Change password',
   fields: [{ name: 'newPassword', label: 'New password' }],
