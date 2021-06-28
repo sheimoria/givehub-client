@@ -1,17 +1,18 @@
-import { useState } from 'react'
+import { gql, useMutation } from '@apollo/client'
+
 import Body from 'components/layout/Body'
-import { useRouter } from 'next/router'
 import Form from 'components/forms/Form'
 import { changePasswordSchema } from 'utils/formSchemas'
-import { gql, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 export default function ChangePassword() {
   const [tokenError, setTokenError] = useState('')
   const router = useRouter()
   const { setError } = useForm()
   const [changePassword] = useMutation(CHANGE_PASSWORD)
-  function handleSubmit(values) {
+  async function handleSubmit(values) {
     const response = await changePassword({
       variables: {
         newPassword: values.newPassword,
