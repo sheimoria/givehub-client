@@ -90,6 +90,49 @@ export const charitySignUpSchema = {
   submitLabel: 'Continue'
 }
 
+export const updateCharitySchema = {
+  name: 'updateCharitySchema',
+  label: 'Update charity',
+  fields: [
+    { name: 'name', label: 'Charity name' },
+    { name: 'uen', label: 'Unique entity number (UEN)' },
+    {
+      name: 'categories',
+      label: 'Which category does your charity fall under?',
+      type: 'select',
+      options: [
+        { name: 1, label: 'Animal Welfare' },
+        { name: 2, label: 'Arts and Heritage' },
+        {
+          name: 3,
+          label: 'Children and Youth'
+        },
+        { name: 4, label: 'Community' },
+        { name: 5, label: 'Disability' },
+        { name: 6, label: 'Education' },
+        { name: 7, label: 'Elderly' },
+        { name: 8, label: 'Environment' },
+        { name: 9, label: 'Families' },
+        { name: 10, label: 'Health' },
+        { name: 11, label: 'Humanitarian' },
+        { name: 12, label: 'Social Service' },
+        { name: 13, label: 'Sports' },
+        { name: 14, label: 'Women and Girls' }
+      ]
+    },
+    { name: 'physicalAddress', label: 'Address', placeholder: 'Optional' },
+    { name: 'postalcode', label: 'Postal code', placeholder: 'Optional' }
+  ],
+  validation: yup.object().shape({
+    name: yup.string().required('Required'),
+    uen: yup.string().required('Required'),
+    categories: yup.array(yup.number()).ensure(),
+    physicalAddress: yup.string(),
+    postalcode: yup.string()
+  }),
+  submitLabel: 'Save changes'
+}
+
 export const eventSchema = {
   name: 'event',
   label: 'Create event',

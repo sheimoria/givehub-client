@@ -1,9 +1,7 @@
-import Event from 'components/events/Event'
+import EditCharity from 'components/EditCharity'
 import useCharityQuery from 'hooks/useCharityQuery'
-import { useRouter } from 'next/router'
 
 export default function CharityProfile({ id }) {
-  const router = useRouter()
   const { data } = useCharityQuery(id)
   if (data) {
     const charity = data.charitySearchByID
@@ -11,10 +9,18 @@ export default function CharityProfile({ id }) {
       <section>
         <h5>Charity Profile</h5>
         <article>
-          <p>{charity.id}</p>
-          <p>{charity.name}</p>
-          <p>{charity.physicalAddress}</p>
-          <p>{charity.postalcode}</p>
+          <h6 className="flex justify-between text-base">
+            {charity.name}
+            <EditCharity charity={charity} />
+          </h6>
+          <div className="flex flex-col gap-2">
+            <h6>Address</h6>
+            <p>{charity.physicalAddress}</p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <h6>Postal code</h6>
+            <p>{charity.postalcode}</p>
+          </div>
         </article>
       </section>
     )

@@ -21,7 +21,7 @@ export default function Avatar({ user }) {
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="p-0 bg-transparent rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
+          <Menu.Button className="p-0 bg-transparent rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
             <span className="sr-only">Open user menu</span>
             <Image
               src="/avatar.svg"
