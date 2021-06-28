@@ -1,9 +1,9 @@
 import Body from 'components/layout/Body'
 import Events from 'components/events/Events'
 
-export default function Index() {
+export default function Category() {
   return (
-    <Body title="Home">
+    <Body>
       <Events />
     </Body>
   )

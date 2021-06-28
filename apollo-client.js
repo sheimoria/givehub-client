@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 const client = new ApolloClient({
-  uri: 'https://api.givehub.club/graphql',
+  uri: process.env.serverUrl,
+  credentials: 'include',
   cache: new InMemoryCache()
 })
 

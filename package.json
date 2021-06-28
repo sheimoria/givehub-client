@@ -20,6 +20,7 @@
     "next": "latest",
     "next-themes": "latest",
     "react": "latest",
+    "react-datepicker": "^4.1.1",
     "react-dom": "latest",
     "react-hook-form": "latest",
     "tailwindcss-invalid-variant-plugin": "latest",

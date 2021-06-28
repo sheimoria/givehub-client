@@ -5,34 +5,34 @@
 @layer base {
   /* Containers */
   body {
-    @apply bg-white dark:bg-gray-900;
+    @apply bg-gray-200 dark:bg-gray-900;
   }
   #__next {
-    @apply flex flex-col min-h-screen gap-6 p-8 md:p-12;
+    @apply flex flex-col min-h-screen gap-6 p-6 mx-auto max-w-7xl;
   }
-  header {
-    @apply flex flex-initial rounded-lg;
-  }
+  /*  header {
+    @apply ;
+  } */
   nav {
-    @apply flex items-center justify-between flex-auto;
+    @apply flex items-center justify-between;
   }
   main {
-    @apply flex flex-col items-center justify-center flex-auto gap-6 rounded-lg;
-  }
-  footer {
-    @apply flex items-stretch justify-between flex-initial;
-  }
-  section {
-    @apply flex flex-col items-stretch flex-1 gap-4;
+    @apply flex flex-col flex-auto gap-6;
   }
   aside {
-    @apply flex flex-col items-stretch gap-4;
+    @apply hidden;
+  }
+  footer {
+    @apply flex items-center justify-between flex-initial pt-6;
+  }
+  section {
+    @apply flex flex-col gap-4 p-5 bg-gray-100 rounded-xl dark:bg-gray-800;
   }
   article {
-    @apply flex flex-col gap-4 p-6 bg-gray-100 rounded-lg dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-5 bg-white rounded-xl dark:bg-gray-700 hover:bg-opacity-75 dark:hover:bg-opacity-80;
   }
   form {
-    @apply flex flex-col gap-4 p-8 bg-gray-100 rounded-lg dark:bg-gray-800 w-96;
+    @apply flex flex-col gap-4 p-5 bg-gray-100 rounded-xl dark:bg-gray-800;
   }
   dl {
     @apply flex flex-col gap-4 p-6 bg-white rounded-lg shadow;
@@ -40,61 +40,58 @@
 
   /* Text */
   h1 {
-    @apply text-4xl font-bold text-red-500 dark:text-gray-200;
+    @apply text-4xl font-medium text-gray-800 dark:text-gray-100;
   }
   h2 {
-    @apply text-3xl font-bold text-red-500;
+    @apply text-3xl font-medium text-gray-800 dark:text-gray-100;
   }
   h3 {
-    @apply text-2xl font-semibold text-red-500 dark:text-gray-200;
+    @apply text-2xl font-medium text-gray-800 dark:text-gray-100;
   }
   h4 {
-    @apply text-lg font-bold text-red-500 dark:text-gray-200;
+    @apply text-lg font-medium text-gray-800 dark:text-gray-100;
   }
   h5 {
-    @apply text-lg font-bold text-red-500 dark:text-gray-200;
+    @apply font-medium text-gray-800 dark:text-gray-100;
   }
   h6 {
-    @apply font-bold text-red-500 dark:text-gray-200;
+    @apply text-sm font-medium text-gray-800 dark:text-gray-100;
   }
   p {
-    @apply text-gray-700 dark:text-gray-200;
-  }
-  nav a {
-    @apply text-gray-700 hover:text-gray-800 focus:text-gray-900 dark:text-gray-200 dark:hover:text-gray-300 dark:focus:text-gray-400;
+    @apply text-sm text-gray-700 dark:text-gray-200;
   }
   a {
-    @apply flex items-center gap-1 font-semibold text-red-500 hover:text-red-600 focus:text-red-700;
+    @apply flex items-center gap-1 text-sm font-medium text-rose-600 hover:text-rose-700;
+  }
+  nav a {
+    @apply text-sm font-medium text-gray-800 hover:text-gray-900 focus:underline dark:text-gray-200 dark:hover:text-gray-300 dark:focus:underline;
+  }
+  article a {
+    @apply text-gray-800 dark:text-gray-100 hover:text-gray-900 dark:hover:text-gray-200;
   }
   button {
-    @apply flex justify-center gap-2 px-4 py-2 font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:bg-red-700 focus:outline-none;
-  }
-  dl button {
-    @apply flex justify-center gap-1 px-3 py-2 font-bold text-white bg-red-500 rounded-lg hover:bg-red-400 focus:bg-red-600;
+    @apply flex justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-50 bg-rose-600 hover:bg-rose-700 focus:bg-rose-800 focus:outline-none;
   }
   label {
-    @apply font-medium text-gray-700 dark:text-gray-200;
+    @apply text-sm font-medium text-gray-800 dark:text-gray-100;
   }
   input {
-    @apply px-4 py-2 text-gray-700 placeholder-gray-400 bg-gray-200 rounded-lg dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-red-500 focus:outline-none;
+    @apply px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white rounded-lg dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-rose-600 focus:outline-none;
   }
   input[type='checkbox'] {
-    @apply p-2 text-red-500 bg-gray-200 border-none rounded dark:bg-gray-700 focus:ring-0 focus:ring-offset-0;
+    @apply p-2 bg-white border-none rounded text-rose-600 dark:bg-gray-700 focus:ring-0 focus:ring-offset-0;
   }
   textarea {
-    @apply px-3 py-2 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:outline-none focus:ring-red-500;
+    @apply px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-none rounded-lg dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-rose-600 focus:outline-none;
   }
   select {
-    @apply text-gray-800 border-none rounded-lg shadow-sm focus:ring-2 focus:ring-red-500;
+    @apply px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-none rounded-lg dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-rose-600 focus:outline-none;
   }
   dt {
-    @apply font-bold text-red-500;
+    @apply font-bold text-rose-600;
   }
   dd {
     @apply text-gray-800;
-  }
-  span {
-    @apply text-sm text-red-500;
   }
   b {
     @apply font-bold text-white;

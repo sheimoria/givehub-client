@@ -1,3 +1,6 @@
+const { gray } = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   mode: 'jit',
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
@@ -5,7 +8,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: 'haboro-soft-extended'
+        sans: 'Inter var',
+        display: 'Gilroy'
+      },
+      colors: {
+        rose: colors.rose,
+        gray: colors.gray
       }
     }
   },
