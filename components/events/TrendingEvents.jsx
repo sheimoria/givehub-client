@@ -9,7 +9,7 @@ export default function TrendingEvents() {
       {error && <p>{error.message}</p>}
       <h5 className="pt-6 -mb-4">Trending Events</h5>
       {data && data.events && (
-        <div className="divide-y divide-gray-700">
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {data.events.events.map((event) => (
             <Event key={event.id} id={event.id} truncate />
           ))}

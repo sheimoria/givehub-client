@@ -13,7 +13,7 @@ export default function Header() {
       <nav>
         <Link href="/">
           <div className="flex items-center">
-            <Image src="/logo.svg" alt="Givehub" height={36} width={183} />
+            <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
           </div>
         </Link>
         <div className="flex items-center gap-4">

@@ -7,7 +7,6 @@ export default function CharityProfile({ id }) {
     const charity = data.charitySearchByID
     return (
       <article>
-        <h5>Charity Profile</h5>
         <h6 className="flex justify-between text-base">
           {charity.name}
           <EditCharity charity={charity} />
