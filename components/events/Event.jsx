@@ -1,19 +1,16 @@
 import {
   CalendarIcon,
-  ClockIcon,
   LocationMarkerIcon,
   ThumbUpIcon,
   UsersIcon
 } from '@heroicons/react/solid'
-
+import Like from 'components/events/Like'
 import Edit from 'components/events/Edit'
 import Image from 'next/image'
 import Link from 'next/link'
 import useEventQuery from 'hooks/useEventQuery'
-import { useRouter } from 'next/router'
 
 export default function Event({ id, truncate }) {
-  const router = useRouter()
   const { data, loading, error } = useEventQuery(id)
 
   return (
@@ -71,7 +68,7 @@ export default function Event({ id, truncate }) {
             {data.event.description}
           </p>
           <div className="flex gap-4">
-            <LikeNumber likeNumber={data.event.likeNumber} />
+            <Like eventId={data.event.id} likeNumber={data.event.likeNumber} />
             <RequestNumber volunteerNumber={data.event.volunteerNumber} />
           </div>
         </>
@@ -108,25 +105,6 @@ export function Venue({ venue }) {
     <div className="flex items-center gap-1">
       <LocationMarkerIcon className="w-5 h-5 text-gray-400" />
       <h6 className="font-normal">{venue}</h6>
-    </div>
-  )
-}
-
-export function LikeNumber({ likeNumber }) {
-  /* const { data } = useQuery(gql`
-    query Likes {
-      me {
-        likedEvents {
-          id
-        }
-      }
-    }
-  `) */
-
-  return (
-    <div className="flex items-center gap-2">
-      <ThumbUpIcon className="w-5 h-5 text-gray-400" />
-      <p>{likeNumber}</p>
     </div>
   )
 }
