@@ -9,7 +9,7 @@ export default function useMeQuery() {
         me {
           id
           username
-          createdCharities {
+          adminCharities {
             id
             name
           }

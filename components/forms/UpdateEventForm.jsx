@@ -29,13 +29,16 @@ export default function UpdateEventForm() {
       yup.object({
         name: yup.string().required('Required'),
         description: yup.string().required('Required'),
-        dateStart: yup.date().required('Required'),
-        dateEnd: yup.date().required('Required')
+        dateStart: yup.number().positive().integer().required('Required'),
+        dateEnd: yup.number().positive().integer().required('Required')
       })
     ),
     defaultValues: {
       name: router.query.name,
-      description: router.query.description
+      description: router.query.description,
+      dateStart: parseInt(router.query.dateStart),
+      dateEnd: parseInt(router.query.dateStart),
+      venue: router.query.venue
     }
   })
 
@@ -43,7 +46,16 @@ export default function UpdateEventForm() {
 
   async function handleUpdate(values) {
     const response = await updateEvent({
-      variables: { id: parseInt(router.query.id), input: values }
+      variables: {
+        id: parseInt(router.query.id),
+        input: {
+          name: values.name,
+          description: values.description,
+          dateStart: new Date(values.dateStart),
+          dateEnd: new Date(values.dateEnd),
+          venue: values.venue
+        }
+      }
     })
     if (response.data.updateEvent.errors) {
       response.data.updateEvent.errors.forEach(({ field, message }) =>
@@ -95,6 +107,7 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateStart"
+            defaultValue={new Date(parseInt(router.query.dateStart))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}
@@ -118,6 +131,7 @@ export default function UpdateEventForm() {
           <Controller
             control={control}
             name="dateEnd"
+            defaultValue={new Date(parseInt(router.query.dateEnd))}
             render={({ field }) => (
               <DatePicker
                 onChange={(date) => field.onChange(date)}
@@ -136,6 +150,16 @@ export default function UpdateEventForm() {
             </span>
           )}
         </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name">Venue</label>
+        <input {...register('venue')} />
+        {errors.venue && (
+          <span className="flex gap-2 text-sm text-red-500">
+            <ExclamationCircleIcon className="w-5 h-5" />
+            {errors.venue.message}
+          </span>
+        )}
       </div>
       <div className="flex gap-4">
         <button type="submit" className="flex-1">

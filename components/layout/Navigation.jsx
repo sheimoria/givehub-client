@@ -21,15 +21,14 @@ const categories = [
 
 export default function Navigation() {
   const router = useRouter()
-  console.log(router.pathname)
   const categoryId =
     router.pathname === '/' || router.pathname === '/[categoryId]'
       ? parseInt(router.query.categoryId) || 0
       : undefined
 
   return (
-    <aside className="md:flex">
-      <div className="sticky flex flex-col gap-2 top-6">
+    <aside className="flex-none md:flex">
+      <div className="sticky flex flex-col gap-3 top-6">
         {categories.map((category) => (
           <Link
             key={category.id}

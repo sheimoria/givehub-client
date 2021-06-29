@@ -140,13 +140,15 @@ export const eventSchema = {
     { name: 'name', label: 'Name' },
     { name: 'description', label: 'Description', type: 'textarea' },
     { name: 'dateStart', label: 'Start date' },
-    { name: 'dateEnd', label: 'End date' }
+    { name: 'dateEnd', label: 'End date' },
+    { name: 'venue', label: 'Venue' }
   ],
   validation: yup.object().shape({
     name: yup.string().required('Required'),
     description: yup.string().required('Required'),
     dateStart: yup.string().required('Required'),
-    dateEnd: yup.string().required('Required')
+    dateEnd: yup.string().required('Required'),
+    venue: yup.string().required('Required')
   }),
   submitLabel: 'Create Event'
 }

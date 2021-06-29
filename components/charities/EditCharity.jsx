@@ -8,7 +8,7 @@ export default function Edit({ charity }) {
 
   if (data && data.me) {
     if (
-      data.me.createdCharities.some(
+      data.me.adminCharities.some(
         (charity) => charity.id === parseInt(router.query.id)
       )
     ) {

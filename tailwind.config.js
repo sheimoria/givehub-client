@@ -27,6 +27,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
     require('tailwindcss-invalid-variant-plugin')
   ]
 }

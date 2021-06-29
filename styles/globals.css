@@ -23,13 +23,13 @@
     @apply flex items-center justify-between flex-initial pt-6;
   }
   section {
-    @apply flex flex-col gap-4 p-5 bg-gray-100 shadow-sm rounded-xl dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-6 bg-gray-100 shadow-sm rounded-xl dark:bg-gray-800;
   }
   article {
-    @apply flex flex-col gap-3 p-5 bg-white shadow-sm rounded-xl dark:bg-gray-700 hover:bg-opacity-75 dark:hover:bg-opacity-80;
+    @apply flex flex-col gap-4 p-6 bg-white shadow-sm rounded-xl dark:bg-gray-700;
   }
   form {
-    @apply flex flex-col gap-4 p-5 bg-gray-100 shadow-sm rounded-xl dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-6 bg-gray-100 shadow-sm rounded-xl dark:bg-gray-800;
   }
   dl {
     @apply flex flex-col gap-4 p-6 bg-white rounded-lg shadow;

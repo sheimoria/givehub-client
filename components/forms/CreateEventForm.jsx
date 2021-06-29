@@ -110,6 +110,16 @@ export default function CreateEventForm() {
           )}
         </div>
       </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name">Venue</label>
+        <input {...register('venue')} />
+        {errors.venue && (
+          <span className="flex gap-2 text-sm text-red-500">
+            <ExclamationCircleIcon className="w-5 h-5" />
+            {errors.venue.message}
+          </span>
+        )}
+      </div>
       <button type="submit">Create Event</button>
     </form>
   )

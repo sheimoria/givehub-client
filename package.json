@@ -15,6 +15,7 @@
     "@hookform/resolvers": "latest",
     "@tailwindcss/aspect-ratio": "latest",
     "@tailwindcss/forms": "latest",
+    "@tailwindcss/line-clamp": "latest",
     "@tailwindcss/typography": "latest",
     "graphql": "latest",
     "next": "latest",

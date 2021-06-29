@@ -27,7 +27,6 @@ export default function CharitySignUpForm() {
         }
       }
     })
-    console.log(response)
     if (response.data.createCharity.errors) {
       response.data.createCharity.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
@@ -39,7 +38,6 @@ export default function CharitySignUpForm() {
           categories: { categories: values.categories }
         }
       })
-      console.log(responseToo)
       if (responseToo.data.updateCharityCategories.errors) {
         responseToo.data.updateCharityCategories.errors.forEach(
           ({ field, message }) =>

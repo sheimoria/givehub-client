@@ -1,10 +1,10 @@
 import Body from 'components/layout/Body'
-import Events from 'components/events/Events'
+import CategoryEvents from 'components/events/CategoryEvents'
 
 export default function Category() {
   return (
     <Body>
-      <Events />
+      <CategoryEvents />
     </Body>
   )
 }

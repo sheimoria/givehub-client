@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-export default function CharitySignUpForm() {
+export default function CharityCategoryForm() {
   const [charityCategory] = useCharityCategoryMutation()
   const {
     register,

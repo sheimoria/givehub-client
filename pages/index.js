@@ -1,5 +1,5 @@
 import Body from 'components/layout/Body'
-import Events from 'components/events/Events'
+import Events from 'components/events/LatestEvents'
 
 export default function Index() {
   return (

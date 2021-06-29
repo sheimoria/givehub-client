@@ -8,12 +8,10 @@ export default function Edit({ event }) {
 
   if (data && data.me) {
     if (
-      data.me.createdCharities.some(
-        (charity) => charity.id === event.charity.id
-      )
+      data.me.adminCharities.some((charity) => charity.id === event.charity.id)
     ) {
       return (
-        <a
+        <span
           onClick={() =>
             router.push({
               pathname: `/events/update/${event.id}`,
@@ -22,14 +20,15 @@ export default function Edit({ event }) {
                 name: event.name,
                 description: event.description,
                 dateStart: event.dateStart,
-                dateEnd: event.dateEnd
+                dateEnd: event.dateEnd,
+                venue: event.venue
               }
             })
           }
           className="text-gray-400 hover:text-gray-500 focus:text-gray-600"
         >
           <PencilIcon className="w-5 h-5" />
-        </a>
+        </span>
       )
     }
     return null

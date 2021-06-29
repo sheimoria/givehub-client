@@ -7,9 +7,11 @@ export default function useEventQuery(id) {
         event(id: $id) {
           id
           name
+          createdAt
           description
           dateStart
           dateEnd
+          venue
           charity {
             id
             name

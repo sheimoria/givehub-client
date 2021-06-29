@@ -47,41 +47,45 @@ export default function Avatar({ user }) {
             >
               <Menu.Item>
                 {({ active }) => (
+                  <h6 className="px-6 py-3"> {user.username}</h6>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
                   <Link href={`/users/${user.id}`}>
-                    <a className="px-5 py-2 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Profile
                     </a>
                   </Link>
                 )}
               </Menu.Item>
-              {user.createdCharities[0] ? (
-                user.createdCharities.map((charity) => (
-                  <Menu.Item key={charity.id}>
-                    {({ active }) => (
-                      <Link href={`/charities/${charity.id}`}>
-                        <a className="px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
-                          {charity.name}
-                        </a>
-                      </Link>
-                    )}
-                  </Menu.Item>
-                ))
-              ) : (
-                <Menu.Item>
+              <Menu.Item>
+                {({ active }) => <p className="px-6 py-3">My Charities</p>}
+              </Menu.Item>
+              {user.adminCharities.map((charity) => (
+                <Menu.Item key={charity.id}>
                   {({ active }) => (
-                    <Link href={`/charities/sign-up`}>
-                      <a className="px-5 py-2 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                        Sign my Charity Up
+                    <Link href={`/charities/${charity.id}`}>
+                      <a className="py-3 pl-8 pr-6 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                        {charity.name}
                       </a>
                     </Link>
                   )}
                 </Menu.Item>
-              )}
-
+              ))}
+              <Menu.Item>
+                {({ active }) => (
+                  <Link href={`/charities/sign-up`}>
+                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                      New charity
+                    </a>
+                  </Link>
+                )}
+              </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    className="px-5 py-2 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
                     onClick={handleLogOut}
                   >
                     Log Out

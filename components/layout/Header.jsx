@@ -12,8 +12,8 @@ export default function Header() {
     <header>
       <nav>
         <Link href="/">
-          <div>
-            <Image src="/logo.svg" alt="Givehub" height={36} width={42} />
+          <div className="flex items-center">
+            <Image src="/logo.svg" alt="Givehub" height={36} width={183} />
           </div>
         </Link>
         <div className="flex items-center gap-4">

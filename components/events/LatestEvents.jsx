@@ -2,7 +2,7 @@ import Event from 'components/events/Event'
 import useEventsQuery from 'hooks/useEventsQuery'
 
 export default function LatestEvents() {
-  const { data, loading, error } = useEventsQuery(3, null, false)
+  const { data, loading, error } = useEventsQuery(3, null, false, false)
 
   return (
     <section className={(loading && 'bg-opacity-50 animate-pulse') || ''}>
