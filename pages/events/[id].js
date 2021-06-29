@@ -7,10 +7,7 @@ export default function ViewEvent() {
 
   return (
     <Body title="View Event">
-      <section>
-        <h5>View Event</h5>
-        <Event id={parseInt(router.query.id)} />
-      </section>
+      <Event id={parseInt(router.query.id)} />
     </Body>
   )
 }

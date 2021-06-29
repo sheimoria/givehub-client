@@ -9,7 +9,6 @@ export default function CharityEvents() {
     <section>
       {data && data.charitySearchByID && (
         <>
-          <h5>Charity Events</h5>
           {data.charitySearchByID.charityEvents.map((event) => (
             <Event key={event.id} id={event.id} />
           ))}

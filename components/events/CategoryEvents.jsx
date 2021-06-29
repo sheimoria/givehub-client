@@ -9,9 +9,8 @@ export default function CategoryEvents() {
   )
 
   return (
-    <section className={(loading && 'bg-opacity-50 animate-pulse') || ''}>
+    <section className={loading && 'bg-opacity-50 animate-pulse'}>
       {error && <p>{error.message}</p>}
-      <h5>Category Events</h5>
       {data &&
         data.events &&
         data.events.events.map((event) => (

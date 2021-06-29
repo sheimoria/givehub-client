@@ -12,7 +12,7 @@ export default function CharityActions() {
       )
     ) {
       return (
-        <section className="flex-row">
+        <section className="flex-row p-6 ">
           <button
             className="flex-1"
             onClick={() => router.push(`/events/create/${router.query.id}`)}

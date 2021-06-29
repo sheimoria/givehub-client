@@ -14,7 +14,7 @@ export default function Event({ id, truncate }) {
   const { data, loading, error } = useEventQuery(id)
 
   return (
-    <article className={(loading && 'bg-opacity-50 animate-pulse') || ''}>
+    <article className={loading && 'bg-opacity-50 animate-pulse'}>
       {error && <p>{error.message}</p>}
       {data && data.event && (
         <>
