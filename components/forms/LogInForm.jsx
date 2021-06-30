@@ -23,6 +23,11 @@ export default function LogInForm() {
             query Me {
               me {
                 id
+                username
+                adminCharities {
+                  id
+                  name
+                }
               }
             }
           `,
@@ -35,7 +40,6 @@ export default function LogInForm() {
       }
     })
     if (response.data.login.errors) {
-      console.log(response.data.login.errors)
       response.data.login.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
@@ -63,7 +67,7 @@ export default function LogInForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="password">Password</label>
-        <input {...register('password')} />
+        <input type="password" {...register('password')} />
         {errors.password && (
           <span className="flex gap-2 text-sm text-red-500">
             <ExclamationCircleIcon className="w-5 h-5" />

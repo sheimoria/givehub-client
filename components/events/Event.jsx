@@ -1,20 +1,21 @@
 import {
   CalendarIcon,
   LocationMarkerIcon,
-  ThumbUpIcon,
   UsersIcon
 } from '@heroicons/react/solid'
-import Like from 'components/events/Like'
+
 import Edit from 'components/events/Edit'
 import Image from 'next/image'
+import Like from 'components/events/Like'
 import Link from 'next/link'
+import { date } from 'yup'
 import useEventQuery from 'hooks/useEventQuery'
 
 export default function Event({ id, truncate }) {
   const { data, loading, error } = useEventQuery(id)
 
   return (
-    <article className={loading && 'bg-opacity-50 animate-pulse'}>
+    <article className={loading ? 'bg-opacity-50 animate-pulse' : undefined}>
       {error && <p>{error.message}</p>}
       {data && data.event && (
         <>
@@ -68,7 +69,11 @@ export default function Event({ id, truncate }) {
             {data.event.description}
           </p>
           <div className="flex gap-4">
-            <Like eventId={data.event.id} likeNumber={data.event.likeNumber} />
+            <Like
+              eventId={data.event.id}
+              likeStatus={data.event.voteStatus}
+              likeNumber={data.event.likeNumber}
+            />
             <RequestNumber volunteerNumber={data.event.volunteerNumber} />
           </div>
         </>

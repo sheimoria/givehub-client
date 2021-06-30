@@ -5,7 +5,7 @@ export default function UpcomingEvents() {
   const { data, loading, error } = useEventsQuery(3, null, false, true)
 
   return (
-    <section className={loading && 'bg-opacity-50 animate-pulse'}>
+    <section className={loading ? 'bg-opacity-50 animate-pulse' : undefined}>
       {error && <p>{error.message}</p>}
       <h5 className="pt-6 -mb-4">Upcoming Events</h5>
       {data && data.events && (

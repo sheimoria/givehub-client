@@ -32,7 +32,7 @@
     @apply px-0 rounded-none;
   }
   form {
-    @apply flex flex-col gap-4 p-6 bg-gray-100 shadow-sm rounded-xl dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-6 bg-white shadow-sm rounded-xl dark:bg-gray-800;
   }
   dl {
     @apply flex flex-col gap-4 p-6 bg-white rounded-lg shadow;
@@ -81,6 +81,9 @@
   }
   input {
     @apply px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 rounded-lg dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-rose-600 focus:outline-none;
+  }
+  input[type='password'] {
+    @apply px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 border-none rounded-lg focus:outline-none dark:text-gray-200 dark:bg-gray-700 dark:placeholder-gray-500 invalid:border invalid:border-rose-600;
   }
   input[type='checkbox'] {
     @apply p-2 bg-gray-100 border-none rounded text-rose-600 dark:bg-gray-700 focus:ring-0 focus:ring-offset-0;

@@ -17,6 +17,7 @@ export default function useEventQuery(id) {
             name
           }
           likeNumber
+          voteStatus
         }
       }
     `,

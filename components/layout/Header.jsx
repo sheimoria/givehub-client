@@ -17,7 +17,9 @@ export default function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-4">
-          {(data && data.me && <Avatar user={data.me} />) || (
+          {data && data.me ? (
+            <Avatar user={data.me} />
+          ) : (
             <>
               <Link href="/log-in">
                 <a>Log in</a>

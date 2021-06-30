@@ -10,6 +10,11 @@ export default function useLogInMutation() {
         }
         user {
           id
+          username
+          adminCharities {
+            id
+            name
+          }
         }
       }
     }
