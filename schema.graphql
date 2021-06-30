@@ -1,0 +1,288 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+enum AdminApproval {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+type Category {
+  id: Float!
+  name: String!
+  createdAt: String!
+  udpatedAt: String!
+}
+
+input CategoryInput {
+  categories: [Float!]!
+}
+
+type CategoryResponse {
+  errors: [FieldError!]
+  success: Boolean
+}
+
+type Charity {
+  id: Float!
+  name: String!
+  uen: String!
+  physicalAddress: String!
+  postalcode: String!
+  charitycreator: User!
+  followNumber: Float!
+  followStatus: Int
+  createdAt: String!
+  udpatedAt: String!
+  categories: [Category!]!
+  followers: [User!]!
+  charityEvents: [Event!]!
+}
+
+input CharityDataInput {
+  uen: String!
+  name: String!
+  physicalAddress: String!
+  postalcode: String!
+}
+
+type CharityResponse {
+  errors: [FieldError!]
+  charity: Charity
+  success: Boolean!
+}
+
+type EPost {
+  post: Post!
+  eventId: Float
+  eventName: String
+  isEvent: Boolean!
+}
+
+type Event {
+  id: Float!
+  name: String!
+  description: String!
+  dateStart: String!
+  dateEnd: String!
+  venue: String!
+  charity: Charity!
+  creator: User!
+  likeNumber: Float!
+  completed: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  textSnippet: String!
+  voteStatus: Int
+  approvalStatus: AdminApproval
+  currentEventVolunteers: [User!]
+  eventTasks: [Task!]
+}
+
+input EventInput {
+  name: String!
+  description: String!
+  dateStart: String!
+  dateEnd: String!
+  venue: String
+}
+
+type EventPostResponse {
+  errors: [FieldError!]
+  epost: EPost
+  success: Boolean
+}
+
+type EventResponse {
+  errors: [FieldError!]
+  event: Event
+  success: Boolean
+}
+
+type EventTaskContainer {
+  event: Event!
+  tasks: [Task!]!
+}
+
+type EventTaskContainerResponse {
+  eventContainers: [EventTaskContainer!]!
+  success: Boolean!
+}
+
+type Eventvolunteer {
+  id: Float!
+}
+
+type FieldError {
+  field: String!
+  message: String!
+}
+
+type Mutation {
+  likePost(postId: Int!): Boolean!
+  createPost(input: PostInput!): EPost!
+  updatePost(text: String!, title: String!, id: Float!): Post
+  deletePost(id: Float!): Boolean!
+  register(options: UsernamePasswordInput!): UserResponse!
+  login(password: String!, usernameOrEmail: String!): UserResponse!
+  logout: Boolean!
+  changePassword(newPassword: String!, token: String!): UserResponse!
+  forgotPassword(email: String!): Boolean!
+  updateUserCategories(categories: CategoryInput!): CategoryResponse!
+  updateCharityCategories(charityId: Float!, categories: CategoryInput!): CategoryResponse!
+  createCharity(options: CharityDataInput!): CharityResponse!
+  followCharity(charityId: Int!): CharityResponse!
+  likeEvent(eventId: Int!): Boolean!
+  createEvent(charityId: Float!, input: EventInput!): EventResponse!
+  updateEvent(input: EventInput!, id: Float!): EventResponse!
+  deleteEvent(id: Float!): EventResponse!
+  shareEvent(input: PostInput!, id: Float!): EventPostResponse!
+  markEventAsComplete(id: Float!): EventResponse!
+  requestEvent(eventId: Int!): EventResponse!
+  acceptEventVolunteer(acceptVolunteer: Boolean!, eventVolunteerId: Int!, eventId: Int!): UpdateEventVolunteerResponse!
+  createTask(taskInput: TaskInput!, eventId: Int!): TaskResponse!
+  updateTask(completionStatus: TaskCompletionStatus, taskInput: TaskInput!, taskId: Int!): TaskResponse!
+  deleteTask(taskId: Int!): TaskResponse!
+  addVolunteerToTask(userId: Int!, taskId: Int!): TaskVolunteerResponse!
+  removeVolunteerFromTask(userId: Int!, taskId: Int!): TaskVolunteerResponse!
+}
+
+type PaginatedCharities {
+  charities: [Charity!]!
+  hasMore: Boolean!
+}
+
+type PaginatedEvents {
+  events: [Event!]!
+  hasMore: Boolean!
+}
+
+type PaginatedEventVolunteers {
+  eventvolunteers: [Eventvolunteer!]!
+  hasMore: Boolean!
+  errors: [FieldError!]!
+  success: Boolean!
+}
+
+type PaginatedPosts {
+  posts: [EPost!]!
+  hasMore: Boolean!
+}
+
+type Post {
+  id: Float!
+  title: String!
+  text: String!
+  likeNumber: Float!
+  voteStatus: Int
+  creatorId: Float!
+  creator: User!
+  auditstat: Boolean!
+  isEvent: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  textSnippet: String!
+}
+
+input PostInput {
+  title: String!
+  text: String!
+}
+
+type Query {
+  hello: String!
+  posts(cursor: String, limit: Int!): PaginatedPosts!
+  post(id: Int!): EPost
+  me: User
+  viewTasksAssignedToMe: EventTaskContainerResponse!
+  interests: [Category!]!
+  charitySearchByUEN(uen: String!): Charity
+  charitySearchByID(id: Int!): Charity
+  checkUENNumber(UENNumber: String!): UENResponse!
+  searchCharitiesByCategories(categories: [Float!], cursor: String, limit: Int!): PaginatedCharities!
+  events(cursor: String, sortByUpcoming: Boolean!, sortByLikes: Boolean!, limit: Int!): PaginatedEvents!
+  eventsByCategories(cursor: String, categories: [Float!]!, sortByUpcoming: Boolean!, sortByLikes: Boolean!, limit: Int!): PaginatedEvents!
+  event(id: Int!): Event
+  getVolunteerRequestListForEvent(cursor: String, limit: Int!, eventId: Int!): PaginatedEventVolunteers!
+}
+
+type Task {
+  id: Float!
+  description: String!
+  deadline: String!
+  createdAt: String!
+  updatedAt: String!
+  volunteersAssigned: [User!]
+}
+
+enum TaskCompletionStatus {
+  CLOSED
+  NEW
+  ACTIVE
+  RESOLVED
+}
+
+input TaskInput {
+  description: String!
+  deadline: String!
+}
+
+type TaskResponse {
+  success: Boolean!
+  errors: [FieldError!]
+  task: Task
+}
+
+type TaskVolunteerResponse {
+  success: Boolean!
+  errors: [FieldError!]
+}
+
+type UENData {
+  uen: String!
+  reg_street_name: String!
+  entity_name: String!
+  entity_type: String!
+  reg_postal_code: String!
+  issuance_agency_id: String!
+  uen_issue_date: String!
+  uen_status: String!
+}
+
+type UENResponse {
+  errors: [FieldError!]
+  uendata: UENData
+  success: Boolean
+}
+
+type UpdateEventVolunteerResponse {
+  success: Boolean!
+  errors: [FieldError!]!
+}
+
+type User {
+  id: Float!
+  username: String!
+  email: String!
+  createdAt: String!
+  updatedAt: String!
+  categories: [Category!]!
+  followedCharities: [Charity!]!
+  adminCharities: [Charity!]!
+  likedEvents: [Event!]!
+}
+
+input UsernamePasswordInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+type UserResponse {
+  errors: [FieldError!]
+  user: User
+}
+

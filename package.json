@@ -28,10 +28,13 @@
     "yup": "latest"
   },
   "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }
