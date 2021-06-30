@@ -77,7 +77,7 @@ export default function Avatar({ user }) {
                 {({ active }) => (
                   <Link href={`/charities/sign-up`}>
                     <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                      New charity
+                      New Charity
                     </a>
                   </Link>
                 )}

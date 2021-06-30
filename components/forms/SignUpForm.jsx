@@ -26,9 +26,14 @@ export default function SignUpForm() {
       update: (cache, { data }) => {
         cache.writeQuery({
           query: gql`
-            {
+            query Me {
               me {
                 id
+                username
+                adminCharities {
+                  id
+                  name
+                }
               }
             }
           `,
@@ -50,26 +55,24 @@ export default function SignUpForm() {
 
   return (
     <>
-      <main>
-        <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
-          <h4 className="-mb-1">{signUpSchema.label}</h4>
-          <a onClick={() => setOpen(true)}>
-            <InformationCircleIcon className="w-4 h-4" />I am signing up as a
-            charity
-          </a>
-          {signUpSchema.fields.map((field) => (
-            <Field
-              key={field.name}
-              name={field.name}
-              label={field.label}
-              register={register}
-              errors={errors[field.name]}
-            />
-          ))}
-          <div />
-          <button type="submit">Sign Up</button>
-        </form>
-      </main>
+      <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
+        <h4 className="-mb-1">{signUpSchema.label}</h4>
+        <a onClick={() => setOpen(true)}>
+          <InformationCircleIcon className="w-4 h-4" />I am signing up as a
+          charity
+        </a>
+        {signUpSchema.fields.map((field) => (
+          <Field
+            key={field.name}
+            name={field.name}
+            label={field.label}
+            register={register}
+            errors={errors[field.name]}
+          />
+        ))}
+        <div />
+        <button type="submit">Sign Up</button>
+      </form>
 
       {/* Modal */}
       <Transition.Root show={open} as={Fragment}>
