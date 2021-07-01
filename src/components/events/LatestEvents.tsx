@@ -2,7 +2,7 @@ import Event from 'components/events/Event'
 import useEventsQuery from 'hooks/useEventsQuery'
 
 export default function LatestEvents() {
-  const { data, error } = useEventsQuery(3, null, false, false)
+  const { data, error } = useEventsQuery(12, null, false, false)
 
   return (
     <>
