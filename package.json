@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:relay": "relay-compiler"
   },
   "dependencies": {
     "@apollo/client": "latest",
@@ -17,23 +18,32 @@
     "@tailwindcss/forms": "latest",
     "@tailwindcss/line-clamp": "latest",
     "@tailwindcss/typography": "latest",
-    "graphql": "latest",
     "next": "latest",
     "next-themes": "latest",
     "react": "latest",
     "react-datepicker": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
+    "react-relay": "latest",
+    "relay-nextjs": "latest",
+    "relay-runtime": "latest",
     "tailwindcss-invalid-variant-plugin": "latest",
     "yup": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
+    "@types/react-relay": "latest",
+    "@types/relay-runtime": "latest",
     "autoprefixer": "latest",
+    "babel-plugin-relay": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "graphql": "latest",
     "postcss": "latest",
+    "relay-compiler": "latest",
+    "relay-compiler-language-typescript": "latest",
+    "relay-config": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
   }
