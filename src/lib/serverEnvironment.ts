@@ -1,12 +1,6 @@
-import {
-  Environment,
-  GraphQLResponse,
-  Network,
-  RecordSource,
-  Store
-} from 'relay-runtime'
+import { GraphQLResponse, Network } from 'relay-runtime'
 
-import fetchGraphQL from 'fetchGraphQL'
+import fetchGraphQL from 'utils/fetchGraphQL'
 import { withHydrateDatetime } from 'relay-nextjs/date'
 
 export function createServerNetwork() {
@@ -19,14 +13,5 @@ export function createServerNetwork() {
     ) as GraphQLResponse
 
     return data
-  })
-}
-
-// Optional: this function can take a token used for authentication and pass it into `createServerNetwork`.
-export function createServerEnvironment() {
-  return new Environment({
-    network: createServerNetwork(),
-    store: new Store(new RecordSource()),
-    isServer: true
   })
 }

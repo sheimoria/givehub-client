@@ -5,7 +5,7 @@ import { withHydrateDatetime } from 'relay-nextjs/date'
 
 export function createClientNetwork() {
   return Network.create(async (params, variables) => {
-    const response = await fetch('/api/graphql', {
+    const response = await fetch(process.env.serverUrl, {
       method: 'POST',
       credentials: 'include',
       headers: {

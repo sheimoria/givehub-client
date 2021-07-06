@@ -7,17 +7,17 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { RelayEnvironmentProvider } from 'react-relay/hooks'
 import { ThemeProvider } from 'next-themes'
-import client from 'apollo-client'
+import client from 'utils/apollo-client'
 import { getClientEnvironment } from 'lib/clientEnvironment'
 
-const clientEnvironment = getClientEnvironment()
+const clientEnv = getClientEnvironment()
 const initialPreloadedQuery = getInitialPreloadedQuery({
   createClientEnvironment: () => getClientEnvironment()!
 })
 
 export default function App({ Component, pageProps }: AppProps) {
   const relayProps = getRelayProps(pageProps, initialPreloadedQuery)
-  const env = relayProps.preloadedQuery?.environment ?? clientEnvironment!
+  const env = relayProps.preloadedQuery?.environment ?? clientEnv!
 
   return (
     <>
