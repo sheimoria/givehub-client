@@ -23,7 +23,7 @@
     @apply flex items-center justify-between flex-initial pt-6;
   }
   section {
-    @apply flex flex-col gap-4 px-6 bg-white dark:bg-gray-800 rounded-xl;
+    @apply flex flex-col gap-4 px-6 bg-white shadow-sm dark:bg-gray-800 rounded-xl;
   }
   article {
     @apply flex flex-col gap-4 p-6 bg-white shadow-sm rounded-xl dark:bg-gray-800;

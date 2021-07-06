@@ -7,16 +7,17 @@ const categories = [
   { name: 'Animal Welfare', id: 1 },
   { name: 'Arts and Heritage', id: 2 },
   { name: 'Children and Youth', id: 3 },
-  { name: 'Disability', id: 4 },
-  { name: 'Education', id: 5 },
-  { name: 'Elderly', id: 6 },
-  { name: 'Environment', id: 7 },
-  { name: 'Families', id: 8 },
-  { name: 'Health', id: 9 },
-  { name: 'Humanitarian', id: 10 },
-  { name: 'Social Service', id: 11 },
-  { name: 'Sports', id: '12' },
-  { name: 'Women and Girls', id: 13 }
+  { name: 'Community', id: 4 },
+  { name: 'Disability', id: 5 },
+  { name: 'Education', id: 6 },
+  { name: 'Elderly', id: 7 },
+  { name: 'Environment', id: 8 },
+  { name: 'Families', id: 9 },
+  { name: 'Health', id: 10 },
+  { name: 'Humanitarian', id: 11 },
+  { name: 'Social Service', id: 12 },
+  { name: 'Sports', id: '13' },
+  { name: 'Women and Girls', id: 14 }
 ]
 
 export default function Navigation() {

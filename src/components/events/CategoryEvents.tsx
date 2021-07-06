@@ -4,18 +4,16 @@ import { useRouter } from 'next/router'
 
 export default function CategoryEvents() {
   const router = useRouter()
-  const { data, loading, error } = useCategoryEventsQuery(
-    router.query.categoryId
-  )
+  const { data, error } = useCategoryEventsQuery(router.query.categoryId)
 
   return (
-    <section className={loading && 'bg-opacity-50 animate-pulse'}>
+    <>
       {error && <p>{error.message}</p>}
       {data &&
-        data.events &&
-        data.events.events.map((event) => (
+        data.eventsByCategories &&
+        data.eventsByCategories.events.map((event) => (
           <Event key={event.id} id={event.id} />
         ))}
-    </section>
+    </>
   )
 }

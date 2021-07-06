@@ -1,0 +1,5 @@
+query PostsQuery($limit: Int!, $cursor: String) {
+    posts {
+        
+    }
+}

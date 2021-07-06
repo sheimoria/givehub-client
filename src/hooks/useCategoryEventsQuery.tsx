@@ -5,11 +5,11 @@ export default function useCategoryEventsQuery(categoryId) {
     gql`
       query CategoryEvents($categories: [Float!]!) {
         eventsByCategories(
+          categories: $categories
           limit: 6
           cursor: null
           sortByUpcoming: false
           sortByLikes: false
-          categories: $categories
         ) {
           events {
             id
