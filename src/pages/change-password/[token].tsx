@@ -7,6 +7,7 @@ import useChangePasswordMutation from 'hooks/useChangePasswordMutation'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+export { ME } from 'hooks/useMeQuery'
 
 export default function ChangePassword() {
   const [tokenError, setTokenError] = useState('')
@@ -65,11 +66,3 @@ export default function ChangePassword() {
     </Body>
   )
 }
-
-const ME = gql`
-  query Me {
-    me {
-      id
-    }
-  }
-`

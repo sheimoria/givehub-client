@@ -120,10 +120,6 @@ export function Venue({ venue }) {
 }
 
 export function RequestNumber({ requestNumber }) {
-  /* const { data } = useQuery(gql`query VolunteerNumber {
-      
-  }`) */
-
   return (
     <div className="flex items-center gap-1">
       <UsersIcon className="w-5 h-5 text-gray-400" />

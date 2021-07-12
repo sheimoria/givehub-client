@@ -1,5 +1,6 @@
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
+import { ME } from 'hooks/useMeQuery'
 import { gql } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 import useLogInMutation from 'hooks/useLogInMutation'
@@ -19,18 +20,7 @@ export default function LogInForm() {
       variables: values,
       update: (cache, { data }) => {
         cache.writeQuery({
-          query: gql`
-            query Me {
-              me {
-                id
-                username
-                adminCharities {
-                  id
-                  name
-                }
-              }
-            }
-          `,
+          query: ME,
           data: {
             __typename: 'Query',
             me: data.login.user

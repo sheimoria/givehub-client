@@ -1,6 +1,6 @@
-import { gql, useQuery } from '@apollo/client'
-
+import { ME } from 'hooks/useMeQuery'
 import { useEffect } from 'react'
+import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
 export default function useIsAuth() {
@@ -12,12 +12,3 @@ export default function useIsAuth() {
     }
   }, [loading, data, router])
 }
-
-const ME = gql`
-  query Me {
-    me {
-      id
-      username
-    }
-  }
-`

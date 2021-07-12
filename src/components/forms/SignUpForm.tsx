@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react'
 
 import Field from 'components/forms/Field'
 import { InformationCircleIcon } from '@heroicons/react/solid'
+import { ME } from 'hooks/useMeQuery'
 import { gql } from '@apollo/client'
 import { signUpSchema } from 'utils/formSchemas'
 import { useForm } from 'react-hook-form'
@@ -25,18 +26,7 @@ export default function SignUpForm() {
       variables: { options: values },
       update: (cache, { data }) => {
         cache.writeQuery({
-          query: gql`
-            query Me {
-              me {
-                id
-                username
-                adminCharities {
-                  id
-                  name
-                }
-              }
-            }
-          `,
+          query: ME,
           data: {
             __typename: 'Query',
             me: data.register.user

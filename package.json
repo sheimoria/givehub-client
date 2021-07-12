@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "relay": "relay-compiler"
+    "download-schema": "apollo service:download --endpoint=https://api.givehub.club/graphql graphql-schema.json",
+    "codegen": "npm run download-schema && apollo codegen:generate --localSchemaFile=graphql-schema.json,client-schema.graphql --target=typescript --tagName=gql"
   },
   "dependencies": {
     "@apollo/client": "latest",
@@ -24,26 +25,20 @@
     "react-datepicker": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
-    "react-relay": "latest",
-    "relay-nextjs": "latest",
-    "relay-runtime": "latest",
     "tailwindcss-invalid-variant-plugin": "latest",
     "yup": "latest"
   },
   "devDependencies": {
+    "@types/graphql": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
-    "@types/react-relay": "latest",
-    "@types/relay-runtime": "latest",
+    "apollo": "latest",
     "autoprefixer": "latest",
-    "babel-plugin-relay": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "eslint-config-prettier": "latest",
     "graphql": "latest",
     "postcss": "latest",
-    "relay-compiler": "latest",
-    "relay-compiler-language-typescript": "latest",
-    "relay-config": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
   }
