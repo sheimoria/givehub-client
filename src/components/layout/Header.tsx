@@ -1,11 +1,11 @@
+import { HeaderFragment, MeQuery } from 'generated/graphql'
+
 import Avatar from 'components/layout/Avatar'
 import Image from 'next/image'
 import Link from 'next/link'
-import useMeQuery from 'hooks/useMeQuery'
 import { useRouter } from 'next/router'
 
-export default function Header() {
-  const { data } = useMeQuery()
+const Header = ({ me }: { me?: HeaderFragment }) => {
   const router = useRouter()
 
   return (
@@ -17,8 +17,8 @@ export default function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-4">
-          {data && data.me ? (
-            <Avatar user={data.me} />
+          {me ? (
+            <Avatar me={me} />
           ) : (
             <>
               <Link href="/log-in">
@@ -32,3 +32,5 @@ export default function Header() {
     </header>
   )
 }
+
+export default Header

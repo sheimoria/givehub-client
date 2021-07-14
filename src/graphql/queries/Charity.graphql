@@ -1,0 +1,12 @@
+query Charity($id: Int!) {
+  charitySearchByID(id: $id) {
+    id
+    name
+    uen
+    physicalAddress
+    postalcode
+    charityEvents {
+      id
+    }
+  }
+}

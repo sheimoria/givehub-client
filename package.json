@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "download-schema": "apollo service:download --endpoint=https://api.givehub.club/graphql graphql-schema.json",
-    "codegen": "npm run download-schema && apollo codegen:generate --localSchemaFile=graphql-schema.json,client-schema.graphql --target=typescript --tagName=gql"
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "latest",
@@ -19,6 +18,7 @@
     "@tailwindcss/forms": "latest",
     "@tailwindcss/line-clamp": "latest",
     "@tailwindcss/typography": "latest",
+    "graphql": "latest",
     "next": "latest",
     "next-themes": "latest",
     "react": "latest",
@@ -29,15 +29,17 @@
     "yup": "latest"
   },
   "devDependencies": {
-    "@types/graphql": "latest",
+    "@graphql-codegen/cli": "latest",
+    "@graphql-codegen/introspection": "latest",
+    "@graphql-codegen/typescript": "latest",
+    "@graphql-codegen/typescript-operations": "latest",
+    "@graphql-codegen/typescript-react-apollo": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
-    "apollo": "latest",
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
-    "graphql": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"

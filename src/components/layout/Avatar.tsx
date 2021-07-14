@@ -1,13 +1,13 @@
+import { HeaderFragment, useLogOutMutation } from 'generated/graphql'
 import { Menu, Transition } from '@headlessui/react'
 
 import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useApolloClient } from '@apollo/client'
-import useLogOutMutation from 'hooks/useLogOutMutation'
 import { useRouter } from 'next/router'
 
-export default function Avatar({ user }) {
+export default function Avatar({ me }: { me: HeaderFragment }) {
   const apolloClient = useApolloClient()
   const [logOut] = useLogOutMutation()
   const router = useRouter()
@@ -46,13 +46,11 @@ export default function Avatar({ user }) {
               className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white rounded-md shadow-md dark:bg-gray-800"
             >
               <Menu.Item>
-                {({ active }) => (
-                  <h6 className="px-6 py-3"> {user.username}</h6>
-                )}
+                {({ active }) => <h6 className="px-6 py-3"> {me.username}</h6>}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <Link href={`/users/${user.id}`}>
+                  <Link href={`/users/${me.id}`}>
                     <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Profile
                     </a>
@@ -62,7 +60,7 @@ export default function Avatar({ user }) {
               <Menu.Item>
                 {({ active }) => <p className="px-6 py-3">My Charities</p>}
               </Menu.Item>
-              {user.adminCharities.map((charity) => (
+              {me.adminCharities.map((charity) => (
                 <Menu.Item key={charity.id}>
                   {({ active }) => (
                     <Link href={`/charities/${charity.id}`}>

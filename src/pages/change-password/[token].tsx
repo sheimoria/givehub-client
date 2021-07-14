@@ -1,13 +1,12 @@
 import Body from 'components/layout/Body'
 import Form from 'components/forms/Form'
 import Link from 'next/link'
+import { ME } from 'hooks/useMeQuery'
 import { changePasswordSchema } from 'utils/formSchemas'
-import { gql } from '@apollo/client'
 import useChangePasswordMutation from 'hooks/useChangePasswordMutation'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-export { ME } from 'hooks/useMeQuery'
 
 export default function ChangePassword() {
   const [tokenError, setTokenError] = useState('')

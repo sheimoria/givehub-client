@@ -1,0 +1,8 @@
+fragment Header on User {
+  id
+  username
+  adminCharities {
+    id
+    name
+  }
+}

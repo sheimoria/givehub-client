@@ -1,5 +1,5 @@
 import Body from 'components/layout/Body'
-import Event from 'components/events/Event'
+import Event from 'components/Event'
 import { useRouter } from 'next/router'
 
 export default function ViewEvent() {

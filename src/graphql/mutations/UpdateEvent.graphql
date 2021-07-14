@@ -1,0 +1,9 @@
+mutation UpdateEvent($id: Float!, $input: EventInput!) {
+  updateEvent(id: $id, input: $input) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}

@@ -1,4 +1,4 @@
-import Event from 'components/events/Event'
+import Event from 'components/Event'
 /* import Edit from 'components/events/Edit'
 
 import { useRouter } from 'next/router'

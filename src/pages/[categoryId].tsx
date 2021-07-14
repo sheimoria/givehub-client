@@ -1,5 +1,5 @@
 import Body from 'components/layout/Body'
-import CategoryEvents from 'components/events/CategoryEvents'
+import CategoryEvents from 'components/Events'
 
 export default function Category() {
   return (

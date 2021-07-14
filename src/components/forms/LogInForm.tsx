@@ -1,13 +1,12 @@
+import { MeDocument, useLoginMutation } from 'generated/graphql'
+
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
-import { ME } from 'hooks/useMeQuery'
-import { gql } from '@apollo/client'
 import { useForm } from 'react-hook-form'
-import useLogInMutation from 'hooks/useLogInMutation'
 import { useRouter } from 'next/router'
 
 export default function LogInForm() {
-  const [logIn] = useLogInMutation()
+  const [logIn] = useLoginMutation()
   const router = useRouter()
   const {
     register,
@@ -20,7 +19,7 @@ export default function LogInForm() {
       variables: values,
       update: (cache, { data }) => {
         cache.writeQuery({
-          query: ME,
+          query: MeDocument,
           data: {
             __typename: 'Query',
             me: data.login.user

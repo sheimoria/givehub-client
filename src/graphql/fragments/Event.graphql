@@ -1,0 +1,29 @@
+fragment Event on Event {
+  id
+  name
+  description
+  dateStart
+  dateEnd
+  venue
+  charity {
+    id
+    name
+  }
+  creator {
+    id
+    username
+  }
+  likeNumber
+  completed
+  createdAt
+  updatedAt
+  voteStatus
+  approvalStatus
+  currentEventVolunteers {
+    id
+  }
+  eventTasks {
+    id
+  }
+  adminStatus
+}

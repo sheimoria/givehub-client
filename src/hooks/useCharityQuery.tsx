@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+/* import { gql, useQuery } from '@apollo/client'
 
 export default function useCharityQuery(id) {
   return useQuery(
@@ -21,4 +21,4 @@ export default function useCharityQuery(id) {
       pollInterval: 500
     }
   )
-}
+} */

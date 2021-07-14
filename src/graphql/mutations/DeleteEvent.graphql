@@ -1,0 +1,9 @@
+mutation DeleteEvent($id: Float!) {
+  deleteEvent(id: $id) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}

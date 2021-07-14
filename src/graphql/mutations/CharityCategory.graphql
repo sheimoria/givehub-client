@@ -1,0 +1,9 @@
+mutation CharityCategory($charityId: Float!, $categories: CategoryInput!) {
+  updateCharityCategories(charityId: $charityId, categories: $categories) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}

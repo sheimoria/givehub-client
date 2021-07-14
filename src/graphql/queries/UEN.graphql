@@ -1,0 +1,12 @@
+query UEN($UEN: String!) {
+  checkUENNumber(UENNumber: $UEN) {
+    errors {
+      field
+      message
+    }
+    uendata {
+      entity_name
+    }
+    success
+  }
+}

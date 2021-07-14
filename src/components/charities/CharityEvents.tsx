@@ -1,4 +1,4 @@
-import Event from 'components/events/Event'
+import Event from 'components/Event'
 import useCharityQuery from 'hooks/useCharityQuery'
 import { useRouter } from 'next/router'
 

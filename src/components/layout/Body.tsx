@@ -1,26 +1,26 @@
 import Footer from 'components/layout/Footer'
 import Head from 'next/head'
 import Header from 'components/layout/Header'
-import MiscEvents from 'components/events/MiscEvents'
-import Navigation from 'components/layout/Navigation'
+import { MeQuery } from 'generated/graphql'
 import { ReactNode } from 'react'
 
-type Props = {
+type BodyProps = {
   title: string
+  data: MeQuery
   children: ReactNode
 }
 
-export default function Body(props: Props) {
+export default function Body({ title, data, children }: BodyProps) {
   return (
     <>
       <Head>
-        <title>{props.title}</title>
+        <title>{title}</title>
       </Head>
-      <Header />
+      <Header data={data} />
       <div className="flex justify-center flex-auto gap-6">
-        <Navigation />
-        <main>{props.children}</main>
-        <MiscEvents />
+        {data.me && <p>Navigation</p>}
+        <main>{children}</main>
+        {data.me && <p>Events</p>}
       </div>
       <Footer />
     </>

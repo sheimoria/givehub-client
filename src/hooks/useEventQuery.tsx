@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+/* import { gql, useQuery } from '@apollo/client'
 
 export default function useEventQuery(id) {
   return useQuery(
@@ -26,4 +26,4 @@ export default function useEventQuery(id) {
       pollInterval: 500
     }
   )
-}
+} */
