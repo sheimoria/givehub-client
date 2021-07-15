@@ -613,7 +613,7 @@ export type UsernamePasswordInput = {
 
 export type EventFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'name' | 'description' | 'dateStart' | 'dateEnd' | 'venue' | 'likeNumber' | 'completed' | 'createdAt' | 'updatedAt' | 'voteStatus' | 'approvalStatus' | 'adminStatus'>
+  & Pick<Event, 'name' | 'description' | 'dateStart' | 'dateEnd' | 'venue' | 'completed' | 'createdAt' | 'updatedAt' | 'adminStatus'>
   & { charity: (
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
@@ -627,6 +627,8 @@ export type EventFragment = (
     { __typename?: 'Task' }
     & Pick<Task, 'id'>
   )>> }
+  & LikeEventFragment
+  & RequestEventFragment
 );
 
 export type HeaderFragment = (
@@ -636,6 +638,16 @@ export type HeaderFragment = (
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
   )> }
+);
+
+export type LikeEventFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'voteStatus' | 'likeNumber'>
+);
+
+export type RequestEventFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'approvalStatus'>
 );
 
 export type ChangePasswordMutationVariables = Exact<{
@@ -773,6 +785,22 @@ export type LogOutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type RequestEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+
+export type RequestEventMutation = (
+  { __typename?: 'Mutation' }
+  & { requestEvent: (
+    { __typename?: 'EventResponse' }
+    & { event?: Maybe<(
+      { __typename?: 'Event' }
+      & Pick<Event, 'id' | 'approvalStatus'>
+    )> }
+  ) }
+);
+
 export type RegisterMutationVariables = Exact<{
   options: UsernamePasswordInput;
 }>;
@@ -877,6 +905,7 @@ export type EventsQuery = (
     & { items: Array<(
       { __typename?: 'Event' }
       & EventFragment
+      & LikeEventFragment
     )> }
   ) }
 );
@@ -912,9 +941,23 @@ export type UenQuery = (
   ) }
 );
 
+export const LikeEventFragmentDoc = gql`
+    fragment LikeEvent on Event {
+  id
+  voteStatus
+  likeNumber
+}
+    `;
+export const RequestEventFragmentDoc = gql`
+    fragment RequestEvent on Event {
+  id
+  approvalStatus
+}
+    `;
 export const EventFragmentDoc = gql`
     fragment Event on Event {
-  id
+  ...LikeEvent
+  ...RequestEvent
   name
   description
   dateStart
@@ -928,12 +971,9 @@ export const EventFragmentDoc = gql`
     id
     username
   }
-  likeNumber
   completed
   createdAt
   updatedAt
-  voteStatus
-  approvalStatus
   currentEventVolunteers {
     id
   }
@@ -942,7 +982,8 @@ export const EventFragmentDoc = gql`
   }
   adminStatus
 }
-    `;
+    ${LikeEventFragmentDoc}
+${RequestEventFragmentDoc}`;
 export const HeaderFragmentDoc = gql`
     fragment Header on User {
   id
@@ -1253,6 +1294,42 @@ export function useLogOutMutation(baseOptions?: Apollo.MutationHookOptions<LogOu
 export type LogOutMutationHookResult = ReturnType<typeof useLogOutMutation>;
 export type LogOutMutationResult = Apollo.MutationResult<LogOutMutation>;
 export type LogOutMutationOptions = Apollo.BaseMutationOptions<LogOutMutation, LogOutMutationVariables>;
+export const RequestEventDocument = gql`
+    mutation RequestEvent($eventId: Int!) {
+  requestEvent(eventId: $eventId) {
+    event {
+      id
+      approvalStatus
+    }
+  }
+}
+    `;
+export type RequestEventMutationFn = Apollo.MutationFunction<RequestEventMutation, RequestEventMutationVariables>;
+
+/**
+ * __useRequestEventMutation__
+ *
+ * To run a mutation, you first call `useRequestEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestEventMutation, { data, loading, error }] = useRequestEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useRequestEventMutation(baseOptions?: Apollo.MutationHookOptions<RequestEventMutation, RequestEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RequestEventMutation, RequestEventMutationVariables>(RequestEventDocument, options);
+      }
+export type RequestEventMutationHookResult = ReturnType<typeof useRequestEventMutation>;
+export type RequestEventMutationResult = Apollo.MutationResult<RequestEventMutation>;
+export type RequestEventMutationOptions = Apollo.BaseMutationOptions<RequestEventMutation, RequestEventMutationVariables>;
 export const RegisterDocument = gql`
     mutation Register($options: UsernamePasswordInput!) {
   register(options: $options) {
@@ -1475,12 +1552,14 @@ export const EventsDocument = gql`
   ) {
     items {
       ...Event
+      ...LikeEvent
     }
     total
     hasMore
   }
 }
-    ${EventFragmentDoc}`;
+    ${EventFragmentDoc}
+${LikeEventFragmentDoc}`;
 
 /**
  * __useEventsQuery__

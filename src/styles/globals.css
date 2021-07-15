@@ -8,7 +8,10 @@
     @apply bg-gray-100 dark:bg-gray-900;
   }
   #__next {
-    @apply flex flex-col min-h-screen gap-6 p-6 mx-auto max-w-7xl;
+    @apply flex flex-col min-h-screen mx-auto max-w-7xl;
+  }
+  header {
+    @apply p-6;
   }
   nav {
     @apply flex items-center justify-between;
@@ -20,13 +23,13 @@
     @apply hidden;
   }
   footer {
-    @apply flex items-center justify-between flex-initial pt-6;
+    @apply flex items-center justify-between flex-initial p-6;
   }
   section {
     @apply flex flex-col gap-4 px-6 bg-white dark:bg-gray-800 rounded-xl;
   }
   article {
-    @apply flex flex-col gap-4 p-6 bg-white rounded-xl dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-6 bg-white md:rounded-xl dark:bg-gray-800;
   }
   section article {
     @apply px-0 rounded-none shadow-none;

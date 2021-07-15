@@ -9,6 +9,8 @@ import { EventFragment } from 'generated/graphql'
 import Image from 'next/image'
 import LikeEvent from 'components/LikeEvent'
 import Link from 'next/link'
+import React from 'react'
+import RequestEvent from './RequestEvent'
 
 export default function Event({ event }: { event: EventFragment }) {
   return (
@@ -23,7 +25,12 @@ export default function Event({ event }: { event: EventFragment }) {
             className="rounded-full"
           />
           <div className="flex flex-col">
-            <Link href={`/charities/${event.charity.id}`}>
+            <Link
+              href={{
+                pathname: '/charity',
+                query: { charityId: event.charity.id }
+              }}
+            >
               <a>{event.charity.name}</a>
             </Link>
             <p>
@@ -39,7 +46,12 @@ export default function Event({ event }: { event: EventFragment }) {
         <Edit event={event} />
       </div>
 
-      <Link href={`/events/${event.id}`}>
+      <Link
+        href={{
+          pathname: '/event',
+          query: { eventId: event.id }
+        }}
+      >
         <a className="text-lg">{event.name}</a>
       </Link>
 
@@ -51,11 +63,15 @@ export default function Event({ event }: { event: EventFragment }) {
       <p className="line-clamp-4">{event.description}</p>
       <div className="flex gap-4">
         <LikeEvent
-          eventId={event.id}
-          likeStatus={event.voteStatus}
-          likeNumber={event.likeNumber}
+          likeEvent={{
+            id: event.id,
+            voteStatus: event.voteStatus,
+            likeNumber: event.likeNumber
+          }}
         />
-        {/* <RequestNumber volunteerNumber={event.volunteerNumber} /> */}
+        <RequestEvent
+          requestEvent={{ id: event.id, approvalStatus: event.approvalStatus }}
+        />
       </div>
     </article>
   )

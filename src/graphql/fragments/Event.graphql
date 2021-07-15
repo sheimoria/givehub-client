@@ -1,5 +1,6 @@
 fragment Event on Event {
-  id
+  ...LikeEvent
+  ...RequestEvent
   name
   description
   dateStart
@@ -13,12 +14,9 @@ fragment Event on Event {
     id
     username
   }
-  likeNumber
   completed
   createdAt
   updatedAt
-  voteStatus
-  approvalStatus
   currentEventVolunteers {
     id
   }

@@ -1,10 +1,10 @@
-import BodyLite from 'components/layout/BodyLite'
+import Body from 'components/layout/Body'
 import SignUpForm from 'components/forms/SignUpForm'
 
 export default function SignUp() {
   return (
-    <BodyLite title="Sign up">
+    <Body title="Sign up">
       <SignUpForm />
-    </BodyLite>
+    </Body>
   )
 }

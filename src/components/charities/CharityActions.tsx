@@ -1,4 +1,4 @@
-import useMeQuery from 'hooks/useMeQuery'
+import { useMeQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 
 export default function CharityActions({ id }) {

@@ -1,36 +1,41 @@
-import { useLikeEventMutation, useMeQuery } from 'generated/graphql'
+import {
+  LikeEventFragment,
+  useLikeEventMutation,
+  useMeQuery
+} from 'generated/graphql'
 
 import { ThumbUpIcon } from '@heroicons/react/solid'
-import classNames from 'utils/classNames'
-import { useRouter } from 'next/router'
+import { ThumbUpIcon as ThumbUpIconHollow } from '@heroicons/react/outline'
 
-export default function Like({ eventId, likeStatus, likeNumber }) {
-  const { data, loading, error } = useMeQuery()
+export default function LikeEvent({
+  likeEvent
+}: {
+  likeEvent: LikeEventFragment
+}) {
   const [like] = useLikeEventMutation()
-  const router = useRouter()
-  function handleClick() {
-    if (data.me) {
-      like({ variables: { eventId: eventId } })
-    } else {
-      router.push('/log-in')
-    }
-  }
 
-  if (error) return <p>{error.message}</p>
-  if (loading) return <div className="animate-spin" />
-  if (data) {
-    return (
-      <div className="flex items-center gap-2">
+  return (
+    <div className="flex items-center gap-2">
+      {likeEvent.voteStatus === 1 ? (
         <ThumbUpIcon
-          onClick={handleClick}
-          className={classNames(
-            likeStatus === 1 ? 'text-rose-600' : 'text-gray-400',
-            'w-5 h-5'
-          )}
+          onClick={() =>
+            like({
+              variables: { eventId: likeEvent.id }
+            })
+          }
+          className="text-rose-600"
         />
-        <p>{likeNumber}</p>
-      </div>
-    )
-  }
-  return null
+      ) : (
+        <ThumbUpIconHollow
+          onClick={() =>
+            like({
+              variables: { eventId: likeEvent.id }
+            })
+          }
+          className="text-gray-600"
+        />
+      )}
+      <p>{likeEvent.likeNumber}</p>
+    </div>
+  )
 }

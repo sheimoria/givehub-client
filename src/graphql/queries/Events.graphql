@@ -14,6 +14,7 @@ query Events(
   ) {
     items {
       ...Event
+      ...LikeEvent
     }
     total
     hasMore
