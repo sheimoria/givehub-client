@@ -1,0 +1,5 @@
+fragment FollowCharity on Charity {
+  id
+  followNumber
+  followStatus
+}

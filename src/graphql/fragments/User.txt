@@ -1,0 +1,29 @@
+fragment User on User {
+  id
+  username
+  email
+  profile {
+    ...UserProfile
+  }
+  categories {
+    ...Category
+  }
+  followedCharities {
+    ...Charity
+  }
+  adminCharities {
+    ...Charity
+  }
+  likedEvents {
+    ...Event
+  }
+  volunteeredEvents {
+    ...Event
+  }
+  friends {
+    id
+    username
+  }
+  friendStatus
+  viewerStatus
+}

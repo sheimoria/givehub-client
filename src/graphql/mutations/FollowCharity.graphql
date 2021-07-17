@@ -1,0 +1,7 @@
+mutation FollowCharity($charityId: Int!) {
+  followCharity(charityId: $charityId) {
+    charity {
+      ...FollowCharity
+    }
+  }
+}

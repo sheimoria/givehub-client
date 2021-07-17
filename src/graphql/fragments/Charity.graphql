@@ -1,0 +1,53 @@
+fragment Charity on Charity {
+  id
+  name
+  uen
+  physicalAddress
+  postalcode # TYPO
+  charitycreator {
+    #TYPO
+    id
+    username
+  }
+  followNumber
+  followStatus
+  profile {
+    ...CharityProfile
+  }
+  categories {
+    id
+    name
+  }
+  followers {
+    id
+    username
+  }
+  charityEvents {
+    ...LikeEvent
+    ...RequestEvent
+    name
+    description
+    dateStart
+    dateEnd
+    venue
+    charity {
+      id
+      name
+    }
+    creator {
+      id
+      username
+    }
+    completed
+    currentEventVolunteers {
+      id
+      username
+    }
+    eventTasks {
+      id
+    }
+    adminStatus
+    createdAt
+  }
+  adminStatus
+}

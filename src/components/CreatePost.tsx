@@ -1,8 +1,8 @@
 export default function CreatePost() {
   return (
-    <article className="flex-row items-center">
-      <input className="flex-auto" />
-      <button>Create Post</button>
-    </article>
+    <div className="flex gap-4 ">
+      <input className="flex-auto bg-white rounded-full" />
+      <button className="rounded-full">Create Post</button>
+    </div>
   )
 }

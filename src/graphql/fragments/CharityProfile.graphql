@@ -1,0 +1,5 @@
+fragment CharityProfile on Charityprofile {
+  about
+  displayPicture
+  links
+}

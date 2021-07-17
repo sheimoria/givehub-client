@@ -1,3 +1,9 @@
 mutation LikeEvent($eventId: Int!) {
-  likeEvent(eventId: $eventId)
+  likeEvent(eventId: $eventId) {
+    likeItem {
+      id
+      voteStatus
+      likeNumber
+    }
+  }
 }

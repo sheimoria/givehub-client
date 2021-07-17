@@ -4,15 +4,21 @@ import {
   UsersIcon
 } from '@heroicons/react/solid'
 
-import Edit from 'components/Edit'
+import Edit from 'components/EditEvent'
 import { EventFragment } from 'generated/graphql'
 import Image from 'next/image'
 import LikeEvent from 'components/LikeEvent'
 import Link from 'next/link'
 import React from 'react'
 import RequestEvent from './RequestEvent'
+import EditEvent from 'components/EditEvent'
 
-export default function Event({ event }: { event: EventFragment }) {
+type EventProps = {
+  event: EventFragment
+  lineclamp?: boolean
+}
+
+export default function Event({ event, lineclamp }: EventProps) {
   return (
     <article>
       <div className="flex justify-between">
@@ -43,7 +49,7 @@ export default function Event({ event }: { event: EventFragment }) {
             </p>
           </div>
         </div>
-        <Edit event={event} />
+        <EditEvent event={event} />
       </div>
 
       <Link
@@ -60,7 +66,7 @@ export default function Event({ event }: { event: EventFragment }) {
         <Venue venue={event.venue} />
       </div>
 
-      <p className="line-clamp-4">{event.description}</p>
+      <p className={lineclamp ? 'line-clamp-3' : ''}>{event.description}</p>
       <div className="flex gap-4">
         <LikeEvent
           likeEvent={{

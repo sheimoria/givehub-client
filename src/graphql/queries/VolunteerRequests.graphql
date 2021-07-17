@@ -1,0 +1,16 @@
+query VolunteerRequests($eventIds: [Int!]!) {
+  getVolunteerRequestListForEvents(
+    cursor: null
+    limit: 100
+    eventIds: $eventIds
+  ) {
+    items {
+      user {
+        id
+        username
+      }
+      adminapproval
+      eventId
+    }
+  }
+}

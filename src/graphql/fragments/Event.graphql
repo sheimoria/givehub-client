@@ -7,21 +7,20 @@ fragment Event on Event {
   dateEnd
   venue
   charity {
-    id
-    name
+    ...Charity
   }
   creator {
     id
     username
   }
   completed
-  createdAt
-  updatedAt
   currentEventVolunteers {
     id
+    username
   }
   eventTasks {
     id
   }
   adminStatus
+  createdAt
 }

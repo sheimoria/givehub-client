@@ -21,7 +21,7 @@ export default function Events() {
   return (
     <>
       {data.searchEvents.items.map((event) => (
-        <Event key={event.id} event={event} />
+        <Event key={event.id} event={event} lineclamp={true} />
       ))}
     </>
   )
