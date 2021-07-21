@@ -1,9 +1,0 @@
-fragment UserProfile on Userprofile {
-  id
-  about
-  gender
-  firstName
-  lastName
-  displayPicture
-  telegramHandle
-}

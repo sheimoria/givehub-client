@@ -1,0 +1,10 @@
+query Post($id: Int!) {
+  post(id: $id) {
+    post {
+      ...PostCard
+    }
+    event {
+      ...EventInfo
+    }
+  }
+}

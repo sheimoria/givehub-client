@@ -1,6 +1,9 @@
 import { ClockIcon, HomeIcon, TrendingUpIcon } from '@heroicons/react/outline'
 
 import Link from 'next/link'
+import React from 'react'
+import Transit from 'components/Transit'
+import { Transition } from '@headlessui/react'
 import classNames from 'utils/classNames'
 import { useRouter } from 'next/router'
 
@@ -30,77 +33,85 @@ export default function Navigation() {
   const router = useRouter()
 
   return (
-    <div className="sticky flex flex-col gap-4 divide-y divide-gray-300 dark:divide-gray-600 top-6">
-      <div className="flex flex-col gap-2">
-        {/* Home */}
-        <Link
-          href={{
-            pathname: '/home'
-          }}
-        >
-          <a
-            className={classNames(
-              router.query.view === undefined
-                ? 'navigation-active'
-                : 'navigation-inactive',
-              'navigation'
-            )}
-            aria-current={router.query.view === undefined ? 'page' : undefined}
-          >
-            <HomeIcon />
-            Home
-          </a>
-        </Link>
-        {/* Trending, Upcoming */}
-        {sorts.map((sort) => (
-          <Link
-            key={sort.id}
-            href={{
-              pathname: '/home',
-              query: { view: sort.id }
-            }}
-          >
-            <a
-              className={classNames(
-                sort.id === router.query.view
-                  ? 'navigation-active'
-                  : 'navigation-inactive',
-                'navigation'
-              )}
-              aria-current={sort.id === router.query.view ? 'page' : undefined}
+    <div className="sticky top-6">
+    <Transit>
+        <div className="flex flex-col gap-4 divide-y divide-gray-300 dark:divide-gray-600">
+          <div className="flex flex-col gap-2">
+            {/* Home */}
+            <Link
+              href={{
+                pathname: '/home'
+              }}
             >
-              {sort.icon && <sort.icon />}
-              {sort.name}
-            </a>
-          </Link>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2 pt-4">
-        {/* Categories */}
-        {filters.map((filter) => (
-          <Link
-            key={filter.id}
-            href={{
-              pathname: '/home',
-              query: { view: filter.id }
-            }}
-          >
-            <a
-              className={classNames(
-                filter.id === router.query.view
-                  ? 'navigation-active'
-                  : 'navigation-inactive',
-                'navigation'
-              )}
-              aria-current={
-                filter.id === router.query.view ? 'page' : undefined
-              }
-            >
-              {filter.name}
-            </a>
-          </Link>
-        ))}
-      </div>
+              <a
+                className={classNames(
+                  router.query.view === undefined
+                    ? 'navigation-active'
+                    : 'navigation-inactive',
+                  'navigation'
+                )}
+                aria-current={
+                  router.query.view === undefined ? 'page' : undefined
+                }
+              >
+                <HomeIcon />
+                Home
+              </a>
+            </Link>
+            {/* Trending, Upcoming */}
+            {sorts.map((sort) => (
+              <Link
+                key={sort.id}
+                href={{
+                  pathname: '/home',
+                  query: { view: sort.id }
+                }}
+              >
+                <a
+                  className={classNames(
+                    sort.id === router.query.view
+                      ? 'navigation-active'
+                      : 'navigation-inactive',
+                    'navigation'
+                  )}
+                  aria-current={
+                    sort.id === router.query.view ? 'page' : undefined
+                  }
+                >
+                  {sort.icon && <sort.icon />}
+                  {sort.name}
+                </a>
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2 pt-4">
+            {/* Categories */}
+            {filters.map((filter) => (
+              <Link
+                key={filter.id}
+                href={{
+                  pathname: '/home',
+                  query: { view: filter.id }
+                }}
+              >
+                <a
+                  className={classNames(
+                    filter.id === router.query.view
+                      ? 'navigation-active'
+                      : 'navigation-inactive',
+                    'navigation'
+                  )}
+                  aria-current={
+                    filter.id === router.query.view ? 'page' : undefined
+                  }
+                >
+                  {filter.name}
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </Transit>
     </div>
   )
 }

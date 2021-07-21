@@ -1,0 +1,14 @@
+fragment PostInfo on Post {
+  id
+  creatorStatus
+  creator {
+    id
+    profile {
+      firstName
+      lastName
+    }
+    username
+  }
+  createdAt
+  text
+}

@@ -1,0 +1,18 @@
+fragment Header on User {
+  id
+  username
+  profile {
+    firstName
+    lastName
+    about
+    telegramHandle
+  }
+  categories {
+    id
+    name
+  }
+  adminCharities {
+    id
+    name
+  }
+}

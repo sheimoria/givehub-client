@@ -1,26 +1,35 @@
-import { gql, useMutation } from '@apollo/client'
+import * as yup from 'yup'
+
+import React, { useState } from 'react'
 
 import { ArrowSmRightIcon } from '@heroicons/react/solid'
-import BodyLite from 'components/layout/BodyLite'
+import Body from 'components/layout/Body'
 import Form from 'components/forms/Form'
+import Input from 'components/forms/Input'
 import Link from 'next/link'
-import { forgotPasswordSchema } from 'utils/formSchemas'
-import { useState } from 'react'
+import { useForgotPasswordMutation } from 'generated/graphql'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function ForgotPassword() {
   const [complete, setComplete] = useState(false)
-  const [forgotPassword] = useMutation(gql`
-    mutation ForgotPassword($email: String!) {
-      forgotPassword(email: $email)
-    }
-  `)
-  async function handleSubmit(values) {
+  const [forgotPassword] = useForgotPasswordMutation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(
+      yup.object().shape({ email: yup.string().email().required('Required') })
+    )
+  })
+  async function handleForgotPassword(values) {
     await forgotPassword({ variables: values })
     setComplete(true)
   }
 
   return (
-    <BodyLite title="Forgot password">
+    <Body title="Forgot password">
       {complete ? (
         <>
           <p>
@@ -35,8 +44,16 @@ export default function ForgotPassword() {
           </Link>
         </>
       ) : (
-        <Form onSubmit={handleSubmit} schema={forgotPasswordSchema} />
+        <Form handleSubmit={handleSubmit} onSubmit={handleForgotPassword}>
+          <Input
+            name="email"
+            label="Registered email address"
+            register={register}
+            errors={errors.email}
+          />
+          <button type="submit">Send password reset email</button>
+        </Form>
       )}
-    </BodyLite>
+    </Body>
   )
 }

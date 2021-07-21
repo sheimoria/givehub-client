@@ -1,0 +1,10 @@
+fragment TaskCard on Task {
+  id
+  adminStatus
+  description
+  deadline
+  createdAt
+  volunteersAssigned {
+    ...UserProfile
+  }
+}

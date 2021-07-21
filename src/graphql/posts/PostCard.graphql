@@ -1,0 +1,4 @@
+fragment PostCard on Post {
+  ...PostInfo
+  ...PostLikes
+}

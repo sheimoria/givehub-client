@@ -1,0 +1,20 @@
+fragment UserProfile on User {
+  username
+  email
+  profile {
+    about
+    firstName
+    lastName
+  }
+  categories {
+    id
+    name
+  }
+  adminCharities {
+    id
+    name
+  }
+  friendStatus
+  friendNumber
+  followedCharitiesNumber
+}

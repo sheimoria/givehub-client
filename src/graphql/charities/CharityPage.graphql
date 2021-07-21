@@ -1,0 +1,6 @@
+fragment CharityPage on Charity {
+  id
+  adminStatus
+  ...CharityProfile
+  ...CharityEvents
+}

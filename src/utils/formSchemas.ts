@@ -18,19 +18,39 @@ export const signUpSchema = {
   name: 'signUp',
   label: 'Sign up as user',
   fields: [
-    /* { name: 'firstName', label: 'First name' },
-    { name: 'lastName', label: 'Last name' }, */
+    { name: 'firstName', label: 'First name' },
+    { name: 'lastName', label: 'Last name' },
     { name: 'username', label: 'Username' },
     { name: 'email', label: 'Email address' },
-    { name: 'password', label: 'Password' }
+    { name: 'password', label: 'Password' },
+    /* { name: 'gender', label: 'Gender' }, */
+    { name: 'about', label: 'Bio', type: 'textarea' },
+    { name: 'telegramHandle', label: 'Telegram handle' },
+    {
+      name: 'categories',
+      label: 'Interests',
+      type: 'select',
+      options: [
+        { name: 1, label: 'Animal Welfare' },
+        { name: 2, label: 'Arts and Heritage' },
+        {
+          name: 3,
+          label: 'Children and Youth'
+        },
+        { name: 4, label: 'Community' },
+        { name: 5, label: 'Disability' },
+        { name: 6, label: 'Education' },
+        { name: 7, label: 'Elderly' },
+        { name: 8, label: 'Environment' },
+        { name: 9, label: 'Families' },
+        { name: 10, label: 'Health' },
+        { name: 11, label: 'Humanitarian' },
+        { name: 12, label: 'Social Service' },
+        { name: 13, label: 'Sports' },
+        { name: 14, label: 'Women and Girls' }
+      ]
+    }
   ],
-  validation: yup.object().shape({
-    /* firstName: yup.string().required('Required'),
-    lastName: yup.string().required('Required'), */
-    username: yup.string().required('Required'),
-    email: yup.string().required('Required'),
-    password: yup.string().required('Required')
-  }),
   submitLabel: 'Continue'
 }
 
@@ -153,14 +173,6 @@ export const eventSchema = {
   submitLabel: 'Create Event'
 }
 
-export const forgotPasswordSchema = {
-  name: 'forgotPassword',
-  label: 'Forgot password',
-  fields: [{ name: 'email', label: 'Registered email address' }],
-  validation: yup.object().shape({ email: yup.string().required('Required') }),
-  submitLabel: 'Send password reset email'
-}
-
 export const newPost = {
   name: 'newPost',
   label: 'New post',
@@ -185,16 +197,6 @@ export const editPost = {
   validation: yup.object().shape({
     title: yup.string().required('Required'),
     text: yup.string().required('Required')
-  }),
-  submitLabel: 'Save'
-}
-
-export const changePasswordSchema = {
-  name: 'changePassword',
-  label: 'Change password',
-  fields: [{ name: 'newPassword', label: 'New password' }],
-  validation: yup.object().shape({
-    newPassword: yup.string().required('Required')
   }),
   submitLabel: 'Save'
 }

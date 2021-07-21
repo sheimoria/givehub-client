@@ -1,0 +1,5 @@
+fragment EventCard on Event {
+  ...EventInfo
+  ...EventLikes
+  ...EventRequests
+}

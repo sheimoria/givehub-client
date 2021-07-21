@@ -1,4 +1,0 @@
-fragment RequestEvent on Event {
-  id
-  approvalStatus
-}

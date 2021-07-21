@@ -1,0 +1,7 @@
+mutation LikeEvent($eventId: Int!) {
+  likeEvent(eventId: $eventId) {
+    likeItem {
+      ...EventLikes
+    }
+  }
+}

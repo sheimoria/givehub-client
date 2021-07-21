@@ -1,0 +1,6 @@
+fragment UserPost on User {
+  id
+  profile {
+    displayPicture
+  }
+}

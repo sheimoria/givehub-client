@@ -1,8 +1,0 @@
-mutation RequestEvent($eventId: Int!) {
-  requestEvent(eventId: $eventId) {
-    event {
-      id
-      approvalStatus
-    }
-  }
-}

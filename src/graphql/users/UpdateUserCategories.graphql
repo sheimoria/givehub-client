@@ -1,0 +1,9 @@
+mutation UpdateUserCategories($categories: CategoryInput!) {
+  updateUserCategories(categories: $categories) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}

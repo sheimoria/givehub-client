@@ -8,7 +8,6 @@ generates:
       - 'typescript-operations'
       - 'typescript-react-apollo'
 watch: true
-# Passed directly through to chokidar's file watch configuration
 watchConfig:
   usePolling: true
   interval: 1000

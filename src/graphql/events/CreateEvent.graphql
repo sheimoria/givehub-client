@@ -1,0 +1,14 @@
+mutation CreateEvent($charityId: Float!, $input: EventInput!) {
+  createEvent(charityId: $charityId, input: $input) {
+    errors {
+      field
+      message
+    }
+    event {
+      id
+      name
+      description
+    }
+    success
+  }
+}

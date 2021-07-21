@@ -1,38 +1,35 @@
-import { UserGroupIcon } from '@heroicons/react/solid'
-import {
-  CharityDocument,
-  FollowCharityFragment,
-  useFollowCharityMutation
-} from 'generated/graphql'
+import { CharityDocument, useFollowCharityMutation } from 'generated/graphql'
+
+import router from 'next/router'
 
 export default function FollowCharity({
-  followCharity
+  followStatus
 }: {
-  followCharity: FollowCharityFragment
+  followStatus: number
 }) {
   const [follow] = useFollowCharityMutation({
-    variables: { charityId: followCharity.id },
+    variables: { charityId: parseInt(router.query.charityId as string) },
     refetchQueries: [
-      { query: CharityDocument, variables: { charityId: followCharity.id } }
+      {
+        query: CharityDocument,
+        variables: { charityId: parseInt(router.query.charityId as string) }
+      }
     ]
   })
 
-  return (
-    <>
-      {/* Followers */}
-      <div className="flex items-center gap-2">
-        <UserGroupIcon />
-        <p>{followCharity.followNumber} followers</p>
-      </div>
-      {followCharity.followStatus === 1 ? (
-        <button onClick={() => follow()} className="rounded-button-outline">
-          Following
-        </button>
-      ) : (
-        <button onClick={() => follow()} className="rounded-button-solid">
-          Follow
-        </button>
-      )}
-    </>
+  return followStatus === 1 ? (
+    <button
+      onClick={() => follow()}
+      className="rounded-button-outline button-highlight"
+    >
+      Following
+    </button>
+  ) : (
+    <button
+      onClick={() => follow()}
+      className="rounded-button-solid button-highlight"
+    >
+      Follow
+    </button>
   )
 }

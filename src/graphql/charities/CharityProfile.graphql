@@ -1,0 +1,17 @@
+fragment CharityProfile on Charity {
+  name
+  physicalAddress
+  postalCode
+  followNumber
+  followStatus
+  profile {
+    about
+    displayPicture
+    links
+  }
+  categories {
+    id
+    name
+  }
+  adminStatus
+}

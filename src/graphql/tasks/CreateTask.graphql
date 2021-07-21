@@ -1,0 +1,12 @@
+mutation CreateTask($taskInput: TaskInput!, $eventId: Int!) {
+  createTask(taskInput: $taskInput, eventId: $eventId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...TaskCard
+    }
+    success
+  }
+}

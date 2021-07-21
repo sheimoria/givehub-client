@@ -19,6 +19,7 @@
     "@tailwindcss/line-clamp": "latest",
     "@tailwindcss/typography": "latest",
     "graphql": "latest",
+    "graphql-anywhere": "latest",
     "next": "latest",
     "next-themes": "latest",
     "react": "latest",

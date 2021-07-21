@@ -1,0 +1,21 @@
+query Events(
+  $limit: Int!
+  $categories: [Float!]!
+  $sortByLikes: Boolean!
+  $sortByUpcoming: Boolean!
+) {
+  searchEvents(
+    input: null
+    cursor: null
+    limit: $limit
+    categories: $categories
+    sortByLikes: $sortByLikes
+    sortByUpcoming: $sortByUpcoming
+  ) {
+    items {
+      ...EventCard
+    }
+    total
+    hasMore
+  }
+}

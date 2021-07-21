@@ -1,5 +1,0 @@
-query Charity($charityId: Int!) {
-  charitySearchByID(id: $charityId) {
-    ...Charity
-  }
-}

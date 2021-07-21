@@ -1,0 +1,5 @@
+fragment EventLikes on Event {
+  id
+  likeStatus
+  likeNumber
+}

@@ -1,5 +1,0 @@
-fragment LikeEvent on Event {
-  id
-  voteStatus
-  likeNumber
-}

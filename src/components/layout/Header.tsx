@@ -21,7 +21,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
             <Avatar me={me} />
           ) : (
             <>
-              <Link href="/log-in">
+              <Link href="/">
                 <a>Log in</a>
               </Link>
               <button onClick={() => router.push('/sign-up')}>Sign up</button>

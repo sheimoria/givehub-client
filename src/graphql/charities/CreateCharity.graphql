@@ -1,0 +1,15 @@
+mutation CreateCharity($options: CharityDataInput!) {
+  createCharity(options: $options) {
+    errors {
+      field
+      message
+    }
+    charity {
+      id
+      name
+      physicalAddress
+      postalCode
+    }
+    success
+  }
+}

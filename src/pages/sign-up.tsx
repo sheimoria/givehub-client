@@ -1,10 +1,10 @@
 import Body from 'components/layout/Body'
-import SignUpForm from 'components/forms/SignUpForm'
+import CreateUser from 'components/user/CreateUser'
 
 export default function SignUp() {
   return (
     <Body title="Sign up">
-      <SignUpForm />
+      <CreateUser />
     </Body>
   )
 }

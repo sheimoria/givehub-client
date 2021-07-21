@@ -1,5 +1,5 @@
 import Body from 'components/layout/Body'
-import CreateEventForm from 'components/forms/CreateEventForm'
+import CreateEventForm from 'components/CreateEventForm'
 
 export default function CreateEvent() {
   return (

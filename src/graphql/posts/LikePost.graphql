@@ -1,0 +1,9 @@
+mutation LikePost($postId: Int!) {
+  likePost(postId: $postId) {
+    likeItem {
+      post {
+        ...PostLikes
+      }
+    }
+  }
+}

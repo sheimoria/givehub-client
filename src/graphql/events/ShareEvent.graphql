@@ -1,0 +1,17 @@
+mutation ShareEvent($input: PostInput!, $id: Float!) {
+  shareEvent(input: $input, id: $id) {
+    errors {
+      field
+      message
+    }
+    epost {
+      post {
+        ...PostCard
+      }
+      event {
+        ...EventCard
+      }
+    }
+    success
+  }
+}

@@ -1,7 +1,10 @@
 import Body from 'components/layout/Body'
-import Event from 'components/Event'
+import CreateTask from 'components/tasks/CreateTask'
+import Event from 'components/events/Event'
 import React from 'react'
-import VolunteerRequests from 'components/VolunteerRequests'
+import Tasks from 'components/events/Tasks'
+import VolunteerRequests from 'components/events/VolunteerRequests'
+import Volunteers from 'components/events/Volunteers'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -17,7 +20,14 @@ export default withAuth(function ViewEvent({ me }) {
       {data && (
         <>
           <Event event={data.event} />
-          {data.event.adminStatus && <VolunteerRequests />}
+          {data.event.adminStatus && (
+            <>
+              <CreateTask />
+              <VolunteerRequests />
+              <Tasks />
+              <Volunteers />
+            </>
+          )}
         </>
       )}
     </Body>

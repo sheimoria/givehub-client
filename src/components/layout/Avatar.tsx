@@ -21,7 +21,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="p-0 bg-transparent rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
+          <Menu.Button className="bg-transparent rounded-full h-9 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
             <span className="sr-only">Open user menu</span>
             <Image
               src="/avatar.svg"
@@ -46,11 +46,15 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white rounded-md shadow-md dark:bg-gray-800"
             >
               <Menu.Item>
-                {({ active }) => <h6 className="px-6 py-3"> {me.username}</h6>}
+                {({ active }) => (
+                  <h6 className="px-6 py-3">
+                    {me.profile.firstName} {me.profile.lastName}
+                  </h6>
+                )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <Link href={`/users/${me.id}`}>
+                  <Link href={{ pathname: '/user', query: { userId: me.id } }}>
                     <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Profile
                     </a>
@@ -58,24 +62,10 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }) => <p className="px-6 py-3">My Charities</p>}
-              </Menu.Item>
-              {me.adminCharities.map((charity) => (
-                <Menu.Item key={charity.id}>
-                  {({ active }) => (
-                    <Link href={`/charities/${charity.id}`}>
-                      <a className="py-3 pl-8 pr-6 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                        {charity.name}
-                      </a>
-                    </Link>
-                  )}
-                </Menu.Item>
-              ))}
-              <Menu.Item>
                 {({ active }) => (
-                  <Link href={`/charities/sign-up`}>
+                  <Link href={{ pathname: '/charities' }}>
                     <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                      New Charity
+                      My Charities
                     </a>
                   </Link>
                 )}

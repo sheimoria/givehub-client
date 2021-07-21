@@ -1,0 +1,25 @@
+mutation UpdateCharityProfile(
+  $options: CharityProfileUpdateInput!
+  $charityId: Float!
+) {
+  updateCharityProfile(options: $options, charityId: $charityId) {
+    errors {
+      field
+      message
+    }
+    charity {
+      name
+      physicalAddress
+      postalCode
+      profile {
+        about
+        links
+      }
+      categories {
+        id
+        name
+      }
+    }
+    success
+  }
+}

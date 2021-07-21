@@ -1,12 +1,13 @@
+import { HeaderFragment, MeQuery } from 'generated/graphql'
+import React, { ReactNode } from 'react'
+
+import CharitiesToFollow from 'components/layout/CharitiesToFollow'
 import Footer from 'components/layout/Footer'
 import Head from 'next/head'
 import Header from 'components/layout/Header'
-import { HeaderFragment, MeQuery } from 'generated/graphql'
-import React, { ReactNode } from 'react'
 import Navigation from './Navigation'
-import YourEvents from 'components/YourEvents'
-import CharitiesToFollow from 'components/CharitiesToFollow'
-import PeopleToFollow from 'components/PeopleToFollow'
+import PeopleToFollow from 'components/layout/PeopleToFollow'
+import YourEvents from 'components/layout/YourEvents'
 
 type BodyProps = {
   title: string

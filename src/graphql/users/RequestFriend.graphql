@@ -1,0 +1,10 @@
+mutation RequestFriend($userId: Float!) {
+  requestFriend(userId: $userId) {
+    user {
+      id
+    }
+    userList {
+      id
+    }
+  }
+}
