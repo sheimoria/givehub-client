@@ -1,5 +1,9 @@
 mutation AcceptFriendRequest($userId: Float!, $accept: Boolean!) {
   acceptFriendRequest(userId: $userId, accept: $accept) {
+    errors {
+      field
+      message
+    }
     success
   }
 }

@@ -95,6 +95,25 @@ export type Charityprofile = {
   updatedAt: Scalars['String'];
 };
 
+export type Comment = {
+  __typename?: 'Comment';
+  id: Scalars['Float'];
+  text: Scalars['String'];
+  authorId: Scalars['Float'];
+  postId: Scalars['Float'];
+  parentId?: Maybe<Scalars['Int']>;
+  rootId: Scalars['Float'];
+  auditstat: Scalars['Boolean'];
+  level: Scalars['Float'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type CommentInput = {
+  text: Scalars['String'];
+  parentId?: Maybe<Scalars['Int']>;
+};
+
 export type EPost = {
   __typename?: 'EPost';
   post: Post;
@@ -218,6 +237,9 @@ export type Mutation = {
   createPost: EPost;
   updatePost?: Maybe<EPost>;
   deletePost: Scalars['Boolean'];
+  commentOnPost: PostResponse;
+  updateCommentOnPost: PostResponse;
+  deleteCommentOnPost: PostResponse;
   createCharity: CharityResponse;
   updateCharityProfile: CharityResponse;
   followCharity: CharityResponse;
@@ -312,6 +334,23 @@ export type MutationUpdatePostArgs = {
 
 export type MutationDeletePostArgs = {
   id: Scalars['Float'];
+};
+
+
+export type MutationCommentOnPostArgs = {
+  input: CommentInput;
+  postId: Scalars['Float'];
+};
+
+
+export type MutationUpdateCommentOnPostArgs = {
+  input: CommentInput;
+  commentId: Scalars['Float'];
+};
+
+
+export type MutationDeleteCommentOnPostArgs = {
+  commentId: Scalars['Float'];
 };
 
 
@@ -430,6 +469,13 @@ export type PaginatedCharities = {
   hasMore: Scalars['Boolean'];
 };
 
+export type PaginatedComments = {
+  __typename?: 'PaginatedComments';
+  items: Array<Comment>;
+  total: Scalars['Int'];
+  hasMore: Scalars['Boolean'];
+};
+
 export type PaginatedEventVolunteers = {
   __typename?: 'PaginatedEventVolunteers';
   items: Array<EventVolunteerContainer>;
@@ -476,6 +522,7 @@ export type Post = {
   textSnippet: Scalars['String'];
   likeStatus: Scalars['Boolean'];
   creatorStatus: Scalars['Boolean'];
+  comments?: Maybe<Array<Comment>>;
 };
 
 export type PostInput = {
@@ -490,6 +537,13 @@ export type PostLikeResponse = {
   errors?: Maybe<Array<FieldError>>;
 };
 
+export type PostResponse = {
+  __typename?: 'PostResponse';
+  epost: EPost;
+  success: Scalars['Boolean'];
+  errors?: Maybe<Array<FieldError>>;
+};
+
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
@@ -501,6 +555,7 @@ export type Query = {
   searchUsers: PaginatedUsers;
   posts: PaginatedPosts;
   post?: Maybe<EPost>;
+  postComments: PaginatedComments;
   charitySearchByUEN?: Maybe<Charity>;
   charitySearchByID?: Maybe<Charity>;
   checkUENNumber: UenResponse;
@@ -534,6 +589,13 @@ export type QueryPostsArgs = {
 
 export type QueryPostArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryPostCommentsArgs = {
+  depth?: Maybe<Scalars['Int']>;
+  limit: Scalars['Float'];
+  postId: Scalars['Float'];
 };
 
 
@@ -867,6 +929,23 @@ export type CharityProfileFragment = (
   )> }
   & CharityHeaderFragment
   & CharityFollowsFragment
+);
+
+export type CharityRecommendationsQueryVariables = Exact<{
+  limit: Scalars['Float'];
+}>;
+
+
+export type CharityRecommendationsQuery = (
+  { __typename?: 'Query' }
+  & { charityRecommender: (
+    { __typename?: 'PaginatedCharities' }
+    & Pick<PaginatedCharities, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'Charity' }
+      & CharityHeaderFragment
+    )> }
+  ) }
 );
 
 export type CreateCharityMutationVariables = Exact<{
@@ -1326,6 +1405,11 @@ export type TaskCardFragment = (
   )>> }
 );
 
+export type TaskHeaderFragment = (
+  { __typename?: 'Task' }
+  & Pick<Task, 'id' | 'description' | 'deadline'>
+);
+
 export type AcceptFriendRequestMutationVariables = Exact<{
   userId: Scalars['Float'];
   accept: Scalars['Boolean'];
@@ -1337,6 +1421,27 @@ export type AcceptFriendRequestMutation = (
   & { acceptFriendRequest: (
     { __typename?: 'UserResponse' }
     & Pick<UserResponse, 'success'>
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
+export type FriendRecommendationsQueryVariables = Exact<{
+  limit: Scalars['Float'];
+}>;
+
+
+export type FriendRecommendationsQuery = (
+  { __typename?: 'Query' }
+  & { userRecommender: (
+    { __typename?: 'PaginatedUsers' }
+    & Pick<PaginatedUsers, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'User' }
+      & UserHeaderFragment
+    )> }
   ) }
 );
 
@@ -1485,7 +1590,7 @@ export type UserHeaderFragment = (
 
 export type UserProfileFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber'>
+  & Pick<User, 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber' | 'viewerStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'about'>
@@ -1497,6 +1602,26 @@ export type UserProfileFragment = (
     & Pick<Charity, 'id' | 'name'>
   )> }
   & UserHeaderFragment
+);
+
+export type UserTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserTasksQuery = (
+  { __typename?: 'Query' }
+  & { viewTasksAssignedToMe: (
+    { __typename?: 'EventTaskContainerResponse' }
+    & { eventContainers: Array<(
+      { __typename?: 'EventTaskContainer' }
+      & { event: (
+        { __typename?: 'Event' }
+        & EventHeaderFragment
+      ), tasks: Array<(
+        { __typename?: 'Task' }
+        & TaskHeaderFragment
+      )> }
+    )> }
+  ) }
 );
 
 export const CategoryFragmentDoc = gql`
@@ -1662,6 +1787,7 @@ export const UserProfileFragmentDoc = gql`
   friendStatus
   friendNumber
   followedCharitiesNumber
+  viewerStatus
 }
     ${UserHeaderFragmentDoc}`;
 export const TaskCardFragmentDoc = gql`
@@ -1676,6 +1802,13 @@ export const TaskCardFragmentDoc = gql`
   }
 }
     ${UserProfileFragmentDoc}`;
+export const TaskHeaderFragmentDoc = gql`
+    fragment TaskHeader on Task {
+  id
+  description
+  deadline
+}
+    `;
 export const HeaderFragmentDoc = gql`
     fragment Header on User {
   id
@@ -1935,6 +2068,44 @@ export function useCharityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ch
 export type CharityQueryHookResult = ReturnType<typeof useCharityQuery>;
 export type CharityLazyQueryHookResult = ReturnType<typeof useCharityLazyQuery>;
 export type CharityQueryResult = Apollo.QueryResult<CharityQuery, CharityQueryVariables>;
+export const CharityRecommendationsDocument = gql`
+    query CharityRecommendations($limit: Float!) {
+  charityRecommender(limit: $limit) {
+    items {
+      ...CharityHeader
+    }
+    hasMore
+  }
+}
+    ${CharityHeaderFragmentDoc}`;
+
+/**
+ * __useCharityRecommendationsQuery__
+ *
+ * To run a query within a React component, call `useCharityRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCharityRecommendationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCharityRecommendationsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useCharityRecommendationsQuery(baseOptions: Apollo.QueryHookOptions<CharityRecommendationsQuery, CharityRecommendationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CharityRecommendationsQuery, CharityRecommendationsQueryVariables>(CharityRecommendationsDocument, options);
+      }
+export function useCharityRecommendationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CharityRecommendationsQuery, CharityRecommendationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CharityRecommendationsQuery, CharityRecommendationsQueryVariables>(CharityRecommendationsDocument, options);
+        }
+export type CharityRecommendationsQueryHookResult = ReturnType<typeof useCharityRecommendationsQuery>;
+export type CharityRecommendationsLazyQueryHookResult = ReturnType<typeof useCharityRecommendationsLazyQuery>;
+export type CharityRecommendationsQueryResult = Apollo.QueryResult<CharityRecommendationsQuery, CharityRecommendationsQueryVariables>;
 export const CreateCharityDocument = gql`
     mutation CreateCharity($options: CharityDataInput!) {
   createCharity(options: $options) {
@@ -2759,6 +2930,10 @@ export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMut
 export const AcceptFriendRequestDocument = gql`
     mutation AcceptFriendRequest($userId: Float!, $accept: Boolean!) {
   acceptFriendRequest(userId: $userId, accept: $accept) {
+    errors {
+      field
+      message
+    }
     success
   }
 }
@@ -2790,6 +2965,44 @@ export function useAcceptFriendRequestMutation(baseOptions?: Apollo.MutationHook
 export type AcceptFriendRequestMutationHookResult = ReturnType<typeof useAcceptFriendRequestMutation>;
 export type AcceptFriendRequestMutationResult = Apollo.MutationResult<AcceptFriendRequestMutation>;
 export type AcceptFriendRequestMutationOptions = Apollo.BaseMutationOptions<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>;
+export const FriendRecommendationsDocument = gql`
+    query FriendRecommendations($limit: Float!) {
+  userRecommender(limit: $limit) {
+    items {
+      ...UserHeader
+    }
+    hasMore
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useFriendRecommendationsQuery__
+ *
+ * To run a query within a React component, call `useFriendRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendRecommendationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendRecommendationsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useFriendRecommendationsQuery(baseOptions: Apollo.QueryHookOptions<FriendRecommendationsQuery, FriendRecommendationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FriendRecommendationsQuery, FriendRecommendationsQueryVariables>(FriendRecommendationsDocument, options);
+      }
+export function useFriendRecommendationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendRecommendationsQuery, FriendRecommendationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FriendRecommendationsQuery, FriendRecommendationsQueryVariables>(FriendRecommendationsDocument, options);
+        }
+export type FriendRecommendationsQueryHookResult = ReturnType<typeof useFriendRecommendationsQuery>;
+export type FriendRecommendationsLazyQueryHookResult = ReturnType<typeof useFriendRecommendationsLazyQuery>;
+export type FriendRecommendationsQueryResult = Apollo.QueryResult<FriendRecommendationsQuery, FriendRecommendationsQueryVariables>;
 export const FriendRequestsDocument = gql`
     query FriendRequests {
   viewMyPendingFriendRequests {
@@ -3018,3 +3231,45 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const UserTasksDocument = gql`
+    query UserTasks {
+  viewTasksAssignedToMe {
+    eventContainers {
+      event {
+        ...EventHeader
+      }
+      tasks {
+        ...TaskHeader
+      }
+    }
+  }
+}
+    ${EventHeaderFragmentDoc}
+${TaskHeaderFragmentDoc}`;
+
+/**
+ * __useUserTasksQuery__
+ *
+ * To run a query within a React component, call `useUserTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserTasksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserTasksQuery(baseOptions?: Apollo.QueryHookOptions<UserTasksQuery, UserTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserTasksQuery, UserTasksQueryVariables>(UserTasksDocument, options);
+      }
+export function useUserTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserTasksQuery, UserTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserTasksQuery, UserTasksQueryVariables>(UserTasksDocument, options);
+        }
+export type UserTasksQueryHookResult = ReturnType<typeof useUserTasksQuery>;
+export type UserTasksLazyQueryHookResult = ReturnType<typeof useUserTasksLazyQuery>;
+export type UserTasksQueryResult = Apollo.QueryResult<UserTasksQuery, UserTasksQueryVariables>;

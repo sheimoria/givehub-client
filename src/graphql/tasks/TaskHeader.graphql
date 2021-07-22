@@ -1,0 +1,5 @@
+fragment TaskHeader on Task {
+  id
+  description
+  deadline
+}

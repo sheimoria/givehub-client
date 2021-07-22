@@ -27,7 +27,7 @@ export default function Event({ event, lineclamp }: EventProps) {
     <Transit onEveryMount>
       <article>
         <div className="flex flex-wrap justify-between gap-3">
-          <EventHeader eventHeader={filter(EventHeaderFragmentDoc, event)} />
+          <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
           {/*  <EditEvent event={event} /> */}
           <ShareEvent eventInfo={filter(EventInfoFragmentDoc, event)} />
         </div>

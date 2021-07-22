@@ -8,7 +8,7 @@ export default function Picture({ size }: { size: number }) {
       alt="Avatar"
       height={size}
       width={size}
-      className="rounded-full"
+      className="rounded-full "
     />
   )
 }

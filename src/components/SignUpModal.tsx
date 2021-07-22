@@ -38,7 +38,7 @@ export default function SignUpModal({ isOpen, setIsOpen }: Props) {
             <div className="z-10">
               <article>
                 <Dialog.Title as="h5">Sign up as user first</Dialog.Title>
-                <Dialog.Description className="hidden">
+                <Dialog.Description>
                   After logging in, you can add your charity to your user
                   account.
                 </Dialog.Description>

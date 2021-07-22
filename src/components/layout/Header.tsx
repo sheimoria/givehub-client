@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Search from 'components/layout/Search'
+import Transit from 'components/Transit'
 
 const Header = ({ me }: { me?: HeaderFragment }) => {
   const router = useRouter()
@@ -12,16 +13,18 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
   return (
     <header>
       <nav>
-        <Link href="/" passHref>
-          <div className="flex items-center pr-10">
-            <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
-          </div>
-        </Link>
-        <div className="flex flex-row-reverse items-center justify-between flex-auto">
+        <Transit>
+          <Link href="/" passHref>
+            <div className="flex items-center pr-8">
+              <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
+            </div>
+          </Link>
+        </Transit>
+        <Transit className="flex items-center flex-auto gap-5">
           {me ? (
             <>
-              <Avatar me={me} />
               <Search />
+              <Avatar me={me} />
             </>
           ) : (
             <div className="flex items-center gap-5">
@@ -31,7 +34,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
               <button onClick={() => router.push('/sign-up')}>Sign up</button>
             </div>
           )}
-        </div>
+        </Transit>
       </nav>
     </header>
   )

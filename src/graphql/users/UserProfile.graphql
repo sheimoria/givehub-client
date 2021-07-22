@@ -15,4 +15,5 @@ fragment UserProfile on User {
   friendStatus
   friendNumber
   followedCharitiesNumber
+  viewerStatus
 }

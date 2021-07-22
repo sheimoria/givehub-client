@@ -1,0 +1,12 @@
+query UserTasks {
+  viewTasksAssignedToMe {
+    eventContainers {
+      event {
+        ...EventHeader
+      }
+      tasks {
+        ...TaskHeader
+      }
+    }
+  }
+}

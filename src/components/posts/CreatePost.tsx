@@ -103,7 +103,7 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none focus:ring-0 dark:bg-gray-800"
+                  className="p-0 bg-white border-none shadow-none focus:ring-0 dark:bg-gray-800"
                 />
                 <div className="flex justify-between">
                   <a>

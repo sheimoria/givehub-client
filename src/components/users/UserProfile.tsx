@@ -7,18 +7,10 @@ import {
 
 import Link from 'next/link'
 import Picture from 'components/Picture'
-import React from 'react'
 import RequestFriend from './RequestFriend'
 import { UserProfileFragment } from 'generated/graphql'
-import { useRouter } from 'next/router'
 
-export default function UserProfile({
-  userProfile
-}: {
-  userProfile: UserProfileFragment
-}) {
-  const router = useRouter()
-
+export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
     <article className="items-start">
       <div className="flex flex-wrap items-center gap-3">
@@ -27,21 +19,21 @@ export default function UserProfile({
         <div className="flex flex-col">
           {/* Name */}
           <h5>
-            {userProfile.profile?.firstName} {userProfile.profile?.lastName}
+            {user.profile?.firstName} {user.profile?.lastName}
           </h5>
           {/* Handle */}
-          <p>@{userProfile.username}</p>
+          <p>@{user.username}</p>
         </div>
       </div>
       {/* About */}
-      <p>{userProfile.profile?.about}</p>
+      <p>{user.profile?.about}</p>
       {/* Interests */}
       <div className="flex flex-wrap items-center gap-2">
         <p>
           <HeartIcon />
           Interested in
         </p>
-        {userProfile.categories.map((category) => (
+        {user.categories.map((category) => (
           <Link
             key={category.id}
             href={{ pathname: '/home', query: { view: category.id } }}
@@ -51,12 +43,12 @@ export default function UserProfile({
         ))}
       </div>
       {/* Admin for */}
-      {userProfile.adminCharities.length > 0 && (
+      {user.adminCharities.length > 0 && (
         <div className="flex items-center gap-2">
           <p>
             <IdentificationIcon />
             Admin for{' '}
-            {userProfile.adminCharities.map((charity) => (
+            {user.adminCharities.map((charity) => (
               <Link
                 key={charity.id}
                 href={{
@@ -77,22 +69,19 @@ export default function UserProfile({
         <div className="flex items-center gap-2">
           <UsersIcon />
           <p>
-            {userProfile.friendNumber}{' '}
-            {userProfile.friendNumber === 1 ? 'friend' : 'friends'}
+            {user.friendNumber} {user.friendNumber === 1 ? 'friend' : 'friends'}
           </p>
         </div>
         {/* Causes */}
         <div className="flex items-center gap-2">
           <UserGroupIcon />
           <p>
-            {userProfile.followedCharitiesNumber}{' '}
-            {userProfile.followedCharitiesNumber === 1
-              ? 'charity'
-              : 'charities'}
+            {user.followedCharitiesNumber}{' '}
+            {user.followedCharitiesNumber === 1 ? 'charity' : 'charities'}
           </p>
         </div>
       </div>
-      <RequestFriend friendStatus={userProfile.friendStatus} />
+      {!user.viewerStatus && <RequestFriend friendStatus={user.friendStatus} />}
     </article>
   )
 }

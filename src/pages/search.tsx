@@ -92,7 +92,7 @@ export default withAuth(function Home({ me }) {
                       key={eventHeader.id}
                       className="p-3 border border-gray-200 rounded-lg dark:border-gray-700"
                     >
-                      <EventHeader eventHeader={eventHeader} />
+                      <EventHeader event={eventHeader} />
                     </div>
                   )
                 )}

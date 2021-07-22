@@ -21,10 +21,8 @@ export default withAuth(function User({ me }) {
     <Body title="User" me={me}>
       {data?.user && (
         <>
-          <UserProfile
-            userProfile={filter(UserProfileFragmentDoc, data.user)}
-          />
-          <UserEvents userEvents={filter(UserEventsFragmentDoc, data.user)} />
+          <UserProfile user={filter(UserProfileFragmentDoc, data.user)} />
+          <UserEvents user={filter(UserEventsFragmentDoc, data.user)} />
         </>
       )}
     </Body>

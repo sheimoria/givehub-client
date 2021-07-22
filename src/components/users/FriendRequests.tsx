@@ -6,7 +6,7 @@ export default function FriendRequests() {
   const { data } = useFriendRequestsQuery()
   return (
     <Transit>
-      <article>
+      <dl>
         <h5>Friend Requests</h5>
         <div className="divide">
           {data &&
@@ -15,7 +15,7 @@ export default function FriendRequests() {
               <FriendRequest key={user.id} user={user} />
             ))}
         </div>
-      </article>
+      </dl>
     </Transit>
   )
 }

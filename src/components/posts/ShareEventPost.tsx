@@ -112,7 +112,7 @@ export default function ShareEventPost({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-0"
+                  className="p-0 bg-white border-none shadow-sm dark:bg-gray-800 focus:ring-0"
                 />
                 <EventPreview eventInfo={eventInfo} />
                 <div className="flex justify-between">

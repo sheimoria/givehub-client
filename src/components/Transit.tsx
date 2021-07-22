@@ -3,10 +3,17 @@ import { Transition } from '@headlessui/react'
 
 type TransitProps = {
   onEveryMount?: boolean
+  as?: any
+  className?: string
   children: ReactNode
 }
 
-export default function Transit({ onEveryMount, children }: TransitProps) {
+export default function Transit({
+  onEveryMount,
+  as,
+  className,
+  children
+}: TransitProps) {
   return (
     <Transition
       appear={onEveryMount}
@@ -17,6 +24,8 @@ export default function Transit({ onEveryMount, children }: TransitProps) {
       leave="transition duration-200"
       leaveFrom="opacity-100"
       leaveTo="opacity-0 translate-y-2"
+      className={className}
+      as={as}
     >
       {children}
     </Transition>

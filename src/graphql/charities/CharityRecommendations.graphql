@@ -1,0 +1,8 @@
+query CharityRecommendations($limit: Float!) {
+  charityRecommender(limit: $limit) {
+    items {
+      ...CharityHeader
+    }
+    hasMore
+  }
+}

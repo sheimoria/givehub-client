@@ -18,66 +18,70 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
   }
 
   return (
-    <Menu as="div" className="relative">
-      {({ open }) => (
-        <>
-          <Menu.Button className="bg-transparent border-none rounded-full w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
-            <span className="sr-only">Open user menu</span>
-            <Image src="/avatar.svg" alt="Avatar" layout="fill" />
-          </Menu.Button>
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items
-              static
-              className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white rounded-md shadow-md dark:bg-gray-800"
+    <div className="flex justify-end flex-none w-96">
+      <Menu as="div" className="relative">
+        {({ open }) => (
+          <>
+            <Menu.Button className="bg-transparent border-none rounded-full shadow-sm w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
+              <span className="sr-only">Open user menu</span>
+              <Image src="/avatar.svg" alt="Avatar" layout="fill" />
+            </Menu.Button>
+            <Transition
+              show={open}
+              as={Fragment}
+              enter="transition"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Item>
-                {({ active }) => (
-                  <h6 className="px-6 py-3">
-                    {me.profile?.firstName} {me.profile?.lastName}
-                  </h6>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link href={{ pathname: '/user', query: { userId: me.id } }}>
-                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                      My Profile
+              <Menu.Items
+                static
+                className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white rounded-md shadow-md dark:bg-gray-800"
+              >
+                <Menu.Item>
+                  {({ active }) => (
+                    <h6 className="px-6 py-3">
+                      {me.profile?.firstName} {me.profile?.lastName}
+                    </h6>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      href={{ pathname: '/user', query: { userId: me.id } }}
+                    >
+                      <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                        My Profile
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link href={{ pathname: '/charities' }}>
+                      <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                        My Charities
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
+                      onClick={handleLogOut}
+                    >
+                      Log Out
                     </a>
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link href={{ pathname: '/charities' }}>
-                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
-                      My Charities
-                    </a>
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
-                    onClick={handleLogOut}
-                  >
-                    Log Out
-                  </a>
-                )}
-              </Menu.Item>
-            </Menu.Items>
-          </Transition>
-        </>
-      )}
-    </Menu>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </>
+        )}
+      </Menu>
+    </div>
   )
 }

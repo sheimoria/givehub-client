@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "latest",
@@ -43,6 +44,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
+    "husky": "^7.0.1",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"

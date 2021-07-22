@@ -1,0 +1,8 @@
+query FriendRecommendations($limit: Float!) {
+  userRecommender(limit: $limit) {
+    items {
+      ...UserHeader
+    }
+    hasMore
+  }
+}

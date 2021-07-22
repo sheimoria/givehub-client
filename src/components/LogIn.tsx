@@ -67,7 +67,7 @@ export default function LogIn() {
         errors={errors.password}
       />
       <Link href="/forgot-password">
-        <a>Forgot password?</a>
+        <a className="text-rose-600 hover:text-rose-700">Forgot password?</a>
       </Link>
       <button type="submit">Log in</button>
     </Form>

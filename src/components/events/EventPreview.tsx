@@ -23,7 +23,7 @@ export default function EventPreview({
           router.push({ pathname: `/event`, query: { eventId: eventInfo.id } })
         }
       >
-        <EventHeader eventHeader={filter(EventHeaderFragmentDoc, eventInfo)} />
+        <EventHeader event={filter(EventHeaderFragmentDoc, eventInfo)} />
         <p className="line-clamp-3">{eventInfo.description}</p>
       </article>
     </Transit>

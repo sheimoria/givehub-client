@@ -2,11 +2,7 @@ import Event from 'components/events/Event'
 import { UserEventsFragment } from 'generated/graphql'
 import classNames from 'utils/classNames'
 import { useState } from 'react'
-export default function UserEvents({
-  userEvents
-}: {
-  userEvents: UserEventsFragment
-}) {
+export default function UserEvents({ user }: { user: UserEventsFragment }) {
   const [filter, setFilter] = useState('Liked')
 
   return (
@@ -34,10 +30,10 @@ export default function UserEvents({
         </a>
       </div>
       {filter === 'Liked'
-        ? userEvents.likedEvents.map((event) => (
+        ? user.likedEvents.map((event) => (
             <Event key={event.id} event={event} />
           ))
-        : userEvents.volunteeredEvents.map((event) => (
+        : user.volunteeredEvents.map((event) => (
             <Event key={event.id} event={event} />
           ))}
     </section>
