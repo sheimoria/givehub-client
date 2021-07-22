@@ -8,6 +8,8 @@ type InputProps = {
   placeholder?: string
   register: UseFormRegister<FieldValues>
   errors: any
+  onFocus?: () => void
+  onBlur?: () => void
   className?: string
 }
 
@@ -17,6 +19,8 @@ export default function Input({
   placeholder,
   register,
   errors,
+  onFocus,
+  onBlur,
   className
 }: InputProps) {
   return (
@@ -26,6 +30,9 @@ export default function Input({
         placeholder={placeholder}
         {...register(name)}
         className={className}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        autoComplete="off"
       />
       {errors && (
         <span className="flex gap-2 text-sm text-red-500">

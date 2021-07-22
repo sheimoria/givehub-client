@@ -16,7 +16,7 @@ export default withAuth(function Charity({ me }) {
 
   return (
     <Body title="Charity" me={me}>
-      {data && (
+      {data && data.charitySearchByID && (
         <>
           <CharityProfile
             charityProfile={filter(
@@ -24,7 +24,7 @@ export default withAuth(function Charity({ me }) {
               data.charitySearchByID
             )}
           />
-          {data.charitySearchByID.adminStatus && <CharityPost />}
+          {data.charitySearchByID?.adminStatus && <CharityPost />}
           <CharityEvents events={data.charitySearchByID.charityEvents} />
         </>
       )}

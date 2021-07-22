@@ -10,13 +10,13 @@ export default function VolunteerRequests() {
   return data ? (
     <article>
       <h5>Volunteer Requests</h5>
-      {data.getVolunteerRequestListForEvents.items.map((request) => (
+      {data.getVolunteerRequestListForEvents?.items?.map((request) => (
         <div
-          key={request.user.id}
+          key={request.user?.id}
           className="flex items-center justify-between gap-4"
         >
           <p>
-            {request.user.profile?.firstName} {request.user.profile?.lastName}
+            {request.user?.profile?.firstName} {request.user?.profile?.lastName}
           </p>
           {request.adminapproval === 'PENDING' ? (
             <div className="flex items-center gap-2">

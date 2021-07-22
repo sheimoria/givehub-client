@@ -1,0 +1,15 @@
+query SearchEvents($input: String) {
+  searchEvents(
+    input: $input
+    cursor: null
+    limit: 3
+    categories: []
+    sortByUpcoming: false
+    sortByLikes: false
+  ) {
+    items {
+      ...EventHeader
+    }
+    hasMore
+  }
+}

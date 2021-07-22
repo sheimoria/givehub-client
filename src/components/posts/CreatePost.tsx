@@ -1,8 +1,12 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { PostsDocument, useCreatePostMutation } from 'generated/graphql'
-import React, { Fragment } from 'react'
+import {
+  PostInput,
+  PostsDocument,
+  useCreatePostMutation
+} from 'generated/graphql'
+import { Fragment } from 'react'
 
 import Form from 'components/forms/Form'
 import { PhotographIcon } from '@heroicons/react/outline'
@@ -14,7 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 type CreatePostProps = {
   isOpen: boolean
-  setIsOpen: (boolean) => void
+  setIsOpen: (arg0: boolean) => void
 }
 
 export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
@@ -32,7 +36,7 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
   })
   const router = useRouter()
 
-  async function handleCreatePost(values) {
+  async function handleCreatePost(values: PostInput) {
     const response = await createPost({
       variables: {
         input: values
@@ -44,7 +48,7 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
         }
       ]
     })
-    if (!response.data.createPost.post) {
+    if (!response.data?.createPost?.post) {
       return console.error('There was an error creating your post.')
     } else {
       setIsOpen(false)

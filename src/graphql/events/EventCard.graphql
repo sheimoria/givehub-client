@@ -1,4 +1,5 @@
 fragment EventCard on Event {
+  adminStatus
   ...EventInfo
   ...EventLikes
   ...EventRequests

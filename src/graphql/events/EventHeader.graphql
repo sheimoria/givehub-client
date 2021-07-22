@@ -1,0 +1,11 @@
+fragment EventHeader on Event {
+  id
+  charity {
+    ...CharityHeader
+  }
+  createdAt
+  name
+  dateStart
+  dateEnd
+  venue
+}

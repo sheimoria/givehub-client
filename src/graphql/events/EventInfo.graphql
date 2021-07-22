@@ -1,14 +1,4 @@
 fragment EventInfo on Event {
-  id
-  adminStatus
-  charity {
-    id
-    name
-  }
-  createdAt
-  dateStart
-  dateEnd
-  venue
-  name
+  ...EventHeader
   description
 }

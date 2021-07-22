@@ -27,7 +27,7 @@ export default function UserProfile({
         <div className="flex flex-col">
           {/* Name */}
           <h5>
-            {userProfile.profile.firstName} {userProfile.profile.lastName}
+            {userProfile.profile?.firstName} {userProfile.profile?.lastName}
           </h5>
           {/* Handle */}
           <p>@{userProfile.username}</p>

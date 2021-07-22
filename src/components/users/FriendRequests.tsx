@@ -1,6 +1,5 @@
 import Transit from 'components/Transit'
 import { useFriendRequestsQuery } from 'generated/graphql'
-import React from 'react'
 import FriendRequest from './FriendRequest'
 
 export default function FriendRequests() {
@@ -9,9 +8,10 @@ export default function FriendRequests() {
     <Transit>
       <article>
         <h5>Friend Requests</h5>
-        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="divide">
           {data &&
-            data.viewMyPendingFriendRequests.userList.map((user) => (
+            //@ts-ignore
+            data.viewMyPendingFriendRequests?.userList.map((user) => (
               <FriendRequest key={user.id} user={user} />
             ))}
         </div>

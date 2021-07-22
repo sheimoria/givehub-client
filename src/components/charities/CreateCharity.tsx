@@ -52,11 +52,22 @@ export default function CreateCharity() {
     name: string
   }
 
-  async function handleCreateCharity(values) {
+  type FormValues = {
+    uen: string
+    name: string
+    physicalAddress: string
+    postalCode: string
+    about: string
+    links: string
+  }
+
+  async function handleCreateCharity(values: FormValues) {
     const categories = Array.from(
       document.querySelectorAll('input[type="checkbox"]')
     )
+      //@ts-ignore
       .filter((checkbox: Checkbox) => checkbox.checked)
+      //@ts-ignore
       .map((checkbox: Checkbox) => parseInt(checkbox.name))
     const createCharityResponse = await createCharity({
       variables: {
@@ -68,29 +79,31 @@ export default function CreateCharity() {
         }
       }
     })
-    if (createCharityResponse.data.createCharity.errors) {
+    if (createCharityResponse.data?.createCharity?.errors) {
       createCharityResponse.data.createCharity.errors.forEach(
         ({ field, message }) =>
           setError(field, { type: 'manual', message: message })
       )
-    } else if (createCharityResponse.data.createCharity.success) {
+    } else if (createCharityResponse.data?.createCharity?.success) {
       const updateCharityProfileResponse = await updateCharityProfile({
         variables: {
-          charityId: createCharityResponse.data.createCharity.charity.id,
+          charityId: createCharityResponse.data?.createCharity?.charity
+            ?.id as number,
           options: {
-            name: createCharityResponse.data.createCharity.charity.name,
-            physicalAddress:
-              createCharityResponse.data.createCharity.charity.physicalAddress,
-            postalCode:
-              createCharityResponse.data.createCharity.charity.postalCode,
+            name: createCharityResponse.data?.createCharity?.charity
+              ?.name as string,
+            physicalAddress: createCharityResponse.data?.createCharity?.charity
+              ?.physicalAddress as string,
+            postalCode: createCharityResponse.data?.createCharity?.charity
+              ?.postalCode as string,
             about: values.about,
             links: values.links,
             categories: categories
           }
         }
       })
-      if (updateCharityProfileResponse.data.updateCharityProfile.errors) {
-        updateCharityProfileResponse.data.updateCharityProfile.errors.forEach(
+      if (updateCharityProfileResponse.data?.updateCharityProfile?.errors) {
+        updateCharityProfileResponse.data?.updateCharityProfile?.errors.forEach(
           ({ field, message }) =>
             setError(field, { type: 'manual', message: message })
         )
@@ -98,7 +111,7 @@ export default function CreateCharity() {
         router.replace({
           pathname: '/charity',
           query: {
-            charityId: createCharityResponse.data.createCharity.charity.id
+            charityId: createCharityResponse.data?.createCharity?.charity?.id
           }
         })
       }

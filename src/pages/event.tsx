@@ -17,7 +17,7 @@ export default withAuth(function ViewEvent({ me }) {
 
   return (
     <Body title="Event" me={me}>
-      {data && (
+      {data && data.event && (
         <>
           <Event event={data.event} />
           {data.event.adminStatus && (

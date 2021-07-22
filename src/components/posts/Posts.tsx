@@ -1,6 +1,11 @@
-import { EPost, usePostsQuery } from 'generated/graphql'
+import {
+  EventInfoFragmentDoc,
+  PostCardFragmentDoc,
+  usePostsQuery
+} from 'generated/graphql'
 
 import Post from 'components/posts/Post'
+import { filter } from 'graphql-anywhere'
 
 export default function Posts() {
   const { data } = usePostsQuery({
@@ -10,8 +15,15 @@ export default function Posts() {
   return (
     <>
       {data &&
-        data.posts.items.map((post: EPost) => (
-          <Post key={post.post.id} post={post} lineclamp />
+        data.posts?.items.map((post) => (
+          <Post
+            key={post.post.id}
+            postCard={filter(PostCardFragmentDoc, post.post)}
+            eventInfo={
+              post.event ? filter(EventInfoFragmentDoc, post.event) : undefined
+            }
+            lineclamp
+          />
         ))}
     </>
   )

@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function CreateUser() {
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [signUp] = useSignUpMutation()
   const {
     register,
@@ -36,7 +36,18 @@ export default function CreateUser() {
   })
   const router = useRouter()
 
-  async function handleCreateUser(values) {
+  type FormValues = {
+    username: string
+    email: string
+    password: string
+    gender: Genders
+    firstName: string
+    lastName: string
+    about: string
+    categories: number[]
+  }
+
+  async function handleCreateUser(values: FormValues) {
     interface Checkbox extends Element {
       checked: boolean
       name: string
@@ -44,7 +55,9 @@ export default function CreateUser() {
     const interests = Array.from(
       document.querySelectorAll('input[type="checkbox"]')
     )
+      //@ts-ignore
       .filter((checkbox: Checkbox) => checkbox.checked)
+      //@ts-ignore
       .map((checkbox: Checkbox) => parseInt(checkbox.name))
 
     const response = await signUp({
@@ -68,17 +81,17 @@ export default function CreateUser() {
           query: MeDocument,
           data: {
             __typename: 'Query',
-            me: data.register.user
+            me: data?.register?.user
           }
         })
       }
     })
-    if (response.data.register.errors) {
-      response.data.register.errors.forEach(({ field, message }) =>
+    if (response.data?.register?.errors) {
+      response.data?.register?.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
-    } else if (response.data.updateUserProfile.errors) {
-      response.data.updateUserProfile.errors.forEach(({ field, message }) =>
+    } else if (response.data?.updateUserProfile?.errors) {
+      response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
     } else {
@@ -94,7 +107,7 @@ export default function CreateUser() {
         className="w-1/2 place-self-center"
       >
         <h5>Sign Up</h5>
-        <a onClick={() => setOpen(true)}>
+        <a onClick={() => setIsOpen(true)}>
           <InformationCircleIcon />I am signing up as a charity
         </a>
         <div className="flex flex-wrap gap-6">
@@ -155,7 +168,7 @@ export default function CreateUser() {
         <div />
         <button type="submit">Sign Up</button>
       </Form>
-      <SignUpModal open={open} setOpen={setOpen} />
+      <SignUpModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }

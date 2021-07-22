@@ -1,6 +1,10 @@
 import * as yup from 'yup'
 
-import { CharityDocument, useCreateEventMutation } from 'generated/graphql'
+import {
+  CharityDocument,
+  EventInput,
+  useCreateEventMutation
+} from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 
@@ -13,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 type CreateEventProps = {
   isOpen: boolean
-  setIsOpen: (boolean) => void
+  setIsOpen: (arg0: boolean) => void
 }
 
 export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
@@ -36,7 +40,7 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
   })
   const router = useRouter()
 
-  async function handleCreateEvent(values) {
+  async function handleCreateEvent(values: EventInput) {
     const response = await createEvent({
       variables: {
         charityId: parseInt(router.query.charityId as string),
@@ -49,11 +53,11 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
         }
       ]
     })
-    if (response.data.createEvent.errors) {
-      return response.data.createEvent.errors.map((error) => (
+    if (response.data?.createEvent?.errors) {
+      return response.data?.createEvent?.errors.map((error) => (
         <p key={error.field}>{error.message}</p>
       ))
-    } else if (response.data.createEvent.success) {
+    } else if (response.data?.createEvent?.success) {
       setIsOpen(false)
     }
   }

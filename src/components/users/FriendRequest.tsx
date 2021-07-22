@@ -7,7 +7,6 @@ import {
 
 export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
   const [acceptFriendRequest] = useAcceptFriendRequestMutation({
-    variables: { userId: user.id },
     refetchQueries: [{ query: FriendRequestsDocument }]
   })
   return (
@@ -16,14 +15,30 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
         <Picture size={36} />
         <div className="flex flex-col gap-1">
           <a>
-            {user.profile.firstName} {user.profile.firstName}
+            {user.profile?.firstName} {user.profile?.firstName}
           </a>
           <p>{user.username}</p>
         </div>
       </div>
       <div className="flex gap-1">
-        <button>Reject</button>
-        <button onClick={() => acceptFriendRequest()}>Accept</button>
+        <button
+          onClick={() =>
+            acceptFriendRequest({
+              variables: { userId: user.id, accept: false }
+            })
+          }
+        >
+          Reject
+        </button>
+        <button
+          onClick={() =>
+            acceptFriendRequest({
+              variables: { userId: user.id, accept: true }
+            })
+          }
+        >
+          Accept
+        </button>
       </div>
     </div>
   )

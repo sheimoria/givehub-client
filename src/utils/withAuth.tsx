@@ -21,7 +21,7 @@ export default function withAuth<P extends WithAuthProps>(
 
     if (error) return <p>{error.message}</p>
     if (loading) return <div className="animate-spin" />
-    if (data.me) return <Page me={data.me} {...(props as any)} />
+    if (data?.me) return <Page me={data.me} {...(props as any)} />
 
     return <></>
   }

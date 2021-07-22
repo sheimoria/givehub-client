@@ -1,5 +1,5 @@
 import { PencilIcon } from '@heroicons/react/solid'
-import { useMeQuery } from 'generated/graphql'
+/* import { useMeQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 
 export default function Edit({ event }) {
@@ -35,3 +35,4 @@ export default function Edit({ event }) {
   }
   return null
 }
+ */

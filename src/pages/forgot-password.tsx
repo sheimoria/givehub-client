@@ -23,7 +23,7 @@ export default function ForgotPassword() {
       yup.object().shape({ email: yup.string().email().required('Required') })
     )
   })
-  async function handleForgotPassword(values) {
+  async function handleForgotPassword(values: { email: string }) {
     await forgotPassword({ variables: values })
     setComplete(true)
   }

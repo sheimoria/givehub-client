@@ -21,15 +21,9 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="bg-transparent rounded-full h-9 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
+          <Menu.Button className="bg-transparent border-none rounded-full w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
             <span className="sr-only">Open user menu</span>
-            <Image
-              src="/avatar.svg"
-              alt="Avatar"
-              height={36}
-              width={36}
-              className="rounded-full"
-            />
+            <Image src="/avatar.svg" alt="Avatar" layout="fill" />
           </Menu.Button>
           <Transition
             show={open}
@@ -48,7 +42,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <h6 className="px-6 py-3">
-                    {me.profile.firstName} {me.profile.lastName}
+                    {me.profile?.firstName} {me.profile?.lastName}
                   </h6>
                 )}
               </Menu.Item>

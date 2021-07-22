@@ -17,7 +17,10 @@ export default function LogIn() {
   const [logIn] = useLoginMutation()
   const router = useRouter()
 
-  async function handleLogIn(values) {
+  async function handleLogIn(values: {
+    usernameOrEmail: string
+    password: string
+  }) {
     const response = await logIn({
       variables: values,
       update: (cache, { data }) => {
@@ -25,17 +28,17 @@ export default function LogIn() {
           query: MeDocument,
           data: {
             __typename: 'Query',
-            me: data.login.user
+            me: data?.login?.user
           }
         })
         cache.evict({ fieldName: 'posts:{}' })
       }
     })
-    if (response.data.login.errors) {
-      response.data.login.errors.forEach(({ field, message }) =>
+    if (response.data?.login?.errors) {
+      response.data?.login?.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
-    } else if (response.data.login.user) {
+    } else if (response.data?.login?.user) {
       if (typeof router.query.next === 'string') {
         router.push(router.query.next)
       } else {

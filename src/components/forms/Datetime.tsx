@@ -1,11 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import {
-  Control,
-  Controller,
-  FieldValues,
-  UseFormRegister
-} from 'react-hook-form'
+import { Control, Controller, FieldValues } from 'react-hook-form'
 
 import DatePicker from 'react-datepicker'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'

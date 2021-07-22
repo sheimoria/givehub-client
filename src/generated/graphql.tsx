@@ -123,6 +123,7 @@ export type Event = {
   likeStatus: Scalars['Boolean'];
   approvalStatus?: Maybe<AdminApproval>;
   currentEventVolunteers?: Maybe<Array<User>>;
+  volunteerNumber: Scalars['Int'];
   eventTasks?: Maybe<Array<Task>>;
   adminStatus: Scalars['Boolean'];
 };
@@ -283,6 +284,7 @@ export type MutationRequestFriendArgs = {
 
 
 export type MutationAcceptFriendRequestArgs = {
+  accept: Scalars['Boolean'];
   userId: Scalars['Float'];
 };
 
@@ -507,6 +509,8 @@ export type Query = {
   searchEvents: PaginatedEvents;
   event?: Maybe<Event>;
   getVolunteerRequestListForEvents: PaginatedEventVolunteers;
+  userRecommender: PaginatedUsers;
+  charityRecommender: PaginatedCharities;
 };
 
 
@@ -582,6 +586,16 @@ export type QueryGetVolunteerRequestListForEventsArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
   eventIds: Array<Scalars['Int']>;
+};
+
+
+export type QueryUserRecommenderArgs = {
+  limit: Scalars['Float'];
+};
+
+
+export type QueryCharityRecommenderArgs = {
+  limit: Scalars['Float'];
 };
 
 export type Task = {
@@ -664,6 +678,7 @@ export type User = {
   posts?: Maybe<Array<EPost>>;
   friendNumber: Scalars['Int'];
   followedCharitiesNumber: Scalars['Int'];
+  mutualFriends: Array<User>;
 };
 
 export type UserProfileUpdateInput = {
@@ -812,24 +827,6 @@ export type CharityQuery = (
   )> }
 );
 
-export type CharityCategoryMutationVariables = Exact<{
-  charityId: Scalars['Float'];
-  categories: CategoryInput;
-}>;
-
-
-export type CharityCategoryMutation = (
-  { __typename?: 'Mutation' }
-  & { updateCharityCategories: (
-    { __typename?: 'CategoryResponse' }
-    & Pick<CategoryResponse, 'success'>
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
-  ) }
-);
-
 export type CharityEventsFragment = (
   { __typename?: 'Charity' }
   & { charityEvents: Array<(
@@ -843,23 +840,33 @@ export type CharityFollowsFragment = (
   & Pick<Charity, 'id' | 'followNumber' | 'followStatus'>
 );
 
+export type CharityHeaderFragment = (
+  { __typename?: 'Charity' }
+  & Pick<Charity, 'id' | 'name'>
+  & { profile?: Maybe<(
+    { __typename?: 'Charityprofile' }
+    & Pick<Charityprofile, 'displayPicture'>
+  )>, categories: Array<(
+    { __typename?: 'Category' }
+    & Pick<Category, 'id' | 'name'>
+  )> }
+);
+
 export type CharityPageFragment = (
   { __typename?: 'Charity' }
-  & Pick<Charity, 'id' | 'adminStatus'>
   & CharityProfileFragment
   & CharityEventsFragment
 );
 
 export type CharityProfileFragment = (
   { __typename?: 'Charity' }
-  & Pick<Charity, 'name' | 'physicalAddress' | 'postalCode' | 'followNumber' | 'followStatus' | 'adminStatus'>
+  & Pick<Charity, 'adminStatus' | 'physicalAddress' | 'postalCode'>
   & { profile?: Maybe<(
     { __typename?: 'Charityprofile' }
-    & Pick<Charityprofile, 'about' | 'displayPicture' | 'links'>
-  )>, categories: Array<(
-    { __typename?: 'Category' }
-    & Pick<Category, 'id' | 'name'>
+    & Pick<Charityprofile, 'about' | 'links'>
   )> }
+  & CharityHeaderFragment
+  & CharityFollowsFragment
 );
 
 export type CreateCharityMutationVariables = Exact<{
@@ -894,6 +901,23 @@ export type FollowCharityMutation = (
     & { charity?: Maybe<(
       { __typename?: 'Charity' }
       & CharityFollowsFragment
+    )> }
+  ) }
+);
+
+export type SearchCharitiesQueryVariables = Exact<{
+  input?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchCharitiesQuery = (
+  { __typename?: 'Query' }
+  & { searchCharities: (
+    { __typename?: 'PaginatedCharities' }
+    & Pick<PaginatedCharities, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'Charity' }
+      & CharityHeaderFragment
     )> }
   ) }
 );
@@ -1023,18 +1047,25 @@ export type EventQuery = (
 
 export type EventCardFragment = (
   { __typename?: 'Event' }
+  & Pick<Event, 'adminStatus'>
   & EventInfoFragment
   & EventLikesFragment
   & EventRequestsFragment
 );
 
-export type EventInfoFragment = (
+export type EventHeaderFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'adminStatus' | 'createdAt' | 'dateStart' | 'dateEnd' | 'venue' | 'name' | 'description'>
+  & Pick<Event, 'id' | 'createdAt' | 'name' | 'dateStart' | 'dateEnd' | 'venue'>
   & { charity: (
     { __typename?: 'Charity' }
-    & Pick<Charity, 'id' | 'name'>
+    & CharityHeaderFragment
   ) }
+);
+
+export type EventInfoFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'description'>
+  & EventHeaderFragment
 );
 
 export type EventLikesFragment = (
@@ -1095,6 +1126,23 @@ export type RequestEventMutation = (
     & { event?: Maybe<(
       { __typename?: 'Event' }
       & EventRequestsFragment
+    )> }
+  ) }
+);
+
+export type SearchEventsQueryVariables = Exact<{
+  input?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchEventsQuery = (
+  { __typename?: 'Query' }
+  & { searchEvents: (
+    { __typename?: 'PaginatedEvents' }
+    & Pick<PaginatedEvents, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'Event' }
+      & EventHeaderFragment
     )> }
   ) }
 );
@@ -1280,6 +1328,7 @@ export type TaskCardFragment = (
 
 export type AcceptFriendRequestMutationVariables = Exact<{
   userId: Scalars['Float'];
+  accept: Scalars['Boolean'];
 }>;
 
 
@@ -1351,6 +1400,23 @@ export type RequestFriendMutation = (
       { __typename?: 'User' }
       & Pick<User, 'id'>
     )>> }
+  ) }
+);
+
+export type SearchUsersQueryVariables = Exact<{
+  input?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchUsersQuery = (
+  { __typename?: 'Query' }
+  & { searchUsers: (
+    { __typename?: 'PaginatedUsers' }
+    & Pick<PaginatedUsers, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'User' }
+      & UserHeaderFragment
+    )> }
   ) }
 );
 
@@ -1439,6 +1505,19 @@ export const CategoryFragmentDoc = gql`
   name
 }
     `;
+export const CharityHeaderFragmentDoc = gql`
+    fragment CharityHeader on Charity {
+  id
+  profile {
+    displayPicture
+  }
+  name
+  categories {
+    id
+    name
+  }
+}
+    `;
 export const CharityFollowsFragmentDoc = gql`
     fragment CharityFollows on Charity {
   id
@@ -1448,39 +1527,37 @@ export const CharityFollowsFragmentDoc = gql`
     `;
 export const CharityProfileFragmentDoc = gql`
     fragment CharityProfile on Charity {
-  name
-  physicalAddress
-  postalCode
-  followNumber
-  followStatus
+  adminStatus
+  ...CharityHeader
   profile {
     about
-    displayPicture
     links
   }
-  categories {
-    id
-    name
-  }
-  adminStatus
+  physicalAddress
+  postalCode
+  ...CharityFollows
 }
-    `;
-export const EventInfoFragmentDoc = gql`
-    fragment EventInfo on Event {
+    ${CharityHeaderFragmentDoc}
+${CharityFollowsFragmentDoc}`;
+export const EventHeaderFragmentDoc = gql`
+    fragment EventHeader on Event {
   id
-  adminStatus
   charity {
-    id
-    name
+    ...CharityHeader
   }
   createdAt
+  name
   dateStart
   dateEnd
   venue
-  name
+}
+    ${CharityHeaderFragmentDoc}`;
+export const EventInfoFragmentDoc = gql`
+    fragment EventInfo on Event {
+  ...EventHeader
   description
 }
-    `;
+    ${EventHeaderFragmentDoc}`;
 export const EventLikesFragmentDoc = gql`
     fragment EventLikes on Event {
   id
@@ -1496,6 +1573,7 @@ export const EventRequestsFragmentDoc = gql`
     `;
 export const EventCardFragmentDoc = gql`
     fragment EventCard on Event {
+  adminStatus
   ...EventInfo
   ...EventLikes
   ...EventRequests
@@ -1512,8 +1590,6 @@ export const CharityEventsFragmentDoc = gql`
     ${EventCardFragmentDoc}`;
 export const CharityPageFragmentDoc = gql`
     fragment CharityPage on Charity {
-  id
-  adminStatus
   ...CharityProfile
   ...CharityEvents
 }
@@ -1859,44 +1935,6 @@ export function useCharityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ch
 export type CharityQueryHookResult = ReturnType<typeof useCharityQuery>;
 export type CharityLazyQueryHookResult = ReturnType<typeof useCharityLazyQuery>;
 export type CharityQueryResult = Apollo.QueryResult<CharityQuery, CharityQueryVariables>;
-export const CharityCategoryDocument = gql`
-    mutation CharityCategory($charityId: Float!, $categories: CategoryInput!) {
-  updateCharityCategories(charityId: $charityId, categories: $categories) {
-    errors {
-      field
-      message
-    }
-    success
-  }
-}
-    `;
-export type CharityCategoryMutationFn = Apollo.MutationFunction<CharityCategoryMutation, CharityCategoryMutationVariables>;
-
-/**
- * __useCharityCategoryMutation__
- *
- * To run a mutation, you first call `useCharityCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCharityCategoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [charityCategoryMutation, { data, loading, error }] = useCharityCategoryMutation({
- *   variables: {
- *      charityId: // value for 'charityId'
- *      categories: // value for 'categories'
- *   },
- * });
- */
-export function useCharityCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CharityCategoryMutation, CharityCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CharityCategoryMutation, CharityCategoryMutationVariables>(CharityCategoryDocument, options);
-      }
-export type CharityCategoryMutationHookResult = ReturnType<typeof useCharityCategoryMutation>;
-export type CharityCategoryMutationResult = Apollo.MutationResult<CharityCategoryMutation>;
-export type CharityCategoryMutationOptions = Apollo.BaseMutationOptions<CharityCategoryMutation, CharityCategoryMutationVariables>;
 export const CreateCharityDocument = gql`
     mutation CreateCharity($options: CharityDataInput!) {
   createCharity(options: $options) {
@@ -1975,6 +2013,44 @@ export function useFollowCharityMutation(baseOptions?: Apollo.MutationHookOption
 export type FollowCharityMutationHookResult = ReturnType<typeof useFollowCharityMutation>;
 export type FollowCharityMutationResult = Apollo.MutationResult<FollowCharityMutation>;
 export type FollowCharityMutationOptions = Apollo.BaseMutationOptions<FollowCharityMutation, FollowCharityMutationVariables>;
+export const SearchCharitiesDocument = gql`
+    query SearchCharities($input: String) {
+  searchCharities(input: $input, cursor: null, categories: [], limit: 3) {
+    items {
+      ...CharityHeader
+    }
+    hasMore
+  }
+}
+    ${CharityHeaderFragmentDoc}`;
+
+/**
+ * __useSearchCharitiesQuery__
+ *
+ * To run a query within a React component, call `useSearchCharitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchCharitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchCharitiesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSearchCharitiesQuery(baseOptions?: Apollo.QueryHookOptions<SearchCharitiesQuery, SearchCharitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchCharitiesQuery, SearchCharitiesQueryVariables>(SearchCharitiesDocument, options);
+      }
+export function useSearchCharitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchCharitiesQuery, SearchCharitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchCharitiesQuery, SearchCharitiesQueryVariables>(SearchCharitiesDocument, options);
+        }
+export type SearchCharitiesQueryHookResult = ReturnType<typeof useSearchCharitiesQuery>;
+export type SearchCharitiesLazyQueryHookResult = ReturnType<typeof useSearchCharitiesLazyQuery>;
+export type SearchCharitiesQueryResult = Apollo.QueryResult<SearchCharitiesQuery, SearchCharitiesQueryVariables>;
 export const UenDocument = gql`
     query UEN($UEN: String!) {
   checkUENNumber(UENNumber: $UEN) {
@@ -2348,6 +2424,51 @@ export function useRequestEventMutation(baseOptions?: Apollo.MutationHookOptions
 export type RequestEventMutationHookResult = ReturnType<typeof useRequestEventMutation>;
 export type RequestEventMutationResult = Apollo.MutationResult<RequestEventMutation>;
 export type RequestEventMutationOptions = Apollo.BaseMutationOptions<RequestEventMutation, RequestEventMutationVariables>;
+export const SearchEventsDocument = gql`
+    query SearchEvents($input: String) {
+  searchEvents(
+    input: $input
+    cursor: null
+    limit: 3
+    categories: []
+    sortByUpcoming: false
+    sortByLikes: false
+  ) {
+    items {
+      ...EventHeader
+    }
+    hasMore
+  }
+}
+    ${EventHeaderFragmentDoc}`;
+
+/**
+ * __useSearchEventsQuery__
+ *
+ * To run a query within a React component, call `useSearchEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchEventsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSearchEventsQuery(baseOptions?: Apollo.QueryHookOptions<SearchEventsQuery, SearchEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchEventsQuery, SearchEventsQueryVariables>(SearchEventsDocument, options);
+      }
+export function useSearchEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchEventsQuery, SearchEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchEventsQuery, SearchEventsQueryVariables>(SearchEventsDocument, options);
+        }
+export type SearchEventsQueryHookResult = ReturnType<typeof useSearchEventsQuery>;
+export type SearchEventsLazyQueryHookResult = ReturnType<typeof useSearchEventsLazyQuery>;
+export type SearchEventsQueryResult = Apollo.QueryResult<SearchEventsQuery, SearchEventsQueryVariables>;
 export const ShareEventDocument = gql`
     mutation ShareEvent($input: PostInput!, $id: Float!) {
   shareEvent(input: $input, id: $id) {
@@ -2636,8 +2757,8 @@ export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutati
 export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
 export const AcceptFriendRequestDocument = gql`
-    mutation AcceptFriendRequest($userId: Float!) {
-  acceptFriendRequest(userId: $userId) {
+    mutation AcceptFriendRequest($userId: Float!, $accept: Boolean!) {
+  acceptFriendRequest(userId: $userId, accept: $accept) {
     success
   }
 }
@@ -2658,6 +2779,7 @@ export type AcceptFriendRequestMutationFn = Apollo.MutationFunction<AcceptFriend
  * const [acceptFriendRequestMutation, { data, loading, error }] = useAcceptFriendRequestMutation({
  *   variables: {
  *      userId: // value for 'userId'
+ *      accept: // value for 'accept'
  *   },
  * });
  */
@@ -2781,6 +2903,44 @@ export function useRequestFriendMutation(baseOptions?: Apollo.MutationHookOption
 export type RequestFriendMutationHookResult = ReturnType<typeof useRequestFriendMutation>;
 export type RequestFriendMutationResult = Apollo.MutationResult<RequestFriendMutation>;
 export type RequestFriendMutationOptions = Apollo.BaseMutationOptions<RequestFriendMutation, RequestFriendMutationVariables>;
+export const SearchUsersDocument = gql`
+    query SearchUsers($input: String) {
+  searchUsers(input: $input, cursor: null, limit: 3) {
+    items {
+      ...UserHeader
+    }
+    hasMore
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useSearchUsersQuery__
+ *
+ * To run a query within a React component, call `useSearchUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchUsersQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSearchUsersQuery(baseOptions?: Apollo.QueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchUsersQuery, SearchUsersQueryVariables>(SearchUsersDocument, options);
+      }
+export function useSearchUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchUsersQuery, SearchUsersQueryVariables>(SearchUsersDocument, options);
+        }
+export type SearchUsersQueryHookResult = ReturnType<typeof useSearchUsersQuery>;
+export type SearchUsersLazyQueryHookResult = ReturnType<typeof useSearchUsersLazyQuery>;
+export type SearchUsersQueryResult = Apollo.QueryResult<SearchUsersQuery, SearchUsersQueryVariables>;
 export const UpdateUserCategoriesDocument = gql`
     mutation UpdateUserCategories($categories: CategoryInput!) {
   updateUserCategories(categories: $categories) {

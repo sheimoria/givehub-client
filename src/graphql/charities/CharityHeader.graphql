@@ -1,0 +1,11 @@
+fragment CharityHeader on Charity {
+  id
+  profile {
+    displayPicture
+  }
+  name
+  categories {
+    id
+    name
+  }
+}

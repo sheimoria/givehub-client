@@ -1,17 +1,11 @@
 fragment CharityProfile on Charity {
-  name
-  physicalAddress
-  postalCode
-  followNumber
-  followStatus
+  adminStatus
+  ...CharityHeader
   profile {
     about
-    displayPicture
     links
   }
-  categories {
-    id
-    name
-  }
-  adminStatus
+  physicalAddress
+  postalCode
+  ...CharityFollows
 }

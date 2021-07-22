@@ -3,10 +3,11 @@ import * as yup from 'yup'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   EventInfoFragment,
+  PostInput,
   PostsDocument,
   useShareEventMutation
 } from 'generated/graphql'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 import EventPreview from '../events/EventPreview'
 import Form from 'components/forms/Form'
@@ -14,12 +15,11 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
-import { validateSDL } from 'graphql/validation/validate'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 type ShareEventPostProps = {
   isOpen: boolean
-  setIsOpen: (boolean) => void
+  setIsOpen: (arg0: boolean) => void
   eventInfo: EventInfoFragment
 }
 
@@ -42,7 +42,7 @@ export default function ShareEventPost({
   })
   const [shareEvent] = useShareEventMutation()
 
-  async function handleShareEvent(values) {
+  async function handleShareEvent(values: PostInput) {
     const response = await shareEvent({
       variables: {
         input: values,
@@ -55,8 +55,8 @@ export default function ShareEventPost({
         }
       ]
     })
-    if (response.data.shareEvent.errors) {
-      response.data.shareEvent.errors.forEach(({ field, message }) =>
+    if (response.data?.shareEvent?.errors) {
+      response.data?.shareEvent?.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
     } else {

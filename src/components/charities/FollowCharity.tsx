@@ -1,11 +1,15 @@
-import { CharityDocument, useFollowCharityMutation } from 'generated/graphql'
+import {
+  CharityDocument,
+  Maybe,
+  useFollowCharityMutation
+} from 'generated/graphql'
 
 import router from 'next/router'
 
 export default function FollowCharity({
   followStatus
 }: {
-  followStatus: number
+  followStatus: Maybe<number> | undefined
 }) {
   const [follow] = useFollowCharityMutation({
     variables: { charityId: parseInt(router.query.charityId as string) },

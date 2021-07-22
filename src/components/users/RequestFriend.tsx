@@ -1,5 +1,6 @@
 import {
   FriendRequestStatus,
+  Maybe,
   UserDocument,
   useRequestFriendMutation
 } from 'generated/graphql'
@@ -9,7 +10,7 @@ import router from 'next/router'
 export default function RequestFriend({
   friendStatus
 }: {
-  friendStatus: FriendRequestStatus
+  friendStatus: Maybe<FriendRequestStatus> | undefined
 }) {
   const [requestFriend] = useRequestFriendMutation({
     variables: {

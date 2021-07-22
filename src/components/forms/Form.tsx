@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 
 type FormProps = {
   handleSubmit: UseFormHandleSubmit<FieldValues>
-  onSubmit: (values: Object) => void
+  onSubmit: (values: any) => void
   className?: string
   children: ReactNode
 }

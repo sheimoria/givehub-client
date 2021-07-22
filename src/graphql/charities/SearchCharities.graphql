@@ -1,0 +1,8 @@
+query SearchCharities($input: String) {
+  searchCharities(input: $input, cursor: null, categories: [], limit: 3) {
+    items {
+      ...CharityHeader
+    }
+    hasMore
+  }
+}

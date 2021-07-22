@@ -1,6 +1,6 @@
 import {
-  EPost,
-  EventInfoFragmentDoc,
+  EventInfoFragment,
+  PostCardFragment,
   PostLikesFragmentDoc
 } from 'generated/graphql'
 
@@ -10,14 +10,14 @@ import LikePost from './LikePost'
 import Link from 'next/link'
 import Transit from 'components/Transit'
 import { filter } from 'graphql-anywhere'
-import { useRouter } from 'next/router'
 
 type PostProps = {
-  post: EPost
+  postCard: PostCardFragment
+  eventInfo: EventInfoFragment | undefined
   lineclamp?: boolean
 }
 
-export default function Post({ post, lineclamp }: PostProps) {
+export default function Post({ postCard, eventInfo, lineclamp }: PostProps) {
   return (
     <Transit>
       <article>
@@ -34,16 +34,16 @@ export default function Post({ post, lineclamp }: PostProps) {
               <Link
                 href={{
                   pathname: '/user',
-                  query: { userId: post.post.creator.id }
+                  query: { userId: postCard.creator.id }
                 }}
               >
                 <a>
-                  {post.post.creator.profile.firstName}{' '}
-                  {post.post.creator.profile.lastName}
+                  {postCard.creator?.profile?.firstName}{' '}
+                  {postCard.creator?.profile?.lastName}
                 </a>
               </Link>
               <p>
-                {new Date(parseInt(post.post.createdAt)).toLocaleString(
+                {new Date(parseInt(postCard.createdAt)).toLocaleString(
                   'en-US',
                   {
                     day: 'numeric',
@@ -56,11 +56,9 @@ export default function Post({ post, lineclamp }: PostProps) {
             </div>
           </div>
         </div>
-        <p className={lineclamp ? 'line-clamp-3' : ''}>{post.post.text}</p>
-        {post.event && (
-          <EventPreview eventInfo={filter(EventInfoFragmentDoc, post.event)} />
-        )}
-        <LikePost likePost={filter(PostLikesFragmentDoc, post.post)} />
+        <p className={lineclamp ? 'line-clamp-3' : ''}>{postCard.text}</p>
+        {eventInfo && <EventPreview eventInfo={eventInfo} />}
+        <LikePost likePost={filter(PostLikesFragmentDoc, postCard)} />
       </article>
     </Transit>
   )

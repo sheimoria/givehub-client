@@ -32,9 +32,9 @@ export default function Navigation() {
   const router = useRouter()
 
   return (
-    <div className="sticky top-6">
+    <div className="sticky top-5">
       <Transit>
-        <div className="flex flex-col gap-4 divide-y divide-gray-300 dark:divide-gray-600">
+        <div className="flex flex-col gap-3 divide">
           <div className="flex flex-col gap-2">
             {/* Home */}
             <Link
@@ -83,7 +83,7 @@ export default function Navigation() {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col gap-2 pt-4">
+          <div className="flex flex-col gap-2 pt-3">
             {/* Categories */}
             {filters.map((filter) => (
               <Link

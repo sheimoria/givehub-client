@@ -19,7 +19,7 @@ export default withAuth(function User({ me }) {
 
   return (
     <Body title="User" me={me}>
-      {data && (
+      {data?.user && (
         <>
           <UserProfile
             userProfile={filter(UserProfileFragmentDoc, data.user)}
