@@ -1,7 +1,8 @@
 import { EventHeaderFragment } from 'generated/graphql'
 import Link from 'next/link'
 import Image from 'next/image'
-import { CalendarIcon, LocationMarkerIcon } from '@heroicons/react/outline'
+import Datetime from 'components/events/Datetime'
+import Venue from 'components/events/Venue'
 
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   return (
@@ -41,47 +42,10 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
       >
         <a className="text-base">{event.name}</a>
       </Link>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-3">
         <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
         <Venue venue={event.venue} />
       </div>
-    </div>
-  )
-}
-
-type DatetimeProps = {
-  dateStart: string
-  dateEnd: string
-}
-
-export function Datetime({ dateStart, dateEnd }: DatetimeProps) {
-  return (
-    <div className="flex items-center gap-2">
-      <CalendarIcon />
-      <p>
-        {new Date(parseInt(dateStart)).toLocaleString('en-US', {
-          day: 'numeric',
-          month: 'short',
-          hour: 'numeric',
-          minute: 'numeric'
-        })}{' '}
-        —{' '}
-        {new Date(parseInt(dateEnd)).toLocaleString('en-US', {
-          day: 'numeric',
-          month: 'short',
-          hour: 'numeric',
-          minute: 'numeric'
-        })}
-      </p>
-    </div>
-  )
-}
-
-export function Venue({ venue }: { venue: string }) {
-  return (
-    <div className="flex items-center gap-1">
-      <LocationMarkerIcon />
-      <p>{venue}</p>
     </div>
   )
 }

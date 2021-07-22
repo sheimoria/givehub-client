@@ -8,6 +8,10 @@ import Volunteers from 'components/events/Volunteers'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
+import FriendRequests from 'components/users/FriendRequests'
+import UserTasks from 'components/users/UserTasks'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
 
 export default withAuth(function ViewEvent({ me }) {
   const router = useRouter()
@@ -16,7 +20,18 @@ export default withAuth(function ViewEvent({ me }) {
   })
 
   return (
-    <Body title="Event" me={me}>
+    <Body
+      title="Event"
+      me={me}
+      aside={
+        <>
+          {data.event.adminStatus ? <VolunteerRequests /> : <FriendRequests />}
+          <UserTasks />
+          <PeopleToFollow />
+          <CharitiesToFollow />
+        </>
+      }
+    >
       {data && data.event && (
         <>
           <Event event={data.event} />

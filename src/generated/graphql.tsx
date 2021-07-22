@@ -1157,6 +1157,15 @@ export type EventRequestsFragment = (
   & Pick<Event, 'id' | 'approvalStatus'>
 );
 
+export type EventSnippetFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'name' | 'dateStart' | 'dateEnd' | 'venue'>
+  & { charity: (
+    { __typename?: 'Charity' }
+    & Pick<Charity, 'id' | 'name'>
+  ) }
+);
+
 export type EventsQueryVariables = Exact<{
   limit: Scalars['Int'];
   categories: Array<Scalars['Float']> | Scalars['Float'];
@@ -1615,7 +1624,7 @@ export type UserTasksQuery = (
       { __typename?: 'EventTaskContainer' }
       & { event: (
         { __typename?: 'Event' }
-        & EventHeaderFragment
+        & EventSnippetFragment
       ), tasks: Array<(
         { __typename?: 'Task' }
         & TaskHeaderFragment
@@ -1720,6 +1729,19 @@ export const CharityPageFragmentDoc = gql`
 }
     ${CharityProfileFragmentDoc}
 ${CharityEventsFragmentDoc}`;
+export const EventSnippetFragmentDoc = gql`
+    fragment EventSnippet on Event {
+  id
+  charity {
+    id
+    name
+  }
+  name
+  dateStart
+  dateEnd
+  venue
+}
+    `;
 export const PostInfoFragmentDoc = gql`
     fragment PostInfo on Post {
   id
@@ -3236,7 +3258,7 @@ export const UserTasksDocument = gql`
   viewTasksAssignedToMe {
     eventContainers {
       event {
-        ...EventHeader
+        ...EventSnippet
       }
       tasks {
         ...TaskHeader
@@ -3244,7 +3266,7 @@ export const UserTasksDocument = gql`
     }
   }
 }
-    ${EventHeaderFragmentDoc}
+    ${EventSnippetFragmentDoc}
 ${TaskHeaderFragmentDoc}`;
 
 /**

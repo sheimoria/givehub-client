@@ -1,23 +1,18 @@
 import { HeaderFragment, MeQuery } from 'generated/graphql'
-import React, { ReactNode } from 'react'
-
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import { ReactNode } from 'react'
 import Footer from 'components/layout/Footer'
 import Head from 'next/head'
 import Header from 'components/layout/Header'
 import Navigation from './Navigation'
-import PeopleToFollow from 'components/users/PeopleToFollow'
-import YourEvents from 'components/layout/YourEvents'
-import FriendRequests from 'components/users/FriendRequests'
-import UserTasks from 'components/users/UserTasks'
 
-type BodyProps = {
+type Props = {
   title: string
   me?: HeaderFragment
+  aside?: ReactNode
   children: ReactNode
 }
 
-export default function Body({ title, me, children }: BodyProps) {
+export default function Body({ title, me, aside, children }: Props) {
   return (
     <>
       <Head>
@@ -34,12 +29,7 @@ export default function Body({ title, me, children }: BodyProps) {
         {me && (
           <>
             <aside className="flex-none w-96 lg:block">
-              <div className="sticky flex flex-col gap-3 top-5">
-                <FriendRequests />
-                <UserTasks />
-                <CharitiesToFollow />
-                <PeopleToFollow />
-              </div>
+              <div className="sticky flex flex-col gap-3 top-5">{aside}</div>
             </aside>
           </>
         )}

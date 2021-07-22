@@ -25,24 +25,21 @@ export default function RequestFriend({
   })
 
   switch (friendStatus) {
-    case 'ACCEPTED':
-      return <button onClick={() => requestFriend()}>Following</button>
-    case 'REJECTED':
+    case FriendRequestStatus.Accepted:
       return (
-        <button onClick={() => requestFriend()}>Send Friend Request</button>
-      )
-    case 'BLOCKED_USER1':
-      return null
-    case 'BLOCKED_USER2':
-      return <p>You have blocked this user.</p>
-    default:
-      return (
-        <button
-          onClick={() => requestFriend()}
-          className="bg-transparent text-rose-600 dark:text-rose-600"
-        >
-          Pending
+        <button onClick={() => requestFriend()} className="button-outline">
+          Following
         </button>
       )
+    case FriendRequestStatus.User1Req || FriendRequestStatus.User2Req:
+      return (
+        <button onClick={() => requestFriend()} className="button-outline">
+          Requested
+        </button>
+      )
+    case FriendRequestStatus.BlockedUser1 || FriendRequestStatus.BlockedUser2:
+      return <button className="button-outline">Blocked</button>
+    default:
+      return <button onClick={() => requestFriend()}>Follow</button>
   }
 }

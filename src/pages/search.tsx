@@ -13,6 +13,10 @@ import { useRouter } from 'next/router'
 import Body from 'components/layout/Body'
 import withAuth from 'utils/withAuth'
 import Transit from 'components/Transit'
+import FriendRequests from 'components/users/FriendRequests'
+import UserTasks from 'components/users/UserTasks'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
 
 export default withAuth(function Home({ me }) {
   const router = useRouter()
@@ -27,7 +31,18 @@ export default withAuth(function Home({ me }) {
   })
 
   return (
-    <Body title="Search" me={me}>
+    <Body
+      title="Search"
+      me={me}
+      aside={
+        <>
+          <FriendRequests />
+          <UserTasks />
+          <PeopleToFollow />
+          <CharitiesToFollow />
+        </>
+      }
+    >
       <Transit>
         <dl className="px-0 py-2 divide">
           <div className="flex flex-col gap-3 px-5 py-3">

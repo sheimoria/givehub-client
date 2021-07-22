@@ -44,7 +44,7 @@ export default function SearchPreview({
       as="dl"
       className="absolute z-10 w-full px-0 py-2 mt-3 shadow-md divide"
     >
-      {users?.searchUsers?.items?.length > 0 && (
+      {users && users.searchUsers?.items.length > 0 && (
         <div className="flex flex-col px-5 py-3">
           <h5>Users</h5>
           <div className="divide">
@@ -69,7 +69,7 @@ export default function SearchPreview({
           </div>
         </div>
       )}
-      {charities?.searchCharities?.items?.length > 0 && (
+      {charities && charities.searchCharities?.items.length > 0 && (
         <div className="flex flex-col px-5 py-3">
           <h5>Charities</h5>
           <div className="divide">
@@ -96,7 +96,7 @@ export default function SearchPreview({
           </div>
         </div>
       )}
-      {events?.searchEvents.items?.length > 0 && (
+      {events && events.searchEvents?.items.length > 0 && (
         <div className="flex flex-col gap-3 px-5 py-3">
           <h5>Events</h5>
           <div className="space-y-3">

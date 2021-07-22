@@ -1,0 +1,11 @@
+fragment EventSnippet on Event {
+  id
+  charity {
+    id
+    name
+  }
+  name
+  dateStart
+  dateEnd
+  venue
+}

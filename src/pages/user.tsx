@@ -10,6 +10,11 @@ import UserProfile from 'components/users/UserProfile'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
+import React from 'react'
+import FriendRequests from 'components/users/FriendRequests'
+import UserTasks from 'components/users/UserTasks'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
 
 export default withAuth(function User({ me }) {
   const router = useRouter()
@@ -18,7 +23,18 @@ export default withAuth(function User({ me }) {
   })
 
   return (
-    <Body title="User" me={me}>
+    <Body
+      title="User"
+      me={me}
+      aside={
+        <>
+          <FriendRequests />
+          <UserTasks />
+          <PeopleToFollow />
+          <CharitiesToFollow />
+        </>
+      }
+    >
       {data?.user && (
         <>
           <UserProfile user={filter(UserProfileFragmentDoc, data.user)} />

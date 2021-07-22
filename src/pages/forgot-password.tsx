@@ -1,7 +1,5 @@
 import * as yup from 'yup'
-
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import { ArrowSmRightIcon } from '@heroicons/react/solid'
 import Body from 'components/layout/Body'
 import Form from 'components/forms/Form'
@@ -10,6 +8,10 @@ import Link from 'next/link'
 import { useForgotPasswordMutation } from 'generated/graphql'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import FriendRequests from 'components/users/FriendRequests'
+import UserTasks from 'components/users/UserTasks'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
 
 export default function ForgotPassword() {
   const [complete, setComplete] = useState(false)
@@ -29,7 +31,17 @@ export default function ForgotPassword() {
   }
 
   return (
-    <Body title="Forgot password">
+    <Body
+      title="Forgot password"
+      aside={
+        <>
+          <FriendRequests />
+          <UserTasks />
+          <PeopleToFollow />
+          <CharitiesToFollow />
+        </>
+      }
+    >
       {complete ? (
         <>
           <p>
