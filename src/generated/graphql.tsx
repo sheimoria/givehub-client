@@ -1278,6 +1278,37 @@ export type TaskCardFragment = (
   )>> }
 );
 
+export type AcceptFriendRequestMutationVariables = Exact<{
+  userId: Scalars['Float'];
+}>;
+
+
+export type AcceptFriendRequestMutation = (
+  { __typename?: 'Mutation' }
+  & { acceptFriendRequest: (
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'success'>
+  ) }
+);
+
+export type FriendRequestsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FriendRequestsQuery = (
+  { __typename?: 'Query' }
+  & { viewMyPendingFriendRequests: (
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'success'>
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, userList?: Maybe<Array<(
+      { __typename?: 'User' }
+      & UserHeaderFragment
+    )>> }
+  ) }
+);
+
 export type HeaderFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'username'>
@@ -1351,8 +1382,17 @@ export type UserQuery = (
     { __typename?: 'User' }
     & Pick<User, 'id'>
     & UserProfileFragment
-    & UserPostFragment
+    & UserAvatarFragment
     & UserEventsFragment
+  )> }
+);
+
+export type UserAvatarFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id'>
+  & { profile?: Maybe<(
+    { __typename?: 'Userprofile' }
+    & Pick<Userprofile, 'displayPicture'>
   )> }
 );
 
@@ -1367,21 +1407,22 @@ export type UserEventsFragment = (
   )> }
 );
 
-export type UserPostFragment = (
+export type UserHeaderFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id'>
+  & Pick<User, 'username'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'displayPicture'>
+    & Pick<Userprofile, 'firstName' | 'lastName' | 'telegramHandle'>
   )> }
+  & UserAvatarFragment
 );
 
 export type UserProfileFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'username' | 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber'>
+  & Pick<User, 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'about' | 'firstName' | 'lastName'>
+    & Pick<Userprofile, 'about'>
   )>, categories: Array<(
     { __typename?: 'Category' }
     & Pick<Category, 'id' | 'name'>
@@ -1389,6 +1430,7 @@ export type UserProfileFragment = (
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
   )> }
+  & UserHeaderFragment
 );
 
 export const CategoryFragmentDoc = gql`
@@ -1507,14 +1549,31 @@ export const PostCardFragmentDoc = gql`
 }
     ${PostInfoFragmentDoc}
 ${PostLikesFragmentDoc}`;
+export const UserAvatarFragmentDoc = gql`
+    fragment UserAvatar on User {
+  id
+  profile {
+    displayPicture
+  }
+}
+    `;
+export const UserHeaderFragmentDoc = gql`
+    fragment UserHeader on User {
+  ...UserAvatar
+  profile {
+    firstName
+    lastName
+    telegramHandle
+  }
+  username
+}
+    ${UserAvatarFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
     fragment UserProfile on User {
-  username
+  ...UserHeader
   email
   profile {
     about
-    firstName
-    lastName
   }
   categories {
     id
@@ -1528,7 +1587,7 @@ export const UserProfileFragmentDoc = gql`
   friendNumber
   followedCharitiesNumber
 }
-    `;
+    ${UserHeaderFragmentDoc}`;
 export const TaskCardFragmentDoc = gql`
     fragment TaskCard on Task {
   id
@@ -1571,14 +1630,6 @@ export const UserEventsFragmentDoc = gql`
   }
 }
     ${EventCardFragmentDoc}`;
-export const UserPostFragmentDoc = gql`
-    fragment UserPost on User {
-  id
-  profile {
-    displayPicture
-  }
-}
-    `;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $newPassword: String!) {
   changePassword(token: $token, newPassword: $newPassword) {
@@ -2584,6 +2635,80 @@ export function useCreateTaskMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
 export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
+export const AcceptFriendRequestDocument = gql`
+    mutation AcceptFriendRequest($userId: Float!) {
+  acceptFriendRequest(userId: $userId) {
+    success
+  }
+}
+    `;
+export type AcceptFriendRequestMutationFn = Apollo.MutationFunction<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>;
+
+/**
+ * __useAcceptFriendRequestMutation__
+ *
+ * To run a mutation, you first call `useAcceptFriendRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptFriendRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptFriendRequestMutation, { data, loading, error }] = useAcceptFriendRequestMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAcceptFriendRequestMutation(baseOptions?: Apollo.MutationHookOptions<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>(AcceptFriendRequestDocument, options);
+      }
+export type AcceptFriendRequestMutationHookResult = ReturnType<typeof useAcceptFriendRequestMutation>;
+export type AcceptFriendRequestMutationResult = Apollo.MutationResult<AcceptFriendRequestMutation>;
+export type AcceptFriendRequestMutationOptions = Apollo.BaseMutationOptions<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>;
+export const FriendRequestsDocument = gql`
+    query FriendRequests {
+  viewMyPendingFriendRequests {
+    errors {
+      field
+      message
+    }
+    success
+    userList {
+      ...UserHeader
+    }
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useFriendRequestsQuery__
+ *
+ * To run a query within a React component, call `useFriendRequestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendRequestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendRequestsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriendRequestsQuery(baseOptions?: Apollo.QueryHookOptions<FriendRequestsQuery, FriendRequestsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FriendRequestsQuery, FriendRequestsQueryVariables>(FriendRequestsDocument, options);
+      }
+export function useFriendRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendRequestsQuery, FriendRequestsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FriendRequestsQuery, FriendRequestsQueryVariables>(FriendRequestsDocument, options);
+        }
+export type FriendRequestsQueryHookResult = ReturnType<typeof useFriendRequestsQuery>;
+export type FriendRequestsLazyQueryHookResult = ReturnType<typeof useFriendRequestsLazyQuery>;
+export type FriendRequestsQueryResult = Apollo.QueryResult<FriendRequestsQuery, FriendRequestsQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -2698,12 +2823,12 @@ export const UserDocument = gql`
   user(id: $id) {
     id
     ...UserProfile
-    ...UserPost
+    ...UserAvatar
     ...UserEvents
   }
 }
     ${UserProfileFragmentDoc}
-${UserPostFragmentDoc}
+${UserAvatarFragmentDoc}
 ${UserEventsFragmentDoc}`;
 
 /**

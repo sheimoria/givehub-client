@@ -3,7 +3,6 @@ import { ClockIcon, HomeIcon, TrendingUpIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 import Transit from 'components/Transit'
-import { Transition } from '@headlessui/react'
 import classNames from 'utils/classNames'
 import { useRouter } from 'next/router'
 
@@ -34,7 +33,7 @@ export default function Navigation() {
 
   return (
     <div className="sticky top-6">
-    <Transit>
+      <Transit>
         <div className="flex flex-col gap-4 divide-y divide-gray-300 dark:divide-gray-600">
           <div className="flex flex-col gap-2">
             {/* Home */}
@@ -46,9 +45,9 @@ export default function Navigation() {
               <a
                 className={classNames(
                   router.query.view === undefined
-                    ? 'navigation-active'
-                    : 'navigation-inactive',
-                  'navigation'
+                    ? 'nav-active'
+                    : 'nav-inactive',
+                  'nav'
                 )}
                 aria-current={
                   router.query.view === undefined ? 'page' : undefined
@@ -70,9 +69,9 @@ export default function Navigation() {
                 <a
                   className={classNames(
                     sort.id === router.query.view
-                      ? 'navigation-active'
-                      : 'navigation-inactive',
-                    'navigation'
+                      ? 'nav-active'
+                      : 'nav-inactive',
+                    'nav'
                   )}
                   aria-current={
                     sort.id === router.query.view ? 'page' : undefined
@@ -97,9 +96,9 @@ export default function Navigation() {
                 <a
                   className={classNames(
                     filter.id === router.query.view
-                      ? 'navigation-active'
-                      : 'navigation-inactive',
-                    'navigation'
+                      ? 'nav-active'
+                      : 'nav-inactive',
+                    'nav'
                   )}
                   aria-current={
                     filter.id === router.query.view ? 'page' : undefined

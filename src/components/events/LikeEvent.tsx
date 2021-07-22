@@ -22,7 +22,7 @@ export default function LikeEvent({
       ) : (
         <ThumbUpIconOutline
           onClick={() => like()}
-          className="text-gray-600 transition-transform dark:text-gray-300 hover:scale-110"
+          className="transition-transform hover:scale-110"
         />
       )}
       <p>{likeEvent.likeNumber}</p>

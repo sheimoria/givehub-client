@@ -6,15 +6,12 @@ import {
   EventRequestsFragmentDoc
 } from 'generated/graphql'
 
-import EditEvent from 'components/events/EditEvent'
 import Image from 'next/image'
 import LikeEvent from 'components/events/LikeEvent'
 import Link from 'next/link'
-import React from 'react'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEvent'
 import Transit from 'components/Transit'
-import { Transition } from '@headlessui/react'
 import { filter } from 'graphql-anywhere'
 
 type EventProps = {
@@ -64,7 +61,7 @@ export default function Event({ event, lineclamp }: EventProps) {
             query: { eventId: event.id }
           }}
         >
-          <a className="text-lg">{event.name}</a>
+          <a className="text-base">{event.name}</a>
         </Link>
 
         <div className="flex flex-wrap gap-4">
@@ -87,8 +84,8 @@ export default function Event({ event, lineclamp }: EventProps) {
 export function Datetime({ dateStart, dateEnd }) {
   return (
     <div className="flex items-center gap-2">
-      <CalendarIcon className="w-5 h-5 text-gray-400" />
-      <h6 className="font-normal">
+      <CalendarIcon />
+      <p>
         {new Date(parseInt(dateStart)).toLocaleString('en-US', {
           day: 'numeric',
           month: 'short',
@@ -102,7 +99,7 @@ export function Datetime({ dateStart, dateEnd }) {
           hour: 'numeric',
           minute: 'numeric'
         })}
-      </h6>
+      </p>
     </div>
   )
 }
@@ -110,8 +107,8 @@ export function Datetime({ dateStart, dateEnd }) {
 export function Venue({ venue }) {
   return (
     <div className="flex items-center gap-1">
-      <LocationMarkerIcon className="w-5 h-5 text-gray-400" />
-      <h6 className="font-normal">{venue}</h6>
+      <LocationMarkerIcon />
+      <p>{venue}</p>
     </div>
   )
 }

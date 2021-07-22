@@ -60,7 +60,7 @@ export default function EventPreview({
             query: { eventId: eventInfo.id }
           }}
         >
-          <a className="text-lg">{eventInfo.name}</a>
+          <a className="text-base">{eventInfo.name}</a>
         </Link>
 
         <div className="flex flex-wrap gap-4">
@@ -80,7 +80,7 @@ export default function EventPreview({
 export function Datetime({ dateStart, dateEnd }) {
   return (
     <div className="flex items-center gap-2">
-      <CalendarIcon className="w-5 h-5 text-gray-400" />
+      <CalendarIcon />
       <h6 className="font-normal">
         {new Date(parseInt(dateStart)).toLocaleString('en-US', {
           day: 'numeric',
@@ -103,7 +103,7 @@ export function Datetime({ dateStart, dateEnd }) {
 export function Venue({ venue }) {
   return (
     <div className="flex items-center gap-1">
-      <LocationMarkerIcon className="w-5 h-5 text-gray-400" />
+      <LocationMarkerIcon />
       <h6 className="font-normal">{venue}</h6>
     </div>
   )

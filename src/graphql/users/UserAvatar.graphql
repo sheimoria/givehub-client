@@ -1,4 +1,4 @@
-fragment UserPost on User {
+fragment UserAvatar on User {
   id
   profile {
     displayPicture

@@ -1,10 +1,8 @@
 fragment UserProfile on User {
-  username
+  ...UserHeader
   email
   profile {
     about
-    firstName
-    lastName
   }
   categories {
     id

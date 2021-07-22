@@ -25,22 +25,10 @@ export default function RequestFriend({
 
   switch (friendStatus) {
     case 'ACCEPTED':
-      return (
-        <button
-          onClick={() => requestFriend()}
-          className="rounded-button-outline"
-        >
-          Following
-        </button>
-      )
+      return <button onClick={() => requestFriend()}>Following</button>
     case 'REJECTED':
       return (
-        <button
-          onClick={() => requestFriend()}
-          className="rounded-button-solid"
-        >
-          Send Friend Request
-        </button>
+        <button onClick={() => requestFriend()}>Send Friend Request</button>
       )
     case 'BLOCKED_USER1':
       return null
@@ -50,7 +38,7 @@ export default function RequestFriend({
       return (
         <button
           onClick={() => requestFriend()}
-          className="rounded-button-outline"
+          className="bg-transparent text-rose-600 dark:text-rose-600"
         >
           Pending
         </button>

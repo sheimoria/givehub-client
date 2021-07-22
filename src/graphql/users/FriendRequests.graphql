@@ -1,0 +1,12 @@
+query FriendRequests {
+  viewMyPendingFriendRequests {
+    errors {
+      field
+      message
+    }
+    success
+    userList {
+      ...UserHeader
+    }
+  }
+}

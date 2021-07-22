@@ -15,8 +15,8 @@ export default function UserEvents({
         <a
           onClick={() => setFilter('Volunteered At')}
           className={classNames(
-            filter === 'Liked' ? 'navigation-active' : 'navigation-inactive',
-            'navigation'
+            filter === 'Liked' ? 'nav-active' : 'nav-inactive',
+            'nav'
           )}
           aria-current={filter === 'Liked' ? 'page' : undefined}
         >
@@ -25,10 +25,8 @@ export default function UserEvents({
         <a
           onClick={() => setFilter('Liked')}
           className={classNames(
-            filter === 'Volunteered At'
-              ? 'navigation-active'
-              : 'navigation-inactive',
-            'navigation'
+            filter === 'Volunteered At' ? 'navi-active' : 'nav-inactive',
+            'nav'
           )}
           aria-current={filter === 'Volunteered At' ? 'page' : undefined}
         >

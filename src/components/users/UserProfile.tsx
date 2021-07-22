@@ -46,9 +46,7 @@ export default function UserProfile({
             key={category.id}
             href={{ pathname: '/home', query: { view: category.id } }}
           >
-            <a className="font-normal text-rose-600 dark:text-rose-600">
-              {category.name}
-            </a>
+            <a className="text-rose-600 dark:text-rose-600">{category.name}</a>
           </Link>
         ))}
       </div>
@@ -66,7 +64,7 @@ export default function UserProfile({
                   query: { charityId: charity.id }
                 }}
               >
-                <a className="font-normal text-rose-600 dark:text-rose-600">
+                <a className="text-rose-600 dark:text-rose-600">
                   {charity.name}
                 </a>
               </Link>

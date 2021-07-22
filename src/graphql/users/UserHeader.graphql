@@ -1,0 +1,9 @@
+fragment UserHeader on User {
+  ...UserAvatar
+  profile {
+    firstName
+    lastName
+    telegramHandle
+  }
+  username
+}

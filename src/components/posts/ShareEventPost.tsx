@@ -8,7 +8,7 @@ import {
 } from 'generated/graphql'
 import React, { Fragment } from 'react'
 
-import EventPreview from './EventPreview'
+import EventPreview from '../events/EventPreview'
 import Form from 'components/forms/Form'
 import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
@@ -55,7 +55,7 @@ export default function ShareEventPost({
         }
       ]
     })
-    if (!response.data.shareEvent.errors) {
+    if (response.data.shareEvent.errors) {
       response.data.shareEvent.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
@@ -93,9 +93,13 @@ export default function ShareEventPost({
             leaveTo="opacity-0"
           >
             <div className="z-10">
-              <Form handleSubmit={handleSubmit} onSubmit={handleShareEvent}>
+              <Form
+                handleSubmit={handleSubmit}
+                onSubmit={handleShareEvent}
+                className="max-w-2xl"
+              >
                 <div className="flex justify-between">
-                  <Dialog.Title as="h5">Create Post</Dialog.Title>
+                  <Dialog.Title as="h5">Share Event</Dialog.Title>
                   <span onClick={() => setIsOpen(false)}>
                     <XIcon />
                   </span>
@@ -108,7 +112,7 @@ export default function ShareEventPost({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white dark:bg-gray-800 focus:ring-0"
+                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-0"
                 />
                 <EventPreview eventInfo={eventInfo} />
                 <div className="flex justify-between">
@@ -116,9 +120,7 @@ export default function ShareEventPost({
                     <PhotographIcon />
                     Add Photo
                   </a>
-                  <button type="submit" className="button-highlight">
-                    Post
-                  </button>
+                  <button type="submit">Post</button>
                 </div>
               </Form>
             </div>

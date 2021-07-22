@@ -8,6 +8,7 @@ import Header from 'components/layout/Header'
 import Navigation from './Navigation'
 import PeopleToFollow from 'components/layout/PeopleToFollow'
 import YourEvents from 'components/layout/YourEvents'
+import FriendRequests from 'components/users/FriendRequests'
 
 type BodyProps = {
   title: string
@@ -32,7 +33,8 @@ export default function Body({ title, me, children }: BodyProps) {
         {me && (
           <>
             <aside className="flex-none w-80 lg:block">
-              <div className="sticky flex flex-col gap-6 top-6">
+              <div className="sticky flex flex-col gap-3 top-5">
+                <FriendRequests />
                 <YourEvents />
                 <CharitiesToFollow />
                 <PeopleToFollow />

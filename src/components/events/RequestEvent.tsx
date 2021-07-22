@@ -23,7 +23,7 @@ export default function RequestEvent({
     default:
       return (
         <HandIconHollow
-          className="text-gray-600 transition-transform hover:scale-110 dark:text-gray-300"
+          className="transition-transform hover:scale-110"
           onClick={() =>
             request({
               variables: { eventId: requestEvent.id }

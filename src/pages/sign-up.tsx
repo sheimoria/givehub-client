@@ -1,5 +1,5 @@
 import Body from 'components/layout/Body'
-import CreateUser from 'components/user/CreateUser'
+import CreateUser from 'components/users/CreateUser'
 
 export default function SignUp() {
   return (
