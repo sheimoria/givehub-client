@@ -1,4 +1,3 @@
-import { CalendarIcon, LocationMarkerIcon } from '@heroicons/react/solid'
 import {
   EventCardFragment,
   EventHeaderFragmentDoc,
@@ -7,15 +6,12 @@ import {
   EventRequestsFragmentDoc
 } from 'generated/graphql'
 
-import Image from 'next/image'
+import EventHeader from './EventHeader'
 import LikeEvent from 'components/events/LikeEvent'
-import Link from 'next/link'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEvent'
 import Transit from 'components/Transit'
 import { filter } from 'graphql-anywhere'
-import React from 'react'
-import EventHeader from './EventHeader'
 
 type EventProps = {
   event: EventCardFragment

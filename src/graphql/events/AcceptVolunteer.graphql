@@ -1,0 +1,17 @@
+mutation AcceptVolunteer(
+  $accept: Boolean!
+  $eventId: Int!
+  $volunteerId: Int!
+) {
+  acceptEventVolunteer(
+    acceptVolunteer: $accept
+    eventVolunteerUserId: $volunteerId
+    eventId: $eventId
+  ) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}

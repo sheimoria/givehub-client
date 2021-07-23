@@ -1,7 +1,7 @@
 query VolunteerRequests($eventIds: [Int!]!) {
   getVolunteerRequestListForEvents(
     cursor: null
-    limit: 100
+    limit: 50
     eventIds: $eventIds
   ) {
     items {

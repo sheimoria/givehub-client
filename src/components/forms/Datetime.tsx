@@ -10,17 +10,25 @@ type DatetimeProps = {
   label: string
   errors: any
   control: Control<FieldValues>
+  srOnly?: boolean
+  className?: string
+  placeholder?: string
 }
 
 export default function Datetime({
   name,
   label,
   errors,
-  control
+  control,
+  srOnly,
+  className,
+  placeholder
 }: DatetimeProps) {
   return (
-    <div className="flex flex-col flex-1 gap-2">
-      <label htmlFor={name}>{label}</label>
+    <div className="relative flex flex-col items-stretch flex-1 gap-2">
+      <label htmlFor={name} className={srOnly ? 'sr-only' : undefined}>
+        {label}
+      </label>
       <Controller
         control={control}
         name={name}
@@ -31,13 +39,17 @@ export default function Datetime({
             showTimeSelect
             timeFormat="HH:mm"
             dateFormat="d MMM yyyy, h:mm aa"
-            className="text-gray-600 bg-gray-100 border-none rounded-lg dark:bg-gray-700"
+            className={
+              'w-full text-sm bg-gray-800 rounded-md focus:ring-2 focus:ring-rose-600 ' +
+              className
+            }
+            placeholderText={placeholder}
           />
         )}
       />
       {errors && (
-        <span className="flex gap-2 text-sm text-red-500">
-          <ExclamationCircleIcon className="w-5 h-5" />
+        <span className="absolute flex gap-1 text-sm inset-1/2 text-rose-600 dark:text-rose-600">
+          <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
           {errors.message}
         </span>
       )}

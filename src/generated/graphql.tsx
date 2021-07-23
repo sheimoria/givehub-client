@@ -1073,6 +1073,25 @@ export type VolunteerRequestsQuery = (
   ) }
 );
 
+export type AcceptVolunteerMutationVariables = Exact<{
+  accept: Scalars['Boolean'];
+  eventId: Scalars['Int'];
+  volunteerId: Scalars['Int'];
+}>;
+
+
+export type AcceptVolunteerMutation = (
+  { __typename?: 'Mutation' }
+  & { acceptEventVolunteer: (
+    { __typename?: 'UpdateEventVolunteerResponse' }
+    & Pick<UpdateEventVolunteerResponse, 'success'>
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
 export type CreateEventMutationVariables = Exact<{
   charityId: Scalars['Float'];
   input: EventInput;
@@ -1211,7 +1230,10 @@ export type RequestEventMutation = (
   { __typename?: 'Mutation' }
   & { requestEvent: (
     { __typename?: 'EventResponse' }
-    & { event?: Maybe<(
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, event?: Maybe<(
       { __typename?: 'Event' }
       & EventRequestsFragment
     )> }
@@ -2339,7 +2361,7 @@ export type UpdateCharityProfileMutationResult = Apollo.MutationResult<UpdateCha
 export type UpdateCharityProfileMutationOptions = Apollo.BaseMutationOptions<UpdateCharityProfileMutation, UpdateCharityProfileMutationVariables>;
 export const VolunteerRequestsDocument = gql`
     query VolunteerRequests($eventIds: [Int!]!) {
-  getVolunteerRequestListForEvents(cursor: null, limit: 100, eventIds: $eventIds) {
+  getVolunteerRequestListForEvents(cursor: null, limit: 50, eventIds: $eventIds) {
     items {
       user {
         id
@@ -2383,6 +2405,49 @@ export function useVolunteerRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type VolunteerRequestsQueryHookResult = ReturnType<typeof useVolunteerRequestsQuery>;
 export type VolunteerRequestsLazyQueryHookResult = ReturnType<typeof useVolunteerRequestsLazyQuery>;
 export type VolunteerRequestsQueryResult = Apollo.QueryResult<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>;
+export const AcceptVolunteerDocument = gql`
+    mutation AcceptVolunteer($accept: Boolean!, $eventId: Int!, $volunteerId: Int!) {
+  acceptEventVolunteer(
+    acceptVolunteer: $accept
+    eventVolunteerUserId: $volunteerId
+    eventId: $eventId
+  ) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}
+    `;
+export type AcceptVolunteerMutationFn = Apollo.MutationFunction<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>;
+
+/**
+ * __useAcceptVolunteerMutation__
+ *
+ * To run a mutation, you first call `useAcceptVolunteerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptVolunteerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptVolunteerMutation, { data, loading, error }] = useAcceptVolunteerMutation({
+ *   variables: {
+ *      accept: // value for 'accept'
+ *      eventId: // value for 'eventId'
+ *      volunteerId: // value for 'volunteerId'
+ *   },
+ * });
+ */
+export function useAcceptVolunteerMutation(baseOptions?: Apollo.MutationHookOptions<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>(AcceptVolunteerDocument, options);
+      }
+export type AcceptVolunteerMutationHookResult = ReturnType<typeof useAcceptVolunteerMutation>;
+export type AcceptVolunteerMutationResult = Apollo.MutationResult<AcceptVolunteerMutation>;
+export type AcceptVolunteerMutationOptions = Apollo.BaseMutationOptions<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($charityId: Float!, $input: EventInput!) {
   createEvent(charityId: $charityId, input: $input) {
@@ -2585,6 +2650,10 @@ export type LikeEventMutationOptions = Apollo.BaseMutationOptions<LikeEventMutat
 export const RequestEventDocument = gql`
     mutation RequestEvent($eventId: Int!) {
   requestEvent(eventId: $eventId) {
+    errors {
+      field
+      message
+    }
     event {
       ...EventRequests
     }

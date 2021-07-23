@@ -1,5 +1,4 @@
 import Body from 'components/layout/Body'
-import Link from 'next/link'
 import { PlusIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -7,6 +6,7 @@ import FriendRequests from 'components/users/FriendRequests'
 import UserTasks from 'components/users/UserTasks'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import Transit from 'components/Transit'
 
 export default withAuth(function Charities({ me }) {
   const router = useRouter()
@@ -24,32 +24,28 @@ export default withAuth(function Charities({ me }) {
         </>
       }
     >
-      <article>
-        <div className="flex flex-wrap justify-between gap-4">
-          <h5>My Charities</h5>
-          <Link href="/charity-sign-up">
-            <a>
-              <PlusIcon />
-              Add Charity
-            </a>
-          </Link>
-        </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h5>My Charities</h5>
+        <button onClick={() => router.push('/charity-sign-up')}>
+          <PlusIcon className="items-center text-white" />
+          Add Charity
+        </button>
+      </div>
 
-        {me.adminCharities.map((charity) => (
-          <article
-            key={charity.id}
-            onClick={() =>
-              router.push({
-                pathname: '/charity',
-                query: { charityId: charity.id }
-              })
-            }
-            className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 hover:bg-gray-200"
-          >
-            {charity.name}
-          </article>
-        ))}
-      </article>
+      {me.adminCharities.map((charity) => (
+        <Transit
+          as="article"
+          key={charity.id}
+          onClick={() =>
+            router.push({
+              pathname: '/charity',
+              query: { charityId: charity.id }
+            })
+          }
+        >
+          {charity.name}
+        </Transit>
+      ))}
     </Body>
   )
 })

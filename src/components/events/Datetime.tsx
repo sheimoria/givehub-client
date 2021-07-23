@@ -8,8 +8,8 @@ type Props = {
 export default function Datetime({ dateStart, dateEnd }: Props) {
   return (
     <div className="flex items-center gap-2">
-      <CalendarIcon />
-      <p>
+      <CalendarIcon className="text-rose-600 dark:text-rose-600" />
+      <h6>
         {new Date(parseInt(dateStart)).toLocaleString('en-US', {
           day: 'numeric',
           month: 'short',
@@ -23,7 +23,7 @@ export default function Datetime({ dateStart, dateEnd }: Props) {
           hour: 'numeric',
           minute: 'numeric'
         })}
-      </p>
+      </h6>
     </div>
   )
 }

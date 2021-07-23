@@ -2,83 +2,77 @@ import {
   GlobeAltIcon,
   LocationMarkerIcon,
   UserGroupIcon
-} from '@heroicons/react/solid'
+} from '@heroicons/react/outline'
 
 import { CharityProfileFragment } from 'generated/graphql'
 import FollowCharity from './FollowCharity'
 import Picture from 'components/Picture'
-import React from 'react'
-import { Transition } from '@headlessui/react'
+import Transit from 'components/Transit'
+import { useRouter } from 'next/router'
 
 export default function CharityProfile({
   charityProfile
 }: {
   charityProfile: CharityProfileFragment
 }) {
+  const router = useRouter()
+
   return (
-    <Transition
-      appear={true}
-      show={true}
-      enter="transition duration-200"
-      enterFrom="opacity-0 translate-y-2"
-      enterTo="opacity-100"
-      leave="transition duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0 translate-y-2"
-    >
-      {' '}
-      <article>
-        <div className="flex flex-wrap items-center gap-6">
-          {/* Display Picture */}
-          <Picture size={72} />
-
-          <div className="flex flex-col items-start gap-4">
-            {/* Name */}
-            <h5>{charityProfile.name}</h5>
-
-            {/* Categories */}
-            {charityProfile.categories.map((category) => (
-              <span key={category.id} className="badge">
-                {category.name}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* About */}
-        <div className="flex items-center gap-2">
-          <p>{charityProfile.profile?.about}</p>
-        </div>
-
-        {/* Address */}
-        <p>
-          <LocationMarkerIcon />
-          {charityProfile.physicalAddress}
-          {', '}
-          {charityProfile.postalCode}
-        </p>
-
-        {/* Website */}
-        {charityProfile.profile?.links && (
-          <div className="flex items-center gap-2">
-            <GlobeAltIcon className="text-gray-600" />
-            <a
-              className="font-normal text-rose-600 hover:text-rose-700"
-              href={charityProfile.profile.links}
+    <Transit as="article">
+      <div className="flex flex-wrap items-center gap-3">
+        {/* Display Picture */}
+        <Picture size={60} />
+        <div className="flex flex-col items-start gap-1">
+          {/* Name */}
+          <h5>{charityProfile.name}</h5>
+          {/* Categories */}
+          {charityProfile.categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() =>
+                router.push({ pathname: '/home', query: { view: category.id } })
+              }
+              className="text-xs"
             >
-              {charityProfile.profile.links}
-            </a>
-          </div>
-        )}
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
 
-        {/* Followers */}
-        <p>
-          <UserGroupIcon />
-          {charityProfile.followNumber} followers
-        </p>
+      {/* About */}
+      <div className="flex items-center gap-2">
+        <p>{charityProfile.profile?.about}</p>
+      </div>
 
-        <FollowCharity followStatus={charityProfile.followStatus} />
-      </article>
-    </Transition>
+      {/* Address */}
+      <p>
+        <LocationMarkerIcon />
+        {charityProfile.physicalAddress}
+        {', '}
+        {charityProfile.postalCode}
+      </p>
+
+      {/* Website */}
+      {charityProfile.profile?.links && (
+        <div className="flex items-center gap-2">
+          <GlobeAltIcon />
+          <a
+            className=" text-rose-600 hover:text-rose-700"
+            href={charityProfile.profile.links}
+          >
+            {charityProfile.profile.links}
+          </a>
+        </div>
+      )}
+
+      {/* Followers */}
+      <p>
+        <UserGroupIcon />
+        {charityProfile.followNumber} followers
+      </p>
+
+      <FollowCharity followStatus={charityProfile.followStatus} />
+    </Transit>
   )
 }

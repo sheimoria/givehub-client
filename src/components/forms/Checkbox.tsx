@@ -20,8 +20,8 @@ export default function Checkbox({
       <input type="checkbox" {...register(name)} />
       <label htmlFor={name}>{label}</label>
       {errors && (
-        <span className="flex gap-2 text-sm text-red-500">
-          <ExclamationCircleIcon className="w-5 h-5" />
+        <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
+          <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
           {errors.message}
         </span>
       )}

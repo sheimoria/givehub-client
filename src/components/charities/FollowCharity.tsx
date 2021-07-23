@@ -22,18 +22,10 @@ export default function FollowCharity({
   })
 
   return followStatus === 1 ? (
-    <button
-      onClick={() => follow()}
-      className="rounded-button-outline button-highlight"
-    >
+    <button onClick={() => follow()} className="button-outline">
       Following
     </button>
   ) : (
-    <button
-      onClick={() => follow()}
-      className="rounded-button-solid button-highlight"
-    >
-      Follow
-    </button>
+    <button onClick={() => follow()}>Follow</button>
   )
 }

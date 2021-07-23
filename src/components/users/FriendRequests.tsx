@@ -8,16 +8,16 @@ export default function FriendRequests() {
     <Transit as="dl">
       <h5>Friend Requests</h5>
       <div className="divide">
-        {data && data.viewMyPendingFriendRequests.userList.length > 0 ? (
-          //@ts-ignore
-          data.viewMyPendingFriendRequests?.userList.map((user) => (
-            <FriendRequest key={user.id} user={user} />
-          ))
-        ) : (
-          <div className="py-3">
-            <p> You have no pending friend requests.</p>
-          </div>
-        )}
+        {data?.viewMyPendingFriendRequests?.userList &&
+          (data.viewMyPendingFriendRequests.userList.length > 0 ? (
+            data.viewMyPendingFriendRequests.userList.map((user) => (
+              <FriendRequest key={user.id} user={user} />
+            ))
+          ) : (
+            <div className="py-3">
+              <p> You have no pending friend requests.</p>
+            </div>
+          ))}
       </div>
     </Transit>
   )

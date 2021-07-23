@@ -1,9 +1,10 @@
 import { HeaderFragment, MeQuery } from 'generated/graphql'
-import { ReactNode } from 'react'
+
 import Footer from 'components/layout/Footer'
 import Head from 'next/head'
 import Header from 'components/layout/Header'
 import Navigation from './Navigation'
+import { ReactNode } from 'react'
 
 type Props = {
   title: string

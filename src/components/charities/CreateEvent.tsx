@@ -129,14 +129,14 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
                   errors={errors.venue}
                 />
                 <div className="flex gap-2">
-                  <button type="submit" className="button-highlight">
-                    Create Event
-                  </button>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="button-neutral"
+                    className="flex-auto button-outline"
                   >
                     Cancel
+                  </button>
+                  <button type="submit" className="flex-auto">
+                    Create Event
                   </button>
                 </div>
               </Form>

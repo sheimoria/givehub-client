@@ -11,14 +11,7 @@ export default function EventSnippet({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col">
-        <Link
-          href={{
-            pathname: '/event',
-            query: { eventId: event.id }
-          }}
-        >
-          <a>{event.name}</a>
-        </Link>
+        <h6>{event.name}</h6>
         <Link
           href={{
             pathname: '/charity',

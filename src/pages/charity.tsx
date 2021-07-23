@@ -1,18 +1,17 @@
 import { CharityProfileFragmentDoc, useCharityQuery } from 'generated/graphql'
 
 import Body from 'components/layout/Body'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import CharityEvents from 'components/charities/CharityEvents'
-import CharityPost from 'components/charities/CharityPost'
 import CharityProfile from 'components/charities/CharityProfile'
+import CreateEventButton from 'components/charities/CreateEventButton'
+import FriendRequests from 'components/users/FriendRequests'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import React from 'react'
+import UserTasks from 'components/users/UserTasks'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
-import React from 'react'
-import UserTasks from 'components/users/UserTasks'
-import PeopleToFollow from 'components/users/PeopleToFollow'
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import VolunteerRequests from 'components/events/VolunteerRequests'
-import FriendRequests from 'components/users/FriendRequests'
 
 export default withAuth(function Charity({ me }) {
   const router = useRouter()
@@ -26,18 +25,14 @@ export default withAuth(function Charity({ me }) {
       me={me}
       aside={
         <>
-          {data.charitySearchByID.adminStatus ? (
-            <VolunteerRequests />
-          ) : (
-            <FriendRequests />
-          )}
+          <FriendRequests />
           <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
         </>
       }
     >
-      {data && data.charitySearchByID && (
+      {data?.charitySearchByID && (
         <>
           <CharityProfile
             charityProfile={filter(
@@ -45,8 +40,8 @@ export default withAuth(function Charity({ me }) {
               data.charitySearchByID
             )}
           />
-          {data.charitySearchByID?.adminStatus && <CharityPost />}
-          <CharityEvents events={data.charitySearchByID.charityEvents} />
+          {data.charitySearchByID?.adminStatus && <CreateEventButton />}
+          <CharityEvents events={data.charitySearchByID?.charityEvents} />
         </>
       )}
     </Body>

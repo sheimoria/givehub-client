@@ -4,6 +4,8 @@ import { Transition } from '@headlessui/react'
 type TransitProps = {
   onEveryMount?: boolean
   as?: any
+  onClick?: () => void
+  onSubmit?: () => void
   className?: string
   children: ReactNode
 }
@@ -11,6 +13,8 @@ type TransitProps = {
 export default function Transit({
   onEveryMount,
   as,
+  onClick,
+  onSubmit,
   className,
   children
 }: TransitProps) {
@@ -26,6 +30,8 @@ export default function Transit({
       leaveTo="opacity-0 translate-y-2"
       className={className}
       as={as}
+      onClick={onClick}
+      onSubmit={onSubmit}
     >
       {children}
     </Transition>
