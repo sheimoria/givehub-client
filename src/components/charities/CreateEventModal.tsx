@@ -142,7 +142,7 @@ export default function CreateEventModal({
                   errors={errors.venue}
                 />
                 <div />
-                <UploadImageButton image={image} setImage={setImage} />
+                <UploadImageButton setImage={setImage} />
                 <div />
                 <div className="flex gap-2">
                   <button

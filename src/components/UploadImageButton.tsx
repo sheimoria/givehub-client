@@ -17,6 +17,7 @@ export default function UploadImageButton({ setImage }: UploadImageProps) {
         id="imageUpload"
         type="file"
         onChange={(event) => {
+          if (!event.target.files) return
           setImage(event.target.files[0])
           setLabel(event.target.files[0].name.substr(0, 9) + '\u2026')
         }}

@@ -21,13 +21,13 @@ import withAuth from 'utils/withAuth'
 export default withAuth(function Home({ me }) {
   const router = useRouter()
   const { data: users } = useSearchUsersQuery({
-    variables: { input: router.query.searchValue as string }
+    variables: { input: router.query.searchValue as string, limit: 50 }
   })
   const { data: charities } = useSearchCharitiesQuery({
-    variables: { input: router.query.searchValue as string }
+    variables: { input: router.query.searchValue as string, limit: 50 }
   })
   const { data: events } = useSearchEventsQuery({
-    variables: { input: router.query.searchValue as string }
+    variables: { input: router.query.searchValue as string, limit: 50 }
   })
 
   return (
