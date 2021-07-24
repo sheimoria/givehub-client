@@ -1,12 +1,10 @@
 import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import CreateTask from 'components/tasks/CreateTask'
 import CreateTaskButton from 'components/tasks/CreateTaskButton'
 import Event from 'components/events/Event'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
-import React from 'react'
-import Tasks from 'components/events/Tasks'
+import Tasks from 'components/events/EventTasks'
 import UserTasks from 'components/users/UserEvents'
 import VolunteerRequests from 'components/events/VolunteerRequests'
 import Volunteers from 'components/events/Volunteers'
@@ -27,7 +25,7 @@ export default withAuth(function ViewEvent({ me }) {
       aside={
         <>
           {data?.event?.adminStatus ? (
-            <VolunteerRequests  />
+            <VolunteerRequests />
           ) : (
             <FriendRequests />
           )}
@@ -37,7 +35,7 @@ export default withAuth(function ViewEvent({ me }) {
         </>
       }
     >
-      {data && data.event && (
+      {data?.event && (
         <>
           <Event event={data.event} />
           {data.event.adminStatus && (

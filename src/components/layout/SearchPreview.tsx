@@ -1,17 +1,17 @@
 import {
   CharityHeaderFragment,
-  EventHeaderFragment,
+  EventSnippetFragment,
   useSearchCharitiesQuery,
   useSearchEventsQuery,
   useSearchUsersQuery
 } from 'generated/graphql'
 
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import EventHeader from 'components/events/EventHeader'
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import { Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
+import EventSnippet from 'components/events/EventSnippet'
 
 type SearchPreviewProps = {
   isOpen: boolean
@@ -53,7 +53,7 @@ export default function SearchPreview({
             {users.searchUsers.items.map((user) => (
               <div
                 key={user.id}
-                className="flex gap-3 py-3 cursor-pointer"
+                className="flex gap-3 py-3 clickable"
                 onClick={() =>
                   router.push({
                     pathname: '/user',
@@ -81,7 +81,7 @@ export default function SearchPreview({
               (charity: CharityHeaderFragment) => (
                 <div
                   key={charity.id}
-                  className="flex gap-3 py-3 cursor-pointer"
+                  className="flex gap-3 py-3 clickable"
                   onClick={() =>
                     router.push({
                       pathname: '/charity',
@@ -106,16 +106,20 @@ export default function SearchPreview({
         <div className="flex flex-col gap-3 px-5 py-3">
           <h5>Events</h5>
           <div className="space-y-3">
-            {events.searchEvents.items.map(
-              (eventHeader: EventHeaderFragment) => (
-                <div
-                  key={eventHeader.id}
-                  className="p-3 border border-gray-200 rounded-lg cursor-pointer dark:border-gray-700"
-                >
-                  <EventHeader event={eventHeader} />
-                </div>
-              )
-            )}
+            {events.searchEvents.items.map((event: EventSnippetFragment) => (
+              <div
+                key={event.id}
+                className="p-3 rounded-lg clickable stroke"
+                onClick={() =>
+                  router.push({
+                    pathname: '/event',
+                    query: { eventId: event.id }
+                  })
+                }
+              >
+                <EventSnippet event={event} />
+              </div>
+            ))}
           </div>
         </div>
       )}

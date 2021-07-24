@@ -30,7 +30,7 @@ export default function VolunteerRequests() {
             eventVolunteer.adminapproval == AdminApproval.Pending
         ).length == 0 && (
           <div className="py-3">
-            <p> You have no pending friend requests.</p>
+            <p>No pending volunteer requests.</p>
           </div>
         )}
       </div>

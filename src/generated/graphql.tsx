@@ -1173,7 +1173,7 @@ export type EventLikesFragment = (
 
 export type EventRequestsFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'approvalStatus'>
+  & Pick<Event, 'id' | 'approvalStatus' | 'volunteerNumber'>
 );
 
 export type EventSnippetFragment = (
@@ -1183,6 +1183,26 @@ export type EventSnippetFragment = (
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
   ) }
+);
+
+export type EventTasksQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+
+export type EventTasksQuery = (
+  { __typename?: 'Query' }
+  & { event?: Maybe<(
+    { __typename?: 'Event' }
+    & { eventTasks?: Maybe<Array<(
+      { __typename?: 'Task' }
+      & Pick<Task, 'id' | 'description' | 'deadline' | 'createdAt'>
+      & { volunteersAssigned?: Maybe<Array<(
+        { __typename?: 'User' }
+        & UserHeaderFragment
+      )>> }
+    )>> }
+  )> }
 );
 
 export type EventsQueryVariables = Exact<{
@@ -1722,6 +1742,7 @@ export const EventRequestsFragmentDoc = gql`
     fragment EventRequests on Event {
   id
   approvalStatus
+  volunteerNumber
 }
     `;
 export const EventCardFragmentDoc = gql`
@@ -2557,6 +2578,49 @@ export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Even
 export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const EventTasksDocument = gql`
+    query EventTasks($eventId: Int!) {
+  event(id: $eventId) {
+    eventTasks {
+      id
+      description
+      deadline
+      createdAt
+      volunteersAssigned {
+        ...UserHeader
+      }
+    }
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useEventTasksQuery__
+ *
+ * To run a query within a React component, call `useEventTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventTasksQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useEventTasksQuery(baseOptions: Apollo.QueryHookOptions<EventTasksQuery, EventTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventTasksQuery, EventTasksQueryVariables>(EventTasksDocument, options);
+      }
+export function useEventTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventTasksQuery, EventTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventTasksQuery, EventTasksQueryVariables>(EventTasksDocument, options);
+        }
+export type EventTasksQueryHookResult = ReturnType<typeof useEventTasksQuery>;
+export type EventTasksLazyQueryHookResult = ReturnType<typeof useEventTasksLazyQuery>;
+export type EventTasksQueryResult = Apollo.QueryResult<EventTasksQuery, EventTasksQueryVariables>;
 export const EventsDocument = gql`
     query Events($limit: Int!, $categories: [Float!]!, $sortByLikes: Boolean!, $sortByUpcoming: Boolean!) {
   searchEvents(

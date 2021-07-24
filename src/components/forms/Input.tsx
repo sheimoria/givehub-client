@@ -32,20 +32,24 @@ export default function Input({
           {label}
         </label>
       )}
-      <input
-        placeholder={placeholder}
-        {...register(name)}
-        className={className}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        autoComplete="off"
-      />
-      {errors && (
-        <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
-          <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
-          {errors.message}
-        </span>
-      )}
+      <div className="relative transition">
+        <input
+          placeholder={placeholder}
+          {...register(name)}
+          className={className}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          autoComplete="off"
+        />
+        {errors && (
+          <div className="absolute inset-y-0 right-0 flex items-end pb-2 pr-3 pointer-events-none">
+            <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
+              {errors.message}
+              <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

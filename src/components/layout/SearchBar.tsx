@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-export default function Search() {
+export default function SearchBar() {
   const { register, handleSubmit, watch } = useForm({
     resolver: yupResolver(yup.object({ search: yup.string() }))
   })
@@ -18,7 +18,7 @@ export default function Search() {
     <Form
       handleSubmit={handleSubmit}
       onSubmit={() => null}
-      className="relative flex-1 p-0 bg-transparent border-none shadow-none"
+      className="relative flex-1 p-0 bg-transparent border-none shadow-none dark:bg-transparent"
     >
       <label htmlFor="search" className="sr-only">
         Search

@@ -26,17 +26,21 @@ export default function Textarea({
       <label htmlFor={name} className={srOnly ? 'sr-only' : undefined}>
         {label}
       </label>
-      <textarea
-        placeholder={placeholder}
-        {...register(name)}
-        className={className}
-      ></textarea>
-      {errors && (
-        <span className="absolute flex gap-1 text-sm text-rose-600 dark:text-rose-600 inset-1/2">
-          <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
-          {errors.message}
-        </span>
-      )}
+      <div className="relative">
+        <textarea
+          placeholder={placeholder}
+          {...register(name)}
+          className={className}
+        ></textarea>
+        {errors && (
+          <div className="absolute inset-y-0 right-0 flex items-end pb-4 pr-3 pointer-events-none">
+            <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
+              {errors.message}
+              <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

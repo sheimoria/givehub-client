@@ -18,7 +18,7 @@ export default function CharityProfile({
   const router = useRouter()
 
   return (
-    <Transit as="article">
+    <Transit onEveryMount as="article">
       <div className="flex flex-wrap items-center gap-3">
         {/* Display Picture */}
         <Picture size={60} />

@@ -12,14 +12,7 @@ export default function EventSnippet({
     <div className="flex flex-col gap-3">
       <div className="flex flex-col">
         <h6>{event.name}</h6>
-        <Link
-          href={{
-            pathname: '/charity',
-            query: { charityId: event.charity.id }
-          }}
-        >
-          <a className="font-normal">{event.charity.name}</a>
-        </Link>
+        <p>{event.charity.name}</p>
       </div>
       <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
       <Venue venue={event.venue} />

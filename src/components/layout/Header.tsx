@@ -2,7 +2,7 @@ import Avatar from 'components/layout/Avatar'
 import { HeaderFragment } from 'generated/graphql'
 import Image from 'next/image'
 import Link from 'next/link'
-import Search from 'components/layout/Search'
+import Search from 'components/layout/SearchBar'
 import Transit from 'components/Transit'
 import { useRouter } from 'next/router'
 

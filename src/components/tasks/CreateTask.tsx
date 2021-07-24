@@ -100,7 +100,6 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
                   register={register}
                   errors={errors.description}
                   placeholder="Description"
-                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-transparent"
                   srOnly
                 />
                 <Datetime
@@ -109,7 +108,6 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
                   control={control}
                   errors={errors.deadline}
                   srOnly
-                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-0"
                   placeholder="Deadline"
                 />
                 <div className="flex gap-2">

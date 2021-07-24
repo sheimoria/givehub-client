@@ -27,7 +27,7 @@ export default withAuth(function Charities({ me }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h5>My Charities</h5>
         <button onClick={() => router.push('/charity-sign-up')}>
-          <PlusIcon className="items-center text-white" />
+          <PlusIcon className="items-center text-white dark:text-white" />
           Add Charity
         </button>
       </div>

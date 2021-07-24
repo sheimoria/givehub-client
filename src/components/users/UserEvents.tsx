@@ -24,7 +24,7 @@ export default function UserEvents() {
             <Transit
               key={eventContainer.event.id}
               as="article"
-              className="transition-transform hover:-translate-y-px"
+              className="clickable"
               onClick={() =>
                 router.push({
                   pathname: `/event`,

@@ -16,9 +16,11 @@ export default function Checkbox({
   errors
 }: CheckboxProps) {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-3">
       <input type="checkbox" {...register(name)} />
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className="font-normal">
+        {label}
+      </label>
       {errors && (
         <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
           <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
