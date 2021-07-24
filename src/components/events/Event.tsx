@@ -31,9 +31,7 @@ export default function Event({ event, lineclamp }: EventProps) {
         <p className={lineclamp ? 'line-clamp-3' : ''}>{event.description}</p>
         <div className="flex items-center gap-4">
           <LikeEvent likeEvent={filter(EventLikesFragmentDoc, event)} />
-          <RequestEvent
-            requestEvent={filter(EventRequestsFragmentDoc, event)}
-          />
+          <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />
         </div>
       </article>
     </Transit>

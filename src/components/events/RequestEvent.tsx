@@ -7,39 +7,35 @@ import {
 import { HandIcon as HandIconHollow } from '@heroicons/react/outline'
 
 export default function RequestEvent({
-  requestEvent
+  event
 }: {
-  requestEvent: EventRequestsFragment
+  event: EventRequestsFragment
 }) {
   const [request] = useRequestEventMutation({
-    variables: { eventId: requestEvent.id }
+    variables: { eventId: event.id }
   })
 
-  switch (requestEvent.approvalStatus) {
-    case AdminApproval.Pending:
-      return (
-        <button className="text-xs pointer-events-none button-outline">
-          RSVP Pending
-        </button>
-      )
-    case AdminApproval.Approved:
-      return (
+  return (
+    <div className="flex gap-2">
+      {event.approvalStatus === AdminApproval.Approved ? (
         <button className="text-xs pointer-events-none button-outline">
           RSVP Approved
         </button>
-      )
-    case AdminApproval.Rejected:
-      return (
+      ) : event.approvalStatus === AdminApproval.Pending ? (
+        <button className="text-xs pointer-events-none button-outline">
+          RSVP Pending
+        </button>
+      ) : event.approvalStatus === AdminApproval.Rejected ? (
         <button className="text-xs pointer-events-none button-outline">
           RSVP Rejected
         </button>
-      )
-    default:
-      return (
+      ) : (
         <HandIconHollow
           className="transition-transform hover:scale-110"
           onClick={() => request()}
         />
-      )
-  }
+      )}
+      <p>{event.volunteerNumber}</p>
+    </div>
+  )
 }
