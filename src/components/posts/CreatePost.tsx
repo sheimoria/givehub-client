@@ -34,7 +34,6 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
       })
     )
   })
-  const router = useRouter()
 
   async function handleCreatePost(values: PostInput) {
     const response = await createPost({

@@ -5,6 +5,7 @@ import Event from 'components/events/Event'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Tasks from 'components/events/EventTasks'
+import UnassignedVolunteers from 'components/events/ApprovedVolunteers'
 import UserTasks from 'components/users/UserEvents'
 import VolunteerRequests from 'components/events/VolunteerRequests'
 import Volunteers from 'components/events/Volunteers'
@@ -25,13 +26,18 @@ export default withAuth(function ViewEvent({ me }) {
       aside={
         <>
           {data?.event?.adminStatus ? (
-            <VolunteerRequests />
+            <>
+              <VolunteerRequests />
+              <UnassignedVolunteers />
+            </>
           ) : (
-            <FriendRequests />
+            <>
+              <FriendRequests />
+              <UserTasks />
+              <PeopleToFollow />
+              <CharitiesToFollow />
+            </>
           )}
-          <UserTasks />
-          <PeopleToFollow />
-          <CharitiesToFollow />
         </>
       }
     >
@@ -39,7 +45,7 @@ export default withAuth(function ViewEvent({ me }) {
         <>
           <Event event={data.event} />
           {data.event.adminStatus && (
-            <>
+          <>
               <CreateTaskButton />
               <Tasks />
               <Volunteers />

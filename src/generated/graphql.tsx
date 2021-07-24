@@ -499,6 +499,15 @@ export type PaginatedPosts = {
   hasMore: Scalars['Boolean'];
 };
 
+export type PaginatedTasks = {
+  __typename?: 'PaginatedTasks';
+  items: Array<Task>;
+  total: Scalars['Int'];
+  hasMore: Scalars['Boolean'];
+  success: Scalars['Boolean'];
+  errors?: Maybe<Array<FieldError>>;
+};
+
 export type PaginatedUsers = {
   __typename?: 'PaginatedUsers';
   items: Array<User>;
@@ -564,6 +573,9 @@ export type Query = {
   searchEvents: PaginatedEvents;
   event?: Maybe<Event>;
   getVolunteerRequestListForEvents: PaginatedEventVolunteers;
+  getPendingVolunteerRequestForEvents: PaginatedEventVolunteers;
+  getAcceptedVolunteerRequestListForEvents: PaginatedEventVolunteers;
+  searchTasks: PaginatedTasks;
   userRecommender: PaginatedUsers;
   charityRecommender: PaginatedCharities;
 };
@@ -651,6 +663,27 @@ export type QueryGetVolunteerRequestListForEventsArgs = {
 };
 
 
+export type QueryGetPendingVolunteerRequestForEventsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  eventIds: Array<Scalars['Int']>;
+};
+
+
+export type QueryGetAcceptedVolunteerRequestListForEventsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  eventIds: Array<Scalars['Int']>;
+};
+
+
+export type QuerySearchTasksArgs = {
+  input?: Maybe<Scalars['String']>;
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+};
+
+
 export type QueryUserRecommenderArgs = {
   limit: Scalars['Float'];
 };
@@ -668,6 +701,7 @@ export type Task = {
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
   volunteersAssigned?: Maybe<Array<User>>;
+  unassignedVolunteers?: Maybe<Array<User>>;
   adminStatus: Scalars['Boolean'];
 };
 
@@ -1381,13 +1415,15 @@ export type PostQuery = (
 
 export type PostCardFragment = (
   { __typename?: 'Post' }
+  & Pick<Post, 'creatorStatus'>
+  & PostHeaderFragment
   & PostInfoFragment
   & PostLikesFragment
 );
 
-export type PostInfoFragment = (
+export type PostHeaderFragment = (
   { __typename?: 'Post' }
-  & Pick<Post, 'id' | 'creatorStatus' | 'createdAt' | 'text'>
+  & Pick<Post, 'id' | 'createdAt'>
   & { creator: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
@@ -1396,6 +1432,11 @@ export type PostInfoFragment = (
       & Pick<Userprofile, 'firstName' | 'lastName'>
     )> }
   ) }
+);
+
+export type PostInfoFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'text'>
 );
 
 export type PostLikesFragment = (
@@ -1587,6 +1628,25 @@ export type UpdateUserCategoriesMutation = (
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>> }
+  ) }
+);
+
+export type UpdateUserProfileMutationVariables = Exact<{
+  options: UserProfileUpdateInput;
+}>;
+
+
+export type UpdateUserProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { updateUserProfile: (
+    { __typename?: 'UserResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, user?: Maybe<(
+      { __typename?: 'User' }
+      & UserProfileFragment
+    )> }
   ) }
 );
 
@@ -1782,10 +1842,9 @@ export const EventSnippetFragmentDoc = gql`
   venue
 }
     `;
-export const PostInfoFragmentDoc = gql`
-    fragment PostInfo on Post {
+export const PostHeaderFragmentDoc = gql`
+    fragment PostHeader on Post {
   id
-  creatorStatus
   creator {
     id
     profile {
@@ -1795,6 +1854,10 @@ export const PostInfoFragmentDoc = gql`
     username
   }
   createdAt
+}
+    `;
+export const PostInfoFragmentDoc = gql`
+    fragment PostInfo on Post {
   text
 }
     `;
@@ -1807,10 +1870,13 @@ export const PostLikesFragmentDoc = gql`
     `;
 export const PostCardFragmentDoc = gql`
     fragment PostCard on Post {
+  creatorStatus
+  ...PostHeader
   ...PostInfo
   ...PostLikes
 }
-    ${PostInfoFragmentDoc}
+    ${PostHeaderFragmentDoc}
+${PostInfoFragmentDoc}
 ${PostLikesFragmentDoc}`;
 export const UserAvatarFragmentDoc = gql`
     fragment UserAvatar on User {
@@ -3340,6 +3406,45 @@ export function useUpdateUserCategoriesMutation(baseOptions?: Apollo.MutationHoo
 export type UpdateUserCategoriesMutationHookResult = ReturnType<typeof useUpdateUserCategoriesMutation>;
 export type UpdateUserCategoriesMutationResult = Apollo.MutationResult<UpdateUserCategoriesMutation>;
 export type UpdateUserCategoriesMutationOptions = Apollo.BaseMutationOptions<UpdateUserCategoriesMutation, UpdateUserCategoriesMutationVariables>;
+export const UpdateUserProfileDocument = gql`
+    mutation UpdateUserProfile($options: UserProfileUpdateInput!) {
+  updateUserProfile(options: $options) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...UserProfile
+    }
+  }
+}
+    ${UserProfileFragmentDoc}`;
+export type UpdateUserProfileMutationFn = Apollo.MutationFunction<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+
+/**
+ * __useUpdateUserProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserProfileMutation, { data, loading, error }] = useUpdateUserProfileMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useUpdateUserProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>(UpdateUserProfileDocument, options);
+      }
+export type UpdateUserProfileMutationHookResult = ReturnType<typeof useUpdateUserProfileMutation>;
+export type UpdateUserProfileMutationResult = Apollo.MutationResult<UpdateUserProfileMutation>;
+export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
 export const UserDocument = gql`
     query User($id: Float!) {
   user(id: $id) {

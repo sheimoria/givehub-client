@@ -53,7 +53,7 @@ export default function SearchPreview({
             {users.searchUsers.items.map((user) => (
               <div
                 key={user.id}
-                className="flex gap-3 py-3 clickable"
+                className="flex gap-3 py-3 clickable-float"
                 onClick={() =>
                   router.push({
                     pathname: '/user',
@@ -81,7 +81,7 @@ export default function SearchPreview({
               (charity: CharityHeaderFragment) => (
                 <div
                   key={charity.id}
-                  className="flex gap-3 py-3 clickable"
+                  className="flex gap-3 py-3 clickable-float"
                   onClick={() =>
                     router.push({
                       pathname: '/charity',
@@ -109,7 +109,7 @@ export default function SearchPreview({
             {events.searchEvents.items.map((event: EventSnippetFragment) => (
               <div
                 key={event.id}
-                className="p-3 rounded-lg clickable stroke"
+                className="p-3 rounded-lg clickable-float"
                 onClick={() =>
                   router.push({
                     pathname: '/event',

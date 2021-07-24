@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import CreatePost from 'components/posts/CreatePost'
 import Picture from 'components/Picture'

@@ -1,0 +1,12 @@
+fragment PostHeader on Post {
+  id
+  creator {
+    id
+    profile {
+      firstName
+      lastName
+    }
+    username
+  }
+  createdAt
+}

@@ -24,7 +24,7 @@ export default function UserEvents() {
             <Transit
               key={eventContainer.event.id}
               as="article"
-              className="clickable"
+              className="clickable-float"
               onClick={() =>
                 router.push({
                   pathname: `/event`,

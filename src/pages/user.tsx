@@ -8,10 +8,9 @@ import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
-import React from 'react'
-import UserEvents from 'components/users/UserEventButtons'
+import UserEventButtons from 'components/users/UserEventButtons'
+import UserEvents from 'components/users/UserEvents'
 import UserProfile from 'components/users/UserProfile'
-import UserTasks from 'components/users/UserEvents'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -29,7 +28,7 @@ export default withAuth(function User({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
+          <UserEvents />
           <PeopleToFollow />
           <CharitiesToFollow />
         </>
@@ -38,7 +37,7 @@ export default withAuth(function User({ me }) {
       {data?.user && (
         <>
           <UserProfile user={filter(UserProfileFragmentDoc, data.user)} />
-          <UserEvents user={filter(UserEventsFragmentDoc, data.user)} />
+          <UserEventButtons user={filter(UserEventsFragmentDoc, data.user)} />
         </>
       )}
     </Body>

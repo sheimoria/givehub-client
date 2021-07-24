@@ -31,7 +31,7 @@ export default function EventTasks() {
                     {task.volunteersAssigned.map((volunteer) => (
                       <div
                         key={volunteer.id}
-                        className="flex gap-3 py-3 clickable"
+                        className="flex gap-3 py-3 clickable-float"
                         onClick={() =>
                           router.push({
                             pathname: '/user',

@@ -8,22 +8,26 @@ import {
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import RequestFriend from './RequestFriend'
+import UpdateUserProfileButton from './UpdateUserProfileButton'
 import { UserProfileFragment } from 'generated/graphql'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
-    <article className="items-start">
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Display Picture */}
-        <Picture size={54} />
-        <div className="flex flex-col">
-          {/* Name */}
-          <h5>
-            {user.profile?.firstName} {user.profile?.lastName}
-          </h5>
-          {/* Handle */}
-          <p>@{user.username}</p>
+    <article className="items-stretch">
+      <div className="flex justify-between gap-3">
+        <div className="flex items-center flex-none gap-3">
+          {/* Display Picture */}
+          <Picture size={54} />
+          <div className="flex flex-col">
+            {/* Name */}
+            <h5>
+              {user.profile?.firstName} {user.profile?.lastName}
+            </h5>
+            {/* Handle */}
+            <p>@{user.username}</p>
+          </div>
         </div>
+        <UpdateUserProfileButton user={user} />
       </div>
       {/* About */}
       <p>{user.profile?.about}</p>

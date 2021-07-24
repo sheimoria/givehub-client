@@ -1,4 +1,6 @@
 fragment PostCard on Post {
+  creatorStatus
+  ...PostHeader
   ...PostInfo
   ...PostLikes
 }

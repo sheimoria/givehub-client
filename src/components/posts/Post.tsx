@@ -10,14 +10,16 @@ import LikePost from './LikePost'
 import Link from 'next/link'
 import Transit from 'components/Transit'
 import { filter } from 'graphql-anywhere'
+import React from 'react'
+import UpdatePostButton from './UpdatePostButton'
 
 type PostProps = {
-  postCard: PostCardFragment
-  eventInfo: EventInfoFragment | undefined
+  post: PostCardFragment
+  event: EventInfoFragment | undefined
   lineclamp?: boolean
 }
 
-export default function Post({ postCard, eventInfo, lineclamp }: PostProps) {
+export default function Post({ post, event, lineclamp }: PostProps) {
   return (
     <Transit>
       <article>
@@ -34,31 +36,29 @@ export default function Post({ postCard, eventInfo, lineclamp }: PostProps) {
               <Link
                 href={{
                   pathname: '/user',
-                  query: { userId: postCard.creator.id }
+                  query: { userId: post.creator.id }
                 }}
               >
                 <a>
-                  {postCard.creator?.profile?.firstName}{' '}
-                  {postCard.creator?.profile?.lastName}
+                  {post.creator?.profile?.firstName}{' '}
+                  {post.creator?.profile?.lastName}
                 </a>
               </Link>
               <p>
-                {new Date(parseInt(postCard.createdAt)).toLocaleString(
-                  'en-US',
-                  {
-                    day: 'numeric',
-                    month: 'short',
-                    hour: 'numeric',
-                    minute: 'numeric'
-                  }
-                )}
+                {new Date(parseInt(post.createdAt)).toLocaleString('en-US', {
+                  day: 'numeric',
+                  month: 'short',
+                  hour: 'numeric',
+                  minute: 'numeric'
+                })}
               </p>
             </div>
           </div>
+          {post.creatorStatus && <UpdatePostButton post={post} />}
         </div>
-        <p className={lineclamp ? 'line-clamp-3' : ''}>{postCard.text}</p>
-        {eventInfo && <EventPreview eventInfo={eventInfo} />}
-        <LikePost likePost={filter(PostLikesFragmentDoc, postCard)} />
+        <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
+        {event && <EventPreview event={event} />}
+        <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
       </article>
     </Transit>
   )

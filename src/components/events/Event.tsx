@@ -12,6 +12,7 @@ import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEvent'
 import Transit from 'components/Transit'
 import { filter } from 'graphql-anywhere'
+import UpdateEventButton from 'components/charities/UpdateEventButton'
 
 type EventProps = {
   event: EventCardFragment
@@ -24,8 +25,12 @@ export default function Event({ event, lineclamp }: EventProps) {
       <article>
         <div className="flex flex-wrap justify-between gap-3">
           <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
-          {/*  <EditEvent event={event} /> */}
-          <ShareEvent eventInfo={filter(EventInfoFragmentDoc, event)} />
+          <div className="flex gap-2">
+            {event.adminStatus && (
+              <UpdateEventButton event={filter(EventInfoFragmentDoc, event)} />
+            )}
+            <ShareEvent eventInfo={filter(EventInfoFragmentDoc, event)} />
+          </div>
         </div>
 
         <p className={lineclamp ? 'line-clamp-3' : ''}>{event.description}</p>

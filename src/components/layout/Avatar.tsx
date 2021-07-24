@@ -37,11 +37,11 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
           >
             <Menu.Items
               static
-              className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white border border-gray-200 rounded-md shadow-md focus:outline-none dark:border-gray-700 dark:bg-gray-800"
+              className="absolute right-0 z-10 flex flex-col py-2.5 mt-3 truncate origin-top-right bg-white bordered rounded-md shadow-md focus:outline-none dark:bg-gray-800"
             >
               <Menu.Item>
                 {({ active }) => (
-                  <h6 className="px-6 py-3">
+                  <h6 className="px-5 py-2.5">
                     {me.profile?.firstName} {me.profile?.lastName}
                   </h6>
                 )}
@@ -49,7 +49,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <Link href={{ pathname: '/user', query: { userId: me.id } }}>
-                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Profile
                     </a>
                   </Link>
@@ -58,7 +58,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <Link href={{ pathname: '/charities' }}>
-                    <a className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Charities
                     </a>
                   </Link>
@@ -67,7 +67,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    className="px-6 py-3 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
                     onClick={handleLogOut}
                   >
                     Log Out

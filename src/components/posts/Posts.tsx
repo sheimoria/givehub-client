@@ -18,8 +18,8 @@ export default function Posts() {
         data.posts?.items.map((post) => (
           <Post
             key={post.post.id}
-            postCard={filter(PostCardFragmentDoc, post.post)}
-            eventInfo={
+            post={filter(PostCardFragmentDoc, post.post)}
+            event={
               post.event ? filter(EventInfoFragmentDoc, post.event) : undefined
             }
             lineclamp

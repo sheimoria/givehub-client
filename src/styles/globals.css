@@ -26,7 +26,7 @@
     @apply flex items-center justify-between p-5;
   }
   section {
-    @apply flex flex-col gap-5;
+    @apply flex flex-col gap-3;
   }
   article {
     @apply flex flex-col gap-3 p-5 bg-white border-t border-b border-gray-200 shadow-sm md:border-l md:border-r md:rounded-xl dark:border-gray-700 dark:bg-gray-800;
@@ -122,8 +122,11 @@
   .link-primary {
     @apply flex items-center gap-2 text-sm font-medium transition text-rose-600 hover:-translate-y-px hover:text-rose-700 active:translate-y-px;
   }
-  .clickable {
+  .clickable-float {
     @apply transition-transform cursor-pointer hover:-translate-y-px active:translate-y-px;
+  }
+  .clickable-scale {
+    @apply transition-transform cursor-pointer hover:scale-110 active:translate-y-px;
   }
   .bordered {
     @apply border border-gray-200 dark:border-gray-700;

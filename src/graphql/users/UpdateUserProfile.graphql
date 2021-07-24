@@ -1,0 +1,11 @@
+mutation UpdateUserProfile($options: UserProfileUpdateInput!) {
+  updateUserProfile(options: $options) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...UserProfile
+    }
+  }
+}
