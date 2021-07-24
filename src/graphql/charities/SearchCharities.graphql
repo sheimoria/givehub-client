@@ -1,5 +1,5 @@
-query SearchCharities($input: String) {
-  searchCharities(input: $input, cursor: null, categories: [], limit: 3) {
+query SearchCharities($input: String, $limit: Int!) {
+  searchCharities(input: $input, cursor: null, categories: [], limit: $limit) {
     items {
       ...CharityHeader
     }

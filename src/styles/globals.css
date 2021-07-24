@@ -66,7 +66,7 @@
     @apply flex items-center gap-2 text-sm font-medium text-gray-800 transition hover:-translate-y-px hover:text-gray-900 dark:hover:text-white dark:text-gray-100 active:translate-y-px;
   }
   button {
-    @apply flex items-center justify-center gap-1 px-3 py-1 text-sm font-medium text-white transition border rounded-full shadow-sm hover:-translate-y-px hover:bg-rose-700 active:translate-y-px bg-rose-600 border-rose-600 hover:border-rose-700;
+    @apply flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium text-white transition border rounded-full shadow-sm hover:-translate-y-px hover:bg-rose-700 active:translate-y-px bg-rose-600 border-rose-600 hover:border-rose-700;
   }
 
   /* Forms */
@@ -118,6 +118,12 @@
   }
   .button-outline {
     @apply bg-white dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-rose-700 text-rose-600;
+  }
+  .button-upload {
+    @apply flex items-center justify-center gap-1 px-3 py-2 text-gray-800 transition bg-white rounded-full shadow-sm hover:text-gray-900 dark:text-gray-100 dark:hover:text-white hover:bg-gray-100 bordered clickable-float dark:bg-gray-800 dark:hover:bg-gray-900;
+  }
+  .icon-upload {
+    @apply text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white;
   }
   .link-primary {
     @apply flex items-center gap-2 text-sm font-medium transition text-rose-600 hover:-translate-y-px hover:text-rose-700 active:translate-y-px;

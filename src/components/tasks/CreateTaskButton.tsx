@@ -8,11 +8,7 @@ export default function CreateTaskButton() {
 
   return (
     <>
-      <Transit
-        as="button"
-        onClick={() => setIsOpen(true)}
-        className="px-4 py-2"
-      >
+      <Transit as="button" onClick={() => setIsOpen(true)} className="py-3">
         <ClipboardIcon className="text-white dark:text-white" />
         Create Task
       </Transit>

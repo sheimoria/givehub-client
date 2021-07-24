@@ -1020,6 +1020,7 @@ export type FollowCharityMutation = (
 
 export type SearchCharitiesQueryVariables = Exact<{
   input?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 }>;
 
 
@@ -1179,7 +1180,7 @@ export type EventQuery = (
 
 export type EventCardFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'adminStatus'>
+  & Pick<Event, 'adminStatus' | 'imageUrl'>
   & EventInfoFragment
   & EventLikesFragment
   & EventRequestsFragment
@@ -1296,6 +1297,7 @@ export type RequestEventMutation = (
 
 export type SearchEventsQueryVariables = Exact<{
   input?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 }>;
 
 
@@ -1415,7 +1417,7 @@ export type PostQuery = (
 
 export type PostCardFragment = (
   { __typename?: 'Post' }
-  & Pick<Post, 'creatorStatus'>
+  & Pick<Post, 'creatorStatus' | 'imageUrl'>
   & PostHeaderFragment
   & PostInfoFragment
   & PostLikesFragment
@@ -1599,6 +1601,7 @@ export type RequestFriendMutation = (
 
 export type SearchUsersQueryVariables = Exact<{
   input?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 }>;
 
 
@@ -1809,6 +1812,7 @@ export const EventCardFragmentDoc = gql`
     fragment EventCard on Event {
   adminStatus
   ...EventInfo
+  imageUrl
   ...EventLikes
   ...EventRequests
 }
@@ -1873,6 +1877,7 @@ export const PostCardFragmentDoc = gql`
   creatorStatus
   ...PostHeader
   ...PostInfo
+  imageUrl
   ...PostLikes
 }
     ${PostHeaderFragmentDoc}
@@ -2310,8 +2315,8 @@ export type FollowCharityMutationHookResult = ReturnType<typeof useFollowCharity
 export type FollowCharityMutationResult = Apollo.MutationResult<FollowCharityMutation>;
 export type FollowCharityMutationOptions = Apollo.BaseMutationOptions<FollowCharityMutation, FollowCharityMutationVariables>;
 export const SearchCharitiesDocument = gql`
-    query SearchCharities($input: String) {
-  searchCharities(input: $input, cursor: null, categories: [], limit: 3) {
+    query SearchCharities($input: String, $limit: Int!) {
+  searchCharities(input: $input, cursor: null, categories: [], limit: $limit) {
     items {
       ...CharityHeader
     }
@@ -2333,10 +2338,11 @@ export const SearchCharitiesDocument = gql`
  * const { data, loading, error } = useSearchCharitiesQuery({
  *   variables: {
  *      input: // value for 'input'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useSearchCharitiesQuery(baseOptions?: Apollo.QueryHookOptions<SearchCharitiesQuery, SearchCharitiesQueryVariables>) {
+export function useSearchCharitiesQuery(baseOptions: Apollo.QueryHookOptions<SearchCharitiesQuery, SearchCharitiesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<SearchCharitiesQuery, SearchCharitiesQueryVariables>(SearchCharitiesDocument, options);
       }
@@ -2811,11 +2817,11 @@ export type RequestEventMutationHookResult = ReturnType<typeof useRequestEventMu
 export type RequestEventMutationResult = Apollo.MutationResult<RequestEventMutation>;
 export type RequestEventMutationOptions = Apollo.BaseMutationOptions<RequestEventMutation, RequestEventMutationVariables>;
 export const SearchEventsDocument = gql`
-    query SearchEvents($input: String) {
+    query SearchEvents($input: String, $limit: Int!) {
   searchEvents(
     input: $input
     cursor: null
-    limit: 3
+    limit: $limit
     categories: []
     sortByUpcoming: false
     sortByLikes: false
@@ -2841,10 +2847,11 @@ export const SearchEventsDocument = gql`
  * const { data, loading, error } = useSearchEventsQuery({
  *   variables: {
  *      input: // value for 'input'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useSearchEventsQuery(baseOptions?: Apollo.QueryHookOptions<SearchEventsQuery, SearchEventsQueryVariables>) {
+export function useSearchEventsQuery(baseOptions: Apollo.QueryHookOptions<SearchEventsQuery, SearchEventsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<SearchEventsQuery, SearchEventsQueryVariables>(SearchEventsDocument, options);
       }
@@ -3332,8 +3339,8 @@ export type RequestFriendMutationHookResult = ReturnType<typeof useRequestFriend
 export type RequestFriendMutationResult = Apollo.MutationResult<RequestFriendMutation>;
 export type RequestFriendMutationOptions = Apollo.BaseMutationOptions<RequestFriendMutation, RequestFriendMutationVariables>;
 export const SearchUsersDocument = gql`
-    query SearchUsers($input: String) {
-  searchUsers(input: $input, cursor: null, limit: 3) {
+    query SearchUsers($input: String, $limit: Int!) {
+  searchUsers(input: $input, cursor: null, limit: $limit) {
     items {
       ...UserHeader
     }
@@ -3355,10 +3362,11 @@ export const SearchUsersDocument = gql`
  * const { data, loading, error } = useSearchUsersQuery({
  *   variables: {
  *      input: // value for 'input'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useSearchUsersQuery(baseOptions?: Apollo.QueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
+export function useSearchUsersQuery(baseOptions: Apollo.QueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<SearchUsersQuery, SearchUsersQueryVariables>(SearchUsersDocument, options);
       }

@@ -35,10 +35,7 @@ export default withAuth(function Charity({ me }) {
       {data?.charitySearchByID && (
         <>
           <CharityProfile
-            charityProfile={filter(
-              CharityProfileFragmentDoc,
-              data.charitySearchByID
-            )}
+            charity={filter(CharityProfileFragmentDoc, data.charitySearchByID)}
           />
           {data.charitySearchByID?.adminStatus && <CreateEventButton />}
           <CharityEvents events={data.charitySearchByID?.charityEvents} />

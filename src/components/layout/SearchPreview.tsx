@@ -23,13 +23,13 @@ export default function SearchPreview({
   searchValue
 }: SearchPreviewProps) {
   const { data: users } = useSearchUsersQuery({
-    variables: { input: searchValue }
+    variables: { input: searchValue, limit: 3 }
   })
   const { data: charities } = useSearchCharitiesQuery({
-    variables: { input: searchValue }
+    variables: { input: searchValue, limit: 3 }
   })
   const { data: events } = useSearchEventsQuery({
-    variables: { input: searchValue }
+    variables: { input: searchValue, limit: 3 }
   })
   const router = useRouter()
 
@@ -109,7 +109,7 @@ export default function SearchPreview({
             {events.searchEvents.items.map((event: EventSnippetFragment) => (
               <div
                 key={event.id}
-                className="p-3 rounded-lg clickable-float"
+                className="p-3 rounded-lg bordered clickable-float"
                 onClick={() =>
                   router.push({
                     pathname: '/event',
@@ -130,6 +130,7 @@ export default function SearchPreview({
           href={{ pathname: '/search', query: { searchValue: searchValue } }}
         >
           <a className="px-5 py-3 text-base">
+            <p>{events?.searchEvents?.hasMore}</p>
             View all search results
             <ArrowRightIcon />
           </a>

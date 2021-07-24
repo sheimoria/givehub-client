@@ -76,6 +76,7 @@ export default function VolunteerRequest({
               ]
             })
           }
+          className="px-3 py-1"
         >
           Accept
         </button>

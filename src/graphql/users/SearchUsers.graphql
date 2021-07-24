@@ -1,5 +1,5 @@
-query SearchUsers($input: String) {
-  searchUsers(input: $input, cursor: null, limit: 3) {
+query SearchUsers($input: String, $limit: Int!) {
+  searchUsers(input: $input, cursor: null, limit: $limit) {
     items {
       ...UserHeader
     }

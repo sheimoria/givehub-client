@@ -1,14 +1,10 @@
 import { EventInfoFragment, useShareEventMutation } from 'generated/graphql'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import CreateEventPost from '../posts/ShareEventPost'
 import { ShareIcon } from '@heroicons/react/outline'
 
-export default function ShareEvent({
-  eventInfo
-}: {
-  eventInfo: EventInfoFragment
-}) {
+export default function ShareEvent({ event }: { event: EventInfoFragment }) {
   const [shareEvent] = useShareEventMutation()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -18,11 +14,7 @@ export default function ShareEvent({
         className="transition cursor-pointer hover:scale-110"
         onClick={() => setIsOpen(true)}
       />
-      <CreateEventPost
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        eventInfo={eventInfo}
-      />
+      <CreateEventPost isOpen={isOpen} setIsOpen={setIsOpen} event={event} />
     </>
   )
 }

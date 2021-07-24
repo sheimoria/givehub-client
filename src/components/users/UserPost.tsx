@@ -1,9 +1,8 @@
-import { useState } from 'react'
-
-import CreatePost from 'components/posts/CreatePost'
+import CreatePost from 'components/posts/CreatePostModal'
 import Picture from 'components/Picture'
-import { UserAvatarFragment } from 'generated/graphql'
 import Transit from 'components/Transit'
+import { UserAvatarFragment } from 'generated/graphql'
+import { useState } from 'react'
 
 export default function UserPost({ user }: { user: UserAvatarFragment }) {
   const [isOpen, setIsOpen] = useState(false)

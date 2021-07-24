@@ -1,8 +1,8 @@
-query SearchEvents($input: String) {
+query SearchEvents($input: String, $limit: Int!) {
   searchEvents(
     input: $input
     cursor: null
-    limit: 3
+    limit: $limit
     categories: []
     sortByUpcoming: false
     sortByLikes: false

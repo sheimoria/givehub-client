@@ -20,13 +20,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 type ShareEventPostProps = {
   isOpen: boolean
   setIsOpen: (arg0: boolean) => void
-  eventInfo: EventInfoFragment
+  event: EventInfoFragment
 }
 
 export default function ShareEventPost({
   isOpen,
   setIsOpen,
-  eventInfo
+  event
 }: ShareEventPostProps) {
   const {
     register,
@@ -46,7 +46,7 @@ export default function ShareEventPost({
     const response = await shareEvent({
       variables: {
         input: values,
-        id: eventInfo.id
+        id: event.id
       },
       refetchQueries: [
         {
@@ -114,9 +114,9 @@ export default function ShareEventPost({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none shadow-sm dark:bg-gray-800 focus:ring-0"
+                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-0"
                 />
-                <EventPreview eventInfo={eventInfo} />
+                <EventPreview event={event} />
                 <div className="flex justify-between">
                   <a>
                     <PhotographIcon />

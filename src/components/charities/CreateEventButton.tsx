@@ -1,5 +1,5 @@
 import { CalendarIcon } from '@heroicons/react/outline'
-import CreateEvent from 'components/charities/CreateEvent'
+import CreateEvent from 'components/charities/CreateEventModal'
 import Transit from 'components/Transit'
 import { useState } from 'react'
 
@@ -8,11 +8,7 @@ export default function CreateEventButton() {
 
   return (
     <>
-      <Transit
-        as="button"
-        onClick={() => setIsOpen(true)}
-        className="px-4 py-3"
-      >
+      <Transit as="button" onClick={() => setIsOpen(true)} className="py-3">
         <CalendarIcon className="text-white dark:text-white" />
         Create Event
       </Transit>

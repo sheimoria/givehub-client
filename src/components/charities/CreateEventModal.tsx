@@ -6,11 +6,13 @@ import {
   useCreateEventMutation
 } from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
 import Input from 'components/forms/Input'
+import UploadImageButton from 'components/UploadImageButton'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -20,8 +22,10 @@ type CreateEventProps = {
   setIsOpen: (arg0: boolean) => void
 }
 
-export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
-  const [createEvent] = useCreateEventMutation()
+export default function CreateEventModal({
+  isOpen,
+  setIsOpen
+}: CreateEventProps) {
   const {
     register,
     handleSubmit,
@@ -38,13 +42,22 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
       })
     )
   })
+  const [image, setImage] = useState('')
+  const [createEvent] = useCreateEventMutation()
   const router = useRouter()
 
-  async function handleCreateEvent(values: EventInput) {
-    const response = await createEvent({
+  async function handleCreateEvent(formData: EventInput) {
+    const imageData = new FormData()
+    imageData.append('file', image)
+    imageData.append('upload_preset', 'eventImages')
+    const imageResponse = await axios.post(
+      'https://api.cloudinary.com/v1_1/givehub/image/upload',
+      imageData
+    )
+    const formResponse = await createEvent({
       variables: {
         charityId: parseInt(router.query.charityId as string),
-        input: values
+        input: { imageUrl: imageResponse.data.public_id, ...formData }
       },
       refetchQueries: [
         {
@@ -53,11 +66,11 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
         }
       ]
     })
-    if (response.data?.createEvent?.errors) {
-      return response.data?.createEvent?.errors.map((error) => (
+    if (formResponse.data?.createEvent?.errors) {
+      return formResponse.data?.createEvent?.errors.map((error) => (
         <p key={error.field}>{error.message}</p>
       ))
-    } else if (response.data?.createEvent?.success) {
+    } else if (formResponse.data?.createEvent?.success) {
       setIsOpen(false)
     }
   }
@@ -128,6 +141,9 @@ export default function CreateEvent({ isOpen, setIsOpen }: CreateEventProps) {
                   register={register}
                   errors={errors.venue}
                 />
+                <div />
+                <UploadImageButton image={image} setImage={setImage} />
+                <div />
                 <div className="flex gap-2">
                   <button
                     onClick={() => setIsOpen(false)}

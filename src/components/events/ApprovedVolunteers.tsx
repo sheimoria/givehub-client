@@ -11,7 +11,7 @@ export default function UnassignedVolunteers() {
   })
   return (
     <Transit as="dl">
-      <h5>Approved Volunteers</h5>
+      <h5>Unassigned Volunteers</h5>
       <div className="divide">
         {data?.getVolunteerRequestListForEvents?.items
           .filter(

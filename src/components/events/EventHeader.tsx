@@ -39,17 +39,17 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
           </p>
         </div>
       </div>
-      <Link
-        href={{
-          pathname: '/event',
-          query: { eventId: event.id }
-        }}
+      <div
+        onClick={() =>
+          router.push({ pathname: '/event', query: { eventId: event.id } })
+        }
+        className="flex flex-col gap-3 cursor-pointer"
       >
         <a className="text-base">{event.name}</a>
-      </Link>
-      <div className="flex flex-wrap gap-3">
-        <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
-        <Venue venue={event.venue} />
+        <div className="flex flex-wrap gap-3">
+          <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
+          <Venue venue={event.venue} />
+        </div>
       </div>
     </div>
   )

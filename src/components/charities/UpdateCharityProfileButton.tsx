@@ -1,11 +1,11 @@
 import { PencilAltIcon } from '@heroicons/react/outline'
-import { UserProfileFragment } from 'generated/graphql'
+import { CharityProfileFragment } from 'generated/graphql'
 import { useState } from 'react'
 
 export default function UpdateCharityProfileButton({
-  user
+  charity
 }: {
-  user: UserProfileFragment
+  charity: CharityProfileFragment
 }) {
   const [isOpen, setIsOpen] = useState(false)
   return (

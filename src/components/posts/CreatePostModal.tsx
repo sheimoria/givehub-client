@@ -8,21 +8,23 @@ import {
 } from 'generated/graphql'
 
 import Form from 'components/forms/Form'
-import { Fragment } from 'react'
-import { PhotographIcon } from '@heroicons/react/outline'
+import { Fragment, useState } from 'react'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
+import UploadImageButton from 'components/UploadImageButton'
+import axios from 'axios'
 
 type CreatePostProps = {
   isOpen: boolean
   setIsOpen: (arg0: boolean) => void
 }
 
-export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
-  const [createPost] = useCreatePostMutation()
+export default function CreatePostModal({
+  isOpen,
+  setIsOpen
+}: CreatePostProps) {
   const {
     register,
     handleSubmit,
@@ -34,11 +36,20 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
       })
     )
   })
+  const [image, setImage] = useState('')
+  const [createPost] = useCreatePostMutation()
 
-  async function handleCreatePost(values: PostInput) {
+  async function handleCreatePost(formData: PostInput) {
+    const imageData = new FormData()
+    imageData.append('file', image)
+    imageData.append('upload_preset', 'eventImages')
+    const imageResponse = await axios.post(
+      'https://api.cloudinary.com/v1_1/givehub/image/upload',
+      imageData
+    )
     const response = await createPost({
       variables: {
-        input: values
+        input: { imageUrl: imageResponse.data.public_id, ...formData }
       },
       refetchQueries: [
         {
@@ -107,10 +118,7 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
                   srOnly
                 />
                 <div className="flex justify-between">
-                  <a>
-                    <PhotographIcon />
-                    Add Photo
-                  </a>
+                  <UploadImageButton setImage={setImage} />
                   <button type="submit">Post</button>
                 </div>
               </Form>

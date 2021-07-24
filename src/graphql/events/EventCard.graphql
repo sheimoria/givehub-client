@@ -1,6 +1,7 @@
 fragment EventCard on Event {
   adminStatus
   ...EventInfo
+  imageUrl
   ...EventLikes
   ...EventRequests
 }
