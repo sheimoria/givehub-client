@@ -5,16 +5,16 @@ import {
 } from 'generated/graphql'
 
 import Body from 'components/layout/Body'
-import UserEvents from 'components/users/UserEvents'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import FriendRequests from 'components/users/FriendRequests'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import React from 'react'
+import UserEvents from 'components/users/UserEventButtons'
 import UserProfile from 'components/users/UserProfile'
+import UserTasks from 'components/users/UserEvents'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
-import React from 'react'
-import FriendRequests from 'components/users/FriendRequests'
-import UserTasks from 'components/users/UserTasks'
-import PeopleToFollow from 'components/users/PeopleToFollow'
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
 
 export default withAuth(function User({ me }) {
   const router = useRouter()

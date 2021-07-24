@@ -1,12 +1,22 @@
 import { EventHeaderFragment } from 'generated/graphql'
-import Link from 'next/link'
 import Image from 'next/image'
 import Datetime from 'components/events/Datetime'
 import Venue from 'components/events/Venue'
+import { useRouter } from 'next/router'
 
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
+  const router = useRouter()
+
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      className="flex flex-col gap-3"
+      onClick={() =>
+        router.push({
+          pathname: '/event',
+          query: { eventId: event.id }
+        })
+      }
+    >
       <div className="flex items-center gap-3">
         <Image
           src="/avatar.svg"
@@ -16,14 +26,7 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
           className="rounded-full"
         />
         <div className="flex flex-col">
-          <Link
-            href={{
-              pathname: '/charity',
-              query: { charityId: event.charity.id }
-            }}
-          >
-            <a>{event.charity.name}</a>
-          </Link>
+          <h6>{event.charity.name}</h6>
           <p>
             {new Date(parseInt(event.createdAt)).toLocaleString('en-US', {
               day: 'numeric',
@@ -34,14 +37,7 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
           </p>
         </div>
       </div>
-      <Link
-        href={{
-          pathname: '/event',
-          query: { eventId: event.id }
-        }}
-      >
-        <a className="text-base">{event.name}</a>
-      </Link>
+      <h5>{event.name}</h5>
       <div className="flex flex-wrap gap-3">
         <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
         <Venue venue={event.venue} />

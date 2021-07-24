@@ -10,6 +10,7 @@ type InputProps = {
   errors: any
   onFocus?: () => void
   onBlur?: () => void
+  srOnly?: boolean
   className?: string
 }
 
@@ -21,11 +22,16 @@ export default function Input({
   errors,
   onFocus,
   onBlur,
+  srOnly,
   className
 }: InputProps) {
   return (
     <div className="flex flex-col flex-1 gap-2">
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && (
+        <label htmlFor={name} className={srOnly ? 'sr-only' : ''}>
+          {label}
+        </label>
+      )}
       <input
         placeholder={placeholder}
         {...register(name)}

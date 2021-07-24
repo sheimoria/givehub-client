@@ -6,17 +6,17 @@ import {
   useSearchUsersQuery
 } from 'generated/graphql'
 
-import EventHeader from 'components/events/EventHeader'
-import Link from 'next/link'
-import Picture from 'components/Picture'
-import { useRouter } from 'next/router'
 import Body from 'components/layout/Body'
-import withAuth from 'utils/withAuth'
-import Transit from 'components/Transit'
-import FriendRequests from 'components/users/FriendRequests'
-import UserTasks from 'components/users/UserTasks'
-import PeopleToFollow from 'components/users/PeopleToFollow'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import EventHeader from 'components/events/EventHeader'
+import FriendRequests from 'components/users/FriendRequests'
+import Link from 'next/link'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import Picture from 'components/Picture'
+import Transit from 'components/Transit'
+import UserTasks from 'components/users/UserEvents'
+import { useRouter } from 'next/router'
+import withAuth from 'utils/withAuth'
 
 export default withAuth(function Home({ me }) {
   const router = useRouter()

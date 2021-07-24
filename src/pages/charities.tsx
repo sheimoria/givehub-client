@@ -1,12 +1,12 @@
 import Body from 'components/layout/Body'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import FriendRequests from 'components/users/FriendRequests'
+import PeopleToFollow from 'components/users/PeopleToFollow'
 import { PlusIcon } from '@heroicons/react/outline'
+import Transit from 'components/Transit'
+import UserTasks from 'components/users/UserEvents'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
-import FriendRequests from 'components/users/FriendRequests'
-import UserTasks from 'components/users/UserTasks'
-import PeopleToFollow from 'components/users/PeopleToFollow'
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import Transit from 'components/Transit'
 
 export default withAuth(function Charities({ me }) {
   const router = useRouter()

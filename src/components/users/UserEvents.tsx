@@ -1,41 +1,46 @@
-import Event from 'components/events/Event'
-import { UserEventsFragment } from 'generated/graphql'
-import classNames from 'utils/classNames'
-import { useState } from 'react'
-export default function UserEvents({ user }: { user: UserEventsFragment }) {
-  const [filter, setFilter] = useState('Liked')
+import EventSnippet from 'components/events/EventSnippet'
+import Transit from 'components/Transit'
+import {
+  EventSnippetFragment,
+  TaskHeaderFragment,
+  useUserTasksQuery
+} from 'generated/graphql'
+import { useRouter } from 'next/router'
+
+export default function UserEvents() {
+  const { data } = useUserTasksQuery()
+  const router = useRouter()
 
   return (
-    <section>
-      <div className="flex flex-wrap gap-4">
-        <a
-          onClick={() => setFilter('Volunteered At')}
-          className={classNames(
-            filter === 'Liked' ? 'nav-active' : 'nav-inactive',
-            'nav'
-          )}
-          aria-current={filter === 'Liked' ? 'page' : undefined}
-        >
-          Liked Events
-        </a>
-        <a
-          onClick={() => setFilter('Liked')}
-          className={classNames(
-            filter === 'Volunteered At' ? 'navi-active' : 'nav-inactive',
-            'nav'
-          )}
-          aria-current={filter === 'Volunteered At' ? 'page' : undefined}
-        >
-          Volunteered At
-        </a>
-      </div>
-      {filter === 'Liked'
-        ? user.likedEvents.map((event) => (
-            <Event key={event.id} event={event} />
-          ))
-        : user.volunteeredEvents.map((event) => (
-            <Event key={event.id} event={event} />
-          ))}
-    </section>
+    <Transit as="article">
+      <h5>Your Events</h5>
+      {data?.viewTasksAssignedToMe?.eventContainers &&
+      data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
+        data.viewTasksAssignedToMe.eventContainers.map(
+          (eventContainer: {
+            event: EventSnippetFragment
+            tasks: TaskHeaderFragment[]
+          }) => (
+            <Transit
+              key={eventContainer.event.id}
+              as="article"
+              className="transition-transform hover:-translate-y-px"
+              onClick={() =>
+                router.push({
+                  pathname: `/event`,
+                  query: { eventId: eventContainer.event.id }
+                })
+              }
+            >
+              <EventSnippet event={eventContainer.event} />
+            </Transit>
+          )
+        )
+      ) : (
+        <div className="py-3">
+          <p> You have no upcoming events.</p>
+        </div>
+      )}
+    </Transit>
   )
 }

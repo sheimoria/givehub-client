@@ -32,22 +32,32 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
         <p>
           <HeartIcon />
           Interested in
+          {user.categories.map((category, index) => (
+            <>
+              {index ? (
+                <span className="text-sm text-gray-800 dark:text-gray-100">
+                  &middot;
+                </span>
+              ) : (
+                ''
+              )}
+              <Link
+                key={category.id}
+                href={{ pathname: '/home', query: { view: category.id } }}
+                passHref
+              >
+                <span className="link-primary">{category.name}</span>
+              </Link>
+            </>
+          ))}
         </p>
-        {user.categories.map((category) => (
-          <Link
-            key={category.id}
-            href={{ pathname: '/home', query: { view: category.id } }}
-          >
-            <a className="text-rose-600 dark:text-rose-600">{category.name}</a>
-          </Link>
-        ))}
       </div>
       {/* Admin for */}
       {user.adminCharities.length > 0 && (
         <div className="flex items-center gap-2">
           <p>
             <IdentificationIcon />
-            Admin for{' '}
+            Admin for
             {user.adminCharities.map((charity) => (
               <Link
                 key={charity.id}
@@ -55,10 +65,9 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
                   pathname: '/charity',
                   query: { charityId: charity.id }
                 }}
+                passHref
               >
-                <a className="text-rose-600 dark:text-rose-600">
-                  {charity.name}
-                </a>
+                <span className="link-primary">{charity.name}</span>
               </Link>
             ))}
           </p>

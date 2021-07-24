@@ -11,7 +11,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
 
   return (
     <header>
-      <Transit as="nav">
+      <nav>
         <Link href="/" passHref>
           <div className="hidden md:flex md:flex-none w-44">
             <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
@@ -38,7 +38,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
             <button onClick={() => router.push('/sign-up')}>Sign up</button>
           </div>
         )}
-      </Transit>
+      </nav>
     </header>
   )
 }

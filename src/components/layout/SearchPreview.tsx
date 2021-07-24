@@ -11,6 +11,7 @@ import EventHeader from 'components/events/EventHeader'
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import { Transition } from '@headlessui/react'
+import { useRouter } from 'next/router'
 
 type SearchPreviewProps = {
   isOpen: boolean
@@ -30,6 +31,7 @@ export default function SearchPreview({
   const { data: events } = useSearchEventsQuery({
     variables: { input: searchValue }
   })
+  const router = useRouter()
 
   return (
     <Transition
@@ -42,26 +44,28 @@ export default function SearchPreview({
       leaveFrom="opacity-100"
       leaveTo="-translate-y-2 opacity-0"
       as="dl"
-      className="absolute z-10 w-full px-0 py-2 mt-3 shadow-md divide"
+      className="absolute z-10 w-full px-0 py-2 mt-12 shadow-lg divide"
     >
       {users && users.searchUsers?.items.length > 0 && (
         <div className="flex flex-col px-5 py-3">
           <h5>Users</h5>
           <div className="divide">
             {users.searchUsers.items.map((user) => (
-              <div key={user.id} className="flex gap-3 py-3">
+              <div
+                key={user.id}
+                className="flex gap-3 py-3 cursor-pointer"
+                onClick={() =>
+                  router.push({
+                    pathname: '/user',
+                    query: { userId: user.id }
+                  })
+                }
+              >
                 <Picture size={36} />
                 <div className="flex flex-col">
-                  <Link
-                    href={{
-                      pathname: '/user',
-                      query: { userId: user.id }
-                    }}
-                  >
-                    <a>
-                      {user.profile?.firstName} {user.profile?.lastName}
-                    </a>
-                  </Link>
+                  <h6>
+                    {user.profile?.firstName} {user.profile?.lastName}
+                  </h6>
                   <p>@{user.username}</p>
                 </div>
               </div>
@@ -75,17 +79,19 @@ export default function SearchPreview({
           <div className="divide">
             {charities.searchCharities.items.map(
               (charity: CharityHeaderFragment) => (
-                <div key={charity.id} className="flex gap-3 py-3">
+                <div
+                  key={charity.id}
+                  className="flex gap-3 py-3 cursor-pointer"
+                  onClick={() =>
+                    router.push({
+                      pathname: '/charity',
+                      query: { charityId: charity.id }
+                    })
+                  }
+                >
                   <Picture size={36} />
                   <div className="flex flex-col">
-                    <Link
-                      href={{
-                        pathname: '/charity',
-                        query: { charityId: charity.id }
-                      }}
-                    >
-                      <a>{charity.name}</a>
-                    </Link>
+                    <h6>{charity.name}</h6>
                     {charity.categories.map((category) => (
                       <p key={category.id}>{category.name}</p>
                     ))}
@@ -104,7 +110,7 @@ export default function SearchPreview({
               (eventHeader: EventHeaderFragment) => (
                 <div
                   key={eventHeader.id}
-                  className="p-3 border border-gray-200 rounded-lg dark:border-gray-700"
+                  className="p-3 border border-gray-200 rounded-lg cursor-pointer dark:border-gray-700"
                 >
                   <EventHeader event={eventHeader} />
                 </div>

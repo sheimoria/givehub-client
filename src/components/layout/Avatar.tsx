@@ -37,7 +37,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
           >
             <Menu.Items
               static
-              className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white border border-gray-200 rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800"
+              className="absolute right-0 z-10 flex flex-col py-3 mt-3 truncate origin-top-right bg-white border border-gray-200 rounded-md shadow-md focus:outline-none dark:border-gray-700 dark:bg-gray-800"
             >
               <Menu.Item>
                 {({ active }) => (

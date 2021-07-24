@@ -63,7 +63,7 @@
 
   /* Links */
   a {
-    @apply flex items-center gap-2 text-sm font-medium text-gray-800 transition hover:-translate-y-px hover:text-gray-900 dark:text-gray-100 active:translate-y-px;
+    @apply flex items-center gap-2 text-sm font-medium text-gray-800 transition hover:-translate-y-px hover:text-gray-900 dark:hover:text-white dark:text-gray-100 active:translate-y-px;
   }
   button {
     @apply flex items-center justify-center gap-1 px-3 py-1 text-sm font-medium text-white transition border rounded-full shadow-sm hover:-translate-y-px hover:bg-rose-700 active:translate-y-px bg-rose-600 border-rose-600 hover:border-rose-700;
@@ -118,5 +118,8 @@
   }
   .button-outline {
     @apply bg-white dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-rose-700 text-rose-600;
+  }
+  .link-primary {
+    @apply flex items-center gap-2 text-sm font-medium transition text-rose-600 hover:-translate-y-px hover:text-rose-700 active:translate-y-px;
   }
 }
