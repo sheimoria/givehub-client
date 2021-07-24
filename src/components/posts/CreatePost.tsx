@@ -6,9 +6,9 @@ import {
   PostsDocument,
   useCreatePostMutation
 } from 'generated/graphql'
-import { Fragment } from 'react'
 
 import Form from 'components/forms/Form'
+import { Fragment } from 'react'
 import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
@@ -100,10 +100,12 @@ export default function CreatePost({ isOpen, setIsOpen }: CreatePostProps) {
                 </Dialog.Description>
                 <Textarea
                   name="text"
+                  label="Text"
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
                   className="p-0 bg-white border-none shadow-none focus:ring-0 dark:bg-gray-800"
+                  srOnly
                 />
                 <div className="flex justify-between">
                   <a>

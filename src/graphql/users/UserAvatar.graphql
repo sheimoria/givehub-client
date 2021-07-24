@@ -1,6 +1,7 @@
 fragment UserAvatar on User {
   id
   profile {
+    id
     displayPicture
   }
 }

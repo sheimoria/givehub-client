@@ -1,15 +1,9 @@
 fragment Header on User {
   id
-  username
   profile {
+    id
     firstName
     lastName
-    about
-    telegramHandle
-  }
-  categories {
-    id
-    name
   }
   adminCharities {
     id

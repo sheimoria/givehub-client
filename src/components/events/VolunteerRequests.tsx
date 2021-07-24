@@ -13,18 +13,18 @@ export default function VolunteerRequests() {
     <Transit as="dl">
       <h5>Volunteer Requests</h5>
       <div className="divide">
-        {data?.getVolunteerRequestListForEvents?.items &&
-          data.getVolunteerRequestListForEvents.items
-            .filter(
-              (eventVolunteer) =>
-                eventVolunteer.adminapproval === AdminApproval.Pending
-            )
-            .map((eventVolunteer) => (
-              <VolunteerRequest
-                key={eventVolunteer.user?.id}
-                user={eventVolunteer.user}
-              />
-            ))}
+        {data?.getVolunteerRequestListForEvents?.items
+          .filter(
+            (eventVolunteer) =>
+              eventVolunteer.adminapproval === AdminApproval.Pending
+          )
+          .map((eventVolunteer) => (
+            <VolunteerRequest
+              key={eventVolunteer.user?.id}
+              //@ts-ignore
+              user={eventVolunteer.user}
+            />
+          ))}
         {data?.getVolunteerRequestListForEvents?.items.filter(
           (eventVolunteer) =>
             eventVolunteer.adminapproval == AdminApproval.Pending

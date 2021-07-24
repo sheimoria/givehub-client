@@ -31,7 +31,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
             </div>
           </>
         ) : (
-          <div className="items-center justify-end hidden gap-5 w-96 md:flex md:flex-none">
+          <div className="flex items-center flex-none gap-5">
             <Link href="/">
               <a>Log in</a>
             </Link>

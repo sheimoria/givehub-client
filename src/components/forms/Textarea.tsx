@@ -9,7 +9,7 @@ type TextareaProps = {
   register: UseFormRegister<FieldValues>
   errors: any
   className?: string
-  srOnly: boolean
+  srOnly?: boolean
 }
 
 export default function Textarea({

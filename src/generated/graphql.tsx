@@ -1496,13 +1496,10 @@ export type FriendRequestsQuery = (
 
 export type HeaderFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username'>
+  & Pick<User, 'id'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'firstName' | 'lastName' | 'about' | 'telegramHandle'>
-  )>, categories: Array<(
-    { __typename?: 'Category' }
-    & Pick<Category, 'id' | 'name'>
+    & Pick<Userprofile, 'id' | 'firstName' | 'lastName'>
   )>, adminCharities: Array<(
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
@@ -1594,7 +1591,7 @@ export type UserAvatarFragment = (
   & Pick<User, 'id'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'displayPicture'>
+    & Pick<Userprofile, 'id' | 'displayPicture'>
   )> }
 );
 
@@ -1614,7 +1611,7 @@ export type UserHeaderFragment = (
   & Pick<User, 'username'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'firstName' | 'lastName' | 'telegramHandle'>
+    & Pick<Userprofile, 'id' | 'firstName' | 'lastName' | 'telegramHandle'>
   )> }
   & UserAvatarFragment
 );
@@ -1624,7 +1621,7 @@ export type UserProfileFragment = (
   & Pick<User, 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber' | 'viewerStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'about'>
+    & Pick<Userprofile, 'id' | 'about'>
   )>, categories: Array<(
     { __typename?: 'Category' }
     & Pick<Category, 'id' | 'name'>
@@ -1798,6 +1795,7 @@ export const UserAvatarFragmentDoc = gql`
     fragment UserAvatar on User {
   id
   profile {
+    id
     displayPicture
   }
 }
@@ -1806,6 +1804,7 @@ export const UserHeaderFragmentDoc = gql`
     fragment UserHeader on User {
   ...UserAvatar
   profile {
+    id
     firstName
     lastName
     telegramHandle
@@ -1818,6 +1817,7 @@ export const UserProfileFragmentDoc = gql`
   ...UserHeader
   email
   profile {
+    id
     about
   }
   categories {
@@ -1856,16 +1856,10 @@ export const TaskHeaderFragmentDoc = gql`
 export const HeaderFragmentDoc = gql`
     fragment Header on User {
   id
-  username
   profile {
+    id
     firstName
     lastName
-    about
-    telegramHandle
-  }
-  categories {
-    id
-    name
   }
   adminCharities {
     id

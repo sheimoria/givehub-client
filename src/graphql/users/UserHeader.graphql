@@ -1,6 +1,7 @@
 fragment UserHeader on User {
   ...UserAvatar
   profile {
+    id
     firstName
     lastName
     telegramHandle

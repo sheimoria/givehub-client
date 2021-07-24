@@ -7,10 +7,10 @@ import {
   PostsDocument,
   useShareEventMutation
 } from 'generated/graphql'
-import { Fragment } from 'react'
 
 import EventPreview from '../events/EventPreview'
 import Form from 'components/forms/Form'
+import { Fragment } from 'react'
 import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
@@ -108,7 +108,9 @@ export default function ShareEventPost({
                   What is on your mind?
                 </Dialog.Description>
                 <Textarea
+                  srOnly
                   name="text"
+                  label="Text"
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}

@@ -51,7 +51,7 @@ export default function LogIn() {
     <Form
       handleSubmit={handleSubmit}
       onSubmit={handleSubmit(handleLogIn)}
-      className="w-1/3 "
+      className="w-full md:w-96"
     >
       <h4>Log in</h4>
       <Input

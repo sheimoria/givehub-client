@@ -2,6 +2,7 @@ fragment UserProfile on User {
   ...UserHeader
   email
   profile {
+    id
     about
   }
   categories {
