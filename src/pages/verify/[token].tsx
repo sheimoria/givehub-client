@@ -36,7 +36,8 @@ export default function VerifyUser() {
             <h2>You&apos;re successfully verified!</h2>
             <Link
               href={{
-                pathname: '/user-profile'
+                pathname: '/',
+                query: { next: '/user-profile' }
               }}
             >
               <a className="text-rose-600 hover:text-rose-700">

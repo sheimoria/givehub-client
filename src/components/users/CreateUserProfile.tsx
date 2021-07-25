@@ -4,6 +4,7 @@ import {
   Genders,
   HeaderFragment,
   MeDocument,
+  UserProfileUpdateInput,
   useUpdateUserProfileMutation
 } from 'generated/graphql'
 
@@ -18,7 +19,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-export default function CreateUser({ me }: { me: HeaderFragment }) {
+export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
   const [createUserProfile] = useUpdateUserProfileMutation()
   const {
     register,
@@ -38,16 +39,7 @@ export default function CreateUser({ me }: { me: HeaderFragment }) {
   const [image, setImage] = useState('')
   const router = useRouter()
 
-  type FormData = {
-    telegramHandle: string
-    gender: Genders
-    firstName: string
-    lastName: string
-    about: string
-    categories: number[]
-  }
-
-  async function handleCreateUserProfile(formData: FormData) {
+  async function handleCreateUserProfile(formData: UserProfileUpdateInput) {
     const interests = Array.from(
       document.querySelectorAll('input[type="checkbox"]')
     )

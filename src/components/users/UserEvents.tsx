@@ -12,7 +12,7 @@ export default function UserEvents() {
   const router = useRouter()
 
   return (
-    <Transit as="dl">
+    <Transit as="dl" className="gap-3">
       <h5>Your Events</h5>
       {data?.viewTasksAssignedToMe?.eventContainers &&
       data.viewTasksAssignedToMe.eventContainers.length > 0 ? (

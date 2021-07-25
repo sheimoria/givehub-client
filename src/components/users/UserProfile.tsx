@@ -10,8 +10,11 @@ import Picture from 'components/Picture'
 import RequestFriend from './RequestFriend'
 import UpdateUserProfileButton from './UpdateUserProfileButton'
 import { UserProfileFragment } from 'generated/graphql'
+import { useRouter } from 'next/router'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
+  const router = useRouter()
+
   return (
     <article className="items-stretch">
       <div className="flex justify-between gap-3">
@@ -36,25 +39,18 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
         <p>
           <HeartIcon />
           Interested in
-          {user.categories.map((category, index) => (
-            <>
-              {index ? (
-                <span className="text-sm text-gray-800 dark:text-gray-100">
-                  &middot;
-                </span>
-              ) : (
-                ''
-              )}
-              <Link
-                key={category.id}
-                href={{ pathname: '/home', query: { view: category.id } }}
-                passHref
-              >
-                <span className="link-primary">{category.name}</span>
-              </Link>
-            </>
-          ))}
         </p>
+        {user.categories.map((category, index) => (
+          <button
+            key={category.id}
+            onClick={() =>
+              router.push({ pathname: '/home', query: { view: category.id } })
+            }
+            className="px-3 py-1 text-sm button-outline"
+          >
+            {category.name}
+          </button>
+        ))}
       </div>
       {/* Admin for */}
       {user.adminCharities.length > 0 && (

@@ -4,6 +4,8 @@ import { HeaderFragment } from 'generated/graphql'
 import withAuth from 'utils/withAuth'
 
 export default withAuth(function UserProfile({ me }: { me: HeaderFragment }) {
+  console.log(me)
+
   return (
     <Body title="Sign up">
       <div className="flex flex-col justify-center flex-auto">
