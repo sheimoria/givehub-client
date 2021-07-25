@@ -13,7 +13,7 @@ export default function SignUp() {
         </div>
       ) : (
         <div className="flex flex-col justify-center flex-auto gap-3 p-5">
-          <h2>You&apos;re successfully signed up!</h2>
+          <h2>You&apos;ve successfully signed up!</h2>
           <p>
             Thank you for joining Givehub! But before you can log in, we need
             you to verify yourself by clicking the link in the email we just

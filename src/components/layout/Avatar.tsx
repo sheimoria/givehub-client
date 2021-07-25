@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 import Link from 'next/link'
 import { useApolloClient } from '@apollo/client'
 import { useRouter } from 'next/router'
+import Picture from 'components/Picture'
 
 export default function Avatar({ me }: { me: HeaderFragment }) {
   const apolloClient = useApolloClient()
@@ -23,16 +24,20 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
         <>
           <Menu.Button className="bg-transparent border-none rounded-full shadow-sm w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
             <span className="sr-only">Open user menu</span>
-            <Image
-              cloudName="givehub"
-              secure
-              upload_preset="userPictures"
-              publicId={me.profile?.displayPicture}
-              alt="User avatar"
-              className="rounded-full"
-            >
-              <Transformation height="500" width="500" crop="fill" />
-            </Image>
+            {me.profile?.displayPicture ? (
+              <Image
+                cloudName="givehub"
+                secure
+                upload_preset="userPictures"
+                publicId={me.profile?.displayPicture}
+                alt="User avatar"
+                className="rounded-full"
+              >
+                <Transformation height="500" width="500" crop="fill" />
+              </Image>
+            ) : (
+              <Picture size={36} />
+            )}
           </Menu.Button>
           <Transition
             show={open}
