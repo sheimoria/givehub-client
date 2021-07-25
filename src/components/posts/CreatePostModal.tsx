@@ -42,7 +42,7 @@ export default function CreatePostModal({
   async function handleCreatePost(formData: PostInput) {
     const imageData = new FormData()
     imageData.append('file', image)
-    imageData.append('upload_preset', 'eventImages')
+    imageData.append('upload_preset', 'postImages')
     const imageResponse = await axios.post(
       'https://api.cloudinary.com/v1_1/givehub/image/upload',
       imageData

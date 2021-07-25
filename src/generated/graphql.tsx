@@ -225,6 +225,7 @@ export type Mutation = {
   updateUserCategories: CategoryResponse;
   updateCharityCategories: CategoryResponse;
   register: UserResponse;
+  verifyUser: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
   updateUserProfile: UserResponse;
@@ -275,6 +276,11 @@ export type MutationUpdateCharityCategoriesArgs = {
 
 export type MutationRegisterArgs = {
   options: UsernamePasswordInput;
+};
+
+
+export type MutationVerifyUserArgs = {
+  token: Scalars['String'];
 };
 
 
@@ -474,6 +480,8 @@ export type PaginatedComments = {
   items: Array<Comment>;
   total: Scalars['Int'];
   hasMore: Scalars['Boolean'];
+  success: Scalars['Boolean'];
+  errors?: Maybe<Array<FieldError>>;
 };
 
 export type PaginatedEventVolunteers = {
@@ -532,6 +540,7 @@ export type Post = {
   likeStatus: Scalars['Boolean'];
   creatorStatus: Scalars['Boolean'];
   comments?: Maybe<Array<Comment>>;
+  commentNumber: Scalars['Int'];
 };
 
 export type PostInput = {
@@ -565,6 +574,7 @@ export type Query = {
   posts: PaginatedPosts;
   post?: Maybe<EPost>;
   postComments: PaginatedComments;
+  getCommentsAtRoot: PaginatedComments;
   charitySearchByUEN?: Maybe<Charity>;
   charitySearchByID?: Maybe<Charity>;
   checkUENNumber: UenResponse;
@@ -608,6 +618,13 @@ export type QueryPostCommentsArgs = {
   depth?: Maybe<Scalars['Int']>;
   limit: Scalars['Float'];
   postId: Scalars['Float'];
+};
+
+
+export type QueryGetCommentsAtRootArgs = {
+  depth?: Maybe<Scalars['Int']>;
+  limit: Scalars['Float'];
+  rootCommentId: Scalars['Float'];
 };
 
 
@@ -760,6 +777,7 @@ export type User = {
   id: Scalars['Float'];
   username: Scalars['String'];
   email: Scalars['String'];
+  verified: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
   profile?: Maybe<Userprofile>;
@@ -884,8 +902,7 @@ export type LogOutMutation = (
 );
 
 export type SignUpMutationVariables = Exact<{
-  signUp: UsernamePasswordInput;
-  userProfile: UserProfileUpdateInput;
+  options: UsernamePasswordInput;
 }>;
 
 
@@ -900,7 +917,17 @@ export type SignUpMutation = (
       { __typename?: 'User' }
       & Pick<User, 'id'>
     )> }
-  ), updateUserProfile: (
+  ) }
+);
+
+export type VerifyUserMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type VerifyUserMutation = (
+  { __typename?: 'Mutation' }
+  & { verifyUser: (
     { __typename?: 'UserResponse' }
     & Pick<UserResponse, 'success'>
     & { errors?: Maybe<Array<(
@@ -1559,10 +1586,10 @@ export type FriendRequestsQuery = (
 
 export type HeaderFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id'>
+  & Pick<User, 'id' | 'email' | 'username'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'id' | 'firstName' | 'lastName'>
+    & Pick<Userprofile, 'id' | 'firstName' | 'lastName' | 'telegramHandle' | 'displayPicture'>
   )>, adminCharities: Array<(
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
@@ -1948,10 +1975,14 @@ export const TaskHeaderFragmentDoc = gql`
 export const HeaderFragmentDoc = gql`
     fragment Header on User {
   id
+  email
+  username
   profile {
     id
     firstName
     lastName
+    telegramHandle
+    displayPicture
   }
   adminCharities {
     id
@@ -2117,8 +2148,8 @@ export type LogOutMutationHookResult = ReturnType<typeof useLogOutMutation>;
 export type LogOutMutationResult = Apollo.MutationResult<LogOutMutation>;
 export type LogOutMutationOptions = Apollo.BaseMutationOptions<LogOutMutation, LogOutMutationVariables>;
 export const SignUpDocument = gql`
-    mutation SignUp($signUp: UsernamePasswordInput!, $userProfile: UserProfileUpdateInput!) {
-  register(options: $signUp) {
+    mutation SignUp($options: UsernamePasswordInput!) {
+  register(options: $options) {
     errors {
       field
       message
@@ -2126,13 +2157,6 @@ export const SignUpDocument = gql`
     user {
       id
     }
-  }
-  updateUserProfile(options: $userProfile) {
-    errors {
-      field
-      message
-    }
-    success
   }
 }
     `;
@@ -2151,8 +2175,7 @@ export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMut
  * @example
  * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
  *   variables: {
- *      signUp: // value for 'signUp'
- *      userProfile: // value for 'userProfile'
+ *      options: // value for 'options'
  *   },
  * });
  */
@@ -2163,6 +2186,43 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const VerifyUserDocument = gql`
+    mutation VerifyUser($token: String!) {
+  verifyUser(token: $token) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}
+    `;
+export type VerifyUserMutationFn = Apollo.MutationFunction<VerifyUserMutation, VerifyUserMutationVariables>;
+
+/**
+ * __useVerifyUserMutation__
+ *
+ * To run a mutation, you first call `useVerifyUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyUserMutation, { data, loading, error }] = useVerifyUserMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useVerifyUserMutation(baseOptions?: Apollo.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, options);
+      }
+export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
+export type VerifyUserMutationResult = Apollo.MutationResult<VerifyUserMutation>;
+export type VerifyUserMutationOptions = Apollo.BaseMutationOptions<VerifyUserMutation, VerifyUserMutationVariables>;
 export const CharityDocument = gql`
     query Charity($charityId: Int!) {
   charitySearchByID(id: $charityId) {

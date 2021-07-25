@@ -43,7 +43,7 @@
     @apply text-3xl font-bold font-display text-rose-600;
   }
   h2 {
-    @apply text-2xl font-medium text-gray-800 dark:text-gray-100;
+    @apply text-2xl font-bold font-display text-rose-600;
   }
   h3 {
     @apply text-xl font-medium text-gray-800 dark:text-gray-100;

@@ -1,3 +1,4 @@
+import { Image as CImage, Transformation } from 'cloudinary-react'
 import {
   EventInfoFragment,
   PostCardFragment,
@@ -9,9 +10,8 @@ import Image from 'next/image'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Transit from 'components/Transit'
-import { filter } from 'graphql-anywhere'
 import UpdatePostButton from './UpdatePostButton'
-import { Image as CImage, Transformation } from 'cloudinary-react'
+import { filter } from 'graphql-anywhere'
 
 type PostProps = {
   post: PostCardFragment
@@ -64,7 +64,7 @@ export default function Post({ post, event, lineclamp }: PostProps) {
             <CImage
               cloudName="givehub"
               secure
-              upload_preset="eventImages"
+              upload_preset="postImages"
               publicId={post.imageUrl}
               alt="Event image"
             >
@@ -72,7 +72,7 @@ export default function Post({ post, event, lineclamp }: PostProps) {
             </CImage>
           </div>
         )}
-        {event && <EventPreview event={event} fill />}
+        {event && <EventPreview event={event} />}
         <div className="flex items-center gap-3 px-5 pb-5">
           <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
         </div>

@@ -35,16 +35,18 @@ export default function SignUpModal({ isOpen, setIsOpen }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
-              <article>
-                <Dialog.Title as="h5">Sign up as user first</Dialog.Title>
-                <Dialog.Description>
-                  After logging in, you can add your charity to your user
-                  account.
-                </Dialog.Description>
-                <button onClick={() => setIsOpen(false)}>Got it</button>
-              </article>
-            </div>
+            <article className="z-10">
+              <Dialog.Title as="h5">Sign up as user first</Dialog.Title>
+              <Dialog.Description>
+                After logging in, you can add your charity to your user account.
+              </Dialog.Description>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="focus:outline-none"
+              >
+                Got it
+              </button>
+            </article>
           </Transition.Child>
         </div>
       </Dialog>

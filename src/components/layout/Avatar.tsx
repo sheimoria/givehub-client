@@ -1,8 +1,8 @@
 import { HeaderFragment, useLogOutMutation } from 'generated/graphql'
+import { Image, Transformation } from 'cloudinary-react'
 import { Menu, Transition } from '@headlessui/react'
 
 import { Fragment } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useApolloClient } from '@apollo/client'
 import { useRouter } from 'next/router'
@@ -23,7 +23,16 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
         <>
           <Menu.Button className="bg-transparent border-none rounded-full shadow-sm w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
             <span className="sr-only">Open user menu</span>
-            <Image src="/avatar.svg" alt="Avatar" layout="fill" />
+            <Image
+              cloudName="givehub"
+              secure
+              upload_preset="userPictures"
+              publicId={me.profile?.displayPicture}
+              alt="User avatar"
+              className="rounded-full"
+            >
+              <Transformation height="500" width="500" crop="fill" />
+            </Image>
           </Menu.Button>
           <Transition
             show={open}

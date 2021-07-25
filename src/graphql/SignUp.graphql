@@ -1,8 +1,5 @@
-mutation SignUp(
-  $signUp: UsernamePasswordInput!
-  $userProfile: UserProfileUpdateInput!
-) {
-  register(options: $signUp) {
+mutation SignUp($options: UsernamePasswordInput!) {
+  register(options: $options) {
     errors {
       field
       message
@@ -10,12 +7,5 @@ mutation SignUp(
     user {
       id
     }
-  }
-  updateUserProfile(options: $userProfile) {
-    errors {
-      field
-      message
-    }
-    success
   }
 }

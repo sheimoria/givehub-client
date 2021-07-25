@@ -3,7 +3,6 @@ import { HeaderFragment } from 'generated/graphql'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from 'components/layout/SearchBar'
-import Transit from 'components/Transit'
 import { useRouter } from 'next/router'
 
 const Header = ({ me }: { me?: HeaderFragment }) => {
