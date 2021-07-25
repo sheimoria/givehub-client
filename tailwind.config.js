@@ -19,12 +19,6 @@ module.exports = {
       }
     }
   },
-  variants: {
-    extend: {
-      borderWidth: ['invalid'],
-      borderColor: ['invalid']
-    }
-  },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
