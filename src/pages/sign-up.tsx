@@ -3,12 +3,12 @@ import CreateUser from 'components/users/CreateUser'
 import { useState } from 'react'
 
 export default function SignUp() {
-  const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(true)
 
   return (
     <Body title="Sign up">
       {success ? (
-        <div className="flex flex-col items-start justify-center flex-auto gap-3 p-5">
+        <div className="flex flex-col justify-center flex-auto gap-3 p-5">
           <h2>You&apos;re successfully signed up!</h2>
           <p>
             Thank you for joining Givehub! But before you can log in, we need
