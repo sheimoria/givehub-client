@@ -34,9 +34,14 @@ export default function VerifyUser() {
         ) : status === 'VERIFIED' ? (
           <>
             <h2>You&apos;re successfully verified!</h2>
-            <Link href={'/?next=/user-profile'}>
+            <Link
+              href={{
+                pathname: '/user-profile'
+              }}
+            >
               <a className="text-rose-600 hover:text-rose-700">
-                Proceed to login <ArrowRightIcon />
+                Proceed to fill in your user profile
+                <ArrowRightIcon className="text-rose-600 hover:text-rose-700" />
               </a>
             </Link>
           </>

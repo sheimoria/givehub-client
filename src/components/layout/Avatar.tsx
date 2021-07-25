@@ -22,7 +22,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="bg-transparent border-none rounded-full shadow-sm w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-rose-600">
+          <Menu.Button className="p-0 bg-transparent border-none w-9 h-9 focus:outline-none hover:translate-y-0 active:translate-y-0 hover:bg-transparent hover:border-none">
             <span className="sr-only">Open user menu</span>
             {me.profile?.displayPicture ? (
               <Image
@@ -33,10 +33,22 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
                 alt="User avatar"
                 className="rounded-full"
               >
-                <Transformation height="500" width="500" crop="fill" />
+                <Transformation quality="auto" fetchFormat="auto" />
+                <Transformation
+                  height="500"
+                  width="500"
+                  crop="fill"
+                  gravity="faces"
+                />
               </Image>
             ) : (
-              <Picture size={36} />
+              <Image
+                src="/avatar.svg"
+                alt="Avatar"
+                height={36}
+                width={36}
+                className="rounded-full"
+              />
             )}
           </Menu.Button>
           <Transition

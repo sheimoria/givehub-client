@@ -19,7 +19,6 @@ import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function CreateUser({ me }: { me: HeaderFragment }) {
-  const [isOpen, setIsOpen] = useState(false)
   const [createUserProfile] = useUpdateUserProfileMutation()
   const {
     register,
@@ -160,6 +159,13 @@ export default function CreateUser({ me }: { me: HeaderFragment }) {
             errors={errors.lastName}
           />
         </div>
+        <Input
+          name="telegramHandle"
+          label="Telegram Username"
+          register={register}
+          errors={errors.lastName}
+          placeholder="For charities to contact volunteers"
+        />
         <Textarea
           name="about"
           label="About"

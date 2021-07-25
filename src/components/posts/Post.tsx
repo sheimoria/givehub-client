@@ -60,13 +60,18 @@ export default function Post({ post, event, lineclamp }: PostProps) {
           <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
         </div>
         {post.imageUrl && (
-          <div className="mb-3 bordered">
+          <div className="mb-3 overflow-hidden bordered">
             <CImage
               cloudName="givehub"
               secure
               upload_preset="postImages"
               publicId={post.imageUrl}
               alt="Event image"
+              dpr="auto"
+              responsive
+              width="auto"
+              crop="scale"
+              responsiveUseBreakpoints="true"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </CImage>

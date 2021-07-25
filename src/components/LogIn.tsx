@@ -38,7 +38,7 @@ export default function LogIn() {
       response.data?.login?.errors.forEach(({ field, message }) =>
         setError(field, { type: 'manual', message: message })
       )
-    } else if (response.data?.login?.user) {
+    } else {
       if (typeof router.query.next === 'string') {
         router.push(router.query.next)
       } else {
