@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useVerifyUserMutation } from 'generated/graphql'
 import { ArrowRightIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 
 export default function VerifyUser() {
   const [verifyUser] = useVerifyUserMutation()
@@ -11,7 +12,7 @@ export default function VerifyUser() {
 
   return (
     <Body title="Verify Your Account">
-      <div className="flex flex-col justify-center flex-auto gap-3 p-5">
+      <div className="flex flex-col items-start justify-center flex-auto gap-3 p-5">
         {status === 'PENDING' ? (
           <>
             <p>Press the button below to complete the verification process.</p>
@@ -32,9 +33,11 @@ export default function VerifyUser() {
         ) : status === 'VERIFIED' ? (
           <>
             <h2>You&apos;re successfully verified!</h2>
-            <a>
-              Proceed to login <ArrowRightIcon />
-            </a>
+            <Link href={'/?next=/user-profile'}>
+              <a className="text-rose-600 hover:text-rose-700">
+                Proceed to login <ArrowRightIcon />
+              </a>
+            </Link>
           </>
         ) : (
           <>
