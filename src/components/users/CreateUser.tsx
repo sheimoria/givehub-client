@@ -7,6 +7,7 @@ import { InformationCircleIcon } from '@heroicons/react/solid'
 import Input from '../forms/Input'
 import Password from '../forms/Password'
 import SignUpModal from 'components/SignUpModal'
+import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -73,46 +74,48 @@ export default function CreateUser({
 
   return (
     <>
-      <Form
-        handleSubmit={handleSubmit}
-        onSubmit={handleCreateUser}
-        className="w-96 place-self-center"
-      >
-        <h5>Sign Up</h5>
-        <a
-          onClick={() => setIsOpen(true)}
-          className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700"
+      <Transit onEveryMount className="flex justify-center">
+        <Form
+          handleSubmit={handleSubmit}
+          onSubmit={handleCreateUser}
+          className="w-96 place-self-center"
         >
-          <InformationCircleIcon className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700" />
-          I am signing up as a charity
-        </a>
-        <Input
-          name="username"
-          label="Username"
-          register={register}
-          errors={errors.username}
-        />
-        <Input
-          name="email"
-          label="Email Address"
-          register={register}
-          errors={errors.email}
-        />
-        <Password
-          name="password"
-          label="Password"
-          register={register}
-          errors={errors.password}
-        />
-        <Password
-          name="passwordConfirmation"
-          label="Password Confirmation"
-          register={register}
-          errors={errors.passwordConfirmation}
-        />
-        <div />
-        <button type="submit">Sign Up</button>
-      </Form>
+          <h5>Sign Up</h5>
+          <a
+            onClick={() => setIsOpen(true)}
+            className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700"
+          >
+            <InformationCircleIcon className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700" />
+            I am signing up as a charity
+          </a>
+          <Input
+            name="username"
+            label="Username"
+            register={register}
+            errors={errors.username}
+          />
+          <Input
+            name="email"
+            label="Email Address"
+            register={register}
+            errors={errors.email}
+          />
+          <Password
+            name="password"
+            label="Password"
+            register={register}
+            errors={errors.password}
+          />
+          <Password
+            name="passwordConfirmation"
+            label="Password Confirmation"
+            register={register}
+            errors={errors.passwordConfirmation}
+          />
+          <div />
+          <button type="submit">Sign Up</button>
+        </Form>
+      </Transit>
       <SignUpModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
