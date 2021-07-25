@@ -155,7 +155,7 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
           name="telegramHandle"
           label="Telegram Username"
           register={register}
-          errors={errors.lastName}
+          errors={errors.telegramHandle}
           placeholder="For charities to contact volunteers"
         />
         <Textarea

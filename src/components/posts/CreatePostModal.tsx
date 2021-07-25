@@ -40,28 +40,47 @@ export default function CreatePostModal({
   const [createPost] = useCreatePostMutation()
 
   async function handleCreatePost(formData: PostInput) {
-    const imageData = new FormData()
-    imageData.append('file', image)
-    imageData.append('upload_preset', 'postImages')
-    const imageResponse = await axios.post(
-      'https://api.cloudinary.com/v1_1/givehub/image/upload',
-      imageData
-    )
-    const response = await createPost({
-      variables: {
-        input: { imageUrl: imageResponse.data.public_id, ...formData }
-      },
-      refetchQueries: [
-        {
-          query: PostsDocument,
-          variables: { cursor: null, limit: 50 }
-        }
-      ]
-    })
-    if (!response.data?.createPost?.post) {
-      return console.error('There was an error creating your post.')
+    if (image === '') {
+      const response = await createPost({
+        variables: {
+          input: formData
+        },
+        refetchQueries: [
+          {
+            query: PostsDocument,
+            variables: { cursor: null, limit: 50 }
+          }
+        ]
+      })
+      if (!response.data?.createPost?.post) {
+        return console.error('There was an error creating your post.')
+      } else {
+        setIsOpen(false)
+      }
     } else {
-      setIsOpen(false)
+      const imageData = new FormData()
+      imageData.append('file', image)
+      imageData.append('upload_preset', 'postImages')
+      const imageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/givehub/image/upload',
+        imageData
+      )
+      const formResponse = await createPost({
+        variables: {
+          input: { imageUrl: imageResponse.data.public_id, ...formData }
+        },
+        refetchQueries: [
+          {
+            query: PostsDocument,
+            variables: { cursor: null, limit: 50 }
+          }
+        ]
+      })
+      if (!formResponse.data?.createPost?.post) {
+        return console.error('There was an error creating your post.')
+      } else {
+        setIsOpen(false)
+      }
     }
   }
 

@@ -47,31 +47,53 @@ export default function CreateEventModal({
   const router = useRouter()
 
   async function handleCreateEvent(formData: EventInput) {
-    const imageData = new FormData()
-    imageData.append('file', image)
-    imageData.append('upload_preset', 'eventImages')
-    const imageResponse = await axios.post(
-      'https://api.cloudinary.com/v1_1/givehub/image/upload',
-      imageData
-    )
-    const formResponse = await createEvent({
-      variables: {
-        charityId: parseInt(router.query.charityId as string),
-        input: { imageUrl: imageResponse.data.public_id, ...formData }
-      },
-      refetchQueries: [
-        {
-          query: CharityDocument,
-          variables: { charityId: parseInt(router.query.charityId as string) }
-        }
-      ]
-    })
-    if (formResponse.data?.createEvent?.errors) {
-      return formResponse.data?.createEvent?.errors.map((error) => (
-        <p key={error.field}>{error.message}</p>
-      ))
-    } else if (formResponse.data?.createEvent?.success) {
-      setIsOpen(false)
+    if (image === '') {
+      const formResponse = await createEvent({
+        variables: {
+          charityId: parseInt(router.query.charityId as string),
+          input: formData
+        },
+        refetchQueries: [
+          {
+            query: CharityDocument,
+            variables: { charityId: parseInt(router.query.charityId as string) }
+          }
+        ]
+      })
+      if (formResponse.data?.createEvent?.errors) {
+        return formResponse.data?.createEvent?.errors.map((error) => (
+          <p key={error.field}>{error.message}</p>
+        ))
+      } else if (formResponse.data?.createEvent?.success) {
+        setIsOpen(false)
+      }
+    } else {
+      const imageData = new FormData()
+      imageData.append('file', image)
+      imageData.append('upload_preset', 'eventImages')
+      const imageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/givehub/image/upload',
+        imageData
+      )
+      const formResponse = await createEvent({
+        variables: {
+          charityId: parseInt(router.query.charityId as string),
+          input: { imageUrl: imageResponse.data.public_id, ...formData }
+        },
+        refetchQueries: [
+          {
+            query: CharityDocument,
+            variables: { charityId: parseInt(router.query.charityId as string) }
+          }
+        ]
+      })
+      if (formResponse.data?.createEvent?.errors) {
+        return formResponse.data?.createEvent?.errors.map((error) => (
+          <p key={error.field}>{error.message}</p>
+        ))
+      } else if (formResponse.data?.createEvent?.success) {
+        setIsOpen(false)
+      }
     }
   }
 

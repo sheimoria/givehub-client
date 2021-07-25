@@ -16,7 +16,7 @@ export default function withAuth<P extends WithAuthProps>(
 
     useEffect(() => {
       if ((data?.me && !error) || loading) return
-      router.replace('/')
+      router.replace({ pathname: '/', query: { next: router.pathname } })
     }, [data, loading, error, router])
 
     if (error) return <p>{error.message}</p>
