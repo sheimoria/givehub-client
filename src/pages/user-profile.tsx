@@ -4,7 +4,7 @@ import { HeaderFragment } from 'generated/graphql'
 import withAuth from 'utils/withAuth'
 
 export default withAuth(function UserProfile({ me }: { me: HeaderFragment }) {
-  console.log(me)
+  console.log(me.email)
 
   return (
     <Body title="Sign up">

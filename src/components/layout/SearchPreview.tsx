@@ -61,7 +61,7 @@ export default function SearchPreview({
                   })
                 }
               >
-                <Picture size={36} />
+                <Picture pictureId={user.profile?.displayPicture} size={12} />
                 <div className="flex flex-col">
                   <h6>
                     {user.profile?.firstName} {user.profile?.lastName}
@@ -89,7 +89,10 @@ export default function SearchPreview({
                     })
                   }
                 >
-                  <Picture size={36} />
+                  <Picture
+                    pictureId={charity.profile?.displayPicture}
+                    size={12}
+                  />
                   <div className="flex flex-col">
                     <h6>{charity.name}</h6>
                     {charity.categories.map((category) => (

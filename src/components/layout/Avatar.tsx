@@ -1,5 +1,4 @@
 import { HeaderFragment, useLogOutMutation } from 'generated/graphql'
-import { Image, Transformation } from 'cloudinary-react'
 import { Menu, Transition } from '@headlessui/react'
 
 import { Fragment } from 'react'
@@ -22,34 +21,9 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="p-0 bg-transparent border-none w-9 h-9 focus:outline-none hover:translate-y-0 active:translate-y-0 hover:bg-transparent hover:border-none">
+          <Menu.Button className="p-0 bg-transparent border-none focus:outline-none hover:translate-y-0 active:translate-y-0 hover:bg-transparent hover:border-none">
             <span className="sr-only">Open user menu</span>
-            {me.profile?.displayPicture ? (
-              <Image
-                cloudName="givehub"
-                secure
-                upload_preset="userPictures"
-                publicId={me.profile?.displayPicture}
-                alt="User avatar"
-                className="rounded-full"
-              >
-                <Transformation quality="auto" fetchFormat="auto" />
-                <Transformation
-                  height="500"
-                  width="500"
-                  crop="fill"
-                  gravity="faces"
-                />
-              </Image>
-            ) : (
-              <Image
-                src="/avatar.svg"
-                alt="Avatar"
-                height={36}
-                width={36}
-                className="rounded-full"
-              />
-            )}
+            <Picture pictureId={me.profile?.displayPicture} size={9} />
           </Menu.Button>
           <Transition
             show={open}

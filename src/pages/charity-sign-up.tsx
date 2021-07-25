@@ -3,7 +3,6 @@ import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import CreateCharity from 'components/charities/CreateCharity'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
-import React from 'react'
 import UserTasks from 'components/users/UserEvents'
 import withAuth from 'utils/withAuth'
 

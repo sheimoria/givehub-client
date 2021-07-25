@@ -11,7 +11,7 @@ export default function UserPost({ user }: { user: UserAvatarFragment }) {
     <>
       <Transit>
         <article className="flex-row">
-          <Picture size={36} />
+          <Picture pictureId={user.profile?.displayPicture} size={12} />
           <input
             onClick={() => setIsOpen(true)}
             placeholder="New Post"

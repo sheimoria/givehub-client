@@ -1,13 +1,31 @@
-import Image from 'next/image'
+import { Image as CImage, Transformation } from 'cloudinary-react'
 
-export default function Picture({ size }: { size: number }) {
+import Image from 'next/image'
+import { Maybe } from 'generated/graphql'
+
+type Props = {
+  pictureId: Maybe<string> | undefined
+  size: number
+}
+
+export default function Picture({ pictureId, size }: Props) {
   return (
-    <Image
-      src="/avatar.svg"
-      alt="Avatar"
-      height={size}
-      width={size}
-      className="rounded-full"
-    />
+    <div
+      className={`relative overflow-hidden rounded-full h-${size} w-${size} bordered flex-none`}
+    >
+      {pictureId ? (
+        <CImage
+          cloudName="givehub"
+          secure
+          upload_preset="userPictures"
+          publicId={pictureId}
+          alt="Picture"
+        >
+          <Transformation quality="auto" fetchFormat="auto" />
+        </CImage>
+      ) : (
+        <Image src="/avatar.svg" alt="Picture" layout="fill" />
+      )}
+    </div>
   )
 }

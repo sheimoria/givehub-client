@@ -36,9 +36,9 @@ export default function VerifyUser() {
             <h2>You&apos;re successfully verified!</h2>
             <Link
               href={{
-                pathname: '/',
-                query: { next: '/user-profile' }
+                pathname: '/user-profile'
               }}
+              replace
             >
               <a className="text-rose-600 hover:text-rose-700">
                 Proceed to fill in your user profile

@@ -1,0 +1,8 @@
+mutation CreateComment($input: CommentInput!, $postId: Float!) {
+  commentOnPost(input: $input, postId: $postId) {
+    errors {
+      field
+      message
+    }
+  }
+}

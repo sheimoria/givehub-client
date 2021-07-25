@@ -12,7 +12,7 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
   return (
     <div className="flex flex-wrap justify-between gap-3 py-3">
       <div className="flex items-center gap-3">
-        <Picture size={36} />
+        <Picture pictureId={user.profile?.displayPicture} size={12} />
         <div className="flex flex-col">
           <Link
             href={{

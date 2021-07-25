@@ -39,7 +39,10 @@ export default function EventTasks() {
                           })
                         }
                       >
-                        <Picture size={36} />
+                        <Picture
+                          pictureId={volunteer.profile?.displayPicture}
+                          size={12}
+                        />
                         <div className="flex flex-col">
                           <h6>
                             {volunteer.profile?.firstName}{' '}

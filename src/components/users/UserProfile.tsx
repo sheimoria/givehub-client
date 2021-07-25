@@ -20,7 +20,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
       <div className="flex justify-between gap-3">
         <div className="flex items-center flex-none gap-3">
           {/* Display Picture */}
-          <Picture size={54} />
+          <Picture pictureId={user.profile?.displayPicture} size={16} />
           <div className="flex flex-col">
             {/* Name */}
             <h5>

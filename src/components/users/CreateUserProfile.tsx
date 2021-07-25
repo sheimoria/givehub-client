@@ -3,7 +3,6 @@ import * as yup from 'yup'
 import {
   Genders,
   HeaderFragment,
-  MeDocument,
   UserProfileUpdateInput,
   useUpdateUserProfileMutation
 } from 'generated/graphql'
@@ -48,52 +47,8 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
       //@ts-ignore
       .map((checkbox: Checkbox) => parseInt(checkbox.name))
 
-    if (image != '') {
-      const imageData = new FormData()
-      imageData.append('file', image)
-      imageData.append('upload_preset', 'userPictures')
-
-      const imageResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/givehub/image/upload',
-        imageData
-      )
-
-      const response = await createUserProfile({
-        variables: {
-          options: {
-            email: me.email,
-            gender: Genders.Withheld,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            about: formData.about,
-            categories: interests,
-            telegramHandle: me.username,
-            displayPicture: imageResponse.data.public_id
-          }
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery({
-            query: MeDocument,
-            data: {
-              __typename: 'Query',
-              me: data?.updateUserProfile?.user
-            }
-          })
-        }
-      })
-      if (response.data?.updateUserProfile?.errors) {
-        response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
-        )
-      } else if (response.data?.updateUserProfile?.errors) {
-        response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
-        )
-      } else {
-        router.push('/home')
-      }
-    } else {
-      const response = await createUserProfile({
+    if (image === '') {
+      const formResponse = await createUserProfile({
         variables: {
           options: {
             email: me.email,
@@ -104,27 +59,49 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
             categories: interests,
             telegramHandle: formData.telegramHandle
           }
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery({
-            query: MeDocument,
-            data: {
-              __typename: 'Query',
-              me: data?.updateUserProfile?.user
-            }
-          })
         }
       })
-      if (response.data?.updateUserProfile?.errors) {
-        response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
+      if (formResponse.data?.updateUserProfile?.errors) {
+        formResponse.data?.updateUserProfile?.errors.forEach(
+          ({ field, message }) =>
+            setError(field, { type: 'manual', message: message })
         )
-      } else if (response.data?.updateUserProfile?.errors) {
-        response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
+        console.log(me.email)
+      } else {
+        router.replace('/home')
+      }
+    } else {
+      const imageData = new FormData()
+      imageData.append('file', image)
+      imageData.append('upload_preset', 'userPictures')
+
+      const imageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/givehub/image/upload',
+        imageData
+      )
+
+      const formResponse = await createUserProfile({
+        variables: {
+          options: {
+            email: me.email,
+            gender: Genders.Withheld,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            about: formData.about,
+            categories: interests,
+            telegramHandle: formData.telegramHandle,
+            displayPicture: imageResponse.data.public_id
+          }
+        }
+      })
+
+      if (formResponse.data?.updateUserProfile?.errors) {
+        formResponse.data?.updateUserProfile?.errors.forEach(
+          ({ field, message }) =>
+            setError(field, { type: 'manual', message: message })
         )
       } else {
-        router.push('/home')
+        router.replace('/home')
       }
     }
   }
@@ -134,7 +111,7 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleCreateUserProfile}
-        className="w-1/2 place-self-center"
+        className="place-self-center"
       >
         <h5>Fill In User Profile</h5>
         <div className="flex flex-wrap gap-6">
