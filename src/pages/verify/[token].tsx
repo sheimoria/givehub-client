@@ -21,10 +21,11 @@ export default function VerifyUser() {
                 const response = await verifyUser({
                   variables: { token: router.query.token as string }
                 })
-                if (response?.data?.verifyUser.success) {
+                if (response.data?.verifyUser.success) {
                   setStatus('VERIFIED')
+                } else {
+                  setStatus('REJECTED')
                 }
-                setStatus('REJECTED')
               }}
             >
               Verify My Account
@@ -42,7 +43,7 @@ export default function VerifyUser() {
         ) : (
           <>
             <h2>Oops, something went wrong.</h2>
-            <a>Sorry, we were unable to verify you.</a>
+            <p>We were unable to verify you.</p>
           </>
         )}
       </div>
