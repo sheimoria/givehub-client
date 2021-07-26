@@ -31,7 +31,12 @@ export default function CreatePostModal({
     handleSubmit,
     formState: { errors }
   } = useForm({
-    defaultValues: { text: post.text }
+    defaultValues: { text: post.text },
+    resolver: yupResolver(
+      yup.object({
+        text: yup.string().required('Required')
+      })
+    )
   })
   const [updatePost] = useUpdatePostMutation()
   const [deletePost] = useDeletePostMutation({
@@ -112,7 +117,10 @@ export default function CreatePostModal({
                 />
                 <div className="flex justify-between">
                   <button
-                    onClick={() => deletePost()}
+                    onClick={() => {
+                      setIsOpen(false)
+                      deletePost()
+                    }}
                     className="button-outline"
                   >
                     Delete

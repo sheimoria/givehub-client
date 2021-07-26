@@ -5,14 +5,15 @@ import {
   EventLikesFragmentDoc,
   EventRequestsFragmentDoc
 } from 'generated/graphql'
+import { Image, Transformation } from 'cloudinary-react'
+
 import EventHeader from './EventHeader'
 import LikeEvent from 'components/events/LikeEvent'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEvent'
 import Transit from 'components/Transit'
+import UpdateEventButton from 'components/events/UpdateEventButton'
 import { filter } from 'graphql-anywhere'
-import UpdateEventButton from 'components/charities/UpdateEventButton'
-import { Image, Transformation } from 'cloudinary-react'
 import { useRouter } from 'next/router'
 
 type EventProps = {
