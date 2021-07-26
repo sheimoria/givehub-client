@@ -37,7 +37,7 @@ export default function UserEvents() {
           )
         )
       ) : (
-        <div className="py-3">
+        <div className="pb-3">
           <p> You have no upcoming events.</p>
         </div>
       )}

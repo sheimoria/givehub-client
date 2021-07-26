@@ -66,7 +66,6 @@ export default function Post({ post, event, lineclamp }: PostProps) {
               alt="Event image"
               dpr="auto"
               responsive
-              width="auto"
               crop="scale"
               responsiveUseBreakpoints="true"
             >
