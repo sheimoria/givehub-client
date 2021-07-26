@@ -1,0 +1,8 @@
+mutation UpdatePost($text: String!, $id: Float!) {
+  updatePost(text: $text, id: $id) {
+    post {
+      id
+      text
+    }
+  }
+}

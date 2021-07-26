@@ -8,4 +8,5 @@ fragment CharityHeader on Charity {
     id
     name
   }
+  followStatus
 }

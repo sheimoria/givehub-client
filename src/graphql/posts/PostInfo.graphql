@@ -1,3 +1,4 @@
 fragment PostInfo on Post {
+  id
   text
 }

@@ -3,6 +3,7 @@ import {
   EventInfoFragment,
   PostCardCommentInputFragmentDoc,
   PostCardFragment,
+  PostInfoFragmentDoc,
   PostLikesFragmentDoc
 } from 'generated/graphql'
 import { formatDistanceToNow } from 'date-fns'
@@ -12,7 +13,7 @@ import Link from 'next/link'
 import Picture from 'components/Picture'
 import PostCommentsButton from 'components/posts/PostCommentsButton'
 import Transit from 'components/Transit'
-import UpdatePostButton from './UpdatePostButton'
+import UpdateDeletePostButton from './UpdateDeletePostButton'
 import { filter } from 'graphql-anywhere'
 import PostCardComments from './PostCardComments'
 import PostCardCommentInput from './PostCardCommentInput'
@@ -57,7 +58,11 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
                 </p>
               </div>
             </div>
-            {post.creatorStatus && <UpdatePostButton post={post} />}
+            {post.creatorStatus && (
+              <UpdateDeletePostButton
+                post={filter(PostInfoFragmentDoc, post)}
+              />
+            )}
           </div>
           <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
         </div>

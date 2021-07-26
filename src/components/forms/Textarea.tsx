@@ -6,7 +6,7 @@ type TextareaProps = {
   name: string
   label: string
   placeholder?: string
-  register: UseFormRegister<FieldValues>
+  register: UseFormRegister<any>
   errors: any
   className?: string
   srOnly?: boolean

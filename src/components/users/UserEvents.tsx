@@ -12,7 +12,7 @@ export default function UserEvents() {
   const router = useRouter()
 
   return (
-    <Transit as="dl" className="gap-3">
+    <Transit as="dl" className="gap-3 pb-5">
       <h5>Your Events</h5>
       {data?.viewTasksAssignedToMe?.eventContainers &&
       data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
@@ -37,7 +37,7 @@ export default function UserEvents() {
           )
         )
       ) : (
-        <div className="pb-3">
+        <div>
           <p> You have no upcoming events.</p>
         </div>
       )}
