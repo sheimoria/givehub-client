@@ -1179,7 +1179,6 @@ export type CreateEventMutation = (
   { __typename?: 'Mutation' }
   & { createEvent: (
     { __typename?: 'EventResponse' }
-    & Pick<EventResponse, 'success'>
     & { errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
@@ -1199,7 +1198,6 @@ export type DeleteEventMutation = (
   { __typename?: 'Mutation' }
   & { deleteEvent: (
     { __typename?: 'EventResponse' }
-    & Pick<EventResponse, 'success'>
     & { errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
@@ -1392,7 +1390,6 @@ export type UpdateEventMutation = (
   { __typename?: 'Mutation' }
   & { updateEvent: (
     { __typename?: 'EventResponse' }
-    & Pick<EventResponse, 'success'>
     & { errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
@@ -2743,7 +2740,6 @@ export const CreateEventDocument = gql`
       name
       description
     }
-    success
   }
 }
     `;
@@ -2781,7 +2777,6 @@ export const DeleteEventDocument = gql`
       field
       message
     }
-    success
   }
 }
     `;
@@ -3112,7 +3107,6 @@ export const UpdateEventDocument = gql`
       field
       message
     }
-    success
   }
 }
     `;

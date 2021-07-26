@@ -6,7 +6,7 @@ type InputProps = {
   name: string
   label?: string
   placeholder?: string
-  register: UseFormRegister<FieldValues>
+  register: UseFormRegister<any>
   errors: any
   onFocus?: () => void
   onBlur?: () => void

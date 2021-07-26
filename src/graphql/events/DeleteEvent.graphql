@@ -4,6 +4,5 @@ mutation DeleteEvent($id: Float!) {
       field
       message
     }
-    success
   }
 }

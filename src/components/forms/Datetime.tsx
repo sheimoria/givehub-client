@@ -9,7 +9,7 @@ type DatetimeProps = {
   name: string
   label: string
   errors: any
-  control: Control<FieldValues>
+  control: Control<any>
   srOnly?: boolean
   className?: string
   placeholder?: string

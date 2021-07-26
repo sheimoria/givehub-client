@@ -9,6 +9,5 @@ mutation CreateEvent($charityId: Float!, $input: EventInput!) {
       name
       description
     }
-    success
   }
 }

@@ -4,6 +4,5 @@ mutation UpdateEvent($id: Float!, $input: EventInput!) {
       field
       message
     }
-    success
   }
 }

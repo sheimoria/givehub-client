@@ -1,11 +1,12 @@
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { EventInfoFragment } from 'generated/graphql'
 import { useState } from 'react'
+import UpdateDeleteEventModal from './UpdateDeleteEventModal'
 
-export default function UpdateEventButton({
+export default function UpdateDeleteEventButton({
   event
 }: {
-  event: EventInfoFragment | undefined
+  event: EventInfoFragment
 }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -13,6 +14,11 @@ export default function UpdateEventButton({
       <PencilAltIcon
         className="clickable-scale"
         onClick={() => setIsOpen(true)}
+      />
+      <UpdateDeleteEventModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        event={event}
       />
     </>
   )

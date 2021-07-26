@@ -2,37 +2,45 @@ import * as yup from 'yup'
 
 import {
   CharityDocument,
+  EventInfoFragment,
   EventInput,
-  useCreateEventMutation
+  useDeleteEventMutation,
+  useUpdateEventMutation
 } from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
 import Input from 'components/forms/Input'
-import UploadImageButton from 'components/UploadImageButton'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { XIcon } from '@heroicons/react/outline'
 
-type CreateEventProps = {
+type Props = {
   isOpen: boolean
   setIsOpen: (arg0: boolean) => void
+  event: EventInfoFragment
 }
 
-export default function CreateEventModal({
+export default function UpdateDeleteEventModal({
   isOpen,
-  setIsOpen
-}: CreateEventProps) {
+  setIsOpen,
+  event
+}: Props) {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors }
   } = useForm({
+    defaultValues: {
+      name: event.name,
+      description: event.description,
+      dateStart: new Date(parseInt(event.dateStart)),
+      dateEnd: new Date(parseInt(event.dateEnd)),
+      venue: event.venue
+    },
     resolver: yupResolver(
       yup.object({
         name: yup.string().required('Required'),
@@ -43,58 +51,28 @@ export default function CreateEventModal({
       })
     )
   })
-  const [image, setImage] = useState('')
-  const [createEvent] = useCreateEventMutation()
-  const router = useRouter()
+  const [updateEvent] = useUpdateEventMutation()
+  const [deleteEvent] = useDeleteEventMutation({ variables: { id: event.id } })
 
-  async function handleCreateEvent(formData: EventInput) {
-    if (image === '') {
-      const formResponse = await createEvent({
-        variables: {
-          charityId: parseInt(router.query.charityId as string),
-          input: formData
-        },
-        refetchQueries: [
-          {
-            query: CharityDocument,
-            variables: { charityId: parseInt(router.query.charityId as string) }
-          }
-        ]
-      })
-      if (formResponse.data?.createEvent?.errors) {
-        return formResponse.data?.createEvent?.errors.map((error) => (
-          <p key={error.field}>{error.message}</p>
-        ))
-      } else {
-        setIsOpen(false)
-      }
+  async function handleUpdateEvent(data: EventInput) {
+    const response = await updateEvent({
+      variables: {
+        id: event.id,
+        input: data
+      },
+      refetchQueries: [
+        {
+          query: CharityDocument,
+          variables: { charityId: event.charity.id }
+        }
+      ]
+    })
+    if (response.data?.updateEvent?.errors) {
+      return response.data?.updateEvent?.errors.map((error) => (
+        <p key={error.field}>{error.message}</p>
+      ))
     } else {
-      const imageData = new FormData()
-      imageData.append('file', image)
-      imageData.append('upload_preset', 'eventImages')
-      const imageResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/givehub/image/upload',
-        imageData
-      )
-      const formResponse = await createEvent({
-        variables: {
-          charityId: parseInt(router.query.charityId as string),
-          input: { imageUrl: imageResponse.data.public_id, ...formData }
-        },
-        refetchQueries: [
-          {
-            query: CharityDocument,
-            variables: { charityId: parseInt(router.query.charityId as string) }
-          }
-        ]
-      })
-      if (formResponse.data?.createEvent?.errors) {
-        return formResponse.data?.createEvent?.errors.map((error) => (
-          <p key={error.field}>{error.message}</p>
-        ))
-      } else {
-        setIsOpen(false)
-      }
+      setIsOpen(false)
     }
   }
 
@@ -127,16 +105,17 @@ export default function CreateEventModal({
             leaveTo="opacity-0"
           >
             <div className="z-10">
-              <Form handleSubmit={handleSubmit} onSubmit={handleCreateEvent}>
+              <Form handleSubmit={handleSubmit} onSubmit={handleUpdateEvent}>
                 <div className="flex justify-between">
-                  <Dialog.Title as="h5">Create Event</Dialog.Title>
+                  <Dialog.Title as="h5">Update Event</Dialog.Title>
                   <XIcon
                     onClick={() => setIsOpen(false)}
                     className="clickable-scale"
                   />
                 </div>
+
                 <Dialog.Description>
-                  Fill in the event details below.
+                  Update or delete your event details below.
                 </Dialog.Description>
                 <Input
                   name="name"
@@ -171,17 +150,18 @@ export default function CreateEventModal({
                   errors={errors.venue}
                 />
                 <div />
-                <UploadImageButton setImage={setImage} />
-                <div />
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false)
+                      deleteEvent()
+                    }}
                     className="flex-auto button-outline"
                   >
-                    Cancel
+                    Delete
                   </button>
                   <button type="submit" className="flex-auto">
-                    Create Event
+                    Update
                   </button>
                 </div>
               </Form>

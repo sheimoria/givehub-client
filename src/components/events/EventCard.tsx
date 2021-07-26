@@ -12,7 +12,7 @@ import LikeEvent from 'components/events/LikeEvent'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEvent'
 import Transit from 'components/Transit'
-import UpdateEventButton from 'components/events/UpdateEventButton'
+import UpdateDeleteEventButton from 'components/events/UpdateDeleteEventButton'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 
@@ -31,7 +31,7 @@ export default function EventCard({ event, lineclamp }: EventProps) {
             <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
             <div className="flex gap-2">
               {event.adminStatus && (
-                <UpdateEventButton
+                <UpdateDeleteEventButton
                   event={filter(EventInfoFragmentDoc, event)}
                 />
               )}
