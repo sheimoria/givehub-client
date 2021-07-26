@@ -112,7 +112,7 @@ export default function CreateCharity() {
     } else {
       const imageData = new FormData()
       imageData.append('file', image)
-      imageData.append('upload_preset', 'userPictures')
+      imageData.append('upload_preset', 'charityPictures')
 
       const imageResponse = await axios.post(
         'https://api.cloudinary.com/v1_1/givehub/image/upload',
