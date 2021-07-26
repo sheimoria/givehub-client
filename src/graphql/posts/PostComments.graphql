@@ -1,7 +1,7 @@
 query PostComments($limit: Float!, $postId: Float!) {
   postComments(limit: $limit, postId: $postId) {
-      items {
-          
-      }
+    items {
+      id
+    }
   }
 }

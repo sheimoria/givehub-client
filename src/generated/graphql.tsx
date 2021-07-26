@@ -107,6 +107,7 @@ export type Comment = {
   level: Scalars['Float'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+  displayPicture?: Maybe<Scalars['String']>;
 };
 
 export type CommentInput = {
@@ -1467,6 +1468,23 @@ export type PostCardFragment = (
   & PostLikesFragment
 );
 
+export type PostCommentsQueryVariables = Exact<{
+  limit: Scalars['Float'];
+  postId: Scalars['Float'];
+}>;
+
+
+export type PostCommentsQuery = (
+  { __typename?: 'Query' }
+  & { postComments: (
+    { __typename?: 'PaginatedComments' }
+    & { items: Array<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id'>
+    )> }
+  ) }
+);
+
 export type PostHeaderFragment = (
   { __typename?: 'Post' }
   & Pick<Post, 'id' | 'createdAt'>
@@ -1475,7 +1493,7 @@ export type PostHeaderFragment = (
     & Pick<User, 'id' | 'username'>
     & { profile?: Maybe<(
       { __typename?: 'Userprofile' }
-      & Pick<Userprofile, 'firstName' | 'lastName'>
+      & Pick<Userprofile, 'firstName' | 'lastName' | 'displayPicture'>
     )> }
   ) }
 );
@@ -1898,6 +1916,7 @@ export const PostHeaderFragmentDoc = gql`
     profile {
       firstName
       lastName
+      displayPicture
     }
     username
   }
@@ -3178,6 +3197,44 @@ export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQ
 export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
 export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export const PostCommentsDocument = gql`
+    query PostComments($limit: Float!, $postId: Float!) {
+  postComments(limit: $limit, postId: $postId) {
+    items {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostCommentsQuery__
+ *
+ * To run a query within a React component, call `usePostCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostCommentsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function usePostCommentsQuery(baseOptions: Apollo.QueryHookOptions<PostCommentsQuery, PostCommentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostCommentsQuery, PostCommentsQueryVariables>(PostCommentsDocument, options);
+      }
+export function usePostCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostCommentsQuery, PostCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostCommentsQuery, PostCommentsQueryVariables>(PostCommentsDocument, options);
+        }
+export type PostCommentsQueryHookResult = ReturnType<typeof usePostCommentsQuery>;
+export type PostCommentsLazyQueryHookResult = ReturnType<typeof usePostCommentsLazyQuery>;
+export type PostCommentsQueryResult = Apollo.QueryResult<PostCommentsQuery, PostCommentsQueryVariables>;
 export const PostsDocument = gql`
     query Posts($cursor: String, $limit: Int!) {
   posts(cursor: $cursor, limit: $limit) {
