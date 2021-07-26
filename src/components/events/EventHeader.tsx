@@ -1,9 +1,9 @@
 import { EventHeaderFragment } from 'generated/graphql'
-import Image from 'next/image'
 import Datetime from 'components/events/Datetime'
 import Venue from 'components/events/Venue'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Picture from 'components/Picture'
 
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   const router = useRouter()
@@ -11,14 +11,7 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
-        <Image
-          src="/avatar.svg"
-          alt="Avatar"
-          height={36}
-          width={36}
-          className="rounded-full"
-        />
-
+        <Picture pictureId={event.charity.profile?.displayPicture} size={10} />
         <div className="flex flex-col">
           <Link
             href={{

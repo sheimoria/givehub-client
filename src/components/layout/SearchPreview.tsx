@@ -61,7 +61,7 @@ export default function SearchPreview({
                   })
                 }
               >
-                <Picture pictureId={user.profile?.displayPicture} size={12} />
+                <Picture pictureId={user.profile?.displayPicture} size={10} />
                 <div className="flex flex-col">
                   <h6>
                     {user.profile?.firstName} {user.profile?.lastName}
@@ -81,7 +81,7 @@ export default function SearchPreview({
               (charity: CharityHeaderFragment) => (
                 <div
                   key={charity.id}
-                  className="flex gap-3 py-3 clickable-float"
+                  className="flex items-center gap-3 py-3 clickable-float"
                   onClick={() =>
                     router.push({
                       pathname: '/charity',
@@ -91,13 +91,20 @@ export default function SearchPreview({
                 >
                   <Picture
                     pictureId={charity.profile?.displayPicture}
-                    size={12}
+                    size={10}
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1">
                     <h6>{charity.name}</h6>
-                    {charity.categories.map((category) => (
-                      <p key={category.id}>{category.name}</p>
-                    ))}
+                    <div className="flex gap-2 truncate">
+                      {charity.categories.map((category) => (
+                        <button
+                          className="px-3 py-1 text-xs pointer-events-none button-secondary"
+                          key={category.id}
+                        >
+                          {category.name}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )

@@ -46,7 +46,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
             onClick={() =>
               router.push({ pathname: '/home', query: { view: category.id } })
             }
-            className="px-3 py-1 text-sm button-outline"
+            className="px-3 py-1 text-xs button-secondary"
           >
             {category.name}
           </button>

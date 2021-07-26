@@ -53,7 +53,7 @@ export default withAuth(function Home({ me }) {
                   <div key={user.id} className="flex gap-3 py-3">
                     <Picture
                       pictureId={user.profile?.displayPicture}
-                      size={12}
+                      size={10}
                     />
                     <div className="flex flex-col">
                       <Link
@@ -82,7 +82,7 @@ export default withAuth(function Home({ me }) {
                     <div key={charity.id} className="flex gap-3 py-3">
                       <Picture
                         pictureId={charity.profile?.displayPicture}
-                        size={12}
+                        size={10}
                       />
                       <div className="flex flex-col">
                         <Link

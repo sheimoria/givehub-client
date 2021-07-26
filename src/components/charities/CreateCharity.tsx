@@ -1,10 +1,8 @@
 import * as yup from 'yup'
-
 import {
   useCreateCharityMutation,
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
-
 import Checkbox from '../forms/Checkbox'
 import Form from '../forms/Form'
 import Input from '../forms/Input'
@@ -12,12 +10,12 @@ import Textarea from '../forms/Textarea'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
 import Transit from 'components/Transit'
+import axios from 'axios'
+import UploadImageButton from 'components/UploadImageButton'
+import { useState } from 'react'
 
 export default function CreateCharity() {
-  const [createCharity] = useCreateCharityMutation()
-  const [updateCharityProfile] = useUpdateCharityProfileMutation()
   const {
     register,
     handleSubmit,
@@ -40,12 +38,10 @@ export default function CreateCharity() {
       })
     )
   })
+  const [image, setImage] = useState('')
+  const [createCharity] = useCreateCharityMutation()
+  const [updateCharityProfile] = useUpdateCharityProfileMutation()
   const router = useRouter()
-
-  interface Checkbox extends Element {
-    checked: boolean
-    name: string
-  }
 
   type FormValues = {
     uen: string
@@ -61,54 +57,115 @@ export default function CreateCharity() {
       document.querySelectorAll('input[type="checkbox"]')
     )
       //@ts-ignore
-      .filter((checkbox: Checkbox) => checkbox.checked)
+      .filter((checkbox) => checkbox.checked)
       //@ts-ignore
-      .map((checkbox: Checkbox) => parseInt(checkbox.name))
-    const createCharityResponse = await createCharity({
-      variables: {
-        options: {
-          uen: values.uen,
-          name: values.name,
-          physicalAddress: values.physicalAddress,
-          postalCode: values.postalCode
-        }
-      }
-    })
-    if (createCharityResponse.data?.createCharity?.errors) {
-      createCharityResponse.data.createCharity.errors.forEach(
-        ({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
-      )
-    } else if (createCharityResponse.data?.createCharity?.success) {
-      const updateCharityProfileResponse = await updateCharityProfile({
+      .map((checkbox) => parseInt(checkbox.name))
+
+    if (image === '') {
+      const createCharityResponse = await createCharity({
         variables: {
-          charityId: createCharityResponse.data?.createCharity?.charity
-            ?.id as number,
           options: {
-            name: createCharityResponse.data?.createCharity?.charity
-              ?.name as string,
-            physicalAddress: createCharityResponse.data?.createCharity?.charity
-              ?.physicalAddress as string,
-            postalCode: createCharityResponse.data?.createCharity?.charity
-              ?.postalCode as string,
-            about: values.about,
-            links: values.links,
-            categories: categories
+            uen: values.uen,
+            name: values.name,
+            physicalAddress: values.physicalAddress,
+            postalCode: values.postalCode
           }
         }
       })
-      if (updateCharityProfileResponse.data?.updateCharityProfile?.errors) {
-        updateCharityProfileResponse.data?.updateCharityProfile?.errors.forEach(
+      if (createCharityResponse.data?.createCharity?.errors) {
+        createCharityResponse.data.createCharity.errors.forEach(
           ({ field, message }) =>
             setError(field, { type: 'manual', message: message })
         )
-      } else {
-        router.replace({
-          pathname: '/charity',
-          query: {
-            charityId: createCharityResponse.data?.createCharity?.charity?.id
+      } else if (createCharityResponse.data?.createCharity?.success) {
+        const updateCharityProfileResponse = await updateCharityProfile({
+          variables: {
+            charityId: createCharityResponse.data?.createCharity?.charity
+              ?.id as number,
+            options: {
+              name: createCharityResponse.data?.createCharity?.charity
+                ?.name as string,
+              physicalAddress: createCharityResponse.data?.createCharity
+                ?.charity?.physicalAddress as string,
+              postalCode: createCharityResponse.data?.createCharity?.charity
+                ?.postalCode as string,
+              about: values.about,
+              links: values.links,
+              categories: categories
+            }
           }
         })
+        if (updateCharityProfileResponse.data?.updateCharityProfile?.errors) {
+          updateCharityProfileResponse.data?.updateCharityProfile?.errors.forEach(
+            ({ field, message }) =>
+              setError(field, { type: 'manual', message: message })
+          )
+        } else {
+          router.replace({
+            pathname: '/charity',
+            query: {
+              charityId: createCharityResponse.data?.createCharity?.charity?.id
+            }
+          })
+        }
+      }
+    } else {
+      const imageData = new FormData()
+      imageData.append('file', image)
+      imageData.append('upload_preset', 'userPictures')
+
+      const imageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/givehub/image/upload',
+        imageData
+      )
+
+      const createCharityResponse = await createCharity({
+        variables: {
+          options: {
+            uen: values.uen,
+            name: values.name,
+            physicalAddress: values.physicalAddress,
+            postalCode: values.postalCode
+          }
+        }
+      })
+      if (createCharityResponse.data?.createCharity?.errors) {
+        createCharityResponse.data.createCharity.errors.forEach(
+          ({ field, message }) =>
+            setError(field, { type: 'manual', message: message })
+        )
+      } else if (createCharityResponse.data?.createCharity?.success) {
+        const updateCharityProfileResponse = await updateCharityProfile({
+          variables: {
+            charityId: createCharityResponse.data?.createCharity?.charity
+              ?.id as number,
+            options: {
+              name: createCharityResponse.data?.createCharity?.charity
+                ?.name as string,
+              physicalAddress: createCharityResponse.data?.createCharity
+                ?.charity?.physicalAddress as string,
+              postalCode: createCharityResponse.data?.createCharity?.charity
+                ?.postalCode as string,
+              about: values.about,
+              links: values.links,
+              categories: categories,
+              displayPicture: imageResponse.data.public_id
+            }
+          }
+        })
+        if (updateCharityProfileResponse.data?.updateCharityProfile?.errors) {
+          updateCharityProfileResponse.data?.updateCharityProfile?.errors.forEach(
+            ({ field, message }) =>
+              setError(field, { type: 'manual', message: message })
+          )
+        } else {
+          router.replace({
+            pathname: '/charity',
+            query: {
+              charityId: createCharityResponse.data?.createCharity?.charity?.id
+            }
+          })
+        }
       }
     }
   }
@@ -188,6 +245,8 @@ export default function CreateCharity() {
             errors={errors.postalCode}
           />
         </div>
+        <div />
+        <UploadImageButton label="Upload Profile Picture" setImage={setImage} />
         <div />
         <button type="submit">Sign Up</button>
       </Form>

@@ -6,12 +6,12 @@ import {
 } from 'generated/graphql'
 
 import EventPreview from 'components/events/EventPreview'
-import Image from 'next/image'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Transit from 'components/Transit'
 import UpdatePostButton from './UpdatePostButton'
 import { filter } from 'graphql-anywhere'
+import Picture from 'components/Picture'
 
 type PostProps = {
   post: PostCardFragment
@@ -26,12 +26,9 @@ export default function Post({ post, event, lineclamp }: PostProps) {
         <div className="flex flex-col gap-3 px-5 pt-5 pb-3">
           <div className="flex justify-between">
             <div className="flex items-center gap-3">
-              <Image
-                src="/avatar.svg"
-                alt="Avatar"
-                height={36}
-                width={36}
-                className="rounded-full"
+              <Picture
+                pictureId={post.creator.profile?.displayPicture}
+                size={10}
               />
               <div className="flex flex-col">
                 <Link

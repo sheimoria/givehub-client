@@ -47,20 +47,25 @@ export default function Event({ event, lineclamp }: EventProps) {
               {event.description}
             </p>
           </div>
-          {event.imageUrl && (
-            <div className="mb-3 bordered">
-              <Image
-                cloudName="givehub"
-                secure
-                upload_preset="eventImages"
-                publicId={event.imageUrl}
-                alt="Event image"
-              >
-                <Transformation quality="auto" fetchFormat="auto" />
-              </Image>
-            </div>
-          )}
         </div>
+        {event.imageUrl && (
+          <div
+            className="mb-3 border-l-0 border-r-0 cursor-pointer bordered"
+            onClick={() =>
+              router.push({ pathname: '/event', query: { eventId: event.id } })
+            }
+          >
+            <Image
+              cloudName="givehub"
+              secure
+              upload_preset="eventImages"
+              publicId={event.imageUrl}
+              alt="Event image"
+            >
+              <Transformation quality="auto" fetchFormat="auto" />
+            </Image>
+          </div>
+        )}
         <div className="flex items-center gap-3 px-5 pb-5">
           <LikeEvent likeEvent={filter(EventLikesFragmentDoc, event)} />
           <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />

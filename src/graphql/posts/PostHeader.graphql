@@ -5,6 +5,7 @@ fragment PostHeader on Post {
     profile {
       firstName
       lastName
+      displayPicture
     }
     username
   }

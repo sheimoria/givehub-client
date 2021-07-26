@@ -23,7 +23,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
         <>
           <Menu.Button className="p-0 bg-transparent border-none focus:outline-none hover:translate-y-0 active:translate-y-0 hover:bg-transparent hover:border-none">
             <span className="sr-only">Open user menu</span>
-            <Picture pictureId={me.profile?.displayPicture} size={9} />
+            <Picture pictureId={me.profile?.displayPicture} size={10} />
           </Menu.Button>
           <Transition
             show={open}

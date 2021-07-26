@@ -11,7 +11,7 @@ type Props = {
 export default function Picture({ pictureId, size }: Props) {
   return (
     <div
-      className={`relative overflow-hidden rounded-full h-${size} w-${size} bordered flex-none`}
+      className={`relative overflow-hidden rounded-full bordered h-10 w-10 flex-none`}
     >
       {pictureId ? (
         <CImage

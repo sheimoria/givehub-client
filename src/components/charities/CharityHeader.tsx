@@ -17,7 +17,7 @@ export default function CharityHeader({
   return (
     <div className="flex flex-wrap justify-between gap-3 py-3">
       <div className="flex items-center gap-3">
-        <Picture pictureId={charity.profile?.displayPicture} size={12} />
+        <Picture pictureId={charity.profile?.displayPicture} size={10} />
         <div className="flex flex-col">
           <Link
             href={{

@@ -41,7 +41,7 @@ export default function EventTasks() {
                       >
                         <Picture
                           pictureId={volunteer.profile?.displayPicture}
-                          size={12}
+                          size={10}
                         />
                         <div className="flex flex-col">
                           <h6>
