@@ -18,16 +18,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { XIcon } from '@heroicons/react/outline'
 
 type Props = {
-  isOpen: boolean
   setIsOpen: (arg0: boolean) => void
   event: EventInfoFragment
 }
 
-export default function UpdateDeleteEventModal({
-  isOpen,
-  setIsOpen,
-  event
-}: Props) {
+export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
   const {
     register,
     handleSubmit,
@@ -77,9 +72,9 @@ export default function UpdateDeleteEventModal({
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show as={Fragment}>
       <Dialog
-        open={isOpen}
+        open
         onClose={() => setIsOpen(false)}
         className="fixed inset-0 z-10 overflow-y-auto"
       >

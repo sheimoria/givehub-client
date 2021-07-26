@@ -15,17 +15,12 @@ import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-type CreatePostProps = {
-  isOpen: boolean
+type Props = {
   setIsOpen: (arg0: boolean) => void
   post: PostInfoFragment
 }
 
-export default function CreatePostModal({
-  isOpen,
-  setIsOpen,
-  post
-}: CreatePostProps) {
+export default function CreatePostModal({ setIsOpen, post }: Props) {
   const {
     register,
     handleSubmit,
@@ -64,9 +59,9 @@ export default function CreatePostModal({
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show as={Fragment}>
       <Dialog
-        open={isOpen}
+        open
         onClose={() => setIsOpen(false)}
         className="fixed inset-0 z-10 overflow-y-auto"
       >

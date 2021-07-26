@@ -15,11 +15,7 @@ export default function UpdateDeletePostButton({
         className="clickable-scale"
         onClick={() => setIsOpen(true)}
       />
-      <UpdateDeletePostModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        post={post}
-      />
+      {isOpen && <UpdateDeletePostModal setIsOpen={setIsOpen} post={post} />}
     </>
   )
 }

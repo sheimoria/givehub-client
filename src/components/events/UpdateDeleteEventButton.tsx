@@ -15,11 +15,7 @@ export default function UpdateDeleteEventButton({
         className="clickable-scale"
         onClick={() => setIsOpen(true)}
       />
-      <UpdateDeleteEventModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        event={event}
-      />
+      {isOpen && <UpdateDeleteEventModal setIsOpen={setIsOpen} event={event} />}
     </>
   )
 }
