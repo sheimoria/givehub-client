@@ -5,13 +5,24 @@ import { Maybe } from 'generated/graphql'
 
 type Props = {
   pictureId: Maybe<string> | undefined
-  size: number
+  size?: number
+  onClick?: () => void
+  className?: string
 }
 
-export default function Picture({ pictureId, size }: Props) {
+export default function Picture({
+  pictureId,
+  size,
+  onClick,
+  className
+}: Props) {
   return (
     <div
-      className={`relative overflow-hidden rounded-full bordered h-10 w-10 flex-none`}
+      onClick={onClick}
+      className={
+        'relative overflow-hidden rounded-full bordered h-10 w-10 flex-none ' +
+        className
+      }
     >
       {pictureId ? (
         <CImage

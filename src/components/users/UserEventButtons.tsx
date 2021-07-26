@@ -1,4 +1,4 @@
-import Event from 'components/events/Event'
+import Event from 'components/events/EventCard'
 import { UserEventsFragment } from 'generated/graphql'
 import classNames from 'utils/classNames'
 import { useState } from 'react'

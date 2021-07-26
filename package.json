@@ -23,6 +23,7 @@
     "@tailwindcss/typography": "latest",
     "axios": "latest",
     "cloudinary-react": "^1.7.0",
+    "date-fns": "^2.23.0",
     "graphql": "latest",
     "graphql-anywhere": "latest",
     "next": "latest",

@@ -20,7 +20,7 @@ type EventProps = {
   lineclamp?: boolean
 }
 
-export default function Event({ event, lineclamp }: EventProps) {
+export default function EventCard({ event, lineclamp }: EventProps) {
   const router = useRouter()
   return (
     <Transit onEveryMount>

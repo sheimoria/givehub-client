@@ -1,0 +1,14 @@
+fragment CommentSnippet on Comment {
+  id
+  author {
+    id
+    username
+    profile {
+      firstName
+      lastName
+      displayPicture
+    }
+  }
+  createdAt
+  text
+}

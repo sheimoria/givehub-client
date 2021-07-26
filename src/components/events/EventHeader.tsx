@@ -4,6 +4,7 @@ import Venue from 'components/events/Venue'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Picture from 'components/Picture'
+import { formatDistanceToNow } from 'date-fns'
 
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   const router = useRouter()
@@ -22,12 +23,10 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
           >
             <a>{event.charity.name}</a>
           </Link>
-          <p>
-            {new Date(parseInt(event.createdAt)).toLocaleString('en-US', {
-              day: 'numeric',
-              month: 'short',
-              hour: 'numeric',
-              minute: 'numeric'
+          <p className="text-xs">
+            {formatDistanceToNow(parseInt(event.createdAt), {
+              addSuffix: true,
+              includeSeconds: true
             })}
           </p>
         </div>

@@ -4,7 +4,7 @@ import {
   usePostsQuery
 } from 'generated/graphql'
 
-import Post from 'components/posts/Post'
+import Post from 'components/posts/PostCard'
 import { filter } from 'graphql-anywhere'
 
 export default function Posts() {

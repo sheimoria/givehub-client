@@ -1,7 +1,12 @@
-query PostComments($limit: Float!, $postId: Float!) {
-  postComments(limit: $limit, postId: $postId) {
+query PostComments($depth: Int, $limit: Float!, $postId: Float!) {
+  postComments(depth: $depth, limit: $limit, postId: $postId) {
     items {
-      id
+      ...CommentSnippet
+    }
+    hasMore
+    errors {
+      field
+      message
     }
   }
 }

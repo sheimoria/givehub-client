@@ -107,7 +107,7 @@ export type Comment = {
   level: Scalars['Float'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-  displayPicture?: Maybe<Scalars['String']>;
+  author?: Maybe<User>;
 };
 
 export type CommentInput = {
@@ -133,9 +133,6 @@ export type Event = {
   creator: User;
   likeNumber: Scalars['Float'];
   completed: Scalars['Boolean'];
-  telegramGroupId?: Maybe<Scalars['String']>;
-  telegramGroupHash?: Maybe<Scalars['String']>;
-  telegramGroupUpdatedDate?: Maybe<Scalars['String']>;
   imageUrl?: Maybe<Scalars['String']>;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
@@ -254,6 +251,7 @@ export type Mutation = {
   markEventAsComplete: EventResponse;
   requestEvent: EventResponse;
   acceptEventVolunteer: UpdateEventVolunteerResponse;
+  removeEventVolunteer: UpdateEventVolunteerResponse;
   createTask: TaskResponse;
   updateTask: TaskResponse;
   deleteTask: TaskResponse;
@@ -423,6 +421,12 @@ export type MutationRequestEventArgs = {
 
 export type MutationAcceptEventVolunteerArgs = {
   acceptVolunteer: Scalars['Boolean'];
+  eventVolunteerUserId: Scalars['Int'];
+  eventId: Scalars['Int'];
+};
+
+
+export type MutationRemoveEventVolunteerArgs = {
   eventVolunteerUserId: Scalars['Int'];
   eventId: Scalars['Int'];
 };
@@ -1386,6 +1390,19 @@ export type UpdateEventMutation = (
   ) }
 );
 
+export type CommentSnippetFragment = (
+  { __typename?: 'Comment' }
+  & Pick<Comment, 'id' | 'createdAt' | 'text'>
+  & { author?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+    & { profile?: Maybe<(
+      { __typename?: 'Userprofile' }
+      & Pick<Userprofile, 'firstName' | 'lastName' | 'displayPicture'>
+    )> }
+  )> }
+);
+
 export type CreateCommentMutationVariables = Exact<{
   input: CommentInput;
   postId: Scalars['Float'];
@@ -1462,13 +1479,26 @@ export type PostQuery = (
 
 export type PostCardFragment = (
   { __typename?: 'Post' }
-  & Pick<Post, 'creatorStatus' | 'imageUrl'>
+  & Pick<Post, 'creatorStatus' | 'imageUrl' | 'commentNumber'>
   & PostHeaderFragment
   & PostInfoFragment
   & PostLikesFragment
 );
 
+export type PostCardCommentInputFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id'>
+  & { creator: (
+    { __typename?: 'User' }
+    & { profile?: Maybe<(
+      { __typename?: 'Userprofile' }
+      & Pick<Userprofile, 'displayPicture'>
+    )> }
+  ) }
+);
+
 export type PostCommentsQueryVariables = Exact<{
+  depth?: Maybe<Scalars['Int']>;
   limit: Scalars['Float'];
   postId: Scalars['Float'];
 }>;
@@ -1478,10 +1508,14 @@ export type PostCommentsQuery = (
   { __typename?: 'Query' }
   & { postComments: (
     { __typename?: 'PaginatedComments' }
+    & Pick<PaginatedComments, 'hasMore'>
     & { items: Array<(
       { __typename?: 'Comment' }
-      & Pick<Comment, 'id'>
-    )> }
+      & CommentSnippetFragment
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -1908,6 +1942,22 @@ export const EventSnippetFragmentDoc = gql`
   venue
 }
     `;
+export const CommentSnippetFragmentDoc = gql`
+    fragment CommentSnippet on Comment {
+  id
+  author {
+    id
+    username
+    profile {
+      firstName
+      lastName
+      displayPicture
+    }
+  }
+  createdAt
+  text
+}
+    `;
 export const PostHeaderFragmentDoc = gql`
     fragment PostHeader on Post {
   id
@@ -1942,10 +1992,21 @@ export const PostCardFragmentDoc = gql`
   ...PostInfo
   imageUrl
   ...PostLikes
+  commentNumber
 }
     ${PostHeaderFragmentDoc}
 ${PostInfoFragmentDoc}
 ${PostLikesFragmentDoc}`;
+export const PostCardCommentInputFragmentDoc = gql`
+    fragment PostCardCommentInput on Post {
+  id
+  creator {
+    profile {
+      displayPicture
+    }
+  }
+}
+    `;
 export const UserAvatarFragmentDoc = gql`
     fragment UserAvatar on User {
   id
@@ -3198,14 +3259,19 @@ export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
 export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const PostCommentsDocument = gql`
-    query PostComments($limit: Float!, $postId: Float!) {
-  postComments(limit: $limit, postId: $postId) {
+    query PostComments($depth: Int, $limit: Float!, $postId: Float!) {
+  postComments(depth: $depth, limit: $limit, postId: $postId) {
     items {
-      id
+      ...CommentSnippet
+    }
+    hasMore
+    errors {
+      field
+      message
     }
   }
 }
-    `;
+    ${CommentSnippetFragmentDoc}`;
 
 /**
  * __usePostCommentsQuery__
@@ -3219,6 +3285,7 @@ export const PostCommentsDocument = gql`
  * @example
  * const { data, loading, error } = usePostCommentsQuery({
  *   variables: {
+ *      depth: // value for 'depth'
  *      limit: // value for 'limit'
  *      postId: // value for 'postId'
  *   },

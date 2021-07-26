@@ -1,0 +1,8 @@
+fragment PostCardCommentInput on Post {
+  id
+  creator {
+    profile {
+      displayPicture
+    }
+  }
+}

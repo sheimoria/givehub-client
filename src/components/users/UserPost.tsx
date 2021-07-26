@@ -12,11 +12,12 @@ export default function UserPost({ user }: { user: UserAvatarFragment }) {
       <Transit>
         <article className="flex-row">
           <Picture pictureId={user.profile?.displayPicture} size={10} />
-          <input
+          <span
             onClick={() => setIsOpen(true)}
-            placeholder="New Post"
-            className="flex-auto bg-gray-100 rounded-full dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-          />
+            className="flex items-center flex-auto px-4 text-sm text-gray-400 transition bg-gray-100 rounded-full bordered dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+          >
+            New Post
+          </span>
         </article>
       </Transit>
       <CreatePost isOpen={isOpen} setIsOpen={setIsOpen} />

@@ -4,4 +4,5 @@ fragment PostCard on Post {
   ...PostInfo
   imageUrl
   ...PostLikes
+  commentNumber
 }

@@ -1,4 +1,4 @@
-import Event from 'components/events/Event'
+import Event from 'components/events/EventCard'
 import { EventCardFragment } from 'generated/graphql'
 
 export default function CharityEvents({

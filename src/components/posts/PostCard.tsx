@@ -1,17 +1,22 @@
 import { Image as CImage, Transformation } from 'cloudinary-react'
 import {
   EventInfoFragment,
+  PostCardCommentInputFragmentDoc,
   PostCardFragment,
   PostLikesFragmentDoc
 } from 'generated/graphql'
-
+import { formatDistanceToNow } from 'date-fns'
 import EventPreview from 'components/events/EventPreview'
 import LikePost from './LikePost'
 import Link from 'next/link'
+import Picture from 'components/Picture'
+import PostCommentsButton from 'components/posts/PostCommentsButton'
 import Transit from 'components/Transit'
 import UpdatePostButton from './UpdatePostButton'
 import { filter } from 'graphql-anywhere'
-import Picture from 'components/Picture'
+import PostCardComments from './PostCardComments'
+import PostCardCommentInput from './PostCardCommentInput'
+import useToggle from 'utils/useToggle'
 
 type PostProps = {
   post: PostCardFragment
@@ -19,11 +24,13 @@ type PostProps = {
   lineclamp?: boolean
 }
 
-export default function Post({ post, event, lineclamp }: PostProps) {
+export default function PostCard({ post, event, lineclamp }: PostProps) {
+  const [comments, toggleComments] = useToggle()
+
   return (
     <Transit>
-      <article className="gap-0 p-0">
-        <div className="flex flex-col gap-3 px-5 pt-5 pb-3">
+      <article className="gap-0 px-0 py-5">
+        <div className="flex flex-col gap-3 px-5 pb-3">
           <div className="flex justify-between">
             <div className="flex items-center gap-3">
               <Picture
@@ -42,12 +49,10 @@ export default function Post({ post, event, lineclamp }: PostProps) {
                     {post.creator?.profile?.lastName}
                   </a>
                 </Link>
-                <p>
-                  {new Date(parseInt(post.createdAt)).toLocaleString('en-US', {
-                    day: 'numeric',
-                    month: 'short',
-                    hour: 'numeric',
-                    minute: 'numeric'
+                <p className="text-xs">
+                  {formatDistanceToNow(parseInt(post.createdAt), {
+                    addSuffix: true,
+                    includeSeconds: true
                   })}
                 </p>
               </div>
@@ -57,7 +62,7 @@ export default function Post({ post, event, lineclamp }: PostProps) {
           <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
         </div>
         {post.imageUrl && (
-          <div className="mb-3 overflow-hidden bordered">
+          <div className="mb-3 overflow-hidden border-l-0 border-r-0 bordered">
             <CImage
               cloudName="givehub"
               secure
@@ -74,9 +79,21 @@ export default function Post({ post, event, lineclamp }: PostProps) {
           </div>
         )}
         {event && <EventPreview event={event} />}
-        <div className="flex items-center gap-3 px-5 pb-5">
+        <div className="flex items-center gap-3 px-5">
           <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
+          <PostCommentsButton
+            toggleComments={toggleComments as () => void}
+            commentNumber={post.commentNumber}
+          />
         </div>
+        {comments && (
+          <div className="flex flex-col gap-3 px-5 pt-5">
+            <PostCardCommentInput
+              post={filter(PostCardCommentInputFragmentDoc, post)}
+            />
+            <PostCardComments postId={post.id} />
+          </div>
+        )}
       </article>
     </Transit>
   )

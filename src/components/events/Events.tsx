@@ -1,6 +1,6 @@
 import { useEventsQuery, usePostsQuery } from 'generated/graphql'
 
-import Event from 'components/events/Event'
+import Event from 'components/events/EventCard'
 import { useRouter } from 'next/router'
 
 export default function Events() {
