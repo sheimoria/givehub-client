@@ -91,8 +91,7 @@ export default function UpdateCharityProfileModal({
             links: data.links,
             email: data.email,
             contactNumber: data.contactNumber,
-            categories: categories,
-            displayPicture: charity.profile?.displayPicture
+            categories: categories
           }
         }
       })

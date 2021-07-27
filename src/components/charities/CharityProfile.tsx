@@ -48,7 +48,9 @@ export default function CharityProfile({
             </div>
           </div>
         </div>
-        <UpdateCharityProfileButton charity={charity} />
+        {charity.adminStatus && (
+          <UpdateCharityProfileButton charity={charity} />
+        )}
       </div>
       {/* About */}
       <div className="flex items-center gap-2">
@@ -90,7 +92,9 @@ export default function CharityProfile({
         <UserGroupIcon />
         {charity.followNumber} followers
       </p>
-      <FollowCharity followStatus={charity.followStatus} />
+      {!charity.adminStatus && (
+        <FollowCharity followStatus={charity.followStatus} />
+      )}
     </Transit>
   )
 }

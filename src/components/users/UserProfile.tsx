@@ -30,7 +30,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
             <p>@{user.username}</p>
           </div>
         </div>
-        <UpdateUserProfileButton user={user} />
+        {user.viewerStatus && <UpdateUserProfileButton user={user} />}
       </div>
       {/* About */}
       <p>{user.profile?.about}</p>

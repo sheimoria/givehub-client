@@ -1,15 +1,20 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { UserProfileFragment, UserProfileUpdateInput } from 'generated/graphql'
+import { Fragment, useState } from 'react'
+import {
+  Genders,
+  UserProfileFragment,
+  UserProfileUpdateInput
+} from 'generated/graphql'
 
 import Checkbox from 'components/forms/Checkbox'
 import Form from 'components/forms/Form'
-import { Fragment } from 'react'
 import Input from 'components/forms/Input'
-import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
+import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/solid'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useUpdateUserProfileMutation } from 'generated/graphql'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -20,6 +25,9 @@ type Props = {
 }
 
 export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
+  const defaultCategories = Object.fromEntries(
+    user.categories.map((category) => [category.id, 'checked'])
+  )
   const {
     register,
     handleSubmit,
@@ -29,24 +37,22 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
     defaultValues: {
       firstName: user.profile?.firstName,
       lastName: user.profile?.lastName,
-      email: user.email,
       about: user.profile?.about,
-      telegramHandle: user.profile?.telegramHandle
+      ...defaultCategories
     },
     resolver: yupResolver(
       yup.object({
         firstName: yup.string().required('Required'),
         lastName: yup.string().required('Required'),
-        email: yup.string().email().required('Required'),
-        about: yup.string().required('Required'),
-        telegramHandle: yup.string().required('Required')
+        about: yup.string().required('Required')
       })
     )
   })
+  const [image, setImage] = useState('')
   const [updateUserProfile] = useUpdateUserProfileMutation()
 
-  async function handleUpdateUserProfile(options: UserProfileUpdateInput) {
-    const categories = Array.from(
+  async function handleUpdateUserProfile(data: UserProfileUpdateInput) {
+    const interests = Array.from(
       document.querySelectorAll('input[type="checkbox"]')
     )
       //@ts-ignore
@@ -54,24 +60,60 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
       //@ts-ignore
       .map((checkbox: Checkbox) => parseInt(checkbox.name))
 
-    const response = await updateUserProfile({
-      variables: {
-        options: {
-          firstName: options.firstName,
-          lastName: options.lastName,
-          email: options.email,
-          about: options.about,
-          categories: categories
+    if (image === '') {
+      const response = await updateUserProfile({
+        variables: {
+          options: {
+            email: user.email,
+            gender: Genders.Withheld,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            about: data.about,
+            categories: interests
+          }
         }
+      })
+      if (response.data?.updateUserProfile?.errors) {
+        response.data?.updateUserProfile?.errors.forEach(({ field, message }) =>
+          //@ts-ignore
+          setError(field, { type: 'manual', message: message })
+        )
+      } else {
+        setIsOpen(false)
       }
-    })
-    if (response.data?.updateUserProfile?.errors) {
-      response.data.updateUserProfile.errors.forEach(({ field, message }) =>
-        //@ts-ignore
-        setError(field, { type: 'manual', message: message })
-      )
     } else {
-      setIsOpen(false)
+      const imageData = new FormData()
+      imageData.append('file', image)
+      imageData.append('upload_preset', 'userPictures')
+
+      const imageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/givehub/image/upload',
+        imageData
+      )
+
+      const formResponse = await updateUserProfile({
+        variables: {
+          options: {
+            email: user.email,
+            gender: Genders.Withheld,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            about: data.about,
+            categories: interests,
+            displayPicture: imageResponse.data.public_id
+          }
+        }
+      })
+
+      if (formResponse.data?.updateUserProfile?.errors) {
+        formResponse.data?.updateUserProfile?.errors.forEach(
+          ({ field, message }) =>
+            //@ts-ignore
+            setError(field, { type: 'manual', message: message })
+        )
+      } else {
+        setIsOpen(false)
+      }
     }
   }
 
@@ -103,77 +145,65 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Form
-              handleSubmit={handleSubmit}
-              onSubmit={handleUpdateUserProfile}
-              className="z-10 w-96"
-            >
-              <div className="flex justify-between">
-                <Dialog.Title as="h5">Update User Profile</Dialog.Title>
-                <span onClick={() => setIsOpen(false)}>
-                  <XIcon className="clickable-scale" />
-                </span>
-              </div>
-              <Dialog.Description className="hidden">
-                Update your user profile information
-              </Dialog.Description>
-              <div className="flex flex-wrap gap-5">
-                <Input
-                  name="firstName"
-                  label="First Name"
+            <div className="z-10">
+              <Form
+                handleSubmit={handleSubmit}
+                onSubmit={handleUpdateUserProfile}
+              >
+                <div className="flex justify-between">
+                  <Dialog.Title as="h5">Update User Profile</Dialog.Title>
+                  <span onClick={() => setIsOpen(false)}>
+                    <XIcon className="clickable-scale" />
+                  </span>
+                </div>
+                <Dialog.Description className="hidden">
+                  Update User Profile
+                </Dialog.Description>
+                <div className="flex flex-wrap gap-5">
+                  <Input
+                    name="firstName"
+                    label="First Name"
+                    register={register}
+                    errors={errors.firstName}
+                  />
+                  <Input
+                    name="lastName"
+                    label="Last Name"
+                    register={register}
+                    errors={errors.lastName}
+                  />
+                </div>
+                <Textarea
+                  name="about"
+                  label="About"
                   register={register}
-                  errors={errors.firstName}
+                  errors={errors.about}
+                  placeholder="Tell us a little bit about yourself."
                 />
-                <Input
-                  name="lastName"
-                  label="Last Name"
-                  register={register}
-                  errors={errors.lastName}
+                <h6>Which categories are you interested in?</h6>
+                <div className="flex flex-wrap justify-between gap-6">
+                  {categories.map((column) => (
+                    <div key={column[0].label} className="flex flex-col gap-4">
+                      {column.map((category) => (
+                        <Checkbox
+                          key={category.name}
+                          name={category.name}
+                          label={category.label}
+                          register={register}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                <div />
+                <UploadImageButton
+                  label="Update Profile Picture"
+                  setImage={setImage}
                 />
-              </div>
-              <Input
-                name="telegramHandle"
-                label="Telegram Handle"
-                register={register}
-                errors={errors.telegramHandle}
-              />
-              <Input
-                name="email"
-                label="Email Address"
-                register={register}
-                errors={errors.email}
-              />
-              <Textarea
-                name="about"
-                label="About"
-                register={register}
-                errors={errors.about}
-                placeholder="Tell us a little bit about yourself."
-              />
-              <h6>Which categories are you interested in?</h6>
-              <div className="flex flex-wrap justify-between gap-6">
-                {categories.map((column) => (
-                  <div key={column[0].label} className="flex flex-col gap-4">
-                    {column.map((category) => (
-                      <Checkbox
-                        key={category.name}
-                        name={category.name}
-                        label={category.label}
-                        register={register}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              <div />
-              <div className="flex justify-between">
-                <a>
-                  <PhotographIcon />
-                  Add Photo
-                </a>
+                <div />
                 <button type="submit">Post</button>
-              </div>
-            </Form>
+              </Form>
+            </div>
           </Transition.Child>
         </div>
       </Dialog>
