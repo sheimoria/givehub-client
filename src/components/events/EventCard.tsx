@@ -65,8 +65,8 @@ export default function EventCard({ event, lineclamp }: EventProps) {
               dpr="auto"
               responsive
               crop="scale"
+              width="auto"
               responsiveUseBreakpoints="true"
-              className="w-full"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </Image>

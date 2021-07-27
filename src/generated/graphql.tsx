@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -229,7 +230,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   updateUserProfile: UserResponse;
   changePassword: UserResponse;
-  forgotPassword: Scalars['Boolean'];
+  forgotPassword: UserResponse;
   requestFriend: UserResponse;
   acceptFriendRequest: UserResponse;
   blockUser: UserResponse;
@@ -881,7 +882,13 @@ export type ForgotPasswordMutationVariables = Exact<{
 
 export type ForgotPasswordMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'forgotPassword'>
+  & { forgotPassword: (
+    { __typename?: 'UserResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -1161,6 +1168,24 @@ export type CreateEventMutation = (
       { __typename?: 'Event' }
       & Pick<Event, 'id' | 'name' | 'description'>
     )> }
+  ) }
+);
+
+export type CreateTelegramMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  groupName: Scalars['String'];
+  groupDescription: Scalars['String'];
+}>;
+
+
+export type CreateTelegramMutation = (
+  { __typename?: 'Mutation' }
+  & { createTelegramGroupForEvent: (
+    { __typename?: 'EventResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -2197,7 +2222,12 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordM
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
-  forgotPassword(email: $email)
+  forgotPassword(email: $email) {
+    errors {
+      field
+      message
+    }
+  }
 }
     `;
 export type ForgotPasswordMutationFn = Apollo.MutationFunction<ForgotPasswordMutation, ForgotPasswordMutationVariables>;
@@ -2746,6 +2776,48 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
+export const CreateTelegramDocument = gql`
+    mutation CreateTelegram($eventId: Int!, $groupName: String!, $groupDescription: String!) {
+  createTelegramGroupForEvent(
+    eventId: $eventId
+    groupName: $groupName
+    groupDescription: $groupDescription
+  ) {
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type CreateTelegramMutationFn = Apollo.MutationFunction<CreateTelegramMutation, CreateTelegramMutationVariables>;
+
+/**
+ * __useCreateTelegramMutation__
+ *
+ * To run a mutation, you first call `useCreateTelegramMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTelegramMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTelegramMutation, { data, loading, error }] = useCreateTelegramMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      groupName: // value for 'groupName'
+ *      groupDescription: // value for 'groupDescription'
+ *   },
+ * });
+ */
+export function useCreateTelegramMutation(baseOptions?: Apollo.MutationHookOptions<CreateTelegramMutation, CreateTelegramMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTelegramMutation, CreateTelegramMutationVariables>(CreateTelegramDocument, options);
+      }
+export type CreateTelegramMutationHookResult = ReturnType<typeof useCreateTelegramMutation>;
+export type CreateTelegramMutationResult = Apollo.MutationResult<CreateTelegramMutation>;
+export type CreateTelegramMutationOptions = Apollo.BaseMutationOptions<CreateTelegramMutation, CreateTelegramMutationVariables>;
 export const DeleteEventDocument = gql`
     mutation DeleteEvent($id: Float!) {
   deleteEvent(id: $id) {

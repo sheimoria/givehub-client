@@ -40,11 +40,11 @@ export default function EventPreview({ event }: Props) {
               upload_preset="eventImages"
               publicId={event.imageUrl}
               alt="Event Image"
+              width="auto"
               dpr="auto"
               responsive
               crop="scale"
               responsiveUseBreakpoints="true"
-              className="w-full"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </Image>

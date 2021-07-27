@@ -11,6 +11,7 @@ import YourEvents from 'components/users/YourEvents'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
+import CreateTelegramButton from 'components/events/CreateTelegramButton'
 
 export default withAuth(function ViewEvent({ me }) {
   const router = useRouter()
@@ -45,7 +46,11 @@ export default withAuth(function ViewEvent({ me }) {
           <Event event={data.event} />
           {data.event.adminStatus && (
             <>
-              <CreateTaskButton />
+              <div className="flex gap-3">
+                <CreateTaskButton />
+                <CreateTelegramButton />
+              </div>
+
               <Tasks />
             </>
           )}

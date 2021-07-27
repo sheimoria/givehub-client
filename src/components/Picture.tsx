@@ -31,6 +31,7 @@ export default function Picture({
           upload_preset="userPictures"
           publicId={pictureId}
           alt="Picture"
+          width="auto"
           dpr="auto"
           responsive
           crop="scale"

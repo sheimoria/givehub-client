@@ -76,10 +76,10 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
               publicId={post.imageUrl}
               alt="Post Image"
               dpr="auto"
+              width="auto"
               responsive
               crop="scale"
               responsiveUseBreakpoints="true"
-              className="w-full"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </CImage>

@@ -20,12 +20,11 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-type Props = {
-  isOpen: boolean
-  setIsOpen: (arg0: boolean) => void
-}
-
-export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
+export default function CreateEventModal({
+  toggleIsOpen
+}: {
+  toggleIsOpen: () => void
+}) {
   const {
     register,
     handleSubmit,
@@ -65,7 +64,7 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
           <p key={error.field}>{error.message}</p>
         ))
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     } else {
       const imageData = new FormData()
@@ -92,16 +91,16 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
           <p key={error.field}>{error.message}</p>
         ))
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     }
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show as={Fragment}>
       <Dialog
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
+        open
+        onClose={() => toggleIsOpen()}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -130,7 +129,7 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Create Event</Dialog.Title>
                   <XIcon
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => toggleIsOpen()}
                     className="clickable-scale"
                   />
                 </div>
@@ -174,7 +173,7 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
                 <div />
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => toggleIsOpen()}
                     className="flex-auto button-outline"
                   >
                     Cancel

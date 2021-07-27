@@ -8,7 +8,11 @@ export default function CreateTaskButton() {
 
   return (
     <>
-      <Transit as="button" onClick={() => setIsOpen(true)} className="py-3">
+      <Transit
+        as="button"
+        onClick={() => setIsOpen(true)}
+        className="flex-1 py-3"
+      >
         <ClipboardIcon className="text-white dark:text-white" />
         Create Task
       </Transit>

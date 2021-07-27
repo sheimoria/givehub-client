@@ -1,0 +1,16 @@
+mutation CreateTelegram(
+  $eventId: Int!
+  $groupName: String!
+  $groupDescription: String!
+) {
+  createTelegramGroupForEvent(
+    eventId: $eventId
+    groupName: $groupName
+    groupDescription: $groupDescription
+  ) {
+    errors {
+      field
+      message
+    }
+  }
+}

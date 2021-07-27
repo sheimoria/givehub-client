@@ -27,7 +27,7 @@ export default function CreatePostModal({ setIsOpen, event }: Props) {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm({
-    defaultValues: { text: post.text },
+    defaultValues: { ...assignedVolunteers },
     resolver: yupResolver(
       yup.object({
         text: yup.string().required('Required')
