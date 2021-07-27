@@ -8,11 +8,11 @@ import {
   useShareEventMutation
 } from 'generated/graphql'
 
-import EventPreview from '../Events/EventPreview'
-import Form from 'components/Forms/Form'
-import FormButton from 'components/Forms/FormButton'
+import EventPreview from '../events/EventPreview'
+import Form from 'components/forms/Form'
+import FormButton from 'components/forms/FormButton'
 import { Fragment } from 'react'
-import Textarea from 'components/Forms/Textarea'
+import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'

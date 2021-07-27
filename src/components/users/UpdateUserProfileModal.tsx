@@ -8,10 +8,10 @@ import {
   UserProfileUpdateInput
 } from 'generated/graphql'
 
-import Checkbox from 'components/Forms/Checkbox'
-import Form from 'components/Forms/Form'
-import Input from 'components/Forms/Input'
-import Textarea from 'components/Forms/Textarea'
+import Checkbox from 'components/forms/Checkbox'
+import Form from 'components/forms/Form'
+import Input from 'components/forms/Input'
+import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/solid'
 import axios from 'axios'

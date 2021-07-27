@@ -1103,13 +1103,15 @@ export type UpdateCharityProfileMutation = (
 
 export type VolunteerRequestsQueryVariables = Exact<{
   eventIds: Array<Scalars['Int']> | Scalars['Int'];
+  limit: Scalars['Int'];
 }>;
 
 
 export type VolunteerRequestsQuery = (
   { __typename?: 'Query' }
-  & { getVolunteerRequestListForEvents: (
+  & { getPendingVolunteerRequestForEvents: (
     { __typename?: 'PaginatedEventVolunteers' }
+    & Pick<PaginatedEventVolunteers, 'hasMore'>
     & { items: Array<(
       { __typename?: 'EventVolunteerContainer' }
       & Pick<EventVolunteerContainer, 'adminapproval' | 'eventId'>
@@ -1121,7 +1123,10 @@ export type VolunteerRequestsQuery = (
           & Pick<Userprofile, 'firstName' | 'lastName'>
         )> }
       )> }
-    )> }
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -2590,8 +2595,12 @@ export type UpdateCharityProfileMutationHookResult = ReturnType<typeof useUpdate
 export type UpdateCharityProfileMutationResult = Apollo.MutationResult<UpdateCharityProfileMutation>;
 export type UpdateCharityProfileMutationOptions = Apollo.BaseMutationOptions<UpdateCharityProfileMutation, UpdateCharityProfileMutationVariables>;
 export const VolunteerRequestsDocument = gql`
-    query VolunteerRequests($eventIds: [Int!]!) {
-  getVolunteerRequestListForEvents(cursor: null, limit: 50, eventIds: $eventIds) {
+    query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
+  getPendingVolunteerRequestForEvents(
+    cursor: null
+    limit: $limit
+    eventIds: $eventIds
+  ) {
     items {
       user {
         id
@@ -2603,6 +2612,11 @@ export const VolunteerRequestsDocument = gql`
       }
       adminapproval
       eventId
+    }
+    hasMore
+    errors {
+      field
+      message
     }
   }
 }
@@ -2621,6 +2635,7 @@ export const VolunteerRequestsDocument = gql`
  * const { data, loading, error } = useVolunteerRequestsQuery({
  *   variables: {
  *      eventIds: // value for 'eventIds'
+ *      limit: // value for 'limit'
  *   },
  * });
  */

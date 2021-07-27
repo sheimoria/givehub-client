@@ -1,7 +1,7 @@
-import Datetime from 'components/Events/Datetime'
+import Datetime from 'components/events/Datetime'
 import { EventSnippetFragment } from 'generated/graphql'
 import Link from 'next/link'
-import Venue from 'components/Events/Venue'
+import Venue from 'components/events/Venue'
 
 export default function EventSnippet({
   event

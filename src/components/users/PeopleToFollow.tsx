@@ -4,7 +4,7 @@ import {
 } from 'generated/graphql'
 
 import Transit from 'components/Transit'
-import UserHeader from 'components/Users/UserHeader'
+import UserHeader from 'components/users/UserHeader'
 
 export default function PeopleToFollow() {
   const { data } = useFriendRecommendationsQuery({ variables: { limit: 4 } })

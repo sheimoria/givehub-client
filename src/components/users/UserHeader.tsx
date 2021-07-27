@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Picture from 'components/Picture'
-import RequestFriendButton from 'components/Users/RequestFriendButton'
+import RequestFriendButton from 'components/users/RequestFriendButton'
 import { UserHeaderFragment } from 'generated/graphql'
 
 export default function UserHeader({ user }: { user: UserHeaderFragment }) {

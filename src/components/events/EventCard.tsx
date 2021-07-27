@@ -8,11 +8,11 @@ import {
 import { Image, Transformation } from 'cloudinary-react'
 
 import EventHeader from './EventHeader'
-import LikeEvent from 'components/Events/LikeEvent'
+import LikeEvent from 'components/events/LikeEvent'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEventButton'
 import Transit from 'components/Transit'
-import UpdateDeleteEventButton from 'components/Events/UpdateDeleteEventButton'
+import UpdateDeleteEventButton from 'components/events/UpdateDeleteEventButton'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 

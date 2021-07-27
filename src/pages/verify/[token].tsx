@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import Body from 'components/Layout/Body'
+import Body from 'components/layout/Body'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'

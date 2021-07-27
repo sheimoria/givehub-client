@@ -1,19 +1,22 @@
 import { AdminApproval, useVolunteerRequestsQuery } from 'generated/graphql'
 
 import Transit from 'components/Transit'
-import VolunteerRequest from './VolunteerRequest'
+import VolunteerRequest from 'components/events/VolunteerRequest'
 import { useRouter } from 'next/router'
 
 export default function UnassignedVolunteers() {
   const router = useRouter()
   const { data } = useVolunteerRequestsQuery({
-    variables: { eventIds: [parseInt(router.query.eventId as string)] }
+    variables: {
+      eventIds: [parseInt(router.query.eventId as string)],
+      limit: 50
+    }
   })
   return (
     <Transit as="dl">
       <h5>Unassigned Volunteers</h5>
       <div className="divide">
-        {data?.getVolunteerRequestListForEvents?.items
+        {data?.getPendingVolunteerRequestForEvents?.items
           .filter(
             (eventVolunteer) =>
               eventVolunteer.adminapproval === AdminApproval.Approved
@@ -25,7 +28,7 @@ export default function UnassignedVolunteers() {
               user={eventVolunteer.user}
             />
           ))}
-        {data?.getVolunteerRequestListForEvents?.items.filter(
+        {data?.getPendingVolunteerRequestForEvents?.items.filter(
           (eventVolunteer) =>
             eventVolunteer.adminapproval == AdminApproval.Pending
         ).length == 0 && (

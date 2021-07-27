@@ -4,7 +4,7 @@ import {
   useUserTasksQuery
 } from 'generated/graphql'
 
-import EventSnippet from 'components/Events/EventSnippet'
+import EventSnippet from 'components/events/EventSnippet'
 import Transit from 'components/Transit'
 import { useRouter } from 'next/router'
 

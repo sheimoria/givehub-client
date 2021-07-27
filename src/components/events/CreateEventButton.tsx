@@ -1,5 +1,5 @@
 import { CalendarIcon } from '@heroicons/react/outline'
-import CreateEvent from 'components/Events/CreateEventModal'
+import CreateEvent from 'components/events/CreateEventModal'
 import Transit from 'components/Transit'
 import { useState } from 'react'
 

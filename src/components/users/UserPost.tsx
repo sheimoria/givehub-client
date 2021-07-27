@@ -1,4 +1,4 @@
-import CreatePostModal from 'components/Posts/CreatePostModal'
+import CreatePostModal from 'components/posts/CreatePostModal'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { UserAvatarFragment } from 'generated/graphql'

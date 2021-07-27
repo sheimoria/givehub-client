@@ -2,10 +2,10 @@ import * as yup from 'yup'
 
 import { MeDocument, useSignUpMutation } from 'generated/graphql'
 
-import Form from '../Forms/Form'
+import Form from '../forms/Form'
 import { InformationCircleIcon } from '@heroicons/react/solid'
-import Input from '../Forms/Input'
-import Password from '../Forms/Password'
+import Input from '../forms/Input'
+import Password from '../forms/Password'
 import SignUpModal from 'components/SignUpModal'
 import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'

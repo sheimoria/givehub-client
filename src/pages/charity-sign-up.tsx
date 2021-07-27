@@ -1,9 +1,9 @@
-import Body from 'components/Layout/Body'
-import CharitiesToFollow from 'components/Users/CharitiesToFollow'
-import CreateCharity from 'components/Charities/CreateCharity'
-import FriendRequests from 'components/Users/FriendRequests'
-import PeopleToFollow from 'components/Users/PeopleToFollow'
-import UserTasks from 'components/Users/YourEvents'
+import Body from 'components/layout/Body'
+import CharitiesToFollow from 'components/users/CharitiesToFollow'
+import CreateCharity from 'components/charities/CreateCharity'
+import FriendRequests from 'components/users/FriendRequests'
+import PeopleToFollow from 'components/users/PeopleToFollow'
+import UserTasks from 'components/users/YourEvents'
 import withAuth from 'utils/withAuth'
 
 export default withAuth(function CharitySignUp({ me }) {

@@ -5,11 +5,11 @@ import {
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
 
-import Checkbox from '../Forms/Checkbox'
-import Form from '../Forms/Form'
-import FormButton from 'components/Forms/FormButton'
-import Input from '../Forms/Input'
-import Textarea from '../Forms/Textarea'
+import Checkbox from '../forms/Checkbox'
+import Form from '../forms/Form'
+import FormButton from 'components/forms/FormButton'
+import Input from '../forms/Input'
+import Textarea from '../forms/Textarea'
 import Transit from 'components/Transit'
 import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'

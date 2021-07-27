@@ -5,9 +5,9 @@ import {
   useMeQuery
 } from 'generated/graphql'
 
-import Form from 'components/Forms/Form'
-import FormButton from 'components/Forms/FormButton'
-import Input from 'components/Forms/Input'
+import Form from 'components/forms/Form'
+import FormButton from 'components/forms/FormButton'
+import Input from 'components/forms/Input'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { useEffect } from 'react'

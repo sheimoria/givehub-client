@@ -7,10 +7,10 @@ import {
 } from '@heroicons/react/outline'
 
 import { CharityProfileFragment } from 'generated/graphql'
-import FollowCharity from 'components/Charities/FollowCharity'
+import FollowCharity from 'components/charities/FollowCharity'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import UpdateCharityProfileButton from 'components/Charities/UpdateCharityProfileButton'
+import UpdateCharityProfileButton from 'components/charities/UpdateCharityProfileButton'
 import { useRouter } from 'next/router'
 
 export default function CharityProfile({

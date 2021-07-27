@@ -8,9 +8,9 @@ import {
   useCreatePostMutation
 } from 'generated/graphql'
 
-import Form from 'components/Forms/Form'
-import FormButton from 'components/Forms/FormButton'
-import Textarea from 'components/Forms/Textarea'
+import Form from 'components/forms/Form'
+import FormButton from 'components/forms/FormButton'
+import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/solid'
 import axios from 'axios'

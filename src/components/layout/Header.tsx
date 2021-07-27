@@ -1,8 +1,8 @@
-import Avatar from 'components/Layout/Avatar'
+import Avatar from 'components/layout/Avatar'
 import { HeaderFragment } from 'generated/graphql'
 import Image from 'next/image'
 import Link from 'next/link'
-import Search from 'components/Layout/SearchBar'
+import Search from 'components/layout/SearchBar'
 import { useRouter } from 'next/router'
 
 const Header = ({ me }: { me?: HeaderFragment }) => {

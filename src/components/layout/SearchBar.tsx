@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import Form from 'components/Forms/Form'
+import Form from 'components/forms/Form'
 import { SearchIcon } from '@heroicons/react/outline'
 import SearchPreview from './SearchPreview'
 import { useForm } from 'react-hook-form'

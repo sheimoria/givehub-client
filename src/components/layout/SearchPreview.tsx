@@ -7,7 +7,7 @@ import {
 } from 'generated/graphql'
 
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import EventSnippet from 'components/Events/EventSnippet'
+import EventSnippet from 'components/events/EventSnippet'
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import { Transition } from '@headlessui/react'

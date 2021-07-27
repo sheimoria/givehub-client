@@ -1,8 +1,8 @@
 import { HeaderFragment, MeQuery } from 'generated/graphql'
 
-import Footer from 'components/Layout/Footer'
+import Footer from 'components/layout/Footer'
 import Head from 'next/head'
-import Header from 'components/Layout/Header'
+import Header from 'components/layout/Header'
 import Navigation from './Navigation'
 import { ReactNode } from 'react'
 

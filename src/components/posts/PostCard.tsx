@@ -7,13 +7,13 @@ import {
   PostLikesFragmentDoc
 } from 'generated/graphql'
 
-import EventPreview from 'components/Events/EventPreview'
+import EventPreview from 'components/events/EventPreview'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import PostCardCommentInput from './PostCardCommentInput'
 import PostCardComments from './PostCardComments'
-import PostCommentsButton from 'components/Posts/PostCommentsButton'
+import PostCommentsButton from 'components/posts/PostCommentsButton'
 import Transit from 'components/Transit'
 import UpdateDeletePostButton from './UpdateDeletePostButton'
 import { filter } from 'graphql-anywhere'

@@ -22,7 +22,7 @@ export default function EventPreview({ event }: Props) {
             onClick={() =>
               router.push({ pathname: `/event`, query: { eventId: event.id } })
             }
-            className="line-clamp-3"
+            className="pb-5 line-clamp-3"
           >
             {event.description}
           </p>

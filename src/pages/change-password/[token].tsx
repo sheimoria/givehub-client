@@ -2,9 +2,9 @@ import * as yup from 'yup'
 
 import { MeDocument, useChangePasswordMutation } from 'generated/graphql'
 
-import Body from 'components/Layout/Body'
-import Form from 'components/Forms/Form'
-import Input from 'components/Forms/Input'
+import Body from 'components/layout/Body'
+import Form from 'components/forms/Form'
+import Input from 'components/forms/Input'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'

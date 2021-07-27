@@ -12,15 +12,14 @@ query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
           firstName
           lastName
         }
-        adminapproval
-        eventId
-        updatedAt
       }
+      adminapproval
+      eventId
     }
     hasMore
     errors {
       field
-      error
+      messagec
     }
   }
 }

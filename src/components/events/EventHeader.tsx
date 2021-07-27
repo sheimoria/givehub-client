@@ -1,8 +1,8 @@
-import Datetime from 'components/Events/Datetime'
+import Datetime from 'components/events/Datetime'
 import { EventHeaderFragment } from 'generated/graphql'
 import Link from 'next/link'
 import Picture from 'components/Picture'
-import Venue from 'components/Events/Venue'
+import Venue from 'components/events/Venue'
 import { formatDistanceToNow } from 'date-fns'
 import { useRouter } from 'next/router'
 

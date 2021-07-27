@@ -1,6 +1,6 @@
 import { EventInfoFragment, useShareEventMutation } from 'generated/graphql'
 
-import CreateEventPost from '../Posts/ShareEventModal'
+import CreateEventPost from '../posts/ShareEventModal'
 import { ShareIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 
