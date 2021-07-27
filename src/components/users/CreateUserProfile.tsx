@@ -7,10 +7,10 @@ import {
   useUpdateUserProfileMutation
 } from 'generated/graphql'
 
-import Checkbox from '../forms/Checkbox'
-import Form from '../forms/Form'
-import Input from '../forms/Input'
-import Textarea from '../forms/Textarea'
+import Checkbox from '../Forms/Checkbox'
+import Form from '../Forms/Form'
+import Input from '../Forms/Input'
+import Textarea from '../Forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'

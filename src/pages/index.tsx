@@ -1,4 +1,4 @@
-import Body from 'components/layout/Body'
+import Body from 'components/Layout/Body'
 import LogIn from 'components/LogIn'
 import Transit from 'components/Transit'
 import { useMeQuery } from 'generated/graphql'

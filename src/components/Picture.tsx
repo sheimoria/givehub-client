@@ -31,6 +31,10 @@ export default function Picture({
           upload_preset="userPictures"
           publicId={pictureId}
           alt="Picture"
+          dpr="auto"
+          responsive
+          crop="scale"
+          responsiveUseBreakpoints="true"
         >
           <Transformation quality="auto" fetchFormat="auto" />
         </CImage>

@@ -1,17 +1,11 @@
-import { PlusIcon } from '@heroicons/react/outline'
-import Picture from 'components/Picture'
-import {
-  FriendRecommendationsDocument,
-  useRequestFriendMutation,
-  UserHeaderFragment
-} from 'generated/graphql'
 import Link from 'next/link'
+import Picture from 'components/Picture'
+import RequestFriendButton from 'components/Users/RequestFriendButton'
+import { UserHeaderFragment } from 'generated/graphql'
 
 export default function UserHeader({ user }: { user: UserHeaderFragment }) {
-  const [requestFriend] = useRequestFriendMutation()
-
   return (
-    <div className="flex flex-wrap justify-between gap-3 py-3">
+    <div className="flex flex-wrap items-center justify-between gap-3 py-3">
       <div className="flex items-center gap-3">
         <Picture pictureId={user.profile?.displayPicture} size={10} />
         <div className="flex flex-col">
@@ -22,28 +16,16 @@ export default function UserHeader({ user }: { user: UserHeaderFragment }) {
             }}
           >
             <a className="truncate">
-              {user.profile?.firstName} {user.profile?.firstName}
+              {user.profile?.firstName} {user.profile?.lastName}
             </a>
           </Link>
-          <p className="truncate">{user.username}</p>
+          <p className="text-xs truncate">@{user.username}</p>
         </div>
       </div>
-      <button
-        onClick={() =>
-          requestFriend({
-            variables: { userId: user.id },
-            refetchQueries: [
-              {
-                query: FriendRecommendationsDocument,
-                variables: { limit: 4 }
-              }
-            ]
-          })
-        }
-      >
-        <PlusIcon />
-        Follow
-      </button>
+      <RequestFriendButton
+        friendStatus={user.friendStatus}
+        className="px-3 py-1"
+      />
     </div>
   )
 }

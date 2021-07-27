@@ -1,10 +1,14 @@
 import { EventInfoFragment, useShareEventMutation } from 'generated/graphql'
+
+import CreateEventPost from '../Posts/ShareEventModal'
+import { ShareIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 
-import CreateEventPost from '../posts/ShareEventPost'
-import { ShareIcon } from '@heroicons/react/outline'
-
-export default function ShareEvent({ event }: { event: EventInfoFragment }) {
+export default function ShareEventButton({
+  event
+}: {
+  event: EventInfoFragment
+}) {
   const [shareEvent] = useShareEventMutation()
   const [isOpen, setIsOpen] = useState(false)
 

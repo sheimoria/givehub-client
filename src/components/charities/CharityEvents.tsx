@@ -1,4 +1,4 @@
-import Event from 'components/events/EventCard'
+import Event from 'components/Events/EventCard'
 import { EventCardFragment } from 'generated/graphql'
 
 export default function CharityEvents({
@@ -9,7 +9,7 @@ export default function CharityEvents({
   return (
     <>
       {events.map((event) => (
-        <Event key={event.id} event={event} />
+        <Event key={event.id} event={event} lineclamp />
       ))}
     </>
   )

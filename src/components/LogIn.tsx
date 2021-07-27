@@ -1,10 +1,11 @@
 import { MeDocument, useLoginMutation } from 'generated/graphql'
 
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Input from 'components/Forms/Input'
 import Link from 'next/link'
-import Password from 'components/forms/Password'
-import Transit from './Transit'
+import Password from 'components/Forms/Password'
+import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
@@ -13,7 +14,7 @@ export default function LogIn() {
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm()
   const [logIn] = useLoginMutation()
   const router = useRouter()
@@ -73,7 +74,7 @@ export default function LogIn() {
             Forgot password?
           </a>
         </Link>
-        <button type="submit">Log in</button>
+        <FormButton label="Log In" isSubmitting={isSubmitting} />
       </Form>
     </Transit>
   )

@@ -7,10 +7,11 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-import Checkbox from 'components/forms/Checkbox'
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
-import Textarea from 'components/forms/Textarea'
+import Checkbox from 'components/Forms/Checkbox'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Input from 'components/Forms/Input'
+import Textarea from 'components/Forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
@@ -34,7 +35,7 @@ export default function UpdateCharityProfileModal({
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     defaultValues: {
       physicalAddress: charity.physicalAddress,
@@ -245,7 +246,7 @@ export default function UpdateCharityProfileModal({
                   setImage={setImage}
                 />
                 <div />
-                <button type="submit">Update</button>
+                <FormButton label="Update" isSubmitting={isSubmitting} />
               </Form>
             </div>
           </Transition.Child>

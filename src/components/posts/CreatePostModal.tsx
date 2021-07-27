@@ -1,34 +1,31 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
 import {
   PostInput,
   PostsDocument,
   useCreatePostMutation
 } from 'generated/graphql'
 
-import Form from 'components/forms/Form'
-import { Fragment, useState } from 'react'
-import Textarea from 'components/forms/Textarea'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Textarea from 'components/Forms/Textarea'
+import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/solid'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import UploadImageButton from 'components/UploadImageButton'
-import axios from 'axios'
-
-type CreatePostProps = {
-  isOpen: boolean
-  setIsOpen: (arg0: boolean) => void
-}
 
 export default function CreatePostModal({
-  isOpen,
   setIsOpen
-}: CreatePostProps) {
+}: {
+  setIsOpen: (arg0: boolean) => void
+}) {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object({
@@ -39,11 +36,11 @@ export default function CreatePostModal({
   const [image, setImage] = useState('')
   const [createPost] = useCreatePostMutation()
 
-  async function handleCreatePost(formData: PostInput) {
+  async function handleCreatePost(data: PostInput) {
     if (image === '') {
       const response = await createPost({
         variables: {
-          input: formData
+          input: data
         },
         refetchQueries: [
           {
@@ -67,7 +64,7 @@ export default function CreatePostModal({
       )
       const formResponse = await createPost({
         variables: {
-          input: { imageUrl: imageResponse.data.public_id, ...formData }
+          input: { imageUrl: imageResponse.data.public_id, ...data }
         },
         refetchQueries: [
           {
@@ -85,9 +82,9 @@ export default function CreatePostModal({
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show as={Fragment}>
       <Dialog
-        open={isOpen}
+        open
         onClose={() => setIsOpen(false)}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
@@ -138,7 +135,7 @@ export default function CreatePostModal({
                 />
                 <div className="flex justify-between">
                   <UploadImageButton setImage={setImage} />
-                  <button type="submit">Post</button>
+                  <FormButton label="Create" isSubmitting={isSubmitting} />
                 </div>
               </Form>
             </div>

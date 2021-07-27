@@ -1,7 +1,6 @@
 import { ClockIcon, HomeIcon, TrendingUpIcon } from '@heroicons/react/outline'
 
 import Link from 'next/link'
-import React from 'react'
 import Transit from 'components/Transit'
 import classNames from 'utils/classNames'
 import { useRouter } from 'next/router'

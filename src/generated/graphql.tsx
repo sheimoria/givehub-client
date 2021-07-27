@@ -792,7 +792,7 @@ export type User = {
   followedCharities: Array<Charity>;
   adminCharities: Array<Charity>;
   likedEvents: Array<Event>;
-  volunteeredEvents: Array<Event>;
+  volunteeredEvents?: Maybe<Array<Event>>;
   friends: Array<User>;
   friendStatus?: Maybe<FriendRequestStatus>;
   viewerStatus: Scalars['Boolean'];
@@ -932,23 +932,6 @@ export type SignUpMutation = (
       { __typename?: 'User' }
       & Pick<User, 'id'>
     )> }
-  ) }
-);
-
-export type VerifyUserMutationVariables = Exact<{
-  token: Scalars['String'];
-}>;
-
-
-export type VerifyUserMutation = (
-  { __typename?: 'Mutation' }
-  & { verifyUser: (
-    { __typename?: 'UserResponse' }
-    & Pick<UserResponse, 'success'>
-    & { errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
   ) }
 );
 
@@ -1229,7 +1212,7 @@ export type EventHeaderFragment = (
 
 export type EventInfoFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'description'>
+  & Pick<Event, 'description' | 'imageUrl'>
   & EventHeaderFragment
 );
 
@@ -1805,15 +1788,15 @@ export type UserEventsFragment = (
   & { likedEvents: Array<(
     { __typename?: 'Event' }
     & EventCardFragment
-  )>, volunteeredEvents: Array<(
+  )>, volunteeredEvents?: Maybe<Array<(
     { __typename?: 'Event' }
     & EventCardFragment
-  )> }
+  )>> }
 );
 
 export type UserHeaderFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'username'>
+  & Pick<User, 'username' | 'friendStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'id' | 'firstName' | 'lastName' | 'telegramHandle'>
@@ -1854,6 +1837,23 @@ export type UserTasksQuery = (
         & TaskHeaderFragment
       )> }
     )> }
+  ) }
+);
+
+export type VerifyUserMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type VerifyUserMutation = (
+  { __typename?: 'Mutation' }
+  & { verifyUser: (
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'success'>
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -1919,6 +1919,7 @@ export const EventInfoFragmentDoc = gql`
     fragment EventInfo on Event {
   ...EventHeader
   description
+  imageUrl
 }
     ${EventHeaderFragmentDoc}`;
 export const EventLikesFragmentDoc = gql`
@@ -2058,6 +2059,7 @@ export const UserHeaderFragmentDoc = gql`
     telegramHandle
   }
   username
+  friendStatus
 }
     ${UserAvatarFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
@@ -2315,43 +2317,6 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
-export const VerifyUserDocument = gql`
-    mutation VerifyUser($token: String!) {
-  verifyUser(token: $token) {
-    errors {
-      field
-      message
-    }
-    success
-  }
-}
-    `;
-export type VerifyUserMutationFn = Apollo.MutationFunction<VerifyUserMutation, VerifyUserMutationVariables>;
-
-/**
- * __useVerifyUserMutation__
- *
- * To run a mutation, you first call `useVerifyUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVerifyUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [verifyUserMutation, { data, loading, error }] = useVerifyUserMutation({
- *   variables: {
- *      token: // value for 'token'
- *   },
- * });
- */
-export function useVerifyUserMutation(baseOptions?: Apollo.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, options);
-      }
-export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
-export type VerifyUserMutationResult = Apollo.MutationResult<VerifyUserMutation>;
-export type VerifyUserMutationOptions = Apollo.BaseMutationOptions<VerifyUserMutation, VerifyUserMutationVariables>;
 export const CharityDocument = gql`
     query Charity($charityId: Int!) {
   charitySearchByID(id: $charityId) {
@@ -3859,3 +3824,40 @@ export function useUserTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type UserTasksQueryHookResult = ReturnType<typeof useUserTasksQuery>;
 export type UserTasksLazyQueryHookResult = ReturnType<typeof useUserTasksLazyQuery>;
 export type UserTasksQueryResult = Apollo.QueryResult<UserTasksQuery, UserTasksQueryVariables>;
+export const VerifyUserDocument = gql`
+    mutation VerifyUser($token: String!) {
+  verifyUser(token: $token) {
+    errors {
+      field
+      message
+    }
+    success
+  }
+}
+    `;
+export type VerifyUserMutationFn = Apollo.MutationFunction<VerifyUserMutation, VerifyUserMutationVariables>;
+
+/**
+ * __useVerifyUserMutation__
+ *
+ * To run a mutation, you first call `useVerifyUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyUserMutation, { data, loading, error }] = useVerifyUserMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useVerifyUserMutation(baseOptions?: Apollo.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, options);
+      }
+export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
+export type VerifyUserMutationResult = Apollo.MutationResult<VerifyUserMutation>;
+export type VerifyUserMutationOptions = Apollo.BaseMutationOptions<VerifyUserMutation, VerifyUserMutationVariables>;

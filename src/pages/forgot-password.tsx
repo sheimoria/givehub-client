@@ -1,14 +1,15 @@
 import * as yup from 'yup'
 
 import { ArrowSmRightIcon } from '@heroicons/react/solid'
-import Body from 'components/layout/Body'
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import Form from 'components/forms/Form'
-import FriendRequests from 'components/users/FriendRequests'
-import Input from 'components/forms/Input'
+import Body from 'components/Layout/Body'
+import CharitiesToFollow from 'components/Users/CharitiesToFollow'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import FriendRequests from 'components/Users/FriendRequests'
+import Input from 'components/Forms/Input'
 import Link from 'next/link'
-import PeopleToFollow from 'components/users/PeopleToFollow'
-import UserTasks from 'components/users/UserEvents'
+import PeopleToFollow from 'components/Users/PeopleToFollow'
+import UserTasks from 'components/Users/YourEvents'
 import { useForgotPasswordMutation } from 'generated/graphql'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
@@ -20,7 +21,7 @@ export default function ForgotPassword() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object().shape({ email: yup.string().email().required('Required') })
@@ -64,7 +65,10 @@ export default function ForgotPassword() {
             register={register}
             errors={errors.email}
           />
-          <button type="submit">Send password reset email</button>
+          <FormButton
+            label="Send Password Reset Email"
+            isSubmitting={isSubmitting}
+          />
         </Form>
       )}
     </Body>

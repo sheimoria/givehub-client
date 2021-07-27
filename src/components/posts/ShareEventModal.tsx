@@ -8,11 +8,11 @@ import {
   useShareEventMutation
 } from 'generated/graphql'
 
-import EventPreview from '../events/EventPreview'
-import Form from 'components/forms/Form'
+import EventPreview from '../Events/EventPreview'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
 import { Fragment } from 'react'
-import { PhotographIcon } from '@heroicons/react/outline'
-import Textarea from 'components/forms/Textarea'
+import Textarea from 'components/Forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -23,7 +23,7 @@ type ShareEventPostProps = {
   event: EventInfoFragment
 }
 
-export default function ShareEventPost({
+export default function ShareEventModal({
   isOpen,
   setIsOpen,
   event
@@ -32,7 +32,7 @@ export default function ShareEventPost({
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object({
@@ -96,17 +96,15 @@ export default function ShareEventPost({
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleShareEvent}
-                className="max-w-2xl"
+                className="max-w-2xl px-0"
               >
-                <div className="flex justify-between">
+                <div className="flex justify-between px-5">
                   <Dialog.Title as="h5">Share Event</Dialog.Title>
-                  <span onClick={() => setIsOpen(false)}>
-                    <XIcon />
-                  </span>
+                  <XIcon
+                    className="clickable-scale"
+                    onClick={() => setIsOpen(false)}
+                  />
                 </div>
-                <Dialog.Description className="hidden">
-                  What is on your mind?
-                </Dialog.Description>
                 <Textarea
                   srOnly
                   name="text"
@@ -114,16 +112,14 @@ export default function ShareEventPost({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none dark:bg-gray-800 focus:ring-0"
+                  className="p-0 px-5 bg-white border-none dark:bg-gray-800 focus:ring-0"
                 />
                 <EventPreview event={event} />
-                <div className="flex justify-between">
-                  <a>
-                    <PhotographIcon />
-                    Add Photo
-                  </a>
-                  <button type="submit">Post</button>
-                </div>
+                <FormButton
+                  label="Share"
+                  isSubmitting={isSubmitting}
+                  className="mx-5"
+                />
               </Form>
             </div>
           </Transition.Child>

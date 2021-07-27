@@ -8,10 +8,11 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-import Datetime from 'components/forms/Datetime'
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
-import Textarea from 'components/forms/Textarea'
+import Datetime from 'components/Forms/Datetime'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Input from 'components/Forms/Input'
+import Textarea from 'components/Forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
@@ -29,7 +30,7 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
     register,
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object({
@@ -178,9 +179,11 @@ export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="flex-auto">
-                    Create Event
-                  </button>
+                  <FormButton
+                    label="Create"
+                    isSubmitting={isSubmitting}
+                    className="flex-auto"
+                  />
                 </div>
               </Form>
             </div>

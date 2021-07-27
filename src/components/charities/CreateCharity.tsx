@@ -5,10 +5,11 @@ import {
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
 
-import Checkbox from '../forms/Checkbox'
-import Form from '../forms/Form'
-import Input from '../forms/Input'
-import Textarea from '../forms/Textarea'
+import Checkbox from '../Forms/Checkbox'
+import Form from '../Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Input from '../Forms/Input'
+import Textarea from '../Forms/Textarea'
 import Transit from 'components/Transit'
 import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'
@@ -22,7 +23,7 @@ export default function CreateCharity() {
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object().shape({
@@ -254,7 +255,7 @@ export default function CreateCharity() {
         <div />
         <UploadImageButton label="Upload Profile Picture" setImage={setImage} />
         <div />
-        <button type="submit">Sign Up</button>
+        <FormButton label="Sign Up" isSubmitting={isSubmitting} />
       </Form>
     </Transit>
   )

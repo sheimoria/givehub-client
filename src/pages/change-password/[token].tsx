@@ -1,10 +1,10 @@
 import * as yup from 'yup'
 
-/* import { MeDocument, useChangePasswordMutation } from 'generated/graphql'
+import { MeDocument, useChangePasswordMutation } from 'generated/graphql'
 
-import Body from 'components/layout/Body'
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
+import Body from 'components/Layout/Body'
+import Form from 'components/Forms/Form'
+import Input from 'components/Forms/Input'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -28,10 +28,10 @@ export default function ChangePassword() {
   })
   const [changePassword] = useChangePasswordMutation()
 
-  async function handleChangePassword(values) {
+  async function handleChangePassword(data: { newPassword: string }) {
     const response = await changePassword({
       variables: {
-        newPassword: values.newPassword,
+        newPassword: data.newPassword,
         token: typeof router.query.token === 'string' ? router.query.token : ''
       },
       update: (cache, { data }) => {
@@ -39,46 +39,51 @@ export default function ChangePassword() {
           query: MeDocument,
           data: {
             __typename: 'Query',
-            me: data.changePassword.user
+            me: data?.changePassword.user
           }
         })
       }
     })
-    if (response.data.changePassword.errors) {
-      const errors = response.data.changePassword.errors.forEach(
-        ({ field, message }) =>
-          setError(field, { type: 'manual', message: message })
-      )
-      if ('token' in errors) {
-        setTokenError(errors.token)
+    if (response.data?.changePassword.errors) {
+      const errorMap = toErrorMap(response.data.changePassword.errors)
+      if ('token' in errorMap) {
+        setTokenError(errorMap.token)
       }
-      errors.forEach(({ field, message }) =>
-        setError(field, { type: 'manual', message: message })
+      Object.keys(errorMap).map((field) =>
+        setError(field, { type: 'manual', message: errorMap[field] })
       )
-    } else if (response.data.changePassword.user) {
+    } else if (response.data?.changePassword.user) {
       router.push('/')
     }
   }
 
-  const tokenErrorLink = tokenError && (
-    <>
-      <p className="text-red-500">{tokenError}</p>
-      <Link href="/forgot-password">
-        <a>Click here to get a new one</a>
-      </Link>
-    </>
-  )
-
   return (
     <Body title="Change password">
-      <Form handleSubmit={handleSubmit} onSubmit={handleSubmit}>
+      <Form handleSubmit={handleSubmit} onSubmit={handleChangePassword}>
         <Input
           name="newPassword"
           label="New password"
           register={register}
           errors={errors.newPassword}
         />
+        {tokenError && (
+          <>
+            <p className="text-rose-600">{tokenError}</p>
+            <Link href="/forgot-password">
+              <a>Click here to get a new one</a>
+            </Link>
+          </>
+        )}
       </Form>
     </Body>
   )
-} */
+}
+
+function toErrorMap(errors: { field: string; message: string }[]) {
+  const errorMap: Record<string, string> = {}
+  errors.forEach(({ field, message }) => {
+    errorMap[field] = message
+  })
+
+  return errorMap
+}

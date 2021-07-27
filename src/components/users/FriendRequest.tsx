@@ -1,11 +1,11 @@
-import Picture from 'components/Picture'
 import {
   FriendRequestsDocument,
-  useAcceptFriendRequestMutation,
-  UserHeaderFragment
+  UserHeaderFragment,
+  useAcceptFriendRequestMutation
 } from 'generated/graphql'
+
 import Link from 'next/link'
-import React from 'react'
+import Picture from 'components/Picture'
 
 export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
   const [acceptFriendRequest] = useAcceptFriendRequestMutation()

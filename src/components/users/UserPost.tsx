@@ -1,4 +1,4 @@
-import CreatePost from 'components/posts/CreatePostModal'
+import CreatePostModal from 'components/Posts/CreatePostModal'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { UserAvatarFragment } from 'generated/graphql'
@@ -20,7 +20,7 @@ export default function UserPost({ user }: { user: UserAvatarFragment }) {
           </span>
         </article>
       </Transit>
-      <CreatePost isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isOpen && <CreatePostModal setIsOpen={setIsOpen} />}
     </>
   )
 }

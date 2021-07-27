@@ -7,8 +7,8 @@ import {
 
 import Link from 'next/link'
 import Picture from 'components/Picture'
-import RequestFriend from './RequestFriend'
-import UpdateUserProfileButton from './UpdateUserProfileButton'
+import RequestFriend from 'components/Users/RequestFriendButton'
+import UpdateUserProfileButton from 'components/Users/UpdateUserProfileButton'
 import { UserProfileFragment } from 'generated/graphql'
 import { useRouter } from 'next/router'
 

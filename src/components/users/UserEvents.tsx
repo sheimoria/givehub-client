@@ -1,46 +1,45 @@
-import EventSnippet from 'components/events/EventSnippet'
-import Transit from 'components/Transit'
-import {
-  EventSnippetFragment,
-  TaskHeaderFragment,
-  useUserTasksQuery
-} from 'generated/graphql'
-import { useRouter } from 'next/router'
-
-export default function UserEvents() {
-  const { data } = useUserTasksQuery()
-  const router = useRouter()
+import Event from 'components/Events/EventCard'
+import { UserEventsFragment } from 'generated/graphql'
+import classNames from 'utils/classNames'
+import { useState } from 'react'
+export default function UserEventButtons({
+  user
+}: {
+  user: UserEventsFragment
+}) {
+  const [filter, setFilter] = useState('Liked Events')
 
   return (
-    <Transit as="dl" className="gap-3 pb-5">
-      <h5>Your Events</h5>
-      {data?.viewTasksAssignedToMe?.eventContainers &&
-      data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
-        data.viewTasksAssignedToMe.eventContainers.map(
-          (eventContainer: {
-            event: EventSnippetFragment
-            tasks: TaskHeaderFragment[]
-          }) => (
-            <Transit
-              key={eventContainer.event.id}
-              as="article"
-              className="clickable-float"
-              onClick={() =>
-                router.push({
-                  pathname: `/event`,
-                  query: { eventId: eventContainer.event.id }
-                })
-              }
-            >
-              <EventSnippet event={eventContainer.event} />
-            </Transit>
-          )
-        )
-      ) : (
-        <div>
-          <p> You have no upcoming events.</p>
-        </div>
-      )}
-    </Transit>
+    <section>
+      <div className="flex flex-wrap gap-4">
+        <a
+          onClick={() => setFilter('Liked Events')}
+          className={classNames(
+            filter === 'Liked Events' ? 'nav-active' : 'nav-inactive',
+            'nav flex-1 justify-center'
+          )}
+          aria-current={filter === 'Liked Events' ? 'page' : undefined}
+        >
+          Liked Events
+        </a>
+        <a
+          onClick={() => setFilter('Volunteer History')}
+          className={classNames(
+            filter === 'Volunteer History' ? 'nav-active' : 'nav-inactive',
+            'nav flex-1 justify-center'
+          )}
+          aria-current={filter === 'Volunteer History' ? 'page' : undefined}
+        >
+          Volunteer History
+        </a>
+      </div>
+      {filter === 'Liked'
+        ? user.likedEvents.map((event) => (
+            <Event key={event.id} event={event} lineclamp />
+          ))
+        : user.volunteeredEvents?.map((event) => (
+            <Event key={event.id} event={event} lineclamp />
+          ))}
+    </section>
   )
 }

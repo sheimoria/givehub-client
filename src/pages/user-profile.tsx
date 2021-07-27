@@ -1,5 +1,5 @@
-import Body from 'components/layout/Body'
-import CreateUserProfile from 'components/users/CreateUserProfile'
+import Body from 'components/Layout/Body'
+import CreateUserProfile from 'components/Users/CreateUserProfile'
 import { HeaderFragment } from 'generated/graphql'
 import withAuth from 'utils/withAuth'
 

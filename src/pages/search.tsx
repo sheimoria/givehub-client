@@ -6,15 +6,15 @@ import {
   useSearchUsersQuery
 } from 'generated/graphql'
 
-import Body from 'components/layout/Body'
-import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import EventHeader from 'components/events/EventHeader'
-import FriendRequests from 'components/users/FriendRequests'
+import Body from 'components/Layout/Body'
+import CharitiesToFollow from 'components/Users/CharitiesToFollow'
+import EventHeader from 'components/Events/EventHeader'
+import FriendRequests from 'components/Users/FriendRequests'
 import Link from 'next/link'
-import PeopleToFollow from 'components/users/PeopleToFollow'
+import PeopleToFollow from 'components/Users/PeopleToFollow'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import UserTasks from 'components/users/UserEvents'
+import UserTasks from 'components/Users/YourEvents'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
 

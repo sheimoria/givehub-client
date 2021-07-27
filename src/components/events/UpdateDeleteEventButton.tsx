@@ -1,7 +1,7 @@
-import { PencilAltIcon } from '@heroicons/react/outline'
 import { EventInfoFragment } from 'generated/graphql'
+import { PencilAltIcon } from '@heroicons/react/outline'
+import UpdateDeleteEventModal from 'components/Events/UpdateDeleteEventModal'
 import { useState } from 'react'
-import UpdateDeleteEventModal from './UpdateDeleteEventModal'
 
 export default function UpdateDeleteEventButton({
   event

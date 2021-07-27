@@ -1,5 +1,5 @@
-import Body from 'components/layout/Body'
-import CreateUser from 'components/users/CreateUser'
+import Body from 'components/Layout/Body'
+import CreateUser from 'components/Users/CreateUser'
 import { useState } from 'react'
 
 export default function SignUp() {

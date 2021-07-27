@@ -7,13 +7,13 @@ import {
   PostLikesFragmentDoc
 } from 'generated/graphql'
 
-import EventPreview from 'components/events/EventPreview'
+import EventPreview from 'components/Events/EventPreview'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import PostCardCommentInput from './PostCardCommentInput'
 import PostCardComments from './PostCardComments'
-import PostCommentsButton from 'components/posts/PostCommentsButton'
+import PostCommentsButton from 'components/Posts/PostCommentsButton'
 import Transit from 'components/Transit'
 import UpdateDeletePostButton from './UpdateDeletePostButton'
 import { filter } from 'graphql-anywhere'
@@ -74,11 +74,12 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
               secure
               upload_preset="postImages"
               publicId={post.imageUrl}
-              alt="Event image"
+              alt="Post Image"
               dpr="auto"
               responsive
               crop="scale"
               responsiveUseBreakpoints="true"
+              className="w-full"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </CImage>

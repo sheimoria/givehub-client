@@ -5,8 +5,9 @@ import {
   useMeQuery
 } from 'generated/graphql'
 
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import Input from 'components/Forms/Input'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { useEffect } from 'react'
@@ -21,7 +22,7 @@ export default function PostCardCommentInput({
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitSuccessful }
+    formState: { errors, isSubmitting, isSubmitSuccessful }
   } = useForm()
 
   const [createComment] = useCreateCommentMutation()
@@ -66,7 +67,7 @@ export default function PostCardCommentInput({
               errors={errors.comment}
               className="px-4 rounded-full"
             />
-            <button type="submit">Post</button>
+            <FormButton label="Add" isSubmitting={isSubmitting} />
           </Form>
         </Transit>
       )}

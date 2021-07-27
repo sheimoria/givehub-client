@@ -8,14 +8,15 @@ import {
   useUpdateEventMutation
 } from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
 
-import Datetime from 'components/forms/Datetime'
-import Form from 'components/forms/Form'
-import Input from 'components/forms/Input'
+import Datetime from 'components/Forms/Datetime'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
+import { Fragment } from 'react'
+import Input from 'components/Forms/Input'
+import { XIcon } from '@heroicons/react/outline'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { XIcon } from '@heroicons/react/outline'
 
 type Props = {
   setIsOpen: (arg0: boolean) => void
@@ -27,7 +28,7 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
     register,
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     defaultValues: {
       name: event.name,
@@ -47,7 +48,15 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
     )
   })
   const [updateEvent] = useUpdateEventMutation()
-  const [deleteEvent] = useDeleteEventMutation({ variables: { id: event.id } })
+  const [deleteEvent] = useDeleteEventMutation({
+    variables: { id: event.id },
+    refetchQueries: [
+      {
+        query: CharityDocument,
+        variables: { charityId: event.charity.id }
+      }
+    ]
+  })
 
   async function handleUpdateEvent(data: EventInput) {
     const response = await updateEvent({
@@ -155,9 +164,11 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
                   >
                     Delete
                   </button>
-                  <button type="submit" className="flex-auto">
-                    Update
-                  </button>
+                  <FormButton
+                    label="Update"
+                    isSubmitting={isSubmitting}
+                    className="flex-auto"
+                  />
                 </div>
               </Form>
             </div>

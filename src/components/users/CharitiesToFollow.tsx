@@ -3,7 +3,7 @@ import {
   useCharityRecommendationsQuery
 } from 'generated/graphql'
 
-import CharityHeader from 'components/charities/CharityHeader'
+import CharityHeader from 'components/Charities/CharityHeader'
 import Transit from 'components/Transit'
 
 export default function CharitiesToFollow() {

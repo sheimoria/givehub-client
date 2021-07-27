@@ -1,6 +1,6 @@
 import { useEventsQuery, usePostsQuery } from 'generated/graphql'
 
-import Event from 'components/events/EventCard'
+import Event from 'components/Events/EventCard'
 import { useRouter } from 'next/router'
 
 export default function Events() {
@@ -21,7 +21,7 @@ export default function Events() {
     <>
       {data &&
         data.searchEvents.items.map((event) => (
-          <Event key={event.id} event={event} lineclamp={true} />
+          <Event key={event.id} event={event} lineclamp />
         ))}
     </>
   )

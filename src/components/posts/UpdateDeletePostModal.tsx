@@ -8,9 +8,10 @@ import {
   useUpdatePostMutation
 } from 'generated/graphql'
 
-import Form from 'components/forms/Form'
+import Form from 'components/Forms/Form'
+import FormButton from 'components/Forms/FormButton'
 import { Fragment } from 'react'
-import Textarea from 'components/forms/Textarea'
+import Textarea from 'components/Forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -24,7 +25,7 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     defaultValues: { text: post.text },
     resolver: yupResolver(
@@ -93,7 +94,7 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
                 className="w-96"
               >
                 <div className="flex justify-between">
-                  <Dialog.Title as="h5">Create Post</Dialog.Title>
+                  <Dialog.Title as="h5">Update Post</Dialog.Title>
                   <XIcon
                     onClick={() => setIsOpen(false)}
                     className="clickable-scale"
@@ -121,7 +122,7 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
                   >
                     Delete
                   </button>
-                  <button type="submit">Update</button>
+                  <FormButton label="Update" isSubmitting={isSubmitting} />
                 </div>
               </Form>
             </div>

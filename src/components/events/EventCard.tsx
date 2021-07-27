@@ -8,11 +8,11 @@ import {
 import { Image, Transformation } from 'cloudinary-react'
 
 import EventHeader from './EventHeader'
-import LikeEvent from 'components/events/LikeEvent'
+import LikeEvent from 'components/Events/LikeEvent'
 import RequestEvent from './RequestEvent'
-import ShareEvent from './ShareEvent'
+import ShareEvent from './ShareEventButton'
 import Transit from 'components/Transit'
-import UpdateDeleteEventButton from 'components/events/UpdateDeleteEventButton'
+import UpdateDeleteEventButton from 'components/Events/UpdateDeleteEventButton'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 
@@ -61,7 +61,12 @@ export default function EventCard({ event, lineclamp }: EventProps) {
               secure
               upload_preset="eventImages"
               publicId={event.imageUrl}
-              alt="Event image"
+              alt="Event Image"
+              dpr="auto"
+              responsive
+              crop="scale"
+              responsiveUseBreakpoints="true"
+              className="w-full"
             >
               <Transformation quality="auto" fetchFormat="auto" />
             </Image>
