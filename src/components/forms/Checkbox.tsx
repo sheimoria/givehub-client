@@ -1,6 +1,5 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form'
-
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { UseFormRegister } from 'react-hook-form'
 
 type CheckboxProps = {
   name: string

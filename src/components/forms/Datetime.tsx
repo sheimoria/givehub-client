@@ -1,6 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { Control, Controller, FieldValues } from 'react-hook-form'
+import { Control, Controller } from 'react-hook-form'
 
 import DatePicker from 'react-datepicker'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
@@ -25,7 +25,7 @@ export default function Datetime({
   placeholder
 }: DatetimeProps) {
   return (
-    <div className="relative flex flex-col flex-1 gap-2">
+    <div className="relative flex flex-col flex-1 gap-2 transition">
       <label htmlFor={name} className={srOnly ? 'sr-only' : undefined}>
         {label}
       </label>
@@ -51,13 +51,15 @@ export default function Datetime({
         />
         {errors && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <span className="flex gap-1 text-sm text-rose-600 dark:text-rose-600">
-              {errors.message}
-              <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
-            </span>
+            <ExclamationCircleIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
           </div>
         )}
       </div>
+      {errors && (
+        <span className="text-sm text-rose-600 dark:text-rose-600">
+          {errors.message}
+        </span>
+      )}
     </div>
   )
 }

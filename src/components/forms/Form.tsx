@@ -1,9 +1,8 @@
-import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
-
 import { ReactNode } from 'react'
+import { UseFormHandleSubmit } from 'react-hook-form'
 
 type FormProps = {
-  handleSubmit: UseFormHandleSubmit<FieldValues>
+  handleSubmit: UseFormHandleSubmit<any>
   onSubmit: (values: any) => void
   className?: string
   children: ReactNode

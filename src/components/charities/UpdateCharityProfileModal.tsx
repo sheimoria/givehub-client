@@ -132,6 +132,7 @@ export default function UpdateCharityProfileModal({
       if (response.data?.updateCharityProfile?.errors) {
         response.data?.updateCharityProfile?.errors.forEach(
           ({ field, message }) =>
+            // @ts-ignore
             setError(field, { type: 'manual', message: message })
         )
       } else {
