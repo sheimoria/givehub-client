@@ -1,19 +1,21 @@
 import * as yup from 'yup'
+
 import {
   useCreateCharityMutation,
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
+
 import Checkbox from '../forms/Checkbox'
 import Form from '../forms/Form'
 import Input from '../forms/Input'
 import Textarea from '../forms/Textarea'
+import Transit from 'components/Transit'
+import UploadImageButton from 'components/UploadImageButton'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Transit from 'components/Transit'
-import axios from 'axios'
-import UploadImageButton from 'components/UploadImageButton'
 import { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function CreateCharity() {
   const {
@@ -43,16 +45,18 @@ export default function CreateCharity() {
   const [updateCharityProfile] = useUpdateCharityProfileMutation()
   const router = useRouter()
 
-  type FormValues = {
+  type FormData = {
     uen: string
     name: string
     physicalAddress: string
     postalCode: string
     about: string
     links: string
+    email: string
+    contactNumber: string
   }
 
-  async function handleCreateCharity(values: FormValues) {
+  async function handleCreateCharity(data: FormData) {
     const categories = Array.from(
       document.querySelectorAll('input[type="checkbox"]')
     )
@@ -65,10 +69,10 @@ export default function CreateCharity() {
       const createCharityResponse = await createCharity({
         variables: {
           options: {
-            uen: values.uen,
-            name: values.name,
-            physicalAddress: values.physicalAddress,
-            postalCode: values.postalCode
+            uen: data.uen,
+            name: data.name,
+            physicalAddress: data.physicalAddress,
+            postalCode: data.postalCode
           }
         }
       })
@@ -89,8 +93,8 @@ export default function CreateCharity() {
                 ?.charity?.physicalAddress as string,
               postalCode: createCharityResponse.data?.createCharity?.charity
                 ?.postalCode as string,
-              about: values.about,
-              links: values.links,
+              about: data.about,
+              links: data.links,
               categories: categories
             }
           }
@@ -122,10 +126,10 @@ export default function CreateCharity() {
       const createCharityResponse = await createCharity({
         variables: {
           options: {
-            uen: values.uen,
-            name: values.name,
-            physicalAddress: values.physicalAddress,
-            postalCode: values.postalCode
+            uen: data.uen,
+            name: data.name,
+            physicalAddress: data.physicalAddress,
+            postalCode: data.postalCode
           }
         }
       })
@@ -146,8 +150,10 @@ export default function CreateCharity() {
                 ?.charity?.physicalAddress as string,
               postalCode: createCharityResponse.data?.createCharity?.charity
                 ?.postalCode as string,
-              about: values.about,
-              links: values.links,
+              about: data.about,
+              links: data.links,
+              email: data.email,
+              contactNumber: data.contactNumber,
               categories: categories,
               displayPicture: imageResponse.data.public_id
             }

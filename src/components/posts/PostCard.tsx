@@ -6,17 +6,18 @@ import {
   PostInfoFragmentDoc,
   PostLikesFragmentDoc
 } from 'generated/graphql'
-import { formatDistanceToNow } from 'date-fns'
+
 import EventPreview from 'components/events/EventPreview'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Picture from 'components/Picture'
+import PostCardCommentInput from './PostCardCommentInput'
+import PostCardComments from './PostCardComments'
 import PostCommentsButton from 'components/posts/PostCommentsButton'
 import Transit from 'components/Transit'
 import UpdateDeletePostButton from './UpdateDeletePostButton'
 import { filter } from 'graphql-anywhere'
-import PostCardComments from './PostCardComments'
-import PostCardCommentInput from './PostCardCommentInput'
+import { formatDistanceToNow } from 'date-fns'
 import useToggle from 'utils/useToggle'
 
 type PostProps = {

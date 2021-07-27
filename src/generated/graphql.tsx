@@ -1001,7 +1001,7 @@ export type CharityProfileFragment = (
   & Pick<Charity, 'adminStatus' | 'physicalAddress' | 'postalCode'>
   & { profile?: Maybe<(
     { __typename?: 'Charityprofile' }
-    & Pick<Charityprofile, 'about' | 'links'>
+    & Pick<Charityprofile, 'id' | 'about' | 'links' | 'displayPicture' | 'email' | 'contactNumber'>
   )> }
   & CharityHeaderFragment
   & CharityFollowsFragment
@@ -1108,20 +1108,12 @@ export type UpdateCharityProfileMutation = (
   { __typename?: 'Mutation' }
   & { updateCharityProfile: (
     { __typename?: 'CharityResponse' }
-    & Pick<CharityResponse, 'success'>
     & { errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>>, charity?: Maybe<(
       { __typename?: 'Charity' }
-      & Pick<Charity, 'name' | 'physicalAddress' | 'postalCode'>
-      & { profile?: Maybe<(
-        { __typename?: 'Charityprofile' }
-        & Pick<Charityprofile, 'about' | 'links'>
-      )>, categories: Array<(
-        { __typename?: 'Category' }
-        & Pick<Category, 'id' | 'name'>
-      )> }
+      & CharityProfileFragment
     )> }
   ) }
 );
@@ -1897,8 +1889,12 @@ export const CharityProfileFragmentDoc = gql`
   adminStatus
   ...CharityHeader
   profile {
+    id
     about
     links
+    displayPicture
+    email
+    contactNumber
   }
   physicalAddress
   postalCode
@@ -2596,22 +2592,11 @@ export const UpdateCharityProfileDocument = gql`
       message
     }
     charity {
-      name
-      physicalAddress
-      postalCode
-      profile {
-        about
-        links
-      }
-      categories {
-        id
-        name
-      }
+      ...CharityProfile
     }
-    success
   }
 }
-    `;
+    ${CharityProfileFragmentDoc}`;
 export type UpdateCharityProfileMutationFn = Apollo.MutationFunction<UpdateCharityProfileMutation, UpdateCharityProfileMutationVariables>;
 
 /**

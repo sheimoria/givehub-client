@@ -1,6 +1,8 @@
 import {
   GlobeAltIcon,
   LocationMarkerIcon,
+  MailIcon,
+  PhoneIcon,
   UserGroupIcon
 } from '@heroicons/react/outline'
 
@@ -8,8 +10,8 @@ import { CharityProfileFragment } from 'generated/graphql'
 import FollowCharity from './FollowCharity'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import { useRouter } from 'next/router'
 import UpdateCharityProfileButton from './UpdateCharityProfileButton'
+import { useRouter } from 'next/router'
 
 export default function CharityProfile({
   charity
@@ -48,12 +50,22 @@ export default function CharityProfile({
         </div>
         <UpdateCharityProfileButton charity={charity} />
       </div>
-
       {/* About */}
       <div className="flex items-center gap-2">
         <p>{charity.profile?.about}</p>
       </div>
-
+      <div className="flex flex-wrap gap-3">
+        {/* Email */}
+        <p>
+          <MailIcon />
+          {charity.profile?.email}
+        </p>
+        {/* Contact No */}
+        <p>
+          <PhoneIcon />
+          {charity.profile?.contactNumber}
+        </p>
+      </div>
       {/* Address */}
       <p>
         <LocationMarkerIcon />
@@ -61,7 +73,6 @@ export default function CharityProfile({
         {', '}
         {charity.postalCode}
       </p>
-
       {/* Website */}
       {charity.profile?.links && (
         <div className="flex items-center gap-2">
@@ -74,13 +85,11 @@ export default function CharityProfile({
           </a>
         </div>
       )}
-
       {/* Followers */}
       <p>
         <UserGroupIcon />
         {charity.followNumber} followers
       </p>
-
       <FollowCharity followStatus={charity.followStatus} />
     </Transit>
   )

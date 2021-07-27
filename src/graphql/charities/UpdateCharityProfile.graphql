@@ -8,18 +8,7 @@ mutation UpdateCharityProfile(
       message
     }
     charity {
-      name
-      physicalAddress
-      postalCode
-      profile {
-        about
-        links
-      }
-      categories {
-        id
-        name
-      }
+      ...CharityProfile
     }
-    success
   }
 }

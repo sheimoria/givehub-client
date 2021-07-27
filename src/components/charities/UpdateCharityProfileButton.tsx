@@ -1,5 +1,6 @@
-import { PencilAltIcon } from '@heroicons/react/outline'
 import { CharityProfileFragment } from 'generated/graphql'
+import { PencilAltIcon } from '@heroicons/react/outline'
+import UpdateCharityProfileModal from './UpdateCharityProfileModal'
 import { useState } from 'react'
 
 export default function UpdateCharityProfileButton({
@@ -14,11 +15,9 @@ export default function UpdateCharityProfileButton({
         className="clickable-scale"
         onClick={() => setIsOpen(true)}
       />
-      {/* <UpdateUserProfileModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        user={user}
-      /> */}
+      {isOpen && (
+        <UpdateCharityProfileModal setIsOpen={setIsOpen} charity={charity} />
+      )}
     </>
   )
 }

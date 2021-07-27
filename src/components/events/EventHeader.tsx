@@ -1,10 +1,10 @@
-import { EventHeaderFragment } from 'generated/graphql'
 import Datetime from 'components/events/Datetime'
-import Venue from 'components/events/Venue'
-import { useRouter } from 'next/router'
+import { EventHeaderFragment } from 'generated/graphql'
 import Link from 'next/link'
 import Picture from 'components/Picture'
+import Venue from 'components/events/Venue'
 import { formatDistanceToNow } from 'date-fns'
+import { useRouter } from 'next/router'
 
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   const router = useRouter()

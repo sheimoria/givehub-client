@@ -1,12 +1,13 @@
-import { PlusIcon } from '@heroicons/react/outline'
-import Picture from 'components/Picture'
 import {
   CharityDocument,
   CharityHeaderFragment,
+  CharityRecommendationsDocument,
   useFollowCharityMutation
 } from 'generated/graphql'
+
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Picture from 'components/Picture'
+import { PlusIcon } from '@heroicons/react/outline'
 
 export default function CharityHeader({
   charity
@@ -19,6 +20,10 @@ export default function CharityHeader({
       {
         query: CharityDocument,
         variables: { charityId: charity.id }
+      },
+      {
+        query: CharityRecommendationsDocument,
+        variables: { limit: 4 }
       }
     ]
   })
@@ -48,7 +53,7 @@ export default function CharityHeader({
         </div>
       </div>
       {charity.followStatus === 1 ? (
-        <button className="button-outline">Following</button>
+        <button className="px-3 py-1 button-outline">Following</button>
       ) : (
         <button onClick={() => followCharity()} className="gap-1 px-3 py-1">
           <PlusIcon className="text-white dark:text-white" />

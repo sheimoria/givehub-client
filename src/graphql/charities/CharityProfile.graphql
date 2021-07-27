@@ -2,8 +2,12 @@ fragment CharityProfile on Charity {
   adminStatus
   ...CharityHeader
   profile {
+    id
     about
     links
+    displayPicture
+    email
+    contactNumber
   }
   physicalAddress
   postalCode

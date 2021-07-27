@@ -5,8 +5,8 @@ import { ExclamationCircleIcon } from '@heroicons/react/solid'
 type CheckboxProps = {
   name: string
   label: string
-  register: UseFormRegister<FieldValues>
-  errors: any
+  register: UseFormRegister<any>
+  errors?: any
 }
 
 export default function Checkbox({

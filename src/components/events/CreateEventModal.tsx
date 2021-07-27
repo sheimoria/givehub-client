@@ -11,22 +11,20 @@ import { Fragment, useState } from 'react'
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
 import Input from 'components/forms/Input'
+import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
+import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { XIcon } from '@heroicons/react/outline'
 
-type CreateEventProps = {
+type Props = {
   isOpen: boolean
   setIsOpen: (arg0: boolean) => void
 }
 
-export default function CreateEventModal({
-  isOpen,
-  setIsOpen
-}: CreateEventProps) {
+export default function CreateEventModal({ isOpen, setIsOpen }: Props) {
   const {
     register,
     handleSubmit,
@@ -144,7 +142,7 @@ export default function CreateEventModal({
                   register={register}
                   errors={errors.name}
                 />
-                <Input
+                <Textarea
                   name="description"
                   label="Description"
                   register={register}

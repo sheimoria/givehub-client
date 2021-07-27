@@ -94,9 +94,10 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Create Post</Dialog.Title>
-                  <span onClick={() => setIsOpen(false)}>
-                    <XIcon />
-                  </span>
+                  <XIcon
+                    onClick={() => setIsOpen(false)}
+                    className="clickable-scale"
+                  />
                 </div>
                 <Dialog.Description className="hidden">
                   What&apos;s on your mind?
