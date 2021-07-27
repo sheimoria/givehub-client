@@ -1,6 +1,6 @@
 import { MeDocument, useLoginMutation } from 'generated/graphql'
 
-import Form from 'components/Forms/Form'
+import Form from './Forms/Form'
 import FormButton from 'components/Forms/FormButton'
 import Input from 'components/Forms/Input'
 import Link from 'next/link'

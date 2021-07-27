@@ -1,7 +1,7 @@
 import { AdminApproval, useVolunteerRequestsQuery } from 'generated/graphql'
 
 import Transit from 'components/Transit'
-import VolunteerRequest from './VolunteerRequest'
+import VolunteerRequest from 'components/Events/VolunteerRequest'
 import { useRouter } from 'next/router'
 
 export default function VolunteerRequests() {

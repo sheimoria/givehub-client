@@ -1,7 +1,7 @@
-query VolunteerRequests($eventIds: [Int!]!) {
-  getVolunteerRequestListForEvents(
+query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
+  getPendingVolunteerRequestForEvents(
     cursor: null
-    limit: 50
+    limit: $limit
     eventIds: $eventIds
   ) {
     items {
@@ -12,9 +12,15 @@ query VolunteerRequests($eventIds: [Int!]!) {
           firstName
           lastName
         }
+        adminapproval
+        eventId
+        updatedAt
       }
-      adminapproval
-      eventId
+    }
+    hasMore
+    errors {
+      field
+      error
     }
   }
 }
