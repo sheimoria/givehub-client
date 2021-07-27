@@ -18,7 +18,7 @@ export default function Index() {
         )
       ) : (
         <div className="flex flex-col flex-wrap items-center justify-center flex-auto gap-5 md:flex-row md:justify-between">
-          <div className="flex flex-col gap-3 px-5">
+          <div className="flex flex-col gap-3 px-5 md:px-0">
             <Transit as="h1">
               Discover volunteer opportunities.
               <br />

@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
+import { UserProfileFragment, UserProfileUpdateInput } from 'generated/graphql'
 
 import Checkbox from 'components/forms/Checkbox'
 import Form from 'components/forms/Form'
@@ -8,36 +9,30 @@ import { Fragment } from 'react'
 import Input from 'components/forms/Input'
 import { PhotographIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
-import { UserProfileFragment, UserProfileUpdateInput } from 'generated/graphql'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { useUpdateUserProfileMutation } from 'generated/graphql'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 type Props = {
-  isOpen: boolean
   setIsOpen: (arg0: boolean) => void
   user: UserProfileFragment
 }
 
-export default function UpdateUserProfileModal({
-  isOpen,
-  setIsOpen,
-  user
-}: Props) {
+export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors }
   } = useForm({
-    /* defaultValues: {
+    defaultValues: {
       firstName: user.profile?.firstName,
       lastName: user.profile?.lastName,
       email: user.email,
       about: user.profile?.about,
       telegramHandle: user.profile?.telegramHandle
-    }, */
+    },
     resolver: yupResolver(
       yup.object({
         firstName: yup.string().required('Required'),
@@ -72,6 +67,7 @@ export default function UpdateUserProfileModal({
     })
     if (response.data?.updateUserProfile?.errors) {
       response.data.updateUserProfile.errors.forEach(({ field, message }) =>
+        //@ts-ignore
         setError(field, { type: 'manual', message: message })
       )
     } else {
@@ -80,9 +76,9 @@ export default function UpdateUserProfileModal({
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show as={Fragment}>
       <Dialog
-        open={isOpen}
+        open
         onClose={() => setIsOpen(false)}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
@@ -164,7 +160,6 @@ export default function UpdateUserProfileModal({
                         name={category.name}
                         label={category.label}
                         register={register}
-                        errors={errors[category.name]}
                       />
                     ))}
                   </div>

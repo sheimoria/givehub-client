@@ -1,7 +1,7 @@
 import { PencilAltIcon } from '@heroicons/react/outline'
+import UpdateUserProfileModal from './UpdateUserProfileModal'
 import { UserProfileFragment } from 'generated/graphql'
 import { useState } from 'react'
-import UpdateUserProfileModal from './UpdateUserProfileModal'
 
 export default function UpdateUserProfileButton({
   user
@@ -15,11 +15,7 @@ export default function UpdateUserProfileButton({
         className="clickable-scale"
         onClick={() => setIsOpen(true)}
       />
-      <UpdateUserProfileModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        user={user}
-      />
+      {isOpen && <UpdateUserProfileModal setIsOpen={setIsOpen} user={user} />}
     </>
   )
 }

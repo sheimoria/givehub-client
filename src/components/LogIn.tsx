@@ -4,6 +4,7 @@ import Form from 'components/forms/Form'
 import Input from 'components/forms/Input'
 import Link from 'next/link'
 import Password from 'components/forms/Password'
+import Transit from './Transit'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
@@ -48,28 +49,32 @@ export default function LogIn() {
   }
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={handleSubmit(handleLogIn)}
-      className="w-full md:w-96"
-    >
-      <h4>Log in</h4>
-      <Input
-        name="usernameOrEmail"
-        label="Email or Username"
-        register={register}
-        errors={errors.usernameOrEmail}
-      />
-      <Password
-        name="password"
-        label="Password"
-        register={register}
-        errors={errors.password}
-      />
-      <Link href="/forgot-password">
-        <a className="text-rose-600 hover:text-rose-700">Forgot password?</a>
-      </Link>
-      <button type="submit">Log in</button>
-    </Form>
+    <Transit onEveryMount className="w-full md:w-96">
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={handleSubmit(handleLogIn)}
+        className="w-full md:w-96"
+      >
+        <h4>Log in</h4>
+        <Input
+          name="usernameOrEmail"
+          label="Email or Username"
+          register={register}
+          errors={errors.usernameOrEmail}
+        />
+        <Password
+          name="password"
+          label="Password"
+          register={register}
+          errors={errors.password}
+        />
+        <Link href="/forgot-password">
+          <a className="text-rose-600 hover:text-rose-700 dark:text-rose-600 dark:hover:text-rose-700">
+            Forgot password?
+          </a>
+        </Link>
+        <button type="submit">Log in</button>
+      </Form>
+    </Transit>
   )
 }
