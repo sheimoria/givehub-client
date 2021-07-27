@@ -6,20 +6,13 @@ query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
   ) {
     items {
       user {
-        id
-        username
-        profile {
-          firstName
-          lastName
-        }
+        ...UserHeader
       }
-      adminapproval
-      eventId
     }
     hasMore
     errors {
       field
-      messagec
+      message
     }
   }
 }

@@ -4,7 +4,7 @@ import Events from 'components/events/Events'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Posts from 'components/posts/Posts'
-import { UserAvatarFragmentDoc } from 'generated/graphql'
+import { UserPictureFragmentDoc } from 'generated/graphql'
 import UserPost from 'components/users/UserPost'
 import UserTasks from 'components/users/YourEvents'
 import { filter } from 'graphql-anywhere'
@@ -26,7 +26,7 @@ export default withAuth(function Home({ me }) {
         </>
       }
     >
-      <UserPost user={filter(UserAvatarFragmentDoc, me)} />
+      <UserPost user={filter(UserPictureFragmentDoc, me)} />
       {!router.query.view ? <Posts /> : <Events />}
     </Body>
   )

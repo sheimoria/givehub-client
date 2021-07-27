@@ -1,4 +1,4 @@
-fragment UserAvatar on User {
+fragment UserPicture on User {
   id
   profile {
     id

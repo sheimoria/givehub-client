@@ -1101,35 +1101,6 @@ export type UpdateCharityProfileMutation = (
   ) }
 );
 
-export type VolunteerRequestsQueryVariables = Exact<{
-  eventIds: Array<Scalars['Int']> | Scalars['Int'];
-  limit: Scalars['Int'];
-}>;
-
-
-export type VolunteerRequestsQuery = (
-  { __typename?: 'Query' }
-  & { getPendingVolunteerRequestForEvents: (
-    { __typename?: 'PaginatedEventVolunteers' }
-    & Pick<PaginatedEventVolunteers, 'hasMore'>
-    & { items: Array<(
-      { __typename?: 'EventVolunteerContainer' }
-      & Pick<EventVolunteerContainer, 'adminapproval' | 'eventId'>
-      & { user?: Maybe<(
-        { __typename?: 'User' }
-        & Pick<User, 'id' | 'username'>
-        & { profile?: Maybe<(
-          { __typename?: 'Userprofile' }
-          & Pick<Userprofile, 'firstName' | 'lastName'>
-        )> }
-      )> }
-    )>, errors?: Maybe<Array<(
-      { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
-  ) }
-);
-
 export type AcceptVolunteerMutationVariables = Exact<{
   accept: Scalars['Boolean'];
   eventId: Scalars['Int'];
@@ -1143,6 +1114,30 @@ export type AcceptVolunteerMutation = (
     { __typename?: 'UpdateEventVolunteerResponse' }
     & Pick<UpdateEventVolunteerResponse, 'success'>
     & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
+export type AcceptedVolunteersQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  eventIds: Array<Scalars['Int']> | Scalars['Int'];
+}>;
+
+
+export type AcceptedVolunteersQuery = (
+  { __typename?: 'Query' }
+  & { getAcceptedVolunteerRequestListForEvents: (
+    { __typename?: 'PaginatedEventVolunteers' }
+    & Pick<PaginatedEventVolunteers, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'EventVolunteerContainer' }
+      & { user?: Maybe<(
+        { __typename?: 'User' }
+        & UserHeaderFragment
+      )> }
+    )>, errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>> }
@@ -1371,6 +1366,30 @@ export type UpdateEventMutation = (
   & { updateEvent: (
     { __typename?: 'EventResponse' }
     & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
+export type VolunteerRequestsQueryVariables = Exact<{
+  eventIds: Array<Scalars['Int']> | Scalars['Int'];
+  limit: Scalars['Int'];
+}>;
+
+
+export type VolunteerRequestsQuery = (
+  { __typename?: 'Query' }
+  & { getPendingVolunteerRequestForEvents: (
+    { __typename?: 'PaginatedEventVolunteers' }
+    & Pick<PaginatedEventVolunteers, 'hasMore'>
+    & { items: Array<(
+      { __typename?: 'EventVolunteerContainer' }
+      & { user?: Maybe<(
+        { __typename?: 'User' }
+        & UserHeaderFragment
+      )> }
+    )>, errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>> }
@@ -1772,19 +1791,9 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id'>
+    & UserHeaderFragment
     & UserProfileFragment
-    & UserAvatarFragment
     & UserEventsFragment
-  )> }
-);
-
-export type UserAvatarFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id'>
-  & { profile?: Maybe<(
-    { __typename?: 'Userprofile' }
-    & Pick<Userprofile, 'id' | 'displayPicture'>
   )> }
 );
 
@@ -1806,7 +1815,16 @@ export type UserHeaderFragment = (
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'id' | 'firstName' | 'lastName' | 'telegramHandle'>
   )> }
-  & UserAvatarFragment
+  & UserPictureFragment
+);
+
+export type UserPictureFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id'>
+  & { profile?: Maybe<(
+    { __typename?: 'Userprofile' }
+    & Pick<Userprofile, 'id' | 'displayPicture'>
+  )> }
 );
 
 export type UserProfileFragment = (
@@ -2045,8 +2063,8 @@ export const PostCardCommentInputFragmentDoc = gql`
   }
 }
     `;
-export const UserAvatarFragmentDoc = gql`
-    fragment UserAvatar on User {
+export const UserPictureFragmentDoc = gql`
+    fragment UserPicture on User {
   id
   profile {
     id
@@ -2056,7 +2074,7 @@ export const UserAvatarFragmentDoc = gql`
     `;
 export const UserHeaderFragmentDoc = gql`
     fragment UserHeader on User {
-  ...UserAvatar
+  ...UserPicture
   profile {
     id
     firstName
@@ -2066,7 +2084,7 @@ export const UserHeaderFragmentDoc = gql`
   username
   friendStatus
 }
-    ${UserAvatarFragmentDoc}`;
+    ${UserPictureFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
     fragment UserProfile on User {
   ...UserHeader
@@ -2594,62 +2612,6 @@ export function useUpdateCharityProfileMutation(baseOptions?: Apollo.MutationHoo
 export type UpdateCharityProfileMutationHookResult = ReturnType<typeof useUpdateCharityProfileMutation>;
 export type UpdateCharityProfileMutationResult = Apollo.MutationResult<UpdateCharityProfileMutation>;
 export type UpdateCharityProfileMutationOptions = Apollo.BaseMutationOptions<UpdateCharityProfileMutation, UpdateCharityProfileMutationVariables>;
-export const VolunteerRequestsDocument = gql`
-    query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
-  getPendingVolunteerRequestForEvents(
-    cursor: null
-    limit: $limit
-    eventIds: $eventIds
-  ) {
-    items {
-      user {
-        id
-        username
-        profile {
-          firstName
-          lastName
-        }
-      }
-      adminapproval
-      eventId
-    }
-    hasMore
-    errors {
-      field
-      message
-    }
-  }
-}
-    `;
-
-/**
- * __useVolunteerRequestsQuery__
- *
- * To run a query within a React component, call `useVolunteerRequestsQuery` and pass it any options that fit your needs.
- * When your component renders, `useVolunteerRequestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useVolunteerRequestsQuery({
- *   variables: {
- *      eventIds: // value for 'eventIds'
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useVolunteerRequestsQuery(baseOptions: Apollo.QueryHookOptions<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>(VolunteerRequestsDocument, options);
-      }
-export function useVolunteerRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>(VolunteerRequestsDocument, options);
-        }
-export type VolunteerRequestsQueryHookResult = ReturnType<typeof useVolunteerRequestsQuery>;
-export type VolunteerRequestsLazyQueryHookResult = ReturnType<typeof useVolunteerRequestsLazyQuery>;
-export type VolunteerRequestsQueryResult = Apollo.QueryResult<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>;
 export const AcceptVolunteerDocument = gql`
     mutation AcceptVolunteer($accept: Boolean!, $eventId: Int!, $volunteerId: Int!) {
   acceptEventVolunteer(
@@ -2693,6 +2655,55 @@ export function useAcceptVolunteerMutation(baseOptions?: Apollo.MutationHookOpti
 export type AcceptVolunteerMutationHookResult = ReturnType<typeof useAcceptVolunteerMutation>;
 export type AcceptVolunteerMutationResult = Apollo.MutationResult<AcceptVolunteerMutation>;
 export type AcceptVolunteerMutationOptions = Apollo.BaseMutationOptions<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>;
+export const AcceptedVolunteersDocument = gql`
+    query AcceptedVolunteers($limit: Int!, $eventIds: [Int!]!) {
+  getAcceptedVolunteerRequestListForEvents(
+    cursor: null
+    limit: $limit
+    eventIds: $eventIds
+  ) {
+    items {
+      user {
+        ...UserHeader
+      }
+    }
+    hasMore
+    errors {
+      field
+      message
+    }
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useAcceptedVolunteersQuery__
+ *
+ * To run a query within a React component, call `useAcceptedVolunteersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAcceptedVolunteersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAcceptedVolunteersQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      eventIds: // value for 'eventIds'
+ *   },
+ * });
+ */
+export function useAcceptedVolunteersQuery(baseOptions: Apollo.QueryHookOptions<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>(AcceptedVolunteersDocument, options);
+      }
+export function useAcceptedVolunteersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>(AcceptedVolunteersDocument, options);
+        }
+export type AcceptedVolunteersQueryHookResult = ReturnType<typeof useAcceptedVolunteersQuery>;
+export type AcceptedVolunteersLazyQueryHookResult = ReturnType<typeof useAcceptedVolunteersLazyQuery>;
+export type AcceptedVolunteersQueryResult = Apollo.QueryResult<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($charityId: Float!, $input: EventInput!) {
   createEvent(charityId: $charityId, input: $input) {
@@ -3102,6 +3113,55 @@ export function useUpdateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateEventMutationHookResult = ReturnType<typeof useUpdateEventMutation>;
 export type UpdateEventMutationResult = Apollo.MutationResult<UpdateEventMutation>;
 export type UpdateEventMutationOptions = Apollo.BaseMutationOptions<UpdateEventMutation, UpdateEventMutationVariables>;
+export const VolunteerRequestsDocument = gql`
+    query VolunteerRequests($eventIds: [Int!]!, $limit: Int!) {
+  getPendingVolunteerRequestForEvents(
+    cursor: null
+    limit: $limit
+    eventIds: $eventIds
+  ) {
+    items {
+      user {
+        ...UserHeader
+      }
+    }
+    hasMore
+    errors {
+      field
+      message
+    }
+  }
+}
+    ${UserHeaderFragmentDoc}`;
+
+/**
+ * __useVolunteerRequestsQuery__
+ *
+ * To run a query within a React component, call `useVolunteerRequestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVolunteerRequestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVolunteerRequestsQuery({
+ *   variables: {
+ *      eventIds: // value for 'eventIds'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useVolunteerRequestsQuery(baseOptions: Apollo.QueryHookOptions<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>(VolunteerRequestsDocument, options);
+      }
+export function useVolunteerRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>(VolunteerRequestsDocument, options);
+        }
+export type VolunteerRequestsQueryHookResult = ReturnType<typeof useVolunteerRequestsQuery>;
+export type VolunteerRequestsLazyQueryHookResult = ReturnType<typeof useVolunteerRequestsLazyQuery>;
+export type VolunteerRequestsQueryResult = Apollo.QueryResult<VolunteerRequestsQuery, VolunteerRequestsQueryVariables>;
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CommentInput!, $postId: Float!) {
   commentOnPost(input: $input, postId: $postId) {
@@ -3760,14 +3820,13 @@ export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<Update
 export const UserDocument = gql`
     query User($id: Float!) {
   user(id: $id) {
-    id
+    ...UserHeader
     ...UserProfile
-    ...UserAvatar
     ...UserEvents
   }
 }
-    ${UserProfileFragmentDoc}
-${UserAvatarFragmentDoc}
+    ${UserHeaderFragmentDoc}
+${UserProfileFragmentDoc}
 ${UserEventsFragmentDoc}`;
 
 /**

@@ -1,7 +1,12 @@
+import { PlusIcon, UserGroupIcon } from '@heroicons/react/outline'
+import {
+  useAcceptedVolunteersQuery,
+  useEventTasksQuery
+} from 'generated/graphql'
+
+import AssignVolunteersButton from './AssignVolunteersButton'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import { UserGroupIcon } from '@heroicons/react/outline'
-import { useEventTasksQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 
 export default function EventTasks() {
@@ -17,7 +22,10 @@ export default function EventTasks() {
         {data?.event?.eventTasks && data.event.eventTasks.length > 0 ? (
           data.event.eventTasks.map((task) => (
             <div key={task.id} className="flex flex-col px-5 py-3">
-              <h6>{task.description}</h6>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h6>{task.description}</h6>
+                <AssignVolunteersButton />
+              </div>
               {task.volunteersAssigned && task.volunteersAssigned.length > 0 ? (
                 <>
                   <p>

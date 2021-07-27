@@ -44,33 +44,39 @@ export default function ForgotPassword() {
         </>
       }
     >
-      {complete ? (
-        <>
-          <p>
-            If an account with that email exists, we have sent you password
-            reset instructions.
-          </p>
-          <Link href="/">
-            <a>
-              Back to homepage
-              <ArrowSmRightIcon className="w-5 h-5" />
-            </a>
-          </Link>
-        </>
-      ) : (
-        <Form handleSubmit={handleSubmit} onSubmit={handleForgotPassword}>
-          <Input
-            name="email"
-            label="Registered email address"
-            register={register}
-            errors={errors.email}
-          />
-          <FormButton
-            label="Send Password Reset Email"
-            isSubmitting={isSubmitting}
-          />
-        </Form>
-      )}
+      <div className="flex items-center justify-center flex-auto">
+        {complete ? (
+          <>
+            <p>
+              If an account with that email exists, we have sent you password
+              reset instructions.
+            </p>
+            <Link href="/">
+              <a>
+                Back to homepage
+                <ArrowSmRightIcon className="w-5 h-5" />
+              </a>
+            </Link>
+          </>
+        ) : (
+          <Form
+            handleSubmit={handleSubmit}
+            onSubmit={handleForgotPassword}
+            className="w-96"
+          >
+            <Input
+              name="email"
+              label="Registered email address"
+              register={register}
+              errors={errors.email}
+            />
+            <FormButton
+              label="Send Password Reset Email"
+              isSubmitting={isSubmitting}
+            />
+          </Form>
+        )}
+      </div>
     </Body>
   )
 }

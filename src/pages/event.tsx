@@ -1,3 +1,4 @@
+import AcceptedVolunteers from 'components/events/AcceptedVolunteers'
 import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import CreateTaskButton from 'components/tasks/CreateTaskButton'
@@ -5,10 +6,8 @@ import Event from 'components/events/EventCard'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Tasks from 'components/events/EventTasks'
-import UnassignedVolunteers from 'components/events/UnassignedVolunteers'
-import UserTasks from 'components/users/YourEvents'
 import VolunteerRequests from 'components/events/VolunteerRequests'
-import Volunteers from 'components/events/Volunteers'
+import YourEvents from 'components/users/YourEvents'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -28,12 +27,12 @@ export default withAuth(function ViewEvent({ me }) {
           {data?.event?.adminStatus ? (
             <>
               <VolunteerRequests />
-              <UnassignedVolunteers />
+              <AcceptedVolunteers />
             </>
           ) : (
             <>
               <FriendRequests />
-              <UserTasks />
+              <YourEvents />
               <PeopleToFollow />
               <CharitiesToFollow />
             </>
@@ -45,10 +44,9 @@ export default withAuth(function ViewEvent({ me }) {
         <>
           <Event event={data.event} />
           {data.event.adminStatus && (
-          <>
+            <>
               <CreateTaskButton />
               <Tasks />
-              <Volunteers />
             </>
           )}
         </>

@@ -54,23 +54,23 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
       </div>
       {/* Admin for */}
       {user.adminCharities.length > 0 && (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <p>
             <IdentificationIcon />
             Admin for
-            {user.adminCharities.map((charity) => (
-              <Link
-                key={charity.id}
-                href={{
-                  pathname: '/charity',
-                  query: { charityId: charity.id }
-                }}
-                passHref
-              >
-                <span className="link-primary">{charity.name}</span>
-              </Link>
-            ))}
           </p>
+          {user.adminCharities.map((charity) => (
+            <Link
+              key={charity.id}
+              href={{
+                pathname: '/charity',
+                query: { charityId: charity.id }
+              }}
+              passHref
+            >
+              <a className="link-primary">{charity.name}</a>
+            </Link>
+          ))}
         </div>
       )}
       <div className="flex flex-wrap gap-6">

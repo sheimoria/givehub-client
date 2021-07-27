@@ -1,10 +1,10 @@
 import CreatePostModal from 'components/posts/CreatePostModal'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import { UserAvatarFragment } from 'generated/graphql'
+import { UserPictureFragment } from 'generated/graphql'
 import { useState } from 'react'
 
-export default function UserPost({ user }: { user: UserAvatarFragment }) {
+export default function UserPost({ user }: { user: UserPictureFragment }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

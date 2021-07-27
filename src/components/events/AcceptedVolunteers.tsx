@@ -1,11 +1,12 @@
+import { AdminApproval, useAcceptedVolunteersQuery } from 'generated/graphql'
+
+import AcceptedVolunteer from './AcceptedVolunteer'
 import Transit from 'components/Transit'
-import VolunteerRequest from 'components/events/VolunteerRequest'
 import { useRouter } from 'next/router'
-import { useVolunteerRequestsQuery } from 'generated/graphql'
 
 export default function VolunteerRequests() {
   const router = useRouter()
-  const { data } = useVolunteerRequestsQuery({
+  const { data } = useAcceptedVolunteersQuery({
     variables: {
       eventIds: [parseInt(router.query.eventId as string)],
       limit: 50
@@ -13,18 +14,18 @@ export default function VolunteerRequests() {
   })
   return (
     <Transit as="dl">
-      <h5>Volunteer Requests</h5>
+      <h5>Accepted Volunteers</h5>
       <div className="divide">
-        {data?.getPendingVolunteerRequestForEvents?.items.map((event) => (
-          <VolunteerRequest
+        {data?.getAcceptedVolunteerRequestListForEvents.items.map((event) => (
+          <AcceptedVolunteer
             key={event.user?.id}
             //@ts-ignore
             user={event.user}
           />
         ))}
-        {data?.getPendingVolunteerRequestForEvents?.items.length == 0 && (
+        {data?.getAcceptedVolunteerRequestListForEvents?.items.length == 0 && (
           <div className="py-3">
-            <p>No pending volunteer requests.</p>
+            <p>No accepted volunteers yet.</p>
           </div>
         )}
       </div>
