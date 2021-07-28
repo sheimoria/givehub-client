@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import RequestFriendButton from 'components/users/RequestFriendButton'
-import { UserHeaderFragment } from 'generated/graphql'
+import { UserFriendFragmentDoc, UserHeaderFragment } from 'generated/graphql'
+import { filter } from 'graphql-anywhere'
 
 export default function UserHeader({ user }: { user: UserHeaderFragment }) {
   return (
@@ -23,7 +24,7 @@ export default function UserHeader({ user }: { user: UserHeaderFragment }) {
         </div>
       </div>
       <RequestFriendButton
-        friendStatus={user.friendStatus}
+        user={filter(UserFriendFragmentDoc, user)}
         className="px-3 py-1"
       />
     </div>

@@ -1,0 +1,4 @@
+fragment UserFriend on User {
+  id
+  friendStatus
+}

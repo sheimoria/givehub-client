@@ -9,8 +9,9 @@ import Link from 'next/link'
 import Picture from 'components/Picture'
 import RequestFriend from 'components/users/RequestFriendButton'
 import UpdateUserProfileButton from 'components/users/UpdateUserProfileButton'
-import { UserProfileFragment } from 'generated/graphql'
+import { UserFriendFragmentDoc, UserProfileFragment } from 'generated/graphql'
 import { useRouter } from 'next/router'
+import { filter } from 'graphql-anywhere'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   const router = useRouter()
@@ -90,7 +91,9 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
           </p>
         </div>
       </div>
-      {!user.viewerStatus && <RequestFriend friendStatus={user.friendStatus} />}
+      {!user.viewerStatus && (
+        <RequestFriend user={filter(UserFriendFragmentDoc, user)} />
+      )}
     </article>
   )
 }

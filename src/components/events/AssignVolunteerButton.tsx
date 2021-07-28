@@ -51,7 +51,7 @@ export default function AssignVolunteerButton({
           )
         }
       })}
-      className="flex-row flex-auto p-0 bg-transparent border-none shadow-none"
+      className="flex-row items-center flex-auto p-0 bg-transparent border-none shadow-none"
     >
       <select {...register('assignTo')} placeholder="Assign To">
         {tasks?.map((task) => (
@@ -60,7 +60,11 @@ export default function AssignVolunteerButton({
           </option>
         ))}
       </select>
-      <FormButton label="Assign" isSubmitting={isSubmitting} />
+      <FormButton
+        label="Assign"
+        isSubmitting={isSubmitting}
+        className="px-3 py-1"
+      />
     </form>
   )
 }

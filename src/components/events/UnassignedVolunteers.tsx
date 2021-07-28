@@ -1,6 +1,5 @@
 import Transit from 'components/Transit'
 import UnassignedVolunteer from './UnassignedVolunteer'
-import { filter } from 'graphql-anywhere'
 import { useEventTasksQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 

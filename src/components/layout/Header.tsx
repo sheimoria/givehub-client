@@ -11,7 +11,7 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
   return (
     <header>
       <nav>
-        <Link href="/" passHref>
+        <Link href="/home" passHref>
           <div className="hidden md:flex md:flex-none w-44">
             <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
           </div>

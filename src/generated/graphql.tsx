@@ -1845,6 +1845,11 @@ export type UserEventsFragment = (
   )>> }
 );
 
+export type UserFriendFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'id' | 'friendStatus'>
+);
+
 export type UserHeaderFragment = (
   { __typename?: 'User' }
   & Pick<User, 'username' | 'friendStatus'>
@@ -2191,6 +2196,12 @@ export const UserEventsFragmentDoc = gql`
   }
 }
     ${EventCardFragmentDoc}`;
+export const UserFriendFragmentDoc = gql`
+    fragment UserFriend on User {
+  id
+  friendStatus
+}
+    `;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $newPassword: String!) {
   changePassword(token: $token, newPassword: $newPassword) {

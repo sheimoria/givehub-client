@@ -25,20 +25,11 @@ export default function Picture({
       }
     >
       {pictureId ? (
-        <CImage
-          cloudName="givehub"
-          secure
-          upload_preset="userPictures"
-          publicId={pictureId}
-          alt="Picture"
-          width="auto"
-          dpr="auto"
-          responsive
-          crop="scale"
-          responsiveUseBreakpoints="true"
-        >
-          <Transformation quality="auto" fetchFormat="auto" />
-        </CImage>
+        <Image
+          src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${pictureId}`}
+          alt="Profile picture"
+          layout="fill"
+        />
       ) : (
         <Image src="/avatar.svg" alt="Picture" layout="fill" />
       )}

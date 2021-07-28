@@ -1,39 +1,32 @@
 import {
   FriendRecommendationsDocument,
   FriendRequestStatus,
-  Maybe,
   UserDocument,
+  UserFriendFragment,
   useRequestFriendMutation
 } from 'generated/graphql'
 
 import router from 'next/router'
 
 type Props = {
-  friendStatus: Maybe<FriendRequestStatus> | undefined
+  user: UserFriendFragment
   className?: string
 }
 
-export default function RequestFriendButton({
-  friendStatus,
-  className
-}: Props) {
+export default function RequestFriendButton({ user, className }: Props) {
   const [requestFriend] = useRequestFriendMutation({
     variables: {
-      userId: parseInt(router.query.userId as string)
+      userId: user.id
     },
     refetchQueries: [
       {
         query: UserDocument,
-        variables: { id: parseInt(router.query.userId as string) }
-      },
-      {
-        query: FriendRecommendationsDocument,
-        variables: { limit: 4 }
+        variables: { id: user.id }
       }
     ]
   })
 
-  switch (friendStatus) {
+  switch (user.friendStatus) {
     case FriendRequestStatus.Accepted:
       return (
         <button

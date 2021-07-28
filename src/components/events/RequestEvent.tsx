@@ -22,7 +22,10 @@ export default function RequestEvent({
           RSVP Approved
         </button>
       ) : event.approvalStatus === AdminApproval.Pending ? (
-        <button className="px-3 py-1 text-xs pointer-events-none button-outline">
+        <button
+          onClick={() => request()}
+          className="px-3 py-1 text-xs button-outline"
+        >
           RSVP Pending
         </button>
       ) : event.approvalStatus === AdminApproval.Rejected ? (
@@ -31,8 +34,8 @@ export default function RequestEvent({
         </button>
       ) : (
         <HandIconHollow
-          className="transition-transform hover:scale-110"
           onClick={() => request()}
+          className="transition-transform hover:scale-110"
         />
       )}
       <p>{event.volunteerNumber}</p>
