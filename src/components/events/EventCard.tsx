@@ -5,9 +5,9 @@ import {
   EventLikesFragmentDoc,
   EventRequestsFragmentDoc
 } from 'generated/graphql'
-import { Image, Transformation } from 'cloudinary-react'
 
 import EventHeader from './EventHeader'
+import Image from 'next/image'
 import LikeEvent from 'components/events/LikeEvent'
 import RequestEvent from './RequestEvent'
 import ShareEvent from './ShareEventButton'
@@ -51,29 +51,22 @@ export default function EventCard({ event, lineclamp }: EventProps) {
         </div>
         {event.imageUrl && (
           <div
-            className="mb-3 border-l-0 border-r-0 cursor-pointer bordered"
+            className="relative mb-3 border-l-0 border-r-0 cursor-pointer h-96 bordered"
             onClick={() =>
               router.push({ pathname: '/event', query: { eventId: event.id } })
             }
           >
             <Image
-              cloudName="givehub"
-              secure
-              upload_preset="eventImages"
-              publicId={event.imageUrl}
-              alt="Event Image"
-              dpr="auto"
-              responsive
-              crop="scale"
-              width="auto"
-              responsiveUseBreakpoints="true"
-            >
-              <Transformation quality="auto" fetchFormat="auto" />
-            </Image>
+              src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${event.imageUrl}`}
+              alt="Event image"
+              layout="fill"
+              objectFit="cover"
+              
+            />
           </div>
         )}
         <div className="flex items-center gap-3 px-5 pb-5">
-          <LikeEvent likeEvent={filter(EventLikesFragmentDoc, event)} />
+          <LikeEvent event={filter(EventLikesFragmentDoc, event)} />
           <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />
         </div>
       </article>

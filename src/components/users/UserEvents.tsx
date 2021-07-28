@@ -33,7 +33,7 @@ export default function UserEventButtons({
           Volunteer History
         </a>
       </div>
-      {filter === 'Liked'
+      {filter === 'Liked Events'
         ? user.likedEvents.map((event) => (
             <Event key={event.id} event={event} lineclamp />
           ))

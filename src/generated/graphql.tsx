@@ -1237,6 +1237,10 @@ export type EventInfoFragment = (
 export type EventLikesFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'likeStatus' | 'likeNumber'>
+  & { creator: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
 );
 
 export type EventRequestsFragment = (
@@ -1990,6 +1994,9 @@ export const EventInfoFragmentDoc = gql`
 export const EventLikesFragmentDoc = gql`
     fragment EventLikes on Event {
   id
+  creator {
+    id
+  }
   likeStatus
   likeNumber
 }

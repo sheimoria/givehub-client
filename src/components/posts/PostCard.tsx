@@ -1,4 +1,3 @@
-import { Image as CImage, Transformation } from 'cloudinary-react'
 import {
   EventInfoFragment,
   PostCardCommentInputFragmentDoc,
@@ -8,6 +7,7 @@ import {
 } from 'generated/graphql'
 
 import EventPreview from 'components/events/EventPreview'
+import Image from 'next/image'
 import LikePost from './LikePost'
 import Link from 'next/link'
 import Picture from 'components/Picture'
@@ -68,21 +68,13 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
           <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
         </div>
         {post.imageUrl && (
-          <div className="mb-3 overflow-hidden border-l-0 border-r-0 bordered">
-            <CImage
-              cloudName="givehub"
-              secure
-              upload_preset="postImages"
-              publicId={post.imageUrl}
-              alt="Post Image"
-              dpr="auto"
-              width="auto"
-              responsive
-              crop="scale"
-              responsiveUseBreakpoints="true"
-            >
-              <Transformation quality="auto" fetchFormat="auto" />
-            </CImage>
+          <div className="relative mb-3 overflow-hidden border-l-0 border-r-0 h-96 bordered">
+            <Image
+              src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${post.imageUrl}`}
+              alt="Event image"
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
         )}
         {event && <EventPreview event={event} />}

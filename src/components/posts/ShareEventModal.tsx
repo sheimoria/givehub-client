@@ -71,7 +71,7 @@ export default function ShareEventModal({
         onClose={() => setIsOpen(false)}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen p-5">
           <Transition.Child
             as={Fragment}
             enter="transition-opacity"

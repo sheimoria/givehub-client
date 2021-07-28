@@ -1,7 +1,7 @@
 import { EventHeaderFragmentDoc, EventInfoFragment } from 'generated/graphql'
-import { Image, Transformation } from 'cloudinary-react'
 
 import EventHeader from './EventHeader'
+import Image from 'next/image'
 import Transit from 'components/Transit'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
@@ -29,25 +29,17 @@ export default function EventPreview({ event }: Props) {
         </div>
         {event.imageUrl && (
           <div
-            className="border-l-0 border-r-0 cursor-pointer bordered"
+            className="relative border-l-0 border-r-0 cursor-pointer h-96 bordered"
             onClick={() =>
               router.push({ pathname: '/event', query: { eventId: event.id } })
             }
           >
             <Image
-              cloudName="givehub"
-              secure
-              upload_preset="eventImages"
-              publicId={event.imageUrl}
-              alt="Event Image"
-              width="auto"
-              dpr="auto"
-              responsive
-              crop="scale"
-              responsiveUseBreakpoints="true"
-            >
-              <Transformation quality="auto" fetchFormat="auto" />
-            </Image>
+              src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${event.imageUrl}`}
+              alt="Event image"
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
         )}
       </article>

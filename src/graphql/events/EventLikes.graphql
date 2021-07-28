@@ -1,5 +1,8 @@
 fragment EventLikes on Event {
   id
+  creator {
+    id
+  }
   likeStatus
   likeNumber
 }
