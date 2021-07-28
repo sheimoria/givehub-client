@@ -9,4 +9,5 @@ fragment CharityHeader on Charity {
     name
   }
   followStatus
+  adminStatus
 }

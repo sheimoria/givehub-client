@@ -30,12 +30,9 @@ export default function CreateCharity() {
         name: yup.string().required('Required'),
         uen: yup.string().required('Required'),
         about: yup.string().required('Required'),
-        email: yup.string().email('Invalid').required('Required'),
+        email: yup.string().email('Invalid Email').required('Required'),
         contactNumber: yup.string().length(8, '8 Digits').required('Required'),
-        links: yup
-          .string()
-          .url('Website link must be a legitimate URL')
-          .required('Required'),
+        links: yup.string().url('Invalid URL').required('Required'),
         physicalAddress: yup.string().required('Required'),
         postalCode: yup.string().length(6, '6 Digits').required('Required')
       })

@@ -970,7 +970,7 @@ export type CharityFollowsFragment = (
 
 export type CharityHeaderFragment = (
   { __typename?: 'Charity' }
-  & Pick<Charity, 'id' | 'name' | 'followStatus'>
+  & Pick<Charity, 'id' | 'name' | 'followStatus' | 'adminStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Charityprofile' }
     & Pick<Charityprofile, 'displayPicture'>
@@ -1944,6 +1944,7 @@ export const CharityHeaderFragmentDoc = gql`
     name
   }
   followStatus
+  adminStatus
 }
     `;
 export const CharityFollowsFragmentDoc = gql`
