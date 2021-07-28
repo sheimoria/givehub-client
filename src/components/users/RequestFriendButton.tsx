@@ -1,4 +1,5 @@
 import {
+  FriendRecommendationsDocument,
   FriendRequestStatus,
   Maybe,
   UserDocument,
@@ -24,6 +25,10 @@ export default function RequestFriendButton({
       {
         query: UserDocument,
         variables: { id: parseInt(router.query.userId as string) }
+      },
+      {
+        query: FriendRecommendationsDocument,
+        variables: { limit: 4 }
       }
     ]
   })
