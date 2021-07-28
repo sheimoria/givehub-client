@@ -1,10 +1,10 @@
 query EventTasks($eventId: Int!) {
   event(id: $eventId) {
+    unassignedVolunteers {
+      ...UserHeader
+    }
     eventTasks {
-      id
-      description
-      deadline
-      createdAt
+      ...TaskHeader
       volunteersAssigned {
         ...UserHeader
       }

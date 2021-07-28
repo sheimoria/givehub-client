@@ -1,0 +1,8 @@
+mutation assignVolunteer($userId: Int!, $taskId: Int!) {
+  addVolunteerToTask(userId: $userId, taskId: $taskId) {
+    errors {
+      field
+      message
+    }
+  }
+}

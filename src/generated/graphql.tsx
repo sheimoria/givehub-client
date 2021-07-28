@@ -1,6 +1,5 @@
-import * as Apollo from '@apollo/client';
-
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -145,6 +144,7 @@ export type Event = {
   volunteerNumber: Scalars['Int'];
   eventTasks?: Maybe<Array<Task>>;
   adminStatus: Scalars['Boolean'];
+  unassignedVolunteers?: Maybe<Array<User>>;
 };
 
 export type EventInput = {
@@ -1127,24 +1127,17 @@ export type AcceptVolunteerMutation = (
   ) }
 );
 
-export type AcceptedVolunteersQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  eventIds: Array<Scalars['Int']> | Scalars['Int'];
+export type AssignVolunteerMutationVariables = Exact<{
+  userId: Scalars['Int'];
+  taskId: Scalars['Int'];
 }>;
 
 
-export type AcceptedVolunteersQuery = (
-  { __typename?: 'Query' }
-  & { getAcceptedVolunteerRequestListForEvents: (
-    { __typename?: 'PaginatedEventVolunteers' }
-    & Pick<PaginatedEventVolunteers, 'hasMore'>
-    & { items: Array<(
-      { __typename?: 'EventVolunteerContainer' }
-      & { user?: Maybe<(
-        { __typename?: 'User' }
-        & UserHeaderFragment
-      )> }
-    )>, errors?: Maybe<Array<(
+export type AssignVolunteerMutation = (
+  { __typename?: 'Mutation' }
+  & { addVolunteerToTask: (
+    { __typename?: 'TaskVolunteerResponse' }
+    & { errors?: Maybe<Array<(
       { __typename?: 'FieldError' }
       & Pick<FieldError, 'field' | 'message'>
     )>> }
@@ -1269,13 +1262,16 @@ export type EventTasksQuery = (
   { __typename?: 'Query' }
   & { event?: Maybe<(
     { __typename?: 'Event' }
-    & { eventTasks?: Maybe<Array<(
+    & { unassignedVolunteers?: Maybe<Array<(
+      { __typename?: 'User' }
+      & UserHeaderFragment
+    )>>, eventTasks?: Maybe<Array<(
       { __typename?: 'Task' }
-      & Pick<Task, 'id' | 'description' | 'deadline' | 'createdAt'>
       & { volunteersAssigned?: Maybe<Array<(
         { __typename?: 'User' }
         & UserHeaderFragment
       )>> }
+      & TaskHeaderFragment
     )>> }
   )> }
 );
@@ -1641,6 +1637,22 @@ export type CreateTaskMutation = (
       { __typename?: 'Task' }
       & TaskCardFragment
     )> }
+  ) }
+);
+
+export type DeleteTaskMutationVariables = Exact<{
+  taskId: Scalars['Int'];
+}>;
+
+
+export type DeleteTaskMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteTask: (
+    { __typename?: 'TaskResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>> }
   ) }
 );
 
@@ -2685,55 +2697,43 @@ export function useAcceptVolunteerMutation(baseOptions?: Apollo.MutationHookOpti
 export type AcceptVolunteerMutationHookResult = ReturnType<typeof useAcceptVolunteerMutation>;
 export type AcceptVolunteerMutationResult = Apollo.MutationResult<AcceptVolunteerMutation>;
 export type AcceptVolunteerMutationOptions = Apollo.BaseMutationOptions<AcceptVolunteerMutation, AcceptVolunteerMutationVariables>;
-export const AcceptedVolunteersDocument = gql`
-    query AcceptedVolunteers($limit: Int!, $eventIds: [Int!]!) {
-  getAcceptedVolunteerRequestListForEvents(
-    cursor: null
-    limit: $limit
-    eventIds: $eventIds
-  ) {
-    items {
-      user {
-        ...UserHeader
-      }
-    }
-    hasMore
+export const AssignVolunteerDocument = gql`
+    mutation assignVolunteer($userId: Int!, $taskId: Int!) {
+  addVolunteerToTask(userId: $userId, taskId: $taskId) {
     errors {
       field
       message
     }
   }
 }
-    ${UserHeaderFragmentDoc}`;
+    `;
+export type AssignVolunteerMutationFn = Apollo.MutationFunction<AssignVolunteerMutation, AssignVolunteerMutationVariables>;
 
 /**
- * __useAcceptedVolunteersQuery__
+ * __useAssignVolunteerMutation__
  *
- * To run a query within a React component, call `useAcceptedVolunteersQuery` and pass it any options that fit your needs.
- * When your component renders, `useAcceptedVolunteersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useAssignVolunteerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAssignVolunteerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useAcceptedVolunteersQuery({
+ * const [assignVolunteerMutation, { data, loading, error }] = useAssignVolunteerMutation({
  *   variables: {
- *      limit: // value for 'limit'
- *      eventIds: // value for 'eventIds'
+ *      userId: // value for 'userId'
+ *      taskId: // value for 'taskId'
  *   },
  * });
  */
-export function useAcceptedVolunteersQuery(baseOptions: Apollo.QueryHookOptions<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>) {
+export function useAssignVolunteerMutation(baseOptions?: Apollo.MutationHookOptions<AssignVolunteerMutation, AssignVolunteerMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>(AcceptedVolunteersDocument, options);
+        return Apollo.useMutation<AssignVolunteerMutation, AssignVolunteerMutationVariables>(AssignVolunteerDocument, options);
       }
-export function useAcceptedVolunteersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>(AcceptedVolunteersDocument, options);
-        }
-export type AcceptedVolunteersQueryHookResult = ReturnType<typeof useAcceptedVolunteersQuery>;
-export type AcceptedVolunteersLazyQueryHookResult = ReturnType<typeof useAcceptedVolunteersLazyQuery>;
-export type AcceptedVolunteersQueryResult = Apollo.QueryResult<AcceptedVolunteersQuery, AcceptedVolunteersQueryVariables>;
+export type AssignVolunteerMutationHookResult = ReturnType<typeof useAssignVolunteerMutation>;
+export type AssignVolunteerMutationResult = Apollo.MutationResult<AssignVolunteerMutation>;
+export type AssignVolunteerMutationOptions = Apollo.BaseMutationOptions<AssignVolunteerMutation, AssignVolunteerMutationVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($charityId: Float!, $input: EventInput!) {
   createEvent(charityId: $charityId, input: $input) {
@@ -2892,18 +2892,19 @@ export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariable
 export const EventTasksDocument = gql`
     query EventTasks($eventId: Int!) {
   event(id: $eventId) {
+    unassignedVolunteers {
+      ...UserHeader
+    }
     eventTasks {
-      id
-      description
-      deadline
-      createdAt
+      ...TaskHeader
       volunteersAssigned {
         ...UserHeader
       }
     }
   }
 }
-    ${UserHeaderFragmentDoc}`;
+    ${UserHeaderFragmentDoc}
+${TaskHeaderFragmentDoc}`;
 
 /**
  * __useEventTasksQuery__
@@ -3585,6 +3586,42 @@ export function useCreateTaskMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
 export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
+export const DeleteTaskDocument = gql`
+    mutation DeleteTask($taskId: Int!) {
+  deleteTask(taskId: $taskId) {
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type DeleteTaskMutationFn = Apollo.MutationFunction<DeleteTaskMutation, DeleteTaskMutationVariables>;
+
+/**
+ * __useDeleteTaskMutation__
+ *
+ * To run a mutation, you first call `useDeleteTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTaskMutation, { data, loading, error }] = useDeleteTaskMutation({
+ *   variables: {
+ *      taskId: // value for 'taskId'
+ *   },
+ * });
+ */
+export function useDeleteTaskMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTaskMutation, DeleteTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTaskMutation, DeleteTaskMutationVariables>(DeleteTaskDocument, options);
+      }
+export type DeleteTaskMutationHookResult = ReturnType<typeof useDeleteTaskMutation>;
+export type DeleteTaskMutationResult = Apollo.MutationResult<DeleteTaskMutation>;
+export type DeleteTaskMutationOptions = Apollo.BaseMutationOptions<DeleteTaskMutation, DeleteTaskMutationVariables>;
 export const AcceptFriendRequestDocument = gql`
     mutation AcceptFriendRequest($userId: Float!, $accept: Boolean!) {
   acceptFriendRequest(userId: $userId, accept: $accept) {

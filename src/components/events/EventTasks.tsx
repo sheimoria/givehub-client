@@ -1,12 +1,8 @@
-import { PlusIcon, UserGroupIcon } from '@heroicons/react/outline'
-import {
-  useAcceptedVolunteersQuery,
-  useEventTasksQuery
-} from 'generated/graphql'
-
-import AssignVolunteersButton from './AssignVolunteersButton'
+import DeleteTaskButton from './DeleteTaskButton'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
+import { UserGroupIcon } from '@heroicons/react/outline'
+import { useEventTasksQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 
 export default function EventTasks() {
@@ -22,9 +18,9 @@ export default function EventTasks() {
         {data?.event?.eventTasks && data.event.eventTasks.length > 0 ? (
           data.event.eventTasks.map((task) => (
             <div key={task.id} className="flex flex-col px-5 py-3">
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex justify-between gap-3">
                 <h6>{task.description}</h6>
-                <AssignVolunteersButton />
+                <DeleteTaskButton taskId={task.id} />
               </div>
               {task.volunteersAssigned && task.volunteersAssigned.length > 0 ? (
                 <>
@@ -39,24 +35,28 @@ export default function EventTasks() {
                     {task.volunteersAssigned.map((volunteer) => (
                       <div
                         key={volunteer.id}
-                        className="flex gap-3 py-3 clickable-float"
-                        onClick={() =>
-                          router.push({
-                            pathname: '/user',
-                            query: { userId: volunteer.id }
-                          })
-                        }
+                        className="flex flex-wrap items-center justify-between gap-3"
                       >
-                        <Picture
-                          pictureId={volunteer.profile?.displayPicture}
-                          size={10}
-                        />
-                        <div className="flex flex-col">
-                          <h6>
-                            {volunteer.profile?.firstName}{' '}
-                            {volunteer.profile?.lastName}
-                          </h6>
-                          <p>@{volunteer.username}</p>
+                        <div
+                          className="flex items-center gap-3 py-3"
+                          onClick={() =>
+                            router.push({
+                              pathname: '/user',
+                              query: { userId: volunteer.id }
+                            })
+                          }
+                        >
+                          <Picture
+                            pictureId={volunteer.profile?.displayPicture}
+                            size={10}
+                          />
+                          <div className="flex flex-col">
+                            <h6>
+                              {volunteer.profile?.firstName}{' '}
+                              {volunteer.profile?.lastName}
+                            </h6>
+                            <p>@{volunteer.username}</p>
+                          </div>
                         </div>
                       </div>
                     ))}

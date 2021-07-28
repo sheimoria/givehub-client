@@ -1,0 +1,8 @@
+mutation DeleteTask($taskId: Int!) {
+  deleteTask(taskId: $taskId) {
+    errors {
+      field
+      message
+    }
+  }
+}

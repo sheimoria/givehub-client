@@ -1,7 +1,8 @@
-import AcceptedVolunteers from 'components/events/AcceptedVolunteers'
+import AcceptedVolunteers from 'components/events/UnassignedVolunteers'
 import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import CreateTaskButton from 'components/tasks/CreateTaskButton'
+import CreateTelegramButton from 'components/events/CreateTelegramButton'
 import Event from 'components/events/EventCard'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
@@ -11,7 +12,6 @@ import YourEvents from 'components/users/YourEvents'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
-import CreateTelegramButton from 'components/events/CreateTelegramButton'
 
 export default withAuth(function ViewEvent({ me }) {
   const router = useRouter()

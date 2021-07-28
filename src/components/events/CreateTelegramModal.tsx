@@ -21,15 +21,13 @@ export default function CreateTelegramModal({
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object({
-        name: yup.string().required('Required'),
-        description: yup.string().required('Required'),
-        dateStart: yup.date().required('Required'),
-        dateEnd: yup.date().required('Required'),
-        venue: yup.string().required('Required')
+        groupName: yup.string().required('Required'),
+        groupDescription: yup.string().required('Required')
       })
     )
   })
@@ -42,15 +40,16 @@ export default function CreateTelegramModal({
   }
 
   async function handleCreateTelegram(data: FormData) {
-    const formResponse = await createTelegram({
+    const response = await createTelegram({
       variables: {
         eventId: parseInt(router.query.eventId as string),
         ...data
       }
     })
-    if (formResponse.data?.createTelegramGroupForEvent?.errors) {
-      return formResponse.data?.createTelegramGroupForEvent?.errors.map(
-        (error) => <p key={error.field}>{error.message}</p>
+    if (response.data?.createTelegramGroupForEvent?.errors) {
+      response.data?.createTelegramGroupForEvent?.errors.forEach(
+        ({ field, message }) =>
+          setError(field, { type: 'manual', message: message })
       )
     } else {
       toggleIsOpen()
