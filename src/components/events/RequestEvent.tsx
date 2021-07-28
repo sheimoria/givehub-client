@@ -17,7 +17,11 @@ export default function RequestEvent({
 
   return (
     <div className="flex gap-2">
-      {event.approvalStatus === AdminApproval.Approved ? (
+      {event.adminStatus ? (
+        <button className="px-3 py-1 text-xs pointer-events-none button-outline">
+          Admin
+        </button>
+      ) : event.approvalStatus === AdminApproval.Approved ? (
         <button className="px-3 py-1 text-xs pointer-events-none button-outline">
           RSVP Approved
         </button>

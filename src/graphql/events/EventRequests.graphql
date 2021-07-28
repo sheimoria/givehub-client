@@ -2,4 +2,5 @@ fragment EventRequests on Event {
   id
   approvalStatus
   volunteerNumber
+  adminStatus
 }

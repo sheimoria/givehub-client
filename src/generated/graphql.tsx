@@ -1245,7 +1245,7 @@ export type EventLikesFragment = (
 
 export type EventRequestsFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'approvalStatus' | 'volunteerNumber'>
+  & Pick<Event, 'id' | 'approvalStatus' | 'volunteerNumber' | 'adminStatus'>
 );
 
 export type EventSnippetFragment = (
@@ -2007,6 +2007,7 @@ export const EventRequestsFragmentDoc = gql`
   id
   approvalStatus
   volunteerNumber
+  adminStatus
 }
     `;
 export const EventCardFragmentDoc = gql`

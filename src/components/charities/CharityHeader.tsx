@@ -6,7 +6,7 @@ import {
 } from 'generated/graphql'
 
 import Picture from 'components/Picture'
-import { PlusIcon } from '@heroicons/react/solid'
+import { PlusSmIcon } from '@heroicons/react/solid'
 import router from 'next/router'
 
 export default function CharityHeader({
@@ -55,7 +55,7 @@ export default function CharityHeader({
         <button className="px-3 py-1 button-outline">Following</button>
       ) : (
         <button onClick={() => followCharity()} className="gap-1 px-3 py-1">
-          <PlusIcon className="text-white dark:text-white" />
+          <PlusSmIcon className="text-white dark:text-white" />
           Follow
         </button>
       )}
