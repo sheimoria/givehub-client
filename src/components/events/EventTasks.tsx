@@ -18,7 +18,7 @@ export default function EventTasks() {
         {data?.event?.eventTasks && data.event.eventTasks.length > 0 ? (
           data.event.eventTasks.map((task) => (
             <div key={task.id} className="flex flex-col px-5 py-3">
-              <div className="flex justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <h6>{task.description}</h6>
                 <DeleteTaskButton taskId={task.id} />
               </div>
