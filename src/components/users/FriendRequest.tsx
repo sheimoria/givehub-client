@@ -46,6 +46,7 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
               refetchQueries: [{ query: FriendRequestsDocument }]
             })
           }
+          className="px-3 py-1"
         >
           Accept
         </button>
