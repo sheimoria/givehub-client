@@ -24,7 +24,7 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
               {user.profile?.firstName} {user.profile?.lastName}
             </a>
           </Link>
-          <p className="truncate">@{user.username}</p>
+          <p className="text-xs truncate">@{user.username}</p>
         </div>
       </div>
       <div className="flex items-center flex-none gap-2">

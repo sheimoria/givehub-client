@@ -20,10 +20,6 @@ export default function CharityHeader({
       {
         query: CharityDocument,
         variables: { charityId: charity.id }
-      },
-      {
-        query: CharityRecommendationsDocument,
-        variables: { limit: 4 }
       }
     ]
   })
@@ -52,7 +48,12 @@ export default function CharityHeader({
           Admin
         </button>
       ) : charity.followStatus === 1 ? (
-        <button className="px-3 py-1 button-outline">Following</button>
+        <button
+          className="px-3 py-1 button-outline"
+          onClick={() => followCharity()}
+        >
+          Following
+        </button>
       ) : (
         <button onClick={() => followCharity()} className="gap-1 px-3 py-1">
           <PlusSmIcon className="text-white dark:text-white" />

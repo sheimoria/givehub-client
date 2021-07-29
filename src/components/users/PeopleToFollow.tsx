@@ -11,7 +11,7 @@ export default function PeopleToFollow() {
 
   return (
     <Transit as="dl">
-      <h5>People to Follow</h5>
+      <h5>People with Similar Interests</h5>
       <div className="divide">
         {data &&
           data.userRecommender?.items.map((user: UserHeaderFragment) => (
