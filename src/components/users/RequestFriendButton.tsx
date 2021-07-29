@@ -1,12 +1,9 @@
 import {
-  FriendRecommendationsDocument,
   FriendRequestStatus,
   UserDocument,
   UserFriendFragment,
   useRequestFriendMutation
 } from 'generated/graphql'
-
-import router from 'next/router'
 
 type Props = {
   user: UserFriendFragment
@@ -36,7 +33,16 @@ export default function RequestFriendButton({ user, className }: Props) {
           Friends
         </button>
       )
-    case FriendRequestStatus.User1Req || FriendRequestStatus.User2Req:
+    case FriendRequestStatus.User1Req:
+      return (
+        <button
+          onClick={() => requestFriend()}
+          className={`button-outline ${className}`}
+        >
+          Requested
+        </button>
+      )
+    case FriendRequestStatus.User2Req:
       return (
         <button
           onClick={() => requestFriend()}
