@@ -1,7 +1,6 @@
 import {
   CharityDocument,
   CharityHeaderFragment,
-  CharityRecommendationsDocument,
   useFollowCharityMutation
 } from 'generated/graphql'
 

@@ -10,8 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: 'Inter var',
-        display: 'Gilroy'
+        sans: 'neue-haas-grotesk-text',
+        display: 'neue-haas-grotesk-display'
       },
       colors: {
         rose: colors.rose,
