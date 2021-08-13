@@ -8,16 +8,16 @@
     @apply bg-rose-50 dark:bg-gray-900;
   }
   #__next {
-    @apply flex flex-col min-h-screen mx-auto max-w-7xl;
+    @apply flex flex-col min-h-screen;
   }
   header {
-    @apply p-5;
+    @apply fixed z-10 w-full px-6 py-4 bg-rose-500;
   }
   nav {
-    @apply flex items-center justify-between gap-5;
+    @apply flex items-center justify-between gap-6 mx-auto max-w-7xl;
   }
   main {
-    @apply flex flex-col flex-auto gap-3;
+    @apply flex flex-col flex-auto gap-3 mx-auto max-w-7xl;
   }
   aside {
     @apply hidden;
