@@ -26,7 +26,7 @@ export default function SearchBar() {
       <div className="relative">
         <input
           {...register('search')}
-          className="w-full pl-10 bg-white rounded-full shadow-sm dark:bg-gray-800"
+          className="w-full px-10 py-2 text-gray-700 rounded-full dark:text-gray-200 focus:outline-none"
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
         />

@@ -12,16 +12,29 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
     <header>
       <nav>
         <Link href="/home" passHref>
-          <div className="hidden md:flex md:flex-none w-44">
-            <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
+          <div className="relative hidden h-9 md:block w-44">
+            <Image
+              src="/logo.svg"
+              alt="Givehub"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="left"
+              priority
+            />
           </div>
         </Link>
-        <Link href="/" passHref>
-          <div className="flex flex-none md:hidden">
-            <Image src="/logo-lite.svg" alt="Givehub" height={36} width={36} />
+        <Link href="/home" passHref>
+          <div className="relative w-9 md:hidden h-9">
+            <Image
+              src="/logo-lite.svg"
+              alt="Givehub"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="left"
+              priority
+            />
           </div>
         </Link>
-
         {me ? (
           <>
             <Search />
