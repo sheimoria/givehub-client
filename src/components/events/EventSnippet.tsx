@@ -1,7 +1,7 @@
 import Datetime from 'components/events/Datetime'
 import { EventSnippetFragment } from 'generated/graphql'
-import Link from 'next/link'
 import Venue from 'components/events/Venue'
+import router from 'next/router'
 
 export default function EventSnippet({
   event
@@ -9,9 +9,17 @@ export default function EventSnippet({
   event: EventSnippetFragment
 }) {
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      onClick={() =>
+        router.push({
+          pathname: `/event`,
+          query: { eventId: event.id }
+        })
+      }
+      className="flex flex-col gap-2 cursor-pointer"
+    >
       <div className="flex flex-col">
-        <h6>{event.name}</h6>
+        <h5 className="truncate">{event.name}</h5>
         <p>{event.charity.name}</p>
       </div>
       <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />

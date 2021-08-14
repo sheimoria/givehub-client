@@ -35,9 +35,6 @@ export default function Navigation() {
       <Transit>
         <div className="flex flex-col gap-3 divide">
           <div className="flex flex-col gap-2">
-            <h6 className="pl-5 text-xs tracking-widest text-gray-700 uppercase dark:text-gray-200">
-              Posts
-            </h6>
             {/* Home */}
             <Link
               href={{
@@ -59,9 +56,6 @@ export default function Navigation() {
                 Home
               </a>
             </Link>
-            <h6 className="pt-3 pl-5 text-xs tracking-widest text-gray-700 uppercase dark:text-gray-200">
-              Events
-            </h6>
             {/* Trending, Upcoming */}
             {sorts.map((sort) => (
               <Link

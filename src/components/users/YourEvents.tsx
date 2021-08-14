@@ -13,8 +13,8 @@ export default function UserEvents() {
   const router = useRouter()
 
   return (
-    <Transit as="dl" className="gap-3 pb-5">
-      <h5>Your Events</h5>
+    <Transit as="dl">
+      <h4>Your Events</h4>
       {data?.viewTasksAssignedToMe?.eventContainers &&
       data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
         data.viewTasksAssignedToMe.eventContainers.map(
@@ -22,19 +22,10 @@ export default function UserEvents() {
             event: EventSnippetFragment
             tasks: TaskHeaderFragment[]
           }) => (
-            <Transit
+            <EventSnippet
               key={eventContainer.event.id}
-              as="article"
-              className="clickable-float"
-              onClick={() =>
-                router.push({
-                  pathname: `/event`,
-                  query: { eventId: eventContainer.event.id }
-                })
-              }
-            >
-              <EventSnippet event={eventContainer.event} />
-            </Transit>
+              event={eventContainer.event}
+            />
           )
         )
       ) : (
