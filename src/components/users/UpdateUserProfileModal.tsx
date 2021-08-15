@@ -146,11 +146,11 @@ export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleUpdateUserProfile}
-                className="modal"
+                className="mx-auto modal"
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Update User Profile</Dialog.Title>
@@ -210,7 +210,7 @@ export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
                     className="btn-primary"
                   >
                     {isSubmitting ? (
-                      <div className="w-5 h-5 border-4 rounded-full border-t-white border-rose-100 animate-spin" />
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
                     ) : (
                       <RefreshIcon />
                     )}
