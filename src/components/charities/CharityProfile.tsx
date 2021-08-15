@@ -18,7 +18,7 @@ export default function CharityProfile({
   charity: CharityProfileFragment
 }) {
   return (
-    <Transit onEveryMount as="article" className="place-items-start">
+    <Transit onEveryMount as="article" className="px-6 pb-6 place-items-start">
       <div className="flex items-center gap-4">
         <div className="relative flex-none w-24 h-24 overflow-hidden rounded-full">
           {charity.profile?.displayPicture ? (

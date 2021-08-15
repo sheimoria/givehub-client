@@ -3,7 +3,7 @@ import {
   IdentificationIcon,
   UserGroupIcon,
   UsersIcon
-} from '@heroicons/react/solid'
+} from '@heroicons/react/outline'
 import Image from 'next/image'
 import RequestFriend from 'components/users/RequestFriendButton'
 import UpdateUserProfileButton from 'components/users/UpdateUserProfileButton'
@@ -19,7 +19,7 @@ import Transit from 'components/Transit'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
-    <Transit onEveryMount as="article" className="place-items-start">
+    <Transit onEveryMount as="article" className="px-6 pb-6 place-items-start">
       <div className="relative flex-none w-24 h-24 overflow-hidden rounded-full place-self-center">
         {user.profile?.displayPicture ? (
           <Image

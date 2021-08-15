@@ -16,7 +16,11 @@ export default function Checkbox({
 }: CheckboxProps) {
   return (
     <div className="flex items-center gap-3">
-      <input type="checkbox" {...register(name)} />
+      <input
+        type="checkbox"
+        {...register(name)}
+        className="p-2 transition-colors bg-gray-100 border-none rounded dark:bg-gray-700 text-rose-600 focus:ring-0 focus:outline-none focus:ring-offset-0"
+      />
       <label htmlFor={name} className="font-normal">
         {label}
       </label>
