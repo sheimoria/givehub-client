@@ -28,9 +28,10 @@ export default function Footer() {
           </a>
         </p>
         <div className="flex gap-4">
-          <span onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            <MoonIcon className="w-5 h-5 text-rose-600 dark:text-rose-600" />
-          </span>
+          <MoonIcon
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="transition-colors cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
+          />
           <a
             href="https://github.com/sheimoria/givehub-next-client"
             target="_blank"
@@ -38,7 +39,7 @@ export default function Footer() {
           >
             <span className="sr-only">GitHub</span>
             <svg
-              className="w-5 h-5 text-rose-600 dark:text-rose-600"
+              className="transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
