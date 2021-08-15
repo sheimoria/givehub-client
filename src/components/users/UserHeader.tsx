@@ -22,7 +22,9 @@ export default function UserHeader({ user }: { user: UserHeaderFragment }) {
           <h6 className="truncate hover:text-gray-800 dark:hover:text-gray-100">
             {user.profile?.firstName} {user.profile?.lastName}
           </h6>
-          <p className="text-xs truncate">@{user.username}</p>
+          <span className="text-xs truncate text-rose-600">
+            @{user.username}
+          </span>
         </div>
       </div>
       <RequestFriendButton user={filter(UserFriendFragmentDoc, user)} />

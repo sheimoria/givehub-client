@@ -31,7 +31,7 @@ export default function RequestFriendButton({ user, className }: Props) {
       return (
         <button
           onClick={() => requestFriend()}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+          className="px-4 py-2 text-sm font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200"
         >
           <UsersIcon />
           Friends
@@ -59,10 +59,7 @@ export default function RequestFriendButton({ user, className }: Props) {
       return <button className={`button-outline ${className}`}>Blocked</button>
     default:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-        >
+        <button onClick={() => requestFriend()} className="btn-primary">
           <UserAddIcon />
           Request
         </button>

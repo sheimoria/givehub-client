@@ -24,52 +24,45 @@ type EventProps = {
 export default function EventCard({ event, lineclamp }: EventProps) {
   const router = useRouter()
   return (
-    <Transit onEveryMount>
-      <article className="gap-0 p-0">
-        <div className="flex flex-col gap-3 px-5 pt-5 pb-3">
-          <div className="flex justify-between gap-3">
-            <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
-            <div className="flex gap-2">
-              {event.adminStatus && (
-                <UpdateDeleteEventButton
-                  event={filter(EventInfoFragmentDoc, event)}
-                />
-              )}
-              <ShareEvent event={filter(EventInfoFragmentDoc, event)} />
-            </div>
-          </div>
-          <div
-            onClick={() =>
-              router.push({ pathname: '/event', query: { eventId: event.id } })
-            }
-            className="cursor-pointer"
-          >
-            <p className={lineclamp ? 'line-clamp-3' : ''}>
-              {event.description}
-            </p>
-          </div>
-        </div>
-        {event.imageUrl && (
-          <div
-            className="relative mb-3 border-l-0 border-r-0 cursor-pointer h-96 bordered"
-            onClick={() =>
-              router.push({ pathname: '/event', query: { eventId: event.id } })
-            }
-          >
-            <Image
-              src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${event.imageUrl}`}
-              alt="Event image"
-              layout="fill"
-              objectFit="cover"
-              
+    <Transit onEveryMount as="article">
+      <div className="flex justify-between gap-4">
+        <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
+        <div className="flex gap-2">
+          {event.adminStatus && (
+            <UpdateDeleteEventButton
+              event={filter(EventInfoFragmentDoc, event)}
             />
-          </div>
-        )}
-        <div className="flex items-center gap-3 px-5 pb-5">
-          <LikeEvent event={filter(EventLikesFragmentDoc, event)} />
-          <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />
+          )}
+          <ShareEvent event={filter(EventInfoFragmentDoc, event)} />
         </div>
-      </article>
+      </div>
+      <p
+        onClick={() =>
+          router.push({ pathname: '/event', query: { eventId: event.id } })
+        }
+        className={`${lineclamp ? 'line-clamp-3' : ''} cursor-pointer`}
+      >
+        {event.description}
+      </p>
+      {event.imageUrl && (
+        <div
+          className="relative overflow-hidden rounded-md cursor-pointer h-80"
+          onClick={() =>
+            router.push({ pathname: '/event', query: { eventId: event.id } })
+          }
+        >
+          <Image
+            src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${event.imageUrl}`}
+            alt="Event image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      )}
+      <div className="flex items-center gap-4">
+        <LikeEvent event={filter(EventLikesFragmentDoc, event)} />
+        <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />
+      </div>
     </Transit>
   )
 }

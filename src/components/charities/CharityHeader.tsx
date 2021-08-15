@@ -64,10 +64,7 @@ export default function CharityHeader({
           Following
         </button>
       ) : (
-        <button
-          onClick={() => followCharity()}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-        >
+        <button onClick={() => followCharity()} className="btn-primary">
           <UserAddIcon />
           Follow
         </button>
