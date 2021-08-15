@@ -30,7 +30,7 @@ export default function Body({ title, me, aside, children }: Props) {
         {me && (
           <>
             <aside className="flex-none w-96 lg:block">
-              <div className="sticky flex flex-col gap-3 top-5">{aside}</div>
+              <div className="sticky flex flex-col gap-6 top-24">{aside}</div>
             </aside>
           </>
         )}

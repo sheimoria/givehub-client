@@ -21,7 +21,6 @@ export default function PostCardComments({ postId }: { postId: number }) {
                 query: { userId: comment.author?.id }
               })
             }
-            className="mt-4 cursor-pointer"
           />
           <div className="flex flex-col flex-1 gap-2 p-4 bg-gray-100 rounded-md dark:bg-gray-700">
             <div>

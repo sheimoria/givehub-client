@@ -20,7 +20,7 @@ export default function VolunteerRequest({
   return (
     <div className="flex flex-wrap justify-between gap-3 py-3">
       <div className="flex items-center gap-3">
-        <Picture pictureId={user.profile?.displayPicture} size={10} />
+        <Picture pictureId={user.profile?.displayPicture} />
         <div className="flex flex-col">
           <Link
             href={{

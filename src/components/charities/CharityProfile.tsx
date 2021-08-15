@@ -25,7 +25,7 @@ export default function CharityProfile({
       <div className="flex justify-between gap-3">
         <div className="flex items-center gap-3">
           {/* Display Picture */}
-          <Picture pictureId={charity.profile?.displayPicture} size={16} />
+          <Picture pictureId={charity.profile?.displayPicture} />
           <div className="flex flex-col items-start gap-1">
             {/* Name */}
             <h5>{charity.name}</h5>

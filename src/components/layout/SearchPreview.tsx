@@ -61,7 +61,7 @@ export default function SearchPreview({
                   })
                 }
               >
-                <Picture pictureId={user.profile?.displayPicture} size={10} />
+                <Picture pictureId={user.profile?.displayPicture} />
                 <div className="flex flex-col">
                   <h6>
                     {user.profile?.firstName} {user.profile?.lastName}
@@ -89,10 +89,7 @@ export default function SearchPreview({
                     })
                   }
                 >
-                  <Picture
-                    pictureId={charity.profile?.displayPicture}
-                    size={10}
-                  />
+                  <Picture pictureId={charity.profile?.displayPicture} />
                   <div className="flex flex-col gap-1">
                     <h6>{charity.name}</h6>
                     <div className="flex gap-2 truncate">

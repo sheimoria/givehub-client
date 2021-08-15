@@ -1,7 +1,8 @@
-import Datetime from 'components/events/Datetime'
 import { EventSnippetFragment } from 'generated/graphql'
 import Venue from 'components/events/Venue'
 import router from 'next/router'
+import { ClockIcon } from '@heroicons/react/outline'
+import { formatDistanceToNow } from 'date-fns'
 
 export default function EventSnippet({
   event
@@ -22,8 +23,10 @@ export default function EventSnippet({
         <h5 className="truncate">{event.name}</h5>
         <p>{event.charity.name}</p>
       </div>
-      <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
-      <Venue venue={event.venue} />
+      <div className="flex items-center gap-2">
+        <ClockIcon className="text-rose-600" />
+        <p>In {formatDistanceToNow(parseInt(event.dateStart))}</p>
+      </div>
     </div>
   )
 }

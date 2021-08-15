@@ -51,10 +51,7 @@ export default withAuth(function Home({ me }) {
               <div className="-my-3 divide">
                 {users.searchUsers.items.map((user) => (
                   <div key={user.id} className="flex gap-3 py-3">
-                    <Picture
-                      pictureId={user.profile?.displayPicture}
-                      size={10}
-                    />
+                    <Picture pictureId={user.profile?.displayPicture} />
                     <div className="flex flex-col">
                       <Link
                         href={{
@@ -80,10 +77,7 @@ export default withAuth(function Home({ me }) {
                 {charities.searchCharities.items.map(
                   (charity: CharityHeaderFragment) => (
                     <div key={charity.id} className="flex gap-3 py-3">
-                      <Picture
-                        pictureId={charity.profile?.displayPicture}
-                        size={10}
-                      />
+                      <Picture pictureId={charity.profile?.displayPicture} />
                       <div className="flex flex-col">
                         <Link
                           href={{

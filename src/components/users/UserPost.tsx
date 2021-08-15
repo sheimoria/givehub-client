@@ -11,7 +11,7 @@ export default function UserPost({ user }: { user: UserPictureFragment }) {
     <>
       <Transit>
         <article className="flex-row">
-          <Picture pictureId={user.profile?.displayPicture} size={10} />
+          <Picture pictureId={user.profile?.displayPicture} />
           <span
             onClick={() => setIsOpen(true)}
             className="flex items-center flex-auto px-4 text-sm text-gray-400 transition bg-gray-100 rounded-full bordered dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"

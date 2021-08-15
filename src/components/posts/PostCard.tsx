@@ -32,7 +32,7 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
   return (
     <Transit as="article">
       <div className="flex justify-between gap-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Picture pictureId={post.creator.profile?.displayPicture} />
           <div className="flex flex-col">
             <Link

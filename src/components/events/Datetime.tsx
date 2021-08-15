@@ -9,7 +9,7 @@ type Props = {
 export default function Datetime({ dateStart, dateEnd }: Props) {
   return (
     <div className="flex items-center gap-2">
-      <CalendarIcon className="text-rose-400 dark:text-rose-500" />
+      <CalendarIcon className="text-rose-600" />
       <p>
         {formatDatetime(dateStart)} — {formatDatetime(dateEnd)}
       </p>

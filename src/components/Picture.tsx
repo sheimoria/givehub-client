@@ -1,28 +1,16 @@
-import { Image as CImage, Transformation } from 'cloudinary-react'
-
 import Image from 'next/image'
 import { Maybe } from 'generated/graphql'
 
 type Props = {
   pictureId: Maybe<string> | undefined
-  size?: number
   onClick?: () => void
-  className?: string
 }
 
-export default function Picture({
-  pictureId,
-  size,
-  onClick,
-  className
-}: Props) {
+export default function Picture({ pictureId, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className={
-        `relative overflow-hidden rounded-full bordered h-12 w-12 flex-none flex` +
-        className
-      }
+      className={'relative overflow-hidden rounded-full h-11 w-11 flex-none'}
     >
       {pictureId ? (
         <Image

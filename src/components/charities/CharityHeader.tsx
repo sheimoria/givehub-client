@@ -34,7 +34,7 @@ export default function CharityHeader({
           })
         }
       >
-        <Picture pictureId={charity.profile?.displayPicture} size={10} />
+        <Picture pictureId={charity.profile?.displayPicture} />
         <div className="flex flex-col">
           <h6>{charity.name}</h6>
           <p className="text-xs text-rose-600 dark:text-rose-600">

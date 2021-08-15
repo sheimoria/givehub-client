@@ -26,12 +26,12 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
         {me ? (
           <>
             <Search />
-            <div className="flex items-center justify-end flex-none gap-5 lg:w-96">
+            <div className="flex justify-end flex-none lg:w-96">
               <Avatar me={me} />
             </div>
           </>
         ) : (
-          <div className="flex items-center flex-none gap-5">
+          <div className="flex items-center flex-none gap-6">
             <Link href="/">
               <a>Log in</a>
             </Link>
