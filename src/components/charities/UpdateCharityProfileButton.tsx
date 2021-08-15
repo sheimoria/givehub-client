@@ -11,10 +11,10 @@ export default function UpdateCharityProfileButton({
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <PencilAltIcon
-        className="clickable-scale"
-        onClick={() => setIsOpen(true)}
-      />
+      <button onClick={() => setIsOpen(true)} className="btn-secondary">
+        <PencilAltIcon />
+        Update Profile
+      </button>
       {isOpen && (
         <UpdateCharityProfileModal setIsOpen={setIsOpen} charity={charity} />
       )}

@@ -1,3 +1,4 @@
+import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import {
   CharityDocument,
   Maybe,
@@ -22,10 +23,14 @@ export default function FollowCharity({
   })
 
   return followStatus === 1 ? (
-    <button onClick={() => follow()} className="button-outline">
+    <button onClick={() => follow()} className="btn-secondary">
+      <UsersIcon />
       Following
     </button>
   ) : (
-    <button onClick={() => follow()}>Follow</button>
+    <button onClick={() => follow()} className="btn-primary">
+      <UserAddIcon />
+      Follow
+    </button>
   )
 }
