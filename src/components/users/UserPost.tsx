@@ -9,16 +9,14 @@ export default function UserPost({ user }: { user: UserPictureFragment }) {
 
   return (
     <>
-      <Transit>
-        <article className="flex-row">
-          <Picture pictureId={user.profile?.displayPicture} />
-          <span
-            onClick={() => setIsOpen(true)}
-            className="flex items-center flex-auto px-4 text-sm text-gray-400 transition bg-gray-100 rounded-full bordered dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-          >
-            New Post
-          </span>
-        </article>
+      <Transit as="article" className="flex-row items-center">
+        <Picture pictureId={user.profile?.displayPicture} />
+        <span
+          onClick={() => setIsOpen(true)}
+          className="flex flex-auto text-sm text-gray-500 cursor-pointer hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+        >
+          New Post &hellip;
+        </span>
       </Transit>
       {isOpen && <CreatePostModal setIsOpen={setIsOpen} />}
     </>
