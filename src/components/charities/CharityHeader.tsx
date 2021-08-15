@@ -7,6 +7,12 @@ import {
 import Picture from 'components/Picture'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import router from 'next/router'
+import React from 'react'
+import {
+  IdentificationIcon,
+  UserAddIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 
 export default function CharityHeader({
   charity
@@ -24,9 +30,9 @@ export default function CharityHeader({
   })
 
   return (
-    <div className="flex items-center justify-between gap-3 py-3">
+    <div className="flex items-center justify-between gap-4">
       <div
-        className="flex items-center gap-3 clickable-float"
+        className="flex items-center gap-3 cursor-pointer"
         onClick={() =>
           router.push({
             pathname: '/charity',
@@ -36,27 +42,34 @@ export default function CharityHeader({
       >
         <Picture pictureId={charity.profile?.displayPicture} />
         <div className="flex flex-col">
-          <h6>{charity.name}</h6>
+          <h6 className="hover:text-gray-800 dark:hover:text-gray-100">
+            {charity.name}
+          </h6>
           <p className="text-xs text-rose-600 dark:text-rose-600">
             {charity.categories[0].name} &hellip;
           </p>
         </div>
       </div>
       {charity.adminStatus ? (
-        <button className="px-3 py-1 pointer-events-none button-outline">
+        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md pointer-events-none bg-rose-100 text-rose-600">
+          <IdentificationIcon />
           Admin
         </button>
       ) : charity.followStatus === 1 ? (
         <button
-          className="px-3 py-1 button-outline"
           onClick={() => followCharity()}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         >
+          <UsersIcon />
           Following
         </button>
       ) : (
-        <button onClick={() => followCharity()} className="gap-1 px-3 py-1">
-          <PlusSmIcon className="text-white dark:text-white" />
-          Follow
+        <button
+          onClick={() => followCharity()}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+        >
+          <UserAddIcon />
+          Request
         </button>
       )}
     </div>
