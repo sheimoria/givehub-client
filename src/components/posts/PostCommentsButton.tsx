@@ -13,7 +13,7 @@ export default function PostCommentsButton({
     <div className="flex gap-2">
       <ChatAltIcon
         onClick={() => toggleComments()}
-        className="clickable-scale"
+        className="text-gray-500 cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
       />
       <p>{commentNumber}</p>
     </div>

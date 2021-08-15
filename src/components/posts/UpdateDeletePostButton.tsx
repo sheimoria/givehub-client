@@ -1,7 +1,7 @@
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { PostInfoFragment } from 'generated/graphql'
-import { useState } from 'react'
 import UpdateDeletePostModal from './UpdateDeletePostModal'
+import { useState } from 'react'
 
 export default function UpdateDeletePostButton({
   post
@@ -11,10 +11,7 @@ export default function UpdateDeletePostButton({
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <PencilAltIcon
-        className="clickable-scale"
-        onClick={() => setIsOpen(true)}
-      />
+      <PencilAltIcon className="clickable" onClick={() => setIsOpen(true)} />
       {isOpen && <UpdateDeletePostModal setIsOpen={setIsOpen} post={post} />}
     </>
   )

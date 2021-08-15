@@ -37,7 +37,7 @@ export default function PostCardCommentInput({
   return (
     <>
       {data && (
-        <Transit onEveryMount as="div" className="flex gap-3">
+        <Transit onEveryMount as="div" className="flex gap-4">
           <Picture pictureId={data.me?.profile?.displayPicture} />
           <Form
             handleSubmit={handleSubmit}
@@ -56,7 +56,7 @@ export default function PostCardCommentInput({
                 ]
               })
             }
-            className="flex-row flex-auto p-0 border-none shadow-none bg-none dark:bg-none dark:border-none"
+            className="flex items-center flex-1 gap-4"
           >
             <Input
               name="comment"
@@ -65,7 +65,7 @@ export default function PostCardCommentInput({
               placeholder="Add Comment..."
               register={register}
               errors={errors.comment}
-              className="px-4 rounded-full"
+              className="w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 rounded-full dark:placeholder-gray-500 dark:text-gray-200 dark:bg-gray-700 focus:outline-none"
             />
             <FormButton label="Add" isSubmitting={isSubmitting} />
           </Form>

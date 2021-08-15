@@ -12,21 +12,9 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
     <header>
       <nav>
         <Link href="/home" passHref>
-          <div className="relative hidden h-9 md:block w-44">
+          <div className="relative w-9 h-9 sm:w-44">
             <Image
               src="/logo.svg"
-              alt="Givehub"
-              layout="fill"
-              objectFit="contain"
-              objectPosition="left"
-              priority
-            />
-          </div>
-        </Link>
-        <Link href="/home" passHref>
-          <div className="relative w-9 md:hidden h-9">
-            <Image
-              src="/logo-lite.svg"
               alt="Givehub"
               layout="fill"
               objectFit="contain"

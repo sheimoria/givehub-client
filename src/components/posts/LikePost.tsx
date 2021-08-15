@@ -17,12 +17,12 @@ export default function LikePost({
       {likePost.likeStatus ? (
         <ThumbUpIcon
           onClick={() => like()}
-          className="clickable-scale text-rose-600 dark:text-rose-600"
+          className="cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
         />
       ) : (
         <ThumbUpIconOutline
           onClick={() => like()}
-          className="clickable-scale"
+          className="text-gray-500 cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
         />
       )}
       <p>{likePost.likeNumber}</p>

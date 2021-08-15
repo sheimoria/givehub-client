@@ -31,7 +31,7 @@ export default function Navigation() {
   const router = useRouter()
 
   return (
-    <div className="sticky w-44 top-5">
+    <div className="sticky w-44 top-24">
       <Transit>
         <div className="flex flex-col gap-3 divide">
           <div className="flex flex-col gap-2">

@@ -10,9 +10,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="stylesheet" href="https://use.typekit.net/ifo7xry.css" />
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

@@ -178,11 +178,7 @@ export default function CreateEventModal({
                   >
                     Cancel
                   </button>
-                  <FormButton
-                    label="Create"
-                    isSubmitting={isSubmitting}
-                    className="flex-auto"
-                  />
+                  <FormButton label="Create" isSubmitting={isSubmitting} />
                 </div>
               </Form>
             </div>

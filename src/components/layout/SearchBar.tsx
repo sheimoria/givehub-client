@@ -18,7 +18,7 @@ export default function SearchBar() {
     <Form
       handleSubmit={handleSubmit}
       onSubmit={() => null}
-      className="relative flex-1 p-0 bg-transparent border-none shadow-none dark:bg-transparent"
+      className="relative flex-1"
     >
       <label htmlFor="search" className="sr-only">
         Search
@@ -26,11 +26,11 @@ export default function SearchBar() {
       <div className="relative">
         <input
           {...register('search')}
-          className="w-full px-10 py-2 text-sm text-gray-700 rounded-full dark:text-gray-200 focus:outline-none"
+          className="w-full px-12 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-full dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-600"
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 pointer-events-none dark:text-gray-500">
           <SearchIcon aria-hidden="true" />
         </div>
       </div>

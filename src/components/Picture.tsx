@@ -20,7 +20,7 @@ export default function Picture({
     <div
       onClick={onClick}
       className={
-        `relative overflow-hidden rounded-full bordered h-10 w-10 flex-none flex` +
+        `relative overflow-hidden rounded-full bordered h-12 w-12 flex-none flex` +
         className
       }
     >

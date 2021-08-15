@@ -108,11 +108,7 @@ export default function CreateTelegramModal({
                   register={register}
                   errors={errors.groupDescription}
                 />
-                <FormButton
-                  label="Create"
-                  isSubmitting={isSubmitting}
-                  className="flex-auto"
-                />
+                <FormButton label="Create" isSubmitting={isSubmitting} />
               </Form>
             </div>
           </Transition.Child>

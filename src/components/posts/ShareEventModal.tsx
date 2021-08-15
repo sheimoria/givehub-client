@@ -115,11 +115,7 @@ export default function ShareEventModal({
                   className="p-0 px-5 bg-white border-none dark:bg-gray-800 focus:ring-0"
                 />
                 <EventPreview event={event} />
-                <FormButton
-                  label="Share"
-                  isSubmitting={isSubmitting}
-                  className="mx-5"
-                />
+                <FormButton label="Share" isSubmitting={isSubmitting} />
               </Form>
             </div>
           </Transition.Child>

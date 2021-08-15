@@ -60,11 +60,7 @@ export default function AssignVolunteerButton({
           </option>
         ))}
       </select>
-      <FormButton
-        label="Assign"
-        isSubmitting={isSubmitting}
-        className="px-3 py-1"
-      />
+      <FormButton label="Assign" isSubmitting={isSubmitting} />
     </form>
   )
 }
