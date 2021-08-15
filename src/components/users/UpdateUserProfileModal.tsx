@@ -201,7 +201,7 @@ export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
                 <div />
                 <div className="flex justify-end gap-2">
                   <UploadImageButton
-                    label="Update Profile Picture"
+                    label="Upload Profile Picture"
                     setImage={setImage}
                   />
                   <button
@@ -214,7 +214,7 @@ export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
                     ) : (
                       <RefreshIcon />
                     )}
-                    Update
+                    Update Profile
                   </button>
                 </div>
               </Form>

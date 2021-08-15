@@ -147,7 +147,7 @@ export default function CreatePostModal({
                     ) : (
                       <UploadIcon />
                     )}
-                    Post
+                    Create Post
                   </button>
                 </div>
               </Form>
