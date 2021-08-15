@@ -5,11 +5,9 @@ import {
   useAssignVolunteerMutation
 } from 'generated/graphql'
 
-import FormButton from 'components/forms/FormButton'
 import router from 'next/router'
 import { useForm } from 'react-hook-form'
-import { ClipboardIcon, UserAddIcon } from '@heroicons/react/outline'
-import React from 'react'
+import { UserAddIcon } from '@heroicons/react/outline'
 
 type Props = {
   userId: number

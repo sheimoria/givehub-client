@@ -11,7 +11,7 @@ export default function CreateEventButton() {
       <Transit
         as="button"
         onClick={toggleIsOpen}
-        className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-white transition-colors rounded-lg bg-rose-600 hover:bg-rose-700"
+        className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-white transition-colors rounded-lg bg-rose-600 hover:bg-rose-700"
       >
         <CalendarIcon />
         Create Event
