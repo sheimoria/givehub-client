@@ -12,7 +12,7 @@ type Props = {
 
 export default function EventPreview({ event }: Props) {
   return (
-    <Transit onEveryMount as="article" className="overflow-hidden bordered">
+    <Transit onEveryMount as="article" className="pb-6 bordered">
       <section className="px-6">
         <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
         <p

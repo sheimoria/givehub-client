@@ -105,7 +105,7 @@
     @apply flex items-center gap-2 px-5 py-3 text-sm font-medium;
   }
   .nav-active {
-    @apply text-sm text-gray-700 transition-colors bg-white rounded-lg hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 dark:bg-gray-800;
+    @apply text-sm text-gray-700 transition-colors bg-white rounded-md hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 dark:bg-gray-800;
   }
   .nav-inactive {
     @apply text-sm text-gray-600 transition-colors hover:text-gray-700 dark:hover:text-gray-200 dark:text-gray-300;
@@ -155,5 +155,8 @@
   }
   .secondary {
     @apply text-gray-400 dark:text-gray-500;
+  }
+  .modal {
+    @apply flex flex-col w-full max-w-2xl gap-4 p-6 bg-white rounded-lg dark:bg-gray-800;
   }
 }
