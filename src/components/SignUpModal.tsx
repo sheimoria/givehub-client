@@ -1,17 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { ThumbUpIcon } from '@heroicons/react/outline'
+import React, { Fragment } from 'react'
 
 type Props = {
   isOpen: boolean
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
 }
 
-export default function SignUpModal({ isOpen, setIsOpen }: Props) {
+export default function SignUpModal({ isOpen, toggleIsOpen }: Props) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -35,15 +36,16 @@ export default function SignUpModal({ isOpen, setIsOpen }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <article className="z-10">
+            <article className="z-10 px-6 pb-6">
               <Dialog.Title as="h5">Sign up as user first</Dialog.Title>
               <Dialog.Description>
-                After logging in, you can add your charity to your user account.
+                After logging in, you can add your charity to your account.
               </Dialog.Description>
               <button
-                onClick={() => setIsOpen(false)}
-                className="focus:outline-none"
+                onClick={toggleIsOpen}
+                className="btn-primary focus:outline-none place-self-start"
               >
+                <ThumbUpIcon />
                 Got it
               </button>
             </article>

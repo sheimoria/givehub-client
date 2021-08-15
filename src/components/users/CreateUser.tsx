@@ -11,13 +11,14 @@ import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import useToggle from 'utils/useToggle'
 
 export default function CreateUser({
   setSuccess
 }: {
   setSuccess: (arg0: boolean) => void
 }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, toggleIsOpen] = useToggle()
   const [createUser] = useSignUpMutation()
   const {
     register,
@@ -81,13 +82,6 @@ export default function CreateUser({
           className="w-96 place-self-center"
         >
           <h5>Sign Up</h5>
-          <a
-            onClick={() => setIsOpen(true)}
-            className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700"
-          >
-            <InformationCircleIcon className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700" />
-            I am signing up as a charity
-          </a>
           <Input
             name="username"
             label="Username"
@@ -112,11 +106,18 @@ export default function CreateUser({
             register={register}
             errors={errors.passwordConfirmation}
           />
+          <a
+            onClick={toggleIsOpen}
+            className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700"
+          >
+            <InformationCircleIcon className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700" />
+            Signing up as a charity?
+          </a>
           <div />
           <button type="submit">Sign Up</button>
         </Form>
       </Transit>
-      <SignUpModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SignUpModal isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
     </>
   )
 }
