@@ -23,7 +23,7 @@ export default withAuth(function Charities({ me }) {
         </>
       }
     >
-      <Transit as="article" className="place-items-start">
+      <Transit as="article" className="px-6 pb-6 place-items-start">
         <h5>My Charities</h5>
         {me.adminCharities.map((charity) => (
           <div
