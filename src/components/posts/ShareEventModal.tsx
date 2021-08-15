@@ -16,6 +16,7 @@ import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import router from 'next/router'
 
 type ShareEventPostProps = {
   isOpen: boolean
@@ -61,6 +62,7 @@ export default function ShareEventModal({
       )
     } else {
       setIsOpen(false)
+      router.push('/home')
     }
   }
 

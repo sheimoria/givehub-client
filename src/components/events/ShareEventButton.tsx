@@ -14,10 +14,7 @@ export default function ShareEventButton({
 
   return (
     <>
-      <ShareIcon
-        className="transition cursor-pointer hover:scale-110"
-        onClick={() => setIsOpen(true)}
-      />
+      <ShareIcon className="clickable" onClick={() => setIsOpen(true)} />
       <CreateEventPost isOpen={isOpen} setIsOpen={setIsOpen} event={event} />
     </>
   )

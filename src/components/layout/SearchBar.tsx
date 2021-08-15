@@ -29,6 +29,7 @@ export default function SearchBar() {
           className="w-full px-12 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-full dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-600"
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
+          autoComplete="off"
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 pointer-events-none dark:text-gray-500">
           <SearchIcon aria-hidden="true" />

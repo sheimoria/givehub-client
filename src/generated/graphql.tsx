@@ -1348,7 +1348,7 @@ export type SearchEventsQuery = (
     & Pick<PaginatedEvents, 'hasMore'>
     & { items: Array<(
       { __typename?: 'Event' }
-      & EventHeaderFragment
+      & EventSnippetFragment
     )> }
   ) }
 );
@@ -3116,12 +3116,12 @@ export const SearchEventsDocument = gql`
     sortByLikes: false
   ) {
     items {
-      ...EventHeader
+      ...EventSnippet
     }
     hasMore
   }
 }
-    ${EventHeaderFragmentDoc}`;
+    ${EventSnippetFragmentDoc}`;
 
 /**
  * __useSearchEventsQuery__
