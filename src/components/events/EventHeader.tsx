@@ -9,20 +9,20 @@ import router, { useRouter } from 'next/router'
 export default function EventHeader({ event }: { event: EventHeaderFragment }) {
   return (
     <section>
-      <div className="flex items-center gap-3">
+      <div
+        onClick={() =>
+          router.push({
+            pathname: '/charity',
+            query: { charityId: event.charity.id }
+          })
+        }
+        className="flex items-center gap-4 cursor-pointer"
+      >
         <Picture pictureId={event.charity.profile?.displayPicture} />
         <div className="flex flex-col">
-          <Link
-            href={{
-              pathname: '/charity',
-              query: { charityId: event.charity.id }
-            }}
-            passHref
-          >
-            <a className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100">
-              {event.charity.name}
-            </a>
-          </Link>
+          <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
+            {event.charity.name}
+          </h6>
           <p className="text-xs">
             {formatDistanceToNow(parseInt(event.createdAt), {
               addSuffix: true,
@@ -35,12 +35,12 @@ export default function EventHeader({ event }: { event: EventHeaderFragment }) {
         onClick={() =>
           router.push({ pathname: '/event', query: { eventId: event.id } })
         }
-        className="flex flex-col gap-3 cursor-pointer"
+        className="flex flex-col gap-4 cursor-pointer"
       >
-        <h5 className="hover:text-gray-800 dark:hover:text-gray-100">
+        <h5 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
           {event.name}
         </h5>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-y-2 gap-x-4">
           <Datetime dateStart={event.dateStart} dateEnd={event.dateEnd} />
           <Venue venue={event.venue} />
         </div>

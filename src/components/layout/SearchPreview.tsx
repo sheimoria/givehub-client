@@ -52,7 +52,7 @@ export default function SearchPreview({
           {users.searchUsers.items.map((user) => (
             <div
               key={user.id}
-              className="flex items-center gap-3"
+              className="flex items-center gap-4"
               onClick={() =>
                 router.push({
                   pathname: '/user',
@@ -65,7 +65,7 @@ export default function SearchPreview({
                 <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
                   {user.profile?.firstName} {user.profile?.lastName}
                 </h6>
-                <p>@{user.username}</p>
+                <span className="text-xs text-rose-600">@{user.username}</span>
               </div>
             </div>
           ))}
@@ -78,7 +78,7 @@ export default function SearchPreview({
             (charity: CharityHeaderFragment) => (
               <div
                 key={charity.id}
-                className="flex items-center gap-3 cursor-pointer"
+                className="flex items-center gap-4 cursor-pointer"
                 onClick={() =>
                   router.push({
                     pathname: '/charity',
@@ -87,18 +87,15 @@ export default function SearchPreview({
                 }
               >
                 <Picture pictureId={charity.profile?.displayPicture} />
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col">
                   <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
                     {charity.name}
                   </h6>
-                  <div className="flex gap-2 truncate">
+                  <div className="flex gap-2">
                     {charity.categories.map((category) => (
-                      <button
-                        className="px-3 py-1 text-xs font-medium rounded-full pointer-events-none bg-rose-100 text-rose-600"
-                        key={category.id}
-                      >
+                      <span className="text-xs text-rose-600" key={category.id}>
                         {category.name}
-                      </button>
+                      </span>
                     ))}
                   </div>
                 </div>

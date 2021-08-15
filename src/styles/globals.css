@@ -29,7 +29,7 @@
     @apply flex flex-col gap-4;
   }
   article {
-    @apply flex flex-col gap-4 p-6 bg-white sm:rounded-lg dark:bg-gray-800;
+    @apply flex flex-col gap-4 pt-6 bg-white sm:rounded-lg dark:bg-gray-800;
   }
   /* form {
     @apply flex flex-col gap-4 p-6 bg-white md:rounded-lg dark:bg-gray-800;

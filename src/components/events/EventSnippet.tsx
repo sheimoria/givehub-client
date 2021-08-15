@@ -25,7 +25,7 @@ export default function EventSnippet({
         </h5>
         <p>{event.charity.name}</p>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-x-4 gap-y-2">
         <div className="flex items-center gap-2">
           <ClockIcon className="text-rose-600" />
           <p>In {formatDistanceToNow(parseInt(event.dateStart))}</p>

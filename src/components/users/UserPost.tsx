@@ -9,7 +9,7 @@ export default function UserPost({ user }: { user: UserPictureFragment }) {
 
   return (
     <>
-      <Transit as="article" className="flex-row items-center">
+      <Transit as="article" className="flex-row items-center px-6 pb-6">
         <Picture pictureId={user.profile?.displayPicture} />
         <span
           onClick={() => setIsOpen(true)}

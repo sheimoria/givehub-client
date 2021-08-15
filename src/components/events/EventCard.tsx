@@ -24,8 +24,8 @@ type EventProps = {
 export default function EventCard({ event, lineclamp }: EventProps) {
   const router = useRouter()
   return (
-    <Transit onEveryMount as="article">
-      <div className="flex justify-between gap-4">
+    <Transit onEveryMount as="article" className="pb-6">
+      <div className="flex justify-between gap-4 px-6">
         <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
         <div className="flex gap-2">
           {event.adminStatus && (
@@ -40,13 +40,13 @@ export default function EventCard({ event, lineclamp }: EventProps) {
         onClick={() =>
           router.push({ pathname: '/event', query: { eventId: event.id } })
         }
-        className={`${lineclamp ? 'line-clamp-3' : ''} cursor-pointer`}
+        className={`${lineclamp ? 'line-clamp-3' : ''} cursor-pointer px-6`}
       >
         {event.description}
       </p>
       {event.imageUrl && (
         <div
-          className="relative overflow-hidden rounded-md cursor-pointer h-80"
+          className="relative overflow-hidden cursor-pointer h-80"
           onClick={() =>
             router.push({ pathname: '/event', query: { eventId: event.id } })
           }
@@ -59,7 +59,7 @@ export default function EventCard({ event, lineclamp }: EventProps) {
           />
         </div>
       )}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 px-6">
         <LikeEvent event={filter(EventLikesFragmentDoc, event)} />
         <RequestEvent event={filter(EventRequestsFragmentDoc, event)} />
       </div>

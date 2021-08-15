@@ -32,7 +32,7 @@ export default function CharityProfile({
           )}
         </div>
         <div className="flex flex-col gap-1">
-          <h5 className="place-self-center">{charity.name}</h5>
+          <h5>{charity.name}</h5>
           <div className="flex flex-wrap gap-2">
             {charity.categories.map((category) => (
               <button

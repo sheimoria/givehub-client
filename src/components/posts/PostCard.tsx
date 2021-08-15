@@ -30,37 +30,40 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
   const [comments, toggleComments] = useToggle()
 
   return (
-    <Transit as="article">
-      <div className="flex justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Picture pictureId={post.creator.profile?.displayPicture} />
-          <div className="flex flex-col">
-            <Link
-              href={{
-                pathname: '/user',
-                query: { userId: post.creator.id }
-              }}
-            >
-              <a className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100">
-                {post.creator?.profile?.firstName}{' '}
-                {post.creator?.profile?.lastName}
-              </a>
-            </Link>
-            <p className="text-xs">
-              {formatDistanceToNow(parseInt(post.createdAt), {
-                addSuffix: true,
-                includeSeconds: true
-              })}
-            </p>
+    <Transit as="article" className="pb-6">
+      <section className="px-6">
+        <div className="flex justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Picture pictureId={post.creator.profile?.displayPicture} />
+            <div className="flex flex-col">
+              <Link
+                href={{
+                  pathname: '/user',
+                  query: { userId: post.creator.id }
+                }}
+              >
+                <a className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100">
+                  {post.creator?.profile?.firstName}{' '}
+                  {post.creator?.profile?.lastName}
+                </a>
+              </Link>
+              <p className="text-xs">
+                {formatDistanceToNow(parseInt(post.createdAt), {
+                  addSuffix: true,
+                  includeSeconds: true
+                })}
+              </p>
+            </div>
           </div>
+          {post.creatorStatus && (
+            <UpdateDeletePostButton post={filter(PostInfoFragmentDoc, post)} />
+          )}
         </div>
-        {post.creatorStatus && (
-          <UpdateDeletePostButton post={filter(PostInfoFragmentDoc, post)} />
-        )}
-      </div>
-      <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
+        <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
+        {event && <EventPreview event={event} />}
+      </section>
       {post.imageUrl && (
-        <div className="relative overflow-hidden rounded-md h-80">
+        <div className="relative overflow-hidden h-80">
           <Image
             src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${post.imageUrl}`}
             alt="Event image"
@@ -69,8 +72,7 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
           />
         </div>
       )}
-      {event && <EventPreview event={event} />}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 px-6">
         <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
         <PostCommentsButton
           toggleComments={toggleComments}

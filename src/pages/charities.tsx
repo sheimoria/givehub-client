@@ -4,11 +4,10 @@ import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import { PlusIcon } from '@heroicons/react/outline'
 import Transit from 'components/Transit'
-import UserTasks from 'components/users/YourEvents'
+import UserEvents from 'components/users/YourEvents'
 import router from 'next/router'
 import withAuth from 'utils/withAuth'
 import Picture from 'components/Picture'
-import { CharityHeaderFragment } from 'generated/graphql'
 
 export default withAuth(function Charities({ me }) {
   return (
@@ -18,9 +17,9 @@ export default withAuth(function Charities({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
+          <UserEvents />
         </>
       }
     >

@@ -12,19 +12,21 @@ type Props = {
 
 export default function EventPreview({ event }: Props) {
   return (
-    <Transit onEveryMount as="article" className="bordered">
-      <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
-      <p
-        onClick={() =>
-          router.push({ pathname: `/event`, query: { eventId: event.id } })
-        }
-        className="line-clamp-3"
-      >
-        {event.description}
-      </p>
+    <Transit onEveryMount as="article" className="overflow-hidden bordered">
+      <section className="px-6">
+        <EventHeader event={filter(EventHeaderFragmentDoc, event)} />
+        <p
+          onClick={() =>
+            router.push({ pathname: `/event`, query: { eventId: event.id } })
+          }
+          className="cursor-pointer line-clamp-3"
+        >
+          {event.description}
+        </p>
+      </section>
       {event.imageUrl && (
         <div
-          className="relative overflow-hidden rounded-md cursor-pointer h-80"
+          className="relative cursor-pointer h-80"
           onClick={() =>
             router.push({ pathname: '/event', query: { eventId: event.id } })
           }

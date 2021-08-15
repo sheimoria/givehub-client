@@ -32,7 +32,7 @@ export default function CharityHeader({
   return (
     <div className="flex items-center justify-between gap-4">
       <div
-        className="flex items-center gap-3 cursor-pointer"
+        className="flex items-center gap-4 cursor-pointer"
         onClick={() =>
           router.push({
             pathname: '/charity',
@@ -45,9 +45,13 @@ export default function CharityHeader({
           <h6 className="hover:text-gray-800 dark:hover:text-gray-100 line-clamp-1">
             {charity.name}
           </h6>
-          <p className="text-xs text-rose-600 dark:text-rose-600">
-            {charity.categories[0].name} &hellip;
-          </p>
+
+          <span className="text-xs text-rose-600">
+            {charity.categories[0].name}{' '}
+            {charity.categories.length > 1 && (
+              <span className="text-xs text-rose-600">&hellip;</span>
+            )}
+          </span>
         </div>
       </div>
       {charity.adminStatus ? (

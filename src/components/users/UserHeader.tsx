@@ -9,7 +9,7 @@ export default function UserHeader({ user }: { user: UserHeaderFragment }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div
-        className="flex items-center gap-3 cursor-pointer"
+        className="flex items-center gap-4 cursor-pointer"
         onClick={() =>
           router.push({
             pathname: '/user',

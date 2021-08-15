@@ -1,7 +1,5 @@
 import {
   CharityHeaderFragment,
-  EventHeaderFragment,
-  EventSnippetFragmentDoc,
   useSearchCharitiesQuery,
   useSearchEventsQuery,
   useSearchUsersQuery
@@ -9,17 +7,13 @@ import {
 
 import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
-import EventHeader from 'components/events/EventHeader'
 import FriendRequests from 'components/users/FriendRequests'
-import Link from 'next/link'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import UserTasks from 'components/users/YourEvents'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
-import { filter } from 'graphql-anywhere'
-import React from 'react'
 import EventSnippet from 'components/events/EventSnippet'
 
 export default withAuth(function Home({ me }) {
@@ -41,9 +35,9 @@ export default withAuth(function Home({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
+          <UserTasks />
         </>
       }
     >
@@ -88,15 +82,12 @@ export default withAuth(function Home({ me }) {
                   className="flex items-center gap-4 cursor-pointer"
                 >
                   <Picture pictureId={charity.profile?.displayPicture} />
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col">
                     <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
                       {charity.name}
                     </h6>
                     {charity.categories.map((category) => (
-                      <span
-                        className="px-3 py-1 text-xs font-medium rounded-full text-rose-600 bg-rose-100"
-                        key={category.id}
-                      >
+                      <span className="text-xs text-rose-600" key={category.id}>
                         {category.name}
                       </span>
                     ))}
