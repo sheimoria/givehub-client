@@ -1736,6 +1736,13 @@ export type HeaderFragment = (
   )>, adminCharities: Array<(
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
+    & { profile?: Maybe<(
+      { __typename?: 'Charityprofile' }
+      & Pick<Charityprofile, 'displayPicture'>
+    )>, categories: Array<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id' | 'name'>
+    )> }
   )> }
 );
 
@@ -2207,6 +2214,13 @@ export const HeaderFragmentDoc = gql`
   adminCharities {
     id
     name
+    profile {
+      displayPicture
+    }
+    categories {
+      id
+      name
+    }
   }
 }
     `;

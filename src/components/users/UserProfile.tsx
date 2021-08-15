@@ -15,10 +15,11 @@ import {
 import router from 'next/router'
 import { filter } from 'graphql-anywhere'
 import CharityHeader from 'components/charities/CharityHeader'
+import Transit from 'components/Transit'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
-    <article className="place-items-start">
+    <Transit onEveryMount as="article" className="place-items-start">
       <div className="relative flex-none w-24 h-24 overflow-hidden rounded-full place-self-center">
         {user.profile?.displayPicture ? (
           <Image
@@ -90,6 +91,6 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
       ) : (
         <RequestFriend user={filter(UserFriendFragmentDoc, user)} />
       )}
-    </article>
+    </Transit>
   )
 }

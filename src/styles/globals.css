@@ -143,4 +143,7 @@
   .bordered {
     @apply border;
   }
+  .btn-primary {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-md bg-rose-600 hover:bg-rose-700 dark:bg-rose-500;
+  }
 }
