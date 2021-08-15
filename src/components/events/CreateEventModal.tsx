@@ -6,7 +6,7 @@ import {
   useCreateEventMutation
 } from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
@@ -14,7 +14,7 @@ import FormButton from 'components/forms/FormButton'
 import Input from 'components/forms/Input'
 import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
-import { XIcon } from '@heroicons/react/outline'
+import { CalendarIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -124,14 +124,15 @@ export default function CreateEventModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
-              <Form handleSubmit={handleSubmit} onSubmit={handleCreateEvent}>
+            <div className="z-10 w-full">
+              <Form
+                handleSubmit={handleSubmit}
+                onSubmit={handleCreateEvent}
+                className="mx-auto modal"
+              >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Create Event</Dialog.Title>
-                  <XIcon
-                    onClick={() => toggleIsOpen()}
-                    className="clickable-scale"
-                  />
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
                 <Dialog.Description>
                   Fill in the event details below.
@@ -147,8 +148,9 @@ export default function CreateEventModal({
                   label="Description"
                   register={register}
                   errors={errors.description}
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
                 />
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-4">
                   <Datetime
                     name="dateStart"
                     label="Starts"
@@ -168,17 +170,20 @@ export default function CreateEventModal({
                   register={register}
                   errors={errors.venue}
                 />
-                <div />
-                <UploadImageButton setImage={setImage} />
-                <div />
-                <div className="flex gap-2">
+                <div className="flex justify-end gap-2">
+                  <UploadImageButton setImage={setImage} />
                   <button
-                    onClick={() => toggleIsOpen()}
-                    className="flex-auto button-outline"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
                   >
-                    Cancel
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <CalendarIcon />
+                    )}
+                    Post
                   </button>
-                  <FormButton label="Create" isSubmitting={isSubmitting} />
                 </div>
               </Form>
             </div>
