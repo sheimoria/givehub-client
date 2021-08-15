@@ -5,6 +5,9 @@ import {
   useRequestFriendMutation
 } from 'generated/graphql'
 
+import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
+import React from 'react'
+
 type Props = {
   user: UserFriendFragment
   className?: string
@@ -28,8 +31,9 @@ export default function RequestFriendButton({ user, className }: Props) {
       return (
         <button
           onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         >
+          <UsersIcon />
           Friends
         </button>
       )
@@ -37,7 +41,7 @@ export default function RequestFriendButton({ user, className }: Props) {
       return (
         <button
           onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
+          className="px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         >
           Requested
         </button>
@@ -46,7 +50,7 @@ export default function RequestFriendButton({ user, className }: Props) {
       return (
         <button
           onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
+          className="px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         >
           Requested
         </button>
@@ -55,8 +59,12 @@ export default function RequestFriendButton({ user, className }: Props) {
       return <button className={`button-outline ${className}`}>Blocked</button>
     default:
       return (
-        <button onClick={() => requestFriend()} className={className}>
-          Add Friend
+        <button
+          onClick={() => requestFriend()}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+        >
+          <UserAddIcon />
+          Request
         </button>
       )
   }
