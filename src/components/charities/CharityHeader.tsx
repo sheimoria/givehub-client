@@ -55,15 +55,12 @@ export default function CharityHeader({
         </div>
       </div>
       {charity.adminStatus ? (
-        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md pointer-events-none bg-rose-100 text-rose-600">
+        <button className="pointer-events-none btn-secondary">
           <IdentificationIcon />
           Admin
         </button>
       ) : charity.followStatus === 1 ? (
-        <button
-          onClick={() => followCharity()}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-        >
+        <button onClick={() => followCharity()} className="btn-secondary">
           <UsersIcon />
           Following
         </button>

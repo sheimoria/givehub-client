@@ -8,8 +8,12 @@ export default function CreateEventButton() {
 
   return (
     <>
-      <Transit as="button" onClick={() => toggleIsOpen()} className="py-3">
-        <CalendarIcon className="text-white dark:text-white" />
+      <Transit
+        as="button"
+        onClick={toggleIsOpen}
+        className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-white transition-colors rounded-lg bg-rose-600 hover:bg-rose-700"
+      >
+        <CalendarIcon />
         Create Event
       </Transit>
       {isOpen && <CreateEvent toggleIsOpen={toggleIsOpen} />}

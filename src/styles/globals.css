@@ -134,13 +134,13 @@
     @apply transition-transform cursor-pointer hover:scale-110 active:translate-y-px;
   }
   .bordered {
-    @apply border;
+    @apply border border-gray-200 dark:border-gray-700;
   }
   .btn-primary {
-    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 disabled:pointer-events-none disabled:opacity-80;
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md dark:text-gray-800 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 disabled:pointer-events-none disabled:opacity-80;
   }
   .btn-secondary {
-    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700;
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 dark:bg-rose-900 dark:text-rose-400 dark:hover:bg-rose-800 text-rose-600;
   }
   .badge {
     @apply px-4 py-2 text-sm font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200;

@@ -39,19 +39,13 @@ export default function RequestFriendButton({ user, className }: Props) {
       )
     case FriendRequestStatus.User1Req:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className="px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-        >
+        <button onClick={() => requestFriend()} className="btn-secondary">
           Requested
         </button>
       )
     case FriendRequestStatus.User2Req:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className="px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-        >
+        <button onClick={() => requestFriend()} className="btn-secondary">
           Requested
         </button>
       )
