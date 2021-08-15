@@ -12,6 +12,14 @@ fragment UserProfile on User {
   adminCharities {
     id
     name
+    profile {
+      displayPicture
+    }
+    categories {
+      id
+      name
+    }
+    adminStatus
   }
   friendStatus
   friendNumber

@@ -20,11 +20,11 @@ import { useUpdateUserProfileMutation } from 'generated/graphql'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 type Props = {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
   user: UserProfileFragment
 }
 
-export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
+export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
   const defaultCategories = Object.fromEntries(
     user.categories.map((category) => [category.id, 'checked'])
   )
@@ -79,7 +79,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
           setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     } else {
       const imageData = new FormData()
@@ -112,7 +112,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
             setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     }
   }
@@ -121,7 +121,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -152,7 +152,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Update User Profile</Dialog.Title>
-                  <span onClick={() => setIsOpen(false)}>
+                  <span onClick={() => toggleIsOpen()}>
                     <XIcon className="clickable-scale" />
                   </span>
                 </div>
