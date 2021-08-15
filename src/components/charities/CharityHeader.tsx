@@ -42,7 +42,7 @@ export default function CharityHeader({
       >
         <Picture pictureId={charity.profile?.displayPicture} />
         <div className="flex flex-col">
-          <h6 className="hover:text-gray-800 dark:hover:text-gray-100">
+          <h6 className="hover:text-gray-800 dark:hover:text-gray-100 line-clamp-1">
             {charity.name}
           </h6>
           <p className="text-xs text-rose-600 dark:text-rose-600">
@@ -69,7 +69,7 @@ export default function CharityHeader({
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         >
           <UserAddIcon />
-          Request
+          Follow
         </button>
       )}
     </div>
