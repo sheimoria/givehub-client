@@ -3,22 +3,23 @@ import { EventInfoFragment, useShareEventMutation } from 'generated/graphql'
 import CreateEventPost from '../posts/ShareEventModal'
 import { ShareIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
+import useToggle from 'utils/useToggle'
 
 export default function ShareEventButton({
   event
 }: {
   event: EventInfoFragment
 }) {
-  const [shareEvent] = useShareEventMutation()
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, toggleIsOpen] = useToggle()
 
   return (
     <>
-      <ShareIcon
-        className="transition cursor-pointer hover:scale-110"
-        onClick={() => setIsOpen(true)}
+      <ShareIcon onClick={toggleIsOpen} className="clickable" />
+      <CreateEventPost
+        isOpen={isOpen}
+        toggleIsOpen={toggleIsOpen}
+        event={event}
       />
-      <CreateEventPost isOpen={isOpen} setIsOpen={setIsOpen} event={event} />
     </>
   )
 }

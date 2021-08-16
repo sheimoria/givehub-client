@@ -5,7 +5,7 @@ import {
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Checkbox from 'components/forms/Checkbox'
 import Form from 'components/forms/Form'
@@ -13,18 +13,18 @@ import FormButton from 'components/forms/FormButton'
 import Input from 'components/forms/Input'
 import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
-import { XIcon } from '@heroicons/react/outline'
+import { RefreshIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 type Props = {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
   charity: CharityProfileFragment
 }
 
 export default function UpdateCharityProfileModal({
-  setIsOpen,
+  toggleIsOpen,
   charity
 }: Props) {
   const defaultCategories = Object.fromEntries(
@@ -103,7 +103,7 @@ export default function UpdateCharityProfileModal({
             setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     } else {
       const imageData = new FormData()
@@ -136,7 +136,7 @@ export default function UpdateCharityProfileModal({
             setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     }
   }
@@ -145,7 +145,7 @@ export default function UpdateCharityProfileModal({
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -169,23 +169,21 @@ export default function UpdateCharityProfileModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleUpdateCharityProfile}
+                className="mx-auto modal"
               >
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <Dialog.Title as="h5">Update Charity Profile</Dialog.Title>
-                  <XIcon
-                    onClick={() => setIsOpen(false)}
-                    className="clickable-scale"
-                  />
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
                 <Dialog.Description className="hidden">
                   Update Charity Profile
                 </Dialog.Description>
                 <h6>Which categories does your charity fall under?</h6>
-                <div className="flex flex-wrap justify-between gap-6">
+                <div className="flex flex-wrap justify-between gap-4">
                   {categories.map((column) => (
                     <div key={column[0].label} className="flex flex-col gap-4">
                       {column.map((category) => (
@@ -205,8 +203,9 @@ export default function UpdateCharityProfileModal({
                   placeholder="Let others understand what your charity does."
                   register={register}
                   errors={errors.about}
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
                 />
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-4">
                   <Input
                     name="email"
                     label="Email Address"
@@ -226,7 +225,7 @@ export default function UpdateCharityProfileModal({
                   register={register}
                   errors={errors.links}
                 />
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-4">
                   <Input
                     name="physicalAddress"
                     label="Address"
@@ -240,13 +239,25 @@ export default function UpdateCharityProfileModal({
                     errors={errors.postalCode}
                   />
                 </div>
-                <div />
-                <UploadImageButton
-                  label="Update Profile Picture"
-                  setImage={setImage}
-                />
-                <div />
-                <FormButton label="Update" isSubmitting={isSubmitting} />
+                <div className="flex justify-end gap-2">
+                  <UploadImageButton
+                    label="Upload Profile Picture"
+                    setImage={setImage}
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <RefreshIcon />
+                    )}
+                    Update Profile
+                  </button>
+                </div>
               </Form>
             </div>
           </Transition.Child>

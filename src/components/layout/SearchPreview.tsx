@@ -44,94 +44,73 @@ export default function SearchPreview({
       leaveFrom="opacity-100"
       leaveTo="-translate-y-2 opacity-0"
       as="dl"
-      className="absolute z-10 w-full px-0 py-2 mt-12 shadow-lg divide"
+      className="absolute z-10 w-full mt-4 shadow"
     >
       {users && users.searchUsers?.items.length > 0 && (
-        <div className="flex flex-col px-5 py-3">
+        <>
           <h5>Users</h5>
-          <div className="divide">
-            {users.searchUsers.items.map((user) => (
-              <div
-                key={user.id}
-                className="flex gap-3 py-3 clickable-float"
-                onClick={() =>
-                  router.push({
-                    pathname: '/user',
-                    query: { userId: user.id }
-                  })
-                }
-              >
-                <Picture pictureId={user.profile?.displayPicture} size={10} />
-                <div className="flex flex-col">
-                  <h6>
-                    {user.profile?.firstName} {user.profile?.lastName}
-                  </h6>
-                  <p>@{user.username}</p>
-                </div>
+          {users.searchUsers.items.map((user) => (
+            <div
+              key={user.id}
+              className="flex items-center gap-4"
+              onClick={() =>
+                router.push({
+                  pathname: '/user',
+                  query: { userId: user.id }
+                })
+              }
+            >
+              <Picture pictureId={user.profile?.displayPicture} />
+              <div className="flex flex-col">
+                <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
+                  {user.profile?.firstName} {user.profile?.lastName}
+                </h6>
+                <span className="text-xs text-rose-600">@{user.username}</span>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          ))}
+        </>
       )}
       {charities && charities.searchCharities?.items.length > 0 && (
-        <div className="flex flex-col px-5 py-3">
+        <>
           <h5>Charities</h5>
-          <div className="divide">
-            {charities.searchCharities.items.map(
-              (charity: CharityHeaderFragment) => (
-                <div
-                  key={charity.id}
-                  className="flex items-center gap-3 py-3 clickable-float"
-                  onClick={() =>
-                    router.push({
-                      pathname: '/charity',
-                      query: { charityId: charity.id }
-                    })
-                  }
-                >
-                  <Picture
-                    pictureId={charity.profile?.displayPicture}
-                    size={10}
-                  />
-                  <div className="flex flex-col gap-1">
-                    <h6>{charity.name}</h6>
-                    <div className="flex gap-2 truncate">
-                      {charity.categories.map((category) => (
-                        <button
-                          className="px-3 py-1 text-xs pointer-events-none button-secondary"
-                          key={category.id}
-                        >
-                          {category.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      )}
-      {events && events.searchEvents?.items.length > 0 && (
-        <div className="flex flex-col gap-3 px-5 py-3">
-          <h5>Events</h5>
-          <div className="space-y-3">
-            {events.searchEvents.items.map((event: EventSnippetFragment) => (
+          {charities.searchCharities.items.map(
+            (charity: CharityHeaderFragment) => (
               <div
-                key={event.id}
-                className="p-3 rounded-lg bordered clickable-float"
+                key={charity.id}
+                className="flex items-center gap-4 cursor-pointer"
                 onClick={() =>
                   router.push({
-                    pathname: '/event',
-                    query: { eventId: event.id }
+                    pathname: '/charity',
+                    query: { charityId: charity.id }
                   })
                 }
               >
-                <EventSnippet event={event} />
+                <Picture pictureId={charity.profile?.displayPicture} />
+                <div className="flex flex-col">
+                  <h6 className="transition-colors hover:text-gray-800 dark:hover:text-gray-100">
+                    {charity.name}
+                  </h6>
+                  <div className="flex gap-2">
+                    {charity.categories.map((category) => (
+                      <span className="text-xs text-rose-600" key={category.id}>
+                        {category.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+            )
+          )}
+        </>
+      )}
+      {events && events.searchEvents?.items.length > 0 && (
+        <>
+          <h5>Events</h5>
+          {events.searchEvents.items.map((event: EventSnippetFragment) => (
+            <EventSnippet key={event.id} event={event} />
+          ))}
+        </>
       )}
       {(users?.searchUsers?.hasMore ||
         charities?.searchCharities?.hasMore ||
@@ -139,8 +118,7 @@ export default function SearchPreview({
         <Link
           href={{ pathname: '/search', query: { searchValue: searchValue } }}
         >
-          <a className="px-5 py-3 text-base">
-            <p>{events?.searchEvents?.hasMore}</p>
+          <a className="flex items-center gap-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-100">
             View all search results
             <ArrowRightIcon />
           </a>
@@ -149,9 +127,7 @@ export default function SearchPreview({
       {users?.searchUsers?.items?.length == 0 &&
         charities?.searchCharities?.items?.length == 0 &&
         events?.searchEvents?.items?.length == 0 && (
-          <div className="px-5 py-2">
-            <p>Sorry, nothing matches your search.</p>
-          </div>
+          <p>Sorry, nothing matches your search.</p>
         )}
     </Transition>
   )

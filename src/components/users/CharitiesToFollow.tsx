@@ -11,15 +11,11 @@ export default function CharitiesToFollow() {
   return (
     <Transit as="dl">
       <h5>Charities to Follow</h5>
-      <div className="divide">
-        {data &&
-          //@ts-ignore
-          data.charityRecommender?.items.map(
-            (charity: CharityHeaderFragment) => (
-              <CharityHeader key={charity.id} charity={charity} />
-            )
-          )}
-      </div>
+      {data &&
+        //@ts-ignore
+        data.charityRecommender?.items.map((charity: CharityHeaderFragment) => (
+          <CharityHeader key={charity.id} charity={charity} />
+        ))}
     </Transit>
   )
 }

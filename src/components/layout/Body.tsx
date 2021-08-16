@@ -20,7 +20,7 @@ export default function Body({ title, me, aside, children }: Props) {
         <title>{title}</title>
       </Head>
       <Header me={me} />
-      <div className="flex justify-center flex-auto gap-5 md:px-5">
+      <div className="flex justify-center min-h-screen gap-6 pt-24 pb-20 mx-auto sm:px-6 max-w-7xl">
         {me && (
           <aside className="flex-none md:block">
             <Navigation />
@@ -30,7 +30,7 @@ export default function Body({ title, me, aside, children }: Props) {
         {me && (
           <>
             <aside className="flex-none w-96 lg:block">
-              <div className="sticky flex flex-col gap-3 top-5">{aside}</div>
+              <div className="sticky flex flex-col gap-6 top-24">{aside}</div>
             </aside>
           </>
         )}

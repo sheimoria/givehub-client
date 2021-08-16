@@ -5,9 +5,9 @@ import {
   useAssignVolunteerMutation
 } from 'generated/graphql'
 
-import FormButton from 'components/forms/FormButton'
 import router from 'next/router'
 import { useForm } from 'react-hook-form'
+import { UserAddIcon } from '@heroicons/react/outline'
 
 type Props = {
   userId: number
@@ -51,20 +51,27 @@ export default function AssignVolunteerButton({
           )
         }
       })}
-      className="flex-row items-center flex-auto p-0 bg-transparent border-none shadow-none"
+      className="flex gap-2"
     >
-      <select {...register('assignTo')} placeholder="Assign To">
+      <select
+        {...register('assignTo')}
+        placeholder="Assign To"
+        className="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-100 border-none rounded-md dark:text-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-0"
+      >
         {tasks?.map((task) => (
           <option key={task.id} value={task.id}>
             {task.description}
           </option>
         ))}
       </select>
-      <FormButton
-        label="Assign"
-        isSubmitting={isSubmitting}
-        className="px-3 py-1"
-      />
+      <button type="submit" disabled={isSubmitting} className="btn-primary">
+        {isSubmitting ? (
+          <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+        ) : (
+          <UserAddIcon />
+        )}
+        Assign
+      </button>
     </form>
   )
 }

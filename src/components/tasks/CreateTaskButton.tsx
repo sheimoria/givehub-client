@@ -1,22 +1,22 @@
 import { ClipboardIcon } from '@heroicons/react/outline'
 import CreateTask from './CreateTask'
 import Transit from 'components/Transit'
-import { useState } from 'react'
+import useToggle from 'utils/useToggle'
 
 export default function CreateTaskButton() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, toggleIsOpen] = useToggle()
 
   return (
     <>
       <Transit
         as="button"
-        onClick={() => setIsOpen(true)}
-        className="flex-1 py-3"
+        onClick={toggleIsOpen}
+        className="flex items-center justify-center flex-1 gap-2 px-4 py-3 text-sm font-medium text-white transition-colors rounded-lg gap- bg-rose-600 hover:bg-rose-700"
       >
         <ClipboardIcon className="text-white dark:text-white" />
         Create Task
       </Transit>
-      <CreateTask isOpen={isOpen} setIsOpen={setIsOpen} />
+      <CreateTask isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
     </>
   )
 }

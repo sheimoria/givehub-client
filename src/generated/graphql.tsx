@@ -1348,7 +1348,7 @@ export type SearchEventsQuery = (
     & Pick<PaginatedEvents, 'hasMore'>
     & { items: Array<(
       { __typename?: 'Event' }
-      & EventHeaderFragment
+      & EventSnippetFragment
     )> }
   ) }
 );
@@ -1736,6 +1736,13 @@ export type HeaderFragment = (
   )>, adminCharities: Array<(
     { __typename?: 'Charity' }
     & Pick<Charity, 'id' | 'name'>
+    & { profile?: Maybe<(
+      { __typename?: 'Charityprofile' }
+      & Pick<Charityprofile, 'displayPicture'>
+    )>, categories: Array<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id' | 'name'>
+    )> }
   )> }
 );
 
@@ -1884,7 +1891,14 @@ export type UserProfileFragment = (
     & Pick<Category, 'id' | 'name'>
   )>, adminCharities: Array<(
     { __typename?: 'Charity' }
-    & Pick<Charity, 'id' | 'name'>
+    & Pick<Charity, 'id' | 'name' | 'adminStatus'>
+    & { profile?: Maybe<(
+      { __typename?: 'Charityprofile' }
+      & Pick<Charityprofile, 'displayPicture'>
+    )>, categories: Array<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id' | 'name'>
+    )> }
   )> }
   & UserHeaderFragment
 );
@@ -2151,6 +2165,14 @@ export const UserProfileFragmentDoc = gql`
   adminCharities {
     id
     name
+    profile {
+      displayPicture
+    }
+    categories {
+      id
+      name
+    }
+    adminStatus
   }
   friendStatus
   friendNumber
@@ -2192,6 +2214,13 @@ export const HeaderFragmentDoc = gql`
   adminCharities {
     id
     name
+    profile {
+      displayPicture
+    }
+    categories {
+      id
+      name
+    }
   }
 }
     `;
@@ -3087,12 +3116,12 @@ export const SearchEventsDocument = gql`
     sortByLikes: false
   ) {
     items {
-      ...EventHeader
+      ...EventSnippet
     }
     hasMore
   }
 }
-    ${EventHeaderFragmentDoc}`;
+    ${EventSnippetFragmentDoc}`;
 
 /**
  * __useSearchEventsQuery__

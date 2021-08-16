@@ -7,7 +7,7 @@ export default function DeleteTaskButton({ taskId }: { taskId: number }) {
 
   return (
     <>
-      <TrashIcon className="clickable-scale" onClick={() => toggleIsOpen()} />
+      <TrashIcon onClick={toggleIsOpen} className="clickable" />
       {isOpen && (
         <DeleteTaskModal toggleIsOpen={toggleIsOpen} taskId={taskId} />
       )}

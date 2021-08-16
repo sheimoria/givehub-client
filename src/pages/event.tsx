@@ -8,7 +8,7 @@ import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Tasks from 'components/events/EventTasks'
 import VolunteerRequests from 'components/events/VolunteerRequests'
-import YourEvents from 'components/users/YourEvents'
+import UserEvents from 'components/users/YourEvents'
 import { useEventQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -33,9 +33,9 @@ export default withAuth(function ViewEvent({ me }) {
           ) : (
             <>
               <FriendRequests />
-              <YourEvents />
               <PeopleToFollow />
               <CharitiesToFollow />
+              <UserEvents />
             </>
           )}
         </>

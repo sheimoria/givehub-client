@@ -8,36 +8,32 @@
     @apply bg-gray-100 dark:bg-gray-900;
   }
   #__next {
-    @apply flex flex-col min-h-screen mx-auto max-w-7xl;
+    @apply min-h-screen;
   }
   header {
-    @apply p-5;
+    @apply fixed z-10 w-full py-4 bg-white dark:bg-gray-800;
   }
   nav {
-    @apply flex items-center justify-between gap-5;
+    @apply flex items-center justify-between gap-6 px-6 mx-auto max-w-7xl;
   }
   main {
-    @apply flex flex-col flex-auto gap-3;
+    @apply flex flex-col items-stretch flex-1 w-full gap-6;
   }
   aside {
     @apply hidden;
   }
   footer {
-    @apply flex items-center justify-between p-5;
+    @apply fixed bottom-0 z-10 w-full py-4 bg-gray-100 dark:bg-gray-900;
   }
   section {
-    @apply flex flex-col gap-3;
+    @apply flex flex-col gap-4;
   }
   article {
-    @apply flex flex-col gap-3 p-5 bg-white border-t border-b border-gray-200 shadow-sm md:border-l md:border-r md:rounded-xl dark:border-gray-700 dark:bg-gray-800;
-  }
-  form {
-    @apply flex flex-col gap-3 p-5 bg-white border-t border-b border-gray-200 shadow-sm md:border-l md:border-r md:rounded-xl dark:border-gray-700 dark:bg-gray-800;
+    @apply flex flex-col gap-4 pt-6 bg-white sm:rounded-lg dark:bg-gray-800;
   }
   dl {
-    @apply flex flex-col px-5 pt-5 pb-2 bg-white border-t border-b border-gray-200 shadow-sm md:border-l md:border-r md:rounded-xl dark:border-gray-700 dark:bg-gray-800;
+    @apply flex flex-col gap-4 p-6 bg-white md:rounded-lg dark:bg-gray-800;
   }
-
   /* Text */
   h1 {
     @apply text-3xl font-bold font-display text-rose-600;
@@ -46,73 +42,41 @@
     @apply text-2xl font-bold font-display text-rose-600;
   }
   h3 {
-    @apply text-xl font-medium text-gray-800 dark:text-gray-100;
+    @apply text-xl font-medium text-gray-700 dark:text-gray-200;
   }
   h4 {
-    @apply text-lg font-medium text-gray-800 dark:text-gray-100;
+    @apply text-lg font-medium text-gray-700 dark:text-gray-200;
   }
   h5 {
-    @apply font-medium text-gray-800 dark:text-gray-100;
+    @apply font-medium text-gray-700 dark:text-gray-200;
   }
   h6 {
-    @apply text-sm font-medium text-gray-800 dark:text-gray-100;
+    @apply text-sm font-medium text-gray-700 dark:text-gray-200;
   }
   p {
-    @apply flex items-center gap-2 text-sm text-gray-800 dark:text-gray-100;
+    @apply text-sm text-gray-700 dark:text-gray-200;
   }
-
-  /* Links */
-  a {
-    @apply flex items-center gap-2 text-sm font-medium text-gray-800 transition hover:-translate-y-px hover:text-gray-900 dark:hover:text-white dark:text-gray-100 active:translate-y-px;
-  }
-  button {
-    @apply flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition border rounded-full shadow-sm hover:-translate-y-px hover:bg-rose-700 active:translate-y-px bg-rose-600 border-rose-600 hover:border-rose-700 disabled:pointer-events-none disabled:opacity-75;
-  }
-
   /* Forms */
   label {
-    @apply text-sm font-medium text-gray-800 dark:text-gray-100;
-  }
-  input:-webkit-autofill {
-    @apply bg-white dark:bg-gray-700;
-  }
-  input:autofill {
-    @apply bg-white dark:bg-gray-700;
-  }
-  input {
-    @apply w-full px-3 py-2 text-sm text-gray-800 placeholder-gray-500 transition bg-gray-100 border border-gray-200 rounded-md dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
-  }
-  input[type='password'] {
-    @apply w-full px-3 py-2 text-sm text-gray-800 placeholder-gray-500 transition bg-gray-100 border border-gray-200 rounded-md dark:focus:border-rose-600 focus:border-rose-600 focus:outline-none dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 focus:ring-1 focus:ring-rose-600;
-  }
-  input[type='checkbox'] {
-    @apply p-2 text-sm transition bg-gray-100 border border-gray-200 rounded dark:bg-gray-700 text-rose-600 dark:border-gray-600 focus:ring-transparent focus:outline-none focus:ring-offset-0;
-  }
-  textarea {
-    @apply w-full h-24 px-3 py-2 text-sm text-gray-800 placeholder-gray-500 transition bg-gray-100 border border-gray-200 rounded-md resize-none dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
-  }
-  select {
-    @apply w-full px-3 py-2 text-sm text-gray-800 placeholder-gray-500 transition bg-gray-100 border border-gray-200 rounded-md dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
+    @apply text-sm font-medium text-gray-700 dark:text-gray-200;
   }
   /* Icons  */
   svg {
-    @apply w-5 h-5 text-gray-500 dark:text-gray-400;
+    @apply w-5 h-5;
   }
 }
 
 @layer components {
   .nav {
-    @apply px-5 py-3 rounded-lg;
+    @apply flex items-center gap-2 px-5 py-3 text-sm font-medium;
   }
   .nav-active {
-    @apply text-gray-800 bg-white border border-gray-200 shadow-sm hover:text-gray-900 dark:border-gray-700 dark:text-gray-100 dark:hover:text-white dark:bg-gray-800;
+    @apply text-sm text-gray-700 transition-colors bg-white rounded-md hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 dark:bg-gray-800;
   }
   .nav-inactive {
-    @apply text-gray-700 hover:text-gray-800 dark:hover:text-gray-100 dark:text-gray-200;
+    @apply text-sm text-gray-600 transition-colors hover:text-gray-700 dark:hover:text-gray-200 dark:text-gray-300;
   }
-  .badge {
-    @apply px-3 py-1 text-sm font-medium rounded-full bg-rose-100 text-rose-600 dark:bg-rose-600 dark:text-rose-100;
-  }
+
   .divide {
     @apply divide-y divide-gray-200 dark:divide-gray-700;
   }
@@ -120,16 +84,19 @@
     @apply bg-white dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-rose-700 text-rose-600;
   }
   .button-upload {
-    @apply flex items-center justify-center gap-1 px-4 py-2 text-gray-800 transition bg-white rounded-full shadow-sm hover:text-gray-900 dark:text-gray-100 dark:hover:text-white hover:bg-gray-100 bordered clickable-float dark:bg-gray-800 dark:hover:bg-gray-900;
+    @apply flex items-center justify-center gap-1 px-4 py-2 text-gray-700 transition bg-white rounded-full hover:text-gray-900 dark:text-gray-200 dark:hover:text-white hover:bg-gray-100 bordered clickable-float dark:bg-gray-800 dark:hover:bg-gray-900;
   }
   .button-secondary {
     @apply border-none bg-rose-200 dark:bg-rose-200 hover:bg-rose-300 dark:hover:bg-rose-300 text-rose-600 dark:text-rose-600 dark:border-none;
   }
   .icon-upload {
-    @apply text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white;
+    @apply text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white;
   }
   .link-primary {
-    @apply flex items-center gap-2 text-sm font-medium transition text-rose-600 hover:-translate-y-px hover:text-rose-700 active:translate-y-px;
+    @apply flex items-center gap-2 font-medium transition text-rose-600 hover:-translate-y-px hover:text-rose-700 active:translate-y-px;
+  }
+  .clickable {
+    @apply text-gray-500 cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300;
   }
   .clickable-float {
     @apply transition-transform cursor-pointer hover:-translate-y-px active:translate-y-px;
@@ -139,5 +106,23 @@
   }
   .bordered {
     @apply border border-gray-200 dark:border-gray-700;
+  }
+  .btn-primary {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md dark:text-gray-800 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 disabled:pointer-events-none disabled:opacity-80;
+  }
+  .btn-secondary {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 dark:bg-rose-900 dark:text-rose-400 dark:hover:bg-rose-800 text-rose-600;
+  }
+  .badge {
+    @apply px-4 py-2 text-sm font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200;
+  }
+  .badge-sm {
+    @apply px-3 py-1 text-xs font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200;
+  }
+  .secondary {
+    @apply text-gray-400 dark:text-gray-500;
+  }
+  .modal {
+    @apply flex flex-col w-full max-w-xl gap-4 p-6 bg-white rounded-lg dark:bg-gray-800;
   }
 }

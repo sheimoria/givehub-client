@@ -6,17 +6,25 @@ type CheckboxProps = {
   label: string
   register: UseFormRegister<any>
   errors?: any
+  className?: string
 }
 
 export default function Checkbox({
   name,
   label,
   register,
-  errors
+  errors,
+  className
 }: CheckboxProps) {
   return (
     <div className="flex items-center gap-3">
-      <input type="checkbox" {...register(name)} />
+      <input
+        type="checkbox"
+        {...register(name)}
+        className={`p-2 transition-colors border-none rounded text-rose-600 focus:ring-0 focus:outline-none focus:ring-offset-0 ${
+          className ? className : 'bg-gray-100 dark:bg-gray-700'
+        }`}
+      />
       <label htmlFor={name} className="font-normal">
         {label}
       </label>

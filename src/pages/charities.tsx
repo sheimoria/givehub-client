@@ -4,13 +4,12 @@ import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import { PlusIcon } from '@heroicons/react/outline'
 import Transit from 'components/Transit'
-import UserTasks from 'components/users/YourEvents'
-import { useRouter } from 'next/router'
+import UserEvents from 'components/users/YourEvents'
+import router from 'next/router'
 import withAuth from 'utils/withAuth'
+import Picture from 'components/Picture'
 
 export default withAuth(function Charities({ me }) {
-  const router = useRouter()
-
   return (
     <Body
       title="Charities"
@@ -18,34 +17,44 @@ export default withAuth(function Charities({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
+          <UserEvents />
         </>
       }
     >
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <Transit as="article" className="px-6 pb-6 place-items-start">
         <h5>My Charities</h5>
-        <button onClick={() => router.push('/charity-sign-up')}>
-          <PlusIcon className="items-center text-white dark:text-white" />
+        {me.adminCharities.map((charity) => (
+          <div
+            key={charity.id}
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() =>
+              router.push({
+                pathname: '/charity',
+                query: { charityId: charity.id }
+              })
+            }
+          >
+            <Picture pictureId={charity.profile?.displayPicture} />
+            <div className="flex flex-col">
+              <h6 className="hover:text-gray-800 dark:hover:text-gray-100 line-clamp-1">
+                {charity.name}
+              </h6>
+              <p className="text-xs text-rose-600 dark:text-rose-600">
+                {charity.categories.map((category) => category.name + ' ')}
+              </p>
+            </div>
+          </div>
+        ))}
+        <button
+          onClick={() => router.push('/charity-sign-up')}
+          className="btn-primary"
+        >
+          <PlusIcon />
           Add Charity
         </button>
-      </div>
-
-      {me.adminCharities.map((charity) => (
-        <Transit
-          as="article"
-          key={charity.id}
-          onClick={() =>
-            router.push({
-              pathname: '/charity',
-              query: { charityId: charity.id }
-            })
-          }
-        >
-          {charity.name}
-        </Transit>
-      ))}
+      </Transit>
     </Body>
   )
 })

@@ -164,11 +164,7 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
                   >
                     Delete
                   </button>
-                  <FormButton
-                    label="Update"
-                    isSubmitting={isSubmitting}
-                    className="flex-auto"
-                  />
+                  <FormButton label="Update" isSubmitting={isSubmitting} />
                 </div>
               </Form>
             </div>

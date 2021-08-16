@@ -10,10 +10,10 @@ export default function CreateTelegramButton() {
     <>
       <Transit
         as="button"
-        className="flex-1 bg-blue-500 border border-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 hover:border-blue-600 dark:hover:border-blue-600"
+        className="flex items-center justify-center flex-1 gap-2 px-4 py-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
         onClick={toggleIsOpen}
       >
-        <PaperAirplaneIcon className="text-white" />
+        <PaperAirplaneIcon />
         Create Telegram Group
       </Transit>
       {isOpen && <CreateTelegramModal toggleIsOpen={toggleIsOpen} />}

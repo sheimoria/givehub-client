@@ -8,7 +8,7 @@ query SearchEvents($input: String, $limit: Int!) {
     sortByLikes: false
   ) {
     items {
-      ...EventHeader
+      ...EventSnippet
     }
     hasMore
   }

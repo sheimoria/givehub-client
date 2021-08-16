@@ -10,7 +10,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: 'Inter var',
         display: 'Gilroy'
       },
       colors: {

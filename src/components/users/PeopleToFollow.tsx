@@ -12,12 +12,9 @@ export default function PeopleToFollow() {
   return (
     <Transit as="dl">
       <h5>People with Similar Interests</h5>
-      <div className="divide">
-        {data &&
-          data.userRecommender?.items.map((user: UserHeaderFragment) => (
-            <UserHeader key={user.id} user={user} />
-          ))}
-      </div>
+      {data?.userRecommender?.items.map((user: UserHeaderFragment) => (
+        <UserHeader key={user.id} user={user} />
+      ))}
     </Transit>
   )
 }

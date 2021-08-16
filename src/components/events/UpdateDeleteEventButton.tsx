@@ -11,10 +11,7 @@ export default function UpdateDeleteEventButton({
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <PencilAltIcon
-        className="clickable-scale"
-        onClick={() => setIsOpen(true)}
-      />
+      <PencilAltIcon className="clickable" onClick={() => setIsOpen(true)} />
       {isOpen && <UpdateDeleteEventModal setIsOpen={setIsOpen} event={event} />}
     </>
   )

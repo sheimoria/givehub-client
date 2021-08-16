@@ -5,6 +5,9 @@ import {
   useRequestFriendMutation
 } from 'generated/graphql'
 
+import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
+import React from 'react'
+
 type Props = {
   user: UserFriendFragment
   className?: string
@@ -28,26 +31,21 @@ export default function RequestFriendButton({ user, className }: Props) {
       return (
         <button
           onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
+          className="px-4 py-2 text-sm font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200"
         >
+          <UsersIcon />
           Friends
         </button>
       )
     case FriendRequestStatus.User1Req:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
-        >
+        <button onClick={() => requestFriend()} className="btn-secondary">
           Requested
         </button>
       )
     case FriendRequestStatus.User2Req:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className={`button-outline ${className}`}
-        >
+        <button onClick={() => requestFriend()} className="btn-secondary">
           Requested
         </button>
       )
@@ -55,8 +53,9 @@ export default function RequestFriendButton({ user, className }: Props) {
       return <button className={`button-outline ${className}`}>Blocked</button>
     default:
       return (
-        <button onClick={() => requestFriend()} className={className}>
-          Add Friend
+        <button onClick={() => requestFriend()} className="btn-primary">
+          <UserAddIcon />
+          Request
         </button>
       )
   }

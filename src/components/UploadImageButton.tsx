@@ -13,8 +13,8 @@ export default function UploadImageButton({
   const [name, setName] = useState(label ? label : 'Upload Image')
   return (
     <>
-      <label htmlFor="imageUpload" className="button-upload">
-        <PhotographIcon className="icon-upload" />
+      <label htmlFor="imageUpload" className="cursor-pointer btn-secondary">
+        <PhotographIcon />
         {name}
       </label>
       <input

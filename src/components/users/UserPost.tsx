@@ -2,25 +2,23 @@ import CreatePostModal from 'components/posts/CreatePostModal'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { UserPictureFragment } from 'generated/graphql'
-import { useState } from 'react'
+import useToggle from 'utils/useToggle'
 
 export default function UserPost({ user }: { user: UserPictureFragment }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, toggleIsOpen] = useToggle()
 
   return (
     <>
-      <Transit>
-        <article className="flex-row">
-          <Picture pictureId={user.profile?.displayPicture} size={10} />
-          <span
-            onClick={() => setIsOpen(true)}
-            className="flex items-center flex-auto px-4 text-sm text-gray-400 transition bg-gray-100 rounded-full bordered dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-          >
-            New Post
-          </span>
-        </article>
+      <Transit as="article" className="flex-row items-center px-6 pb-6">
+        <Picture pictureId={user.profile?.displayPicture} />
+        <span
+          onClick={toggleIsOpen}
+          className="flex flex-auto text-sm text-gray-500 cursor-pointer hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+        >
+          New Post &hellip;
+        </span>
       </Transit>
-      {isOpen && <CreatePostModal setIsOpen={setIsOpen} />}
+      {isOpen && <CreatePostModal toggleIsOpen={toggleIsOpen} />}
     </>
   )
 }

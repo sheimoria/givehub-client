@@ -17,8 +17,8 @@ export default function Index() {
           router.push('/home')
         )
       ) : (
-        <div className="flex flex-col flex-wrap items-center justify-center flex-auto gap-5 md:flex-row md:justify-between">
-          <div className="flex flex-col gap-3 px-5 md:px-0">
+        <div className="flex flex-col flex-wrap items-center justify-center flex-auto gap-6 sm:flex-row sm:justify-between">
+          <div className="flex flex-col gap-4 px-6 sm:px-0">
             <Transit as="h1">
               Discover volunteer opportunities.
               <br />

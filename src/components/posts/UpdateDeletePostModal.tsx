@@ -10,18 +10,20 @@ import {
 
 import Form from 'components/forms/Form'
 import FormButton from 'components/forms/FormButton'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import TrashIcon from '@heroicons/react/outline/TrashIcon'
+import { RefreshIcon } from '@heroicons/react/outline'
 
 type Props = {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
   post: PostInfoFragment
 }
 
-export default function CreatePostModal({ setIsOpen, post }: Props) {
+export default function CreatePostModal({ toggleIsOpen, post }: Props) {
   const {
     register,
     handleSubmit,
@@ -55,7 +57,7 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
     if (!response.data?.updatePost?.post) {
       return console.error()
     } else {
-      setIsOpen(false)
+      toggleIsOpen()
     }
   }
 
@@ -63,7 +65,7 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -87,18 +89,15 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleUpdatePost}
-                className="w-96"
+                className="mx-auto modal"
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Update Post</Dialog.Title>
-                  <XIcon
-                    onClick={() => setIsOpen(false)}
-                    className="clickable-scale"
-                  />
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
                 <Dialog.Description className="hidden">
                   What&apos;s on your mind?
@@ -109,20 +108,32 @@ export default function CreatePostModal({ setIsOpen, post }: Props) {
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none shadow-none focus:ring-0 dark:bg-gray-800"
+                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-500 border-none resize-none dark:placeholder-gray-400 dark:text-gray-200 focus:outline-none focus:ring-0"
                   srOnly
                 />
-                <div className="flex justify-between">
+                <div className="flex justify-end gap-2">
                   <button
                     onClick={() => {
-                      setIsOpen(false)
+                      toggleIsOpen()
                       deletePost()
                     }}
-                    className="button-outline"
+                    className="btn-secondary"
                   >
-                    Delete
+                    <TrashIcon />
+                    Delete Post
                   </button>
-                  <FormButton label="Update" isSubmitting={isSubmitting} />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <RefreshIcon />
+                    )}
+                    Update Post
+                  </button>
                 </div>
               </Form>
             </div>

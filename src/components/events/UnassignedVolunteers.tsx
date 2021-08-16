@@ -14,20 +14,16 @@ export default function UnassignedVolunteers() {
   return (
     <Transit as="dl">
       <h5>Unassigned Volunteers</h5>
-      <div className="divide">
-        {data?.event?.unassignedVolunteers?.map((user) => (
-          <UnassignedVolunteer
-            key={user.id}
-            user={user}
-            tasks={data?.event?.eventTasks}
-          />
-        ))}
-        {data?.event?.unassignedVolunteers?.length == 0 && (
-          <div className="py-3">
-            <p>No unassigned volunteers.</p>
-          </div>
-        )}
-      </div>
+      {data?.event?.unassignedVolunteers?.map((user) => (
+        <UnassignedVolunteer
+          key={user.id}
+          user={user}
+          tasks={data?.event?.eventTasks}
+        />
+      ))}
+      {data?.event?.unassignedVolunteers?.length == 0 && (
+        <p>No unassigned volunteers.</p>
+      )}
     </Transit>
   )
 }

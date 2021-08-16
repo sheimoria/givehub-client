@@ -1,11 +1,10 @@
 import { HeaderFragment, useLogOutMutation } from 'generated/graphql'
 import { Menu, Transition } from '@headlessui/react'
-
+import Image from 'next/image'
 import { Fragment } from 'react'
 import Link from 'next/link'
 import { useApolloClient } from '@apollo/client'
 import { useRouter } from 'next/router'
-import Picture from 'components/Picture'
 
 export default function Avatar({ me }: { me: HeaderFragment }) {
   const apolloClient = useApolloClient()
@@ -18,12 +17,22 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
   }
 
   return (
-    <Menu as="div" className="relative">
+    <Menu as="div" className="relative -mb-2">
       {({ open }) => (
         <>
-          <Menu.Button className="p-0 bg-transparent border-none focus:outline-none hover:translate-y-0 active:translate-y-0 hover:bg-transparent hover:border-none">
+          <Menu.Button>
             <span className="sr-only">Open user menu</span>
-            <Picture pictureId={me.profile?.displayPicture} size={10} />
+            <div className="relative flex flex-none w-10 h-10 overflow-hidden rounded-full bordered">
+              {me.profile?.displayPicture ? (
+                <Image
+                  src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${me.profile.displayPicture}`}
+                  alt="Profile Picture"
+                  layout="fill"
+                />
+              ) : (
+                <Image src="/avatar.svg" alt="Picture" layout="fill" />
+              )}
+            </div>
           </Menu.Button>
           <Transition
             show={open}
@@ -37,7 +46,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
           >
             <Menu.Items
               static
-              className="absolute right-0 z-10 flex flex-col py-2.5 mt-3 truncate origin-top-right bg-white bordered rounded-md shadow-md focus:outline-none dark:bg-gray-800"
+              className="absolute right-0 z-10 flex flex-col py-2.5 mt-2 truncate origin-top-right bg-white rounded-md shadow focus:outline-none dark:bg-gray-800"
             >
               <Menu.Item>
                 {({ active }) => (
@@ -49,7 +58,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <Link href={{ pathname: '/user', query: { userId: me.id } }}>
-                    <a className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a className="px-5 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Profile
                     </a>
                   </Link>
@@ -58,7 +67,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <Link href={{ pathname: '/charities' }}>
-                    <a className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a className="px-5 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                       My Charities
                     </a>
                   </Link>
@@ -67,7 +76,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    className="px-5 py-2.5 font-normal hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-5 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
                     onClick={handleLogOut}
                   >
                     Log Out

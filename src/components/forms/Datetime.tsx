@@ -41,7 +41,7 @@ export default function Datetime({
               timeFormat="HH:mm"
               dateFormat="d MMM yyyy, h:mm aa"
               className={
-                'w-full text-sm bg-gray-100 dark:bg-gray-700 rounded-md focus:ring-1 focus:ring-rose-600 focus:border-rose-600 border border-gray-200 dark:border-gray-700' +
+                'w-full text-sm bg-gray-100 border-none dark:bg-gray-700 rounded-md focus:ring-1 focus:ring-rose-600' +
                 className
               }
               placeholderText={placeholder}

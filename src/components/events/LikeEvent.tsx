@@ -16,19 +16,21 @@ export default function LikeEvent({ event }: { event: EventLikesFragment }) {
   })
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 transition">
       {event.likeStatus ? (
         <ThumbUpIcon
           onClick={() => likeEvent()}
-          className="transition-transform text-rose-600 dark:text-rose-600 hover:scale-110"
+          className="cursor-pointer text-rose-600"
         />
       ) : (
         <ThumbUpIconOutline
           onClick={() => likeEvent()}
-          className="transition-transform hover:scale-110"
+          className="text-gray-500 transition-colors cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
         />
       )}
-      <p>{event.likeNumber}</p>
+      <p>
+        {event.likeNumber} {event.likeNumber === 1 ? 'Like' : 'Likes'}
+      </p>
     </div>
   )
 }

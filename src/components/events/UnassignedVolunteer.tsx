@@ -15,22 +15,24 @@ type Props = {
 
 export default function UnassignedVolunteer({ user, tasks }: Props) {
   return (
-    <div className="flex flex-col gap-3 py-3">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-col gap-4">
+      <div
+        onClick={() =>
+          router.push({
+            pathname: '/user',
+            query: { userId: user.id }
+          })
+        }
+        className="flex items-center gap-4"
+      >
         <Picture pictureId={user.profile?.displayPicture} />
-        <div
-          className="flex flex-col"
-          onClick={() =>
-            router.push({
-              pathname: '/user',
-              query: { userId: user.id }
-            })
-          }
-        >
-          <h6 className="truncate">
+        <div className="flex flex-col">
+          <h6 className="truncate transition-colors hover:text-gray-800 dark:hover-text-gray-100">
             {user.profile?.firstName} {user.profile?.lastName}
           </h6>
-          <p className="truncate">@{user.username}</p>
+          <span className="text-xs truncate text-rose-600">
+            @{user.username}
+          </span>
         </div>
       </div>
       <AssignVolunteerButton userId={user.id} tasks={tasks} />

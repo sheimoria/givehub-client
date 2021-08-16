@@ -6,16 +6,17 @@ import {
   UserProfileUpdateInput,
   useUpdateUserProfileMutation
 } from 'generated/graphql'
+import React, { useState } from 'react'
 
 import Checkbox from '../forms/Checkbox'
 import Form from '../forms/Form'
 import Input from '../forms/Input'
 import Textarea from '../forms/Textarea'
+import { UploadIcon } from '@heroicons/react/outline'
 import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
@@ -24,7 +25,7 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object().shape({
@@ -66,7 +67,6 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
           ({ field, message }) =>
             setError(field, { type: 'manual', message: message })
         )
-        console.log(me.email)
       } else {
         router.replace('/home')
       }
@@ -111,21 +111,23 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleCreateUserProfile}
-        className="place-self-center"
+        className="flex flex-col gap-4 place-self-center"
       >
         <h5>Fill In User Profile</h5>
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-4">
           <Input
             name="firstName"
             label="First Name"
             register={register}
             errors={errors.firstName}
+            className="bg-white dark:bg-gray-800"
           />
           <Input
             name="lastName"
             label="Last Name"
             register={register}
             errors={errors.lastName}
+            className="bg-white dark:bg-gray-800"
           />
         </div>
         <Input
@@ -134,13 +136,15 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
           register={register}
           errors={errors.telegramHandle}
           placeholder="For charities to contact volunteers"
+          className="bg-white dark:bg-gray-800"
         />
         <Textarea
           name="about"
           label="About"
           register={register}
           errors={errors.about}
-          placeholder="Tell us a little bit about yourself."
+          placeholder="Tell us a little bit about yourself"
+          className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-white border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-800"
         />
         <h6>Which categories are you interested in?</h6>
         <div className="flex flex-wrap justify-between gap-6">
@@ -153,15 +157,26 @@ export default function CreateUserProfile({ me }: { me: HeaderFragment }) {
                   label={category.label}
                   register={register}
                   errors={errors[category.name]}
+                  className="bg-white dark:bg-gray-800"
                 />
               ))}
             </div>
           ))}
         </div>
-        <div />
-        <UploadImageButton label="Upload Profile Picture" setImage={setImage} />
-        <div />
-        <button type="submit">Continue</button>
+        <div className="flex justify-end gap-4">
+          <UploadImageButton
+            label="Upload Profile Picture"
+            setImage={setImage}
+          />
+          <button type="submit" disabled={isSubmitting} className="btn-primary">
+            {isSubmitting ? (
+              <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+            ) : (
+              <UploadIcon />
+            )}
+            Update Profile
+          </button>
+        </div>
       </Form>
     </>
   )

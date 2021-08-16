@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
   PostInput,
   PostsDocument,
@@ -16,11 +16,13 @@ import { XIcon } from '@heroicons/react/solid'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { UploadIcon } from '@heroicons/react/outline'
+import router from 'next/router'
 
 export default function CreatePostModal({
-  setIsOpen
+  toggleIsOpen
 }: {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
 }) {
   const {
     register,
@@ -52,7 +54,8 @@ export default function CreatePostModal({
       if (!response.data?.createPost?.post) {
         return console.error('There was an error creating your post.')
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
+        router.push('/home')
       }
     } else {
       const imageData = new FormData()
@@ -76,7 +79,8 @@ export default function CreatePostModal({
       if (!formResponse.data?.createPost?.post) {
         return console.error('There was an error creating your post.')
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
+        router.push('/home')
       }
     }
   }
@@ -85,7 +89,7 @@ export default function CreatePostModal({
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -109,17 +113,15 @@ export default function CreatePostModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleCreatePost}
-                className="w-96"
+                className="mx-auto modal"
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Create Post</Dialog.Title>
-                  <span onClick={() => setIsOpen(false)}>
-                    <XIcon />
-                  </span>
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
                 <Dialog.Description className="hidden">
                   What is on your mind?
@@ -130,12 +132,23 @@ export default function CreatePostModal({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="p-0 bg-white border-none shadow-none focus:ring-0 dark:bg-gray-800"
+                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-500 border-none resize-none dark:placeholder-gray-400 dark:text-gray-200 focus:outline-none focus:ring-0"
                   srOnly
                 />
-                <div className="flex justify-between">
-                  <UploadImageButton setImage={setImage} />
-                  <FormButton label="Create" isSubmitting={isSubmitting} />
+                <div className="flex justify-end gap-2">
+                  <UploadImageButton setImage={setImage} label="Upload Image" />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-rose-600 hover:bg-rose-700"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <UploadIcon />
+                    )}
+                    Create Post
+                  </button>
                 </div>
               </Form>
             </div>

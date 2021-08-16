@@ -30,70 +30,63 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
   const [comments, toggleComments] = useToggle()
 
   return (
-    <Transit>
-      <article className="gap-0 px-0 py-5">
-        <div className="flex flex-col gap-3 px-5 pb-3">
-          <div className="flex justify-between">
-            <div className="flex items-center gap-3">
-              <Picture
-                pictureId={post.creator.profile?.displayPicture}
-                size={10}
-              />
-              <div className="flex flex-col">
-                <Link
-                  href={{
-                    pathname: '/user',
-                    query: { userId: post.creator.id }
-                  }}
-                >
-                  <a>
-                    {post.creator?.profile?.firstName}{' '}
-                    {post.creator?.profile?.lastName}
-                  </a>
-                </Link>
-                <p className="text-xs">
-                  {formatDistanceToNow(parseInt(post.createdAt), {
-                    addSuffix: true,
-                    includeSeconds: true
-                  })}
-                </p>
-              </div>
+    <Transit as="article" className="pb-6">
+      <section className="px-6">
+        <div className="flex justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Picture pictureId={post.creator.profile?.displayPicture} />
+            <div className="flex flex-col">
+              <Link
+                href={{
+                  pathname: '/user',
+                  query: { userId: post.creator.id }
+                }}
+              >
+                <a className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100">
+                  {post.creator?.profile?.firstName}{' '}
+                  {post.creator?.profile?.lastName}
+                </a>
+              </Link>
+              <p className="text-xs">
+                {formatDistanceToNow(parseInt(post.createdAt), {
+                  addSuffix: true,
+                  includeSeconds: true
+                })}
+              </p>
             </div>
-            {post.creatorStatus && (
-              <UpdateDeletePostButton
-                post={filter(PostInfoFragmentDoc, post)}
-              />
-            )}
           </div>
-          <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
+          {post.creatorStatus && (
+            <UpdateDeletePostButton post={filter(PostInfoFragmentDoc, post)} />
+          )}
         </div>
-        {post.imageUrl && (
-          <div className="relative mb-3 overflow-hidden border-l-0 border-r-0 h-96 bordered">
-            <Image
-              src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${post.imageUrl}`}
-              alt="Event image"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        )}
+        <p className={lineclamp ? 'line-clamp-3' : ''}>{post.text}</p>
         {event && <EventPreview event={event} />}
-        <div className="flex items-center gap-3 px-5">
-          <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
-          <PostCommentsButton
-            toggleComments={toggleComments as () => void}
-            commentNumber={post.commentNumber}
+      </section>
+      {post.imageUrl && (
+        <div className="relative overflow-hidden h-80">
+          <Image
+            src={`https://res.cloudinary.com/givehub/image/upload/v1627495464/${post.imageUrl}`}
+            alt="Event image"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
-        {comments && (
-          <div className="flex flex-col gap-3 px-5 pt-5">
-            <PostCardCommentInput
-              post={filter(PostCardCommentInputFragmentDoc, post)}
-            />
-            <PostCardComments postId={post.id} />
-          </div>
-        )}
-      </article>
+      )}
+      <div className="flex items-center gap-4 px-6">
+        <LikePost likePost={filter(PostLikesFragmentDoc, post)} />
+        <PostCommentsButton
+          toggleComments={toggleComments}
+          commentNumber={post.commentNumber}
+        />
+      </div>
+      {comments && (
+        <div className="flex flex-col gap-4">
+          <PostCardCommentInput
+            post={filter(PostCardCommentInputFragmentDoc, post)}
+          />
+          <PostCardComments postId={post.id} />
+        </div>
+      )}
     </Transit>
   )
 }

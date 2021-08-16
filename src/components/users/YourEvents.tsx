@@ -13,35 +13,26 @@ export default function UserEvents() {
   const router = useRouter()
 
   return (
-    <Transit as="dl" className="gap-3 pb-5">
+    <Transit as="dl">
       <h5>Your Events</h5>
-      {data?.viewTasksAssignedToMe?.eventContainers &&
-      data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
-        data.viewTasksAssignedToMe.eventContainers.map(
-          (eventContainer: {
-            event: EventSnippetFragment
-            tasks: TaskHeaderFragment[]
-          }) => (
-            <Transit
-              key={eventContainer.event.id}
-              as="article"
-              className="clickable-float"
-              onClick={() =>
-                router.push({
-                  pathname: `/event`,
-                  query: { eventId: eventContainer.event.id }
-                })
-              }
-            >
-              <EventSnippet event={eventContainer.event} />
-            </Transit>
+      <div className="flex flex-col gap-6">
+        {data?.viewTasksAssignedToMe?.eventContainers &&
+        data.viewTasksAssignedToMe.eventContainers.length > 0 ? (
+          data.viewTasksAssignedToMe.eventContainers.map(
+            (eventContainer: {
+              event: EventSnippetFragment
+              tasks: TaskHeaderFragment[]
+            }) => (
+              <EventSnippet
+                key={eventContainer.event.id}
+                event={eventContainer.event}
+              />
+            )
           )
-        )
-      ) : (
-        <div>
+        ) : (
           <p> You have no upcoming events.</p>
-        </div>
-      )}
+        )}
+      </div>
     </Transit>
   )
 }

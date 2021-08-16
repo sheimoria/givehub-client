@@ -8,6 +8,7 @@ import {
 import Link from 'next/link'
 import Picture from 'components/Picture'
 import { useRouter } from 'next/router'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline'
 
 export default function VolunteerRequest({
   user
@@ -18,25 +19,28 @@ export default function VolunteerRequest({
   const router = useRouter()
 
   return (
-    <div className="flex flex-wrap justify-between gap-3 py-3">
-      <div className="flex items-center gap-3">
-        <Picture pictureId={user.profile?.displayPicture} size={10} />
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div
+        onClick={() =>
+          router.push({
+            pathname: '/user',
+            query: { userId: user.id }
+          })
+        }
+        className="flex items-center gap-4 cursor-pointer"
+      >
+        <Picture pictureId={user.profile?.displayPicture} />
         <div className="flex flex-col">
-          <Link
-            href={{
-              pathname: '/user',
-              query: { userId: user.id }
-            }}
-          >
-            <a className="truncate">
-              {user.profile?.firstName} {user.profile?.lastName}
-            </a>
-          </Link>
-          <p className="truncate">@{user.username}</p>
+          <h6 className="transition-colors line-clamp-1 hover:text-gray-800 dark:hover:text-gray-100">
+            {user.profile?.firstName} {user.profile?.lastName}
+          </h6>
+          <span className="text-xs line-clamp-1 text-rose-600">
+            @{user.username}
+          </span>
         </div>
       </div>
-      <div className="flex items-center flex-none gap-2">
-        <button
+      <div className="flex flex-none gap-2">
+        <XCircleIcon
           onClick={() =>
             acceptVolunteer({
               variables: {
@@ -54,11 +58,9 @@ export default function VolunteerRequest({
               ]
             })
           }
-          className="px-3 py-1 button-outline"
-        >
-          Reject
-        </button>
-        <button
+          className="w-8 h-8 text-gray-500 transition-colors cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        />
+        <CheckCircleIcon
           onClick={() =>
             acceptVolunteer({
               variables: {
@@ -76,10 +78,8 @@ export default function VolunteerRequest({
               ]
             })
           }
-          className="px-3 py-1"
-        >
-          Accept
-        </button>
+          className="w-8 h-8 transition-colors cursor-pointer text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+        />
       </div>
     </div>
   )

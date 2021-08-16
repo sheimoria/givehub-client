@@ -8,21 +8,23 @@ import Form from 'components/forms/Form'
 import { Fragment } from 'react'
 import Textarea from 'components/forms/Textarea'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
+import router from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { XIcon } from '@heroicons/react/outline'
+import { ClipboardCheckIcon } from '@heroicons/react/outline'
 
 type CreateTaskProps = {
   isOpen: boolean
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
 }
 
-export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
+export default function CreateTask({ isOpen, toggleIsOpen }: CreateTaskProps) {
   const [createEvent] = useCreateTaskMutation()
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object({
@@ -31,7 +33,6 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
       })
     )
   })
-  const router = useRouter()
 
   async function handleCreateTask(values: {
     description: string
@@ -54,7 +55,7 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
         <p key={error.field}>{error.message}</p>
       ))
     } else if (response.data?.createTask?.success) {
-      setIsOpen(false)
+      toggleIsOpen()
     }
   }
 
@@ -62,7 +63,7 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -86,13 +87,16 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleCreateTask}
-                className="w-96"
+                className="mx-auto modal"
               >
-                <Dialog.Title as="h5">Create Task</Dialog.Title>
+                <div className="flex items-center justify-between gap-4">
+                  <Dialog.Title as="h5">Create Task</Dialog.Title>
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
+                </div>
                 <Dialog.Description className="sr-only"></Dialog.Description>
                 <Textarea
                   name="description"
@@ -101,6 +105,7 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
                   errors={errors.description}
                   placeholder="Description"
                   srOnly
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
                 />
                 <Datetime
                   name="deadline"
@@ -110,14 +115,17 @@ export default function CreateTask({ isOpen, setIsOpen }: CreateTaskProps) {
                   srOnly
                   placeholder="Deadline"
                 />
-                <div className="flex gap-2">
+                <div className="flex justify-end">
                   <button
-                    onClick={() => setIsOpen(false)}
-                    className="flex-auto button-outline"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
                   >
-                    Cancel
-                  </button>
-                  <button type="submit" className="flex-auto">
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <ClipboardCheckIcon />
+                    )}
                     Create Task
                   </button>
                 </div>

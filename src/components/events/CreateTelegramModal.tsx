@@ -85,13 +85,14 @@ export default function CreateTelegramModal({
             leaveTo="opacity-0"
           >
             <div className="z-10">
-              <Form handleSubmit={handleSubmit} onSubmit={handleCreateTelegram}>
+              <Form
+                handleSubmit={handleSubmit}
+                onSubmit={handleCreateTelegram}
+                className="modal"
+              >
                 <div className="flex justify-between w-96">
                   <Dialog.Title as="h5">Create Telegram Group</Dialog.Title>
-                  <XIcon
-                    onClick={() => toggleIsOpen()}
-                    className="clickable-scale"
-                  />
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
                 <Dialog.Description className="sr-only">
                   Fill in the telegram group details below.
@@ -108,11 +109,7 @@ export default function CreateTelegramModal({
                   register={register}
                   errors={errors.groupDescription}
                 />
-                <FormButton
-                  label="Create"
-                  isSubmitting={isSubmitting}
-                  className="flex-auto"
-                />
+                <FormButton label="Create" isSubmitting={isSubmitting} />
               </Form>
             </div>
           </Transition.Child>

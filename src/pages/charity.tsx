@@ -7,7 +7,7 @@ import CharityProfile from 'components/charities/CharityProfile'
 import CreateEventButton from 'components/events/CreateEventButton'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
-import UserTasks from 'components/users/YourEvents'
+import UserEvents from 'components/users/YourEvents'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -25,9 +25,9 @@ export default withAuth(function Charity({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
+          <UserEvents />
         </>
       }
     >

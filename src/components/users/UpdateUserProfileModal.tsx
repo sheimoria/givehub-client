@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
   Genders,
   UserProfileFragment,
@@ -18,13 +18,14 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useUpdateUserProfileMutation } from 'generated/graphql'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { RefreshIcon } from '@heroicons/react/outline'
 
 type Props = {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
   user: UserProfileFragment
 }
 
-export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
+export default function UpdateUserProfileModal({ toggleIsOpen, user }: Props) {
   const defaultCategories = Object.fromEntries(
     user.categories.map((category) => [category.id, 'checked'])
   )
@@ -32,7 +33,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     defaultValues: {
       firstName: user.profile?.firstName,
@@ -79,7 +80,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
           setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     } else {
       const imageData = new FormData()
@@ -112,7 +113,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
             setError(field, { type: 'manual', message: message })
         )
       } else {
-        setIsOpen(false)
+        toggleIsOpen()
       }
     }
   }
@@ -121,7 +122,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -145,15 +146,16 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
+            <div className="z-10 w-full">
               <Form
                 handleSubmit={handleSubmit}
                 onSubmit={handleUpdateUserProfile}
+                className="mx-auto modal"
               >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Update User Profile</Dialog.Title>
-                  <span onClick={() => setIsOpen(false)}>
-                    <XIcon className="clickable-scale" />
+                  <span onClick={toggleIsOpen}>
+                    <XIcon className="clickable" />
                   </span>
                 </div>
                 <Dialog.Description className="hidden">
@@ -179,6 +181,7 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
                   register={register}
                   errors={errors.about}
                   placeholder="Tell us a little bit about yourself."
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
                 />
                 <h6>Which categories are you interested in?</h6>
                 <div className="flex flex-wrap justify-between gap-6">
@@ -196,12 +199,24 @@ export default function UpdateUserProfileModal({ setIsOpen, user }: Props) {
                   ))}
                 </div>
                 <div />
-                <UploadImageButton
-                  label="Update Profile Picture"
-                  setImage={setImage}
-                />
-                <div />
-                <button type="submit">Post</button>
+                <div className="flex justify-end gap-2">
+                  <UploadImageButton
+                    label="Upload Profile Picture"
+                    setImage={setImage}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <RefreshIcon />
+                    )}
+                    Update Profile
+                  </button>
+                </div>
               </Form>
             </div>
           </Transition.Child>

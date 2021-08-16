@@ -4,9 +4,9 @@ import Events from 'components/events/Events'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Posts from 'components/posts/Posts'
+import UserEvents from 'components/users/YourEvents'
 import { UserPictureFragmentDoc } from 'generated/graphql'
 import UserPost from 'components/users/UserPost'
-import UserTasks from 'components/users/YourEvents'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
@@ -20,9 +20,9 @@ export default withAuth(function Home({ me }) {
       aside={
         <>
           <FriendRequests />
-          <UserTasks />
           <PeopleToFollow />
           <CharitiesToFollow />
+          <UserEvents />
         </>
       }
     >

@@ -1,13 +1,18 @@
 import {
   CharityDocument,
   CharityHeaderFragment,
-  CharityRecommendationsDocument,
   useFollowCharityMutation
 } from 'generated/graphql'
 
 import Picture from 'components/Picture'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import router from 'next/router'
+import React from 'react'
+import {
+  IdentificationIcon,
+  UserAddIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 
 export default function CharityHeader({
   charity
@@ -25,9 +30,9 @@ export default function CharityHeader({
   })
 
   return (
-    <div className="flex items-center justify-between gap-3 py-3">
+    <div className="flex items-center justify-between gap-4">
       <div
-        className="flex items-center gap-3 clickable-float"
+        className="flex items-center gap-4 cursor-pointer"
         onClick={() =>
           router.push({
             pathname: '/charity',
@@ -35,28 +40,33 @@ export default function CharityHeader({
           })
         }
       >
-        <Picture pictureId={charity.profile?.displayPicture} size={10} />
+        <Picture pictureId={charity.profile?.displayPicture} />
         <div className="flex flex-col">
-          <h6>{charity.name}</h6>
-          <p className="text-xs text-rose-600 dark:text-rose-600">
-            {charity.categories[0].name} &hellip;
-          </p>
+          <h6 className="hover:text-gray-800 dark:hover:text-gray-100 line-clamp-1">
+            {charity.name}
+          </h6>
+
+          <span className="text-xs text-rose-600">
+            {charity.categories[0].name}{' '}
+            {charity.categories.length > 1 && (
+              <span className="text-xs text-rose-600">&hellip;</span>
+            )}
+          </span>
         </div>
       </div>
       {charity.adminStatus ? (
-        <button className="px-3 py-1 pointer-events-none button-outline">
+        <button className="pointer-events-none btn-secondary">
+          <IdentificationIcon />
           Admin
         </button>
       ) : charity.followStatus === 1 ? (
-        <button
-          className="px-3 py-1 button-outline"
-          onClick={() => followCharity()}
-        >
+        <button onClick={() => followCharity()} className="btn-secondary">
+          <UsersIcon />
           Following
         </button>
       ) : (
-        <button onClick={() => followCharity()} className="gap-1 px-3 py-1">
-          <PlusSmIcon className="text-white dark:text-white" />
+        <button onClick={() => followCharity()} className="btn-primary">
+          <UserAddIcon />
           Follow
         </button>
       )}

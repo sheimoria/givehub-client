@@ -12,5 +12,12 @@ fragment Header on User {
   adminCharities {
     id
     name
+    profile {
+      displayPicture
+    }
+    categories {
+      id
+      name
+    }
   }
 }

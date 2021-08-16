@@ -12,30 +12,25 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
     <header>
       <nav>
         <Link href="/home" passHref>
-          <div className="hidden md:flex md:flex-none w-44">
-            <Image src="/logo.svg" alt="Givehub" height={36} width={155} />
+          <div className="relative w-9 h-9 sm:w-44">
+            <Image
+              src="/logo.svg"
+              alt="Givehub"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="left"
+              priority
+              className="cursor-pointer"
+            />
           </div>
         </Link>
-        <Link href="/" passHref>
-          <div className="flex flex-none md:hidden">
-            <Image src="/logo-lite.svg" alt="Givehub" height={36} width={36} />
-          </div>
-        </Link>
-
-        {me ? (
+        {me && (
           <>
             <Search />
-            <div className="flex items-center justify-end flex-none gap-5 lg:w-96">
+            <div className="flex justify-end flex-none lg:w-96">
               <Avatar me={me} />
             </div>
           </>
-        ) : (
-          <div className="flex items-center flex-none gap-5">
-            <Link href="/">
-              <a>Log in</a>
-            </Link>
-            <button onClick={() => router.push('/sign-up')}>Sign up</button>
-          </div>
         )}
       </nav>
     </header>

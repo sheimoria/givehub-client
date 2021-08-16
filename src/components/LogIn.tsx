@@ -50,11 +50,11 @@ export default function LogIn() {
   }
 
   return (
-    <Transit onEveryMount className="w-full md:w-96">
+    <Transit onEveryMount as="section" className="w-full px-6 sm:w-96 sm:px-0">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleSubmit(handleLogIn)}
-        className="w-full md:w-96"
+        className="flex flex-col w-full gap-4"
       >
         <h4>Log in</h4>
         <Input
@@ -62,20 +62,32 @@ export default function LogIn() {
           label="Email or Username"
           register={register}
           errors={errors.usernameOrEmail}
+          className="bg-white dark:bg-gray-800"
         />
         <Password
           name="password"
           label="Password"
           register={register}
           errors={errors.password}
+          className="bg-white dark:bg-gray-800"
         />
-        <Link href="/forgot-password">
-          <a className="text-rose-600 hover:text-rose-700 dark:text-rose-600 dark:hover:text-rose-700">
-            Forgot password?
-          </a>
-        </Link>
+        <div className="flex justify-end">
+          <Link href="/forgot-password">
+            <a className="text-xs font-medium transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
+              Forgot password?
+            </a>
+          </Link>
+        </div>
         <FormButton label="Log In" isSubmitting={isSubmitting} />
       </Form>
+      <h6>
+        Don&apos;t have an account?{' '}
+        <Link href="/sign-up">
+          <a className="transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
+            Sign up here
+          </a>
+        </Link>
+      </h6>
     </Transit>
   )
 }
