@@ -9,9 +9,10 @@ import Password from '../forms/Password'
 import SignUpModal from 'components/SignUpModal'
 import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useToggle from 'utils/useToggle'
+import FormButton from 'components/forms/FormButton'
 
 export default function CreateUser({
   setSuccess
@@ -24,7 +25,7 @@ export default function CreateUser({
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(
       yup.object().shape({
@@ -79,7 +80,7 @@ export default function CreateUser({
         <Form
           handleSubmit={handleSubmit}
           onSubmit={handleCreateUser}
-          className="w-96 place-self-center"
+          className="flex flex-col gap-4 w-96 place-self-center"
         >
           <h5>Sign Up</h5>
           <Input
@@ -108,13 +109,12 @@ export default function CreateUser({
           />
           <a
             onClick={toggleIsOpen}
-            className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700"
+            className="flex items-center gap-2 text-sm cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
           >
-            <InformationCircleIcon className="text-rose-600 hover:text-rose-600 dark:text-rose-600 dark:hover:text-rose-700" />
+            <InformationCircleIcon />
             Signing up as a charity?
           </a>
-          <div />
-          <button type="submit">Sign Up</button>
+          <FormButton label="Sign Up" isSubmitting={isSubmitting} />
         </Form>
       </Transit>
       <SignUpModal isOpen={isOpen} toggleIsOpen={toggleIsOpen} />

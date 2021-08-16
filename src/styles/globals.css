@@ -23,7 +23,7 @@
     @apply hidden;
   }
   footer {
-    @apply fixed bottom-0 z-10 w-full py-4 bg-white dark:bg-gray-900;
+    @apply fixed bottom-0 z-10 w-full py-4 bg-gray-100 dark:bg-gray-900;
   }
   section {
     @apply flex flex-col gap-4;
@@ -31,13 +31,9 @@
   article {
     @apply flex flex-col gap-4 pt-6 bg-white sm:rounded-lg dark:bg-gray-800;
   }
-  /* form {
-    @apply flex flex-col gap-4 p-6 bg-white md:rounded-lg dark:bg-gray-800;
-  } */
   dl {
     @apply flex flex-col gap-4 p-6 bg-white md:rounded-lg dark:bg-gray-800;
   }
-
   /* Text */
   h1 {
     @apply text-3xl font-bold font-display text-rose-600;
@@ -60,35 +56,10 @@
   p {
     @apply text-sm text-gray-700 dark:text-gray-200;
   }
-
-  /* Links */
-  /*  a {
-    @apply flex items-center gap-2 font-medium text-gray-700 transition-colors hover:text-gray-800 dark:hover:text-gray-100 dark:text-gray-200;
-  } */
-  /* button {
-    @apply flex items-center justify-center gap-2 px-4 py-2 font-medium text-white transition border rounded-full hover:-translate-y-px hover:bg-rose-700 active:translate-y-px bg-rose-600 border-rose-600 hover:border-rose-700 disabled:pointer-events-none disabled:opacity-75;
-  } */
-
   /* Forms */
   label {
     @apply text-sm font-medium text-gray-700 dark:text-gray-200;
   }
-  /*
-  input {
-    @apply w-full px-3 py-2 text-gray-700 placeholder-gray-500 transition bg-gray-100 border rounded-md dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
-  }
-  input[type='password'] {
-    @apply w-full px-3 py-2 text-gray-700 placeholder-gray-500 transition bg-gray-100 border rounded-md dark:focus:border-rose-600 focus:border-rose-600 focus:outline-none dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:placeholder-gray-400 focus:ring-1 focus:ring-rose-600;
-  }
-  input[type='checkbox'] {
-    @apply p-2 transition bg-gray-100 border rounded dark:bg-gray-700 text-rose-600 dark:border-gray-600 focus:ring-transparent focus:outline-none focus:ring-offset-0;
-  }
-  textarea {
-    @apply w-full h-24 px-3 py-2 text-gray-700 placeholder-gray-500 transition bg-gray-100 border rounded-md resize-none dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
-  }
-  select {
-    @apply w-full px-3 py-2 text-gray-700 placeholder-gray-500 transition bg-gray-100 border rounded-md dark:focus:border-rose-600 focus:border-rose-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-600;
-  } */
   /* Icons  */
   svg {
     @apply w-5 h-5;

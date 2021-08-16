@@ -54,7 +54,7 @@ export default function LogIn() {
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleSubmit(handleLogIn)}
-        className="w-full md:w-96"
+        className="flex flex-col gap-4 sm:w-96"
       >
         <h4>Log in</h4>
         <Input
@@ -62,18 +62,22 @@ export default function LogIn() {
           label="Email or Username"
           register={register}
           errors={errors.usernameOrEmail}
+          className="bg-white"
         />
         <Password
           name="password"
           label="Password"
           register={register}
           errors={errors.password}
+          className="bg-white"
         />
-        <Link href="/forgot-password">
-          <a className="text-rose-600 hover:text-rose-700 dark:text-rose-600 dark:hover:text-rose-700">
-            Forgot password?
-          </a>
-        </Link>
+        <div className="flex justify-end">
+          <Link href="/forgot-password">
+            <a className="text-xs transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
+              Forgot password?
+            </a>
+          </Link>
+        </div>
         <FormButton label="Log In" isSubmitting={isSubmitting} />
       </Form>
     </Transit>
