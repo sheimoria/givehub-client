@@ -1,7 +1,8 @@
 import { HeaderFragment, useLogOutMutation } from 'generated/graphql'
 import { Menu, Transition } from '@headlessui/react'
-import Image from 'next/image'
+
 import { Fragment } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useApolloClient } from '@apollo/client'
 import { useRouter } from 'next/router'
@@ -76,7 +77,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    className="px-5c cursor-pointer py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-5 cursor-pointer py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
                     onClick={handleLogOut}
                   >
                     Log Out
