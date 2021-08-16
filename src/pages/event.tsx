@@ -46,7 +46,7 @@ export default withAuth(function ViewEvent({ me }) {
           <Event event={data.event} />
           {data.event.adminStatus && data.event.currentEventVolunteers && (
             <>
-              <div className="flex gap-3">
+              <div className="flex flex-col gap-4 px-6 sm:flex-row sm:px-0">
                 <CreateTaskButton />
                 <ViewTelegramButton
                   volunteers={data.event.currentEventVolunteers}
