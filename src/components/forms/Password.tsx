@@ -39,7 +39,7 @@ export default function Password({
         <input
           placeholder={placeholder}
           {...register(name)}
-          className={`w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700 ${className}`}
+          className={`w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-500 border-none rounded-md focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 ${className}`}
           onFocus={onFocus}
           onBlur={onBlur}
           autoComplete="off"
