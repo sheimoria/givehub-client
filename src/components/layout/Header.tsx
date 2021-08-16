@@ -20,23 +20,17 @@ const Header = ({ me }: { me?: HeaderFragment }) => {
               objectFit="contain"
               objectPosition="left"
               priority
+              className="cursor-pointer"
             />
           </div>
         </Link>
-        {me ? (
+        {me && (
           <>
             <Search />
             <div className="flex justify-end flex-none lg:w-96">
               <Avatar me={me} />
             </div>
           </>
-        ) : (
-          <div className="flex items-center flex-none gap-6">
-            <Link href="/">
-              <a>Log in</a>
-            </Link>
-            <button onClick={() => router.push('/sign-up')}>Sign up</button>
-          </div>
         )}
       </nav>
     </header>

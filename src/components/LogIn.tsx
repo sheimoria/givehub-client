@@ -50,7 +50,7 @@ export default function LogIn() {
   }
 
   return (
-    <Transit onEveryMount as="section" className="w-full sm:w-96">
+    <Transit onEveryMount as="section" className="w-full px-6 sm:w-96 sm:px-0">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleSubmit(handleLogIn)}
@@ -73,7 +73,7 @@ export default function LogIn() {
         />
         <div className="flex justify-end">
           <Link href="/forgot-password">
-            <a className="text-xs transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
+            <a className="text-xs font-medium transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
               Forgot password?
             </a>
           </Link>
@@ -83,7 +83,7 @@ export default function LogIn() {
       <h6>
         Don&apos;t have an account?{' '}
         <Link href="/sign-up">
-          <a className="transition-colors text-rose-600 hover:text-rose-700 dark:text-rose-500">
+          <a className="transition-colors text-rose-600 hover:text-rose-700 dark:hover:text-rose-500">
             Sign up here
           </a>
         </Link>

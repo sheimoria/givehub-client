@@ -1,18 +1,18 @@
 import * as yup from 'yup'
 
 import { MeDocument, useSignUpMutation } from 'generated/graphql'
+import React, { useState } from 'react'
 
 import Form from '../forms/Form'
+import FormButton from 'components/forms/FormButton'
 import { InformationCircleIcon } from '@heroicons/react/solid'
 import Input from '../forms/Input'
 import Password from '../forms/Password'
 import SignUpModal from 'components/SignUpModal'
 import Transit from 'components/Transit'
 import { useForm } from 'react-hook-form'
-import React, { useState } from 'react'
-import { yupResolver } from '@hookform/resolvers/yup'
 import useToggle from 'utils/useToggle'
-import FormButton from 'components/forms/FormButton'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export default function CreateUser({
   setSuccess
@@ -31,10 +31,7 @@ export default function CreateUser({
       yup.object().shape({
         username: yup.string().required('Required'),
         email: yup.string().email().required('Required'),
-        password: yup.string().required('Required'),
-        passwordConfirmation: yup
-          .string()
-          .oneOf([yup.ref('password'), null], 'Passwords must match')
+        password: yup.string().required('Required')
       })
     )
   })
@@ -76,11 +73,15 @@ export default function CreateUser({
 
   return (
     <>
-      <Transit onEveryMount className="flex justify-center">
+      <Transit
+        onEveryMount
+        as="section"
+        className="w-full px-6 place-self-center sm:w-96 sm:px-0"
+      >
         <Form
           handleSubmit={handleSubmit}
           onSubmit={handleCreateUser}
-          className="flex flex-col gap-4 w-96 place-self-center"
+          className="flex flex-col w-full gap-4"
         >
           <h5>Sign Up</h5>
           <Input
@@ -88,28 +89,25 @@ export default function CreateUser({
             label="Username"
             register={register}
             errors={errors.username}
+            className="bg-white dark:bg-gray-800"
           />
           <Input
             name="email"
             label="Email Address"
             register={register}
             errors={errors.email}
+            className="bg-white dark:bg-gray-800"
           />
           <Password
             name="password"
             label="Password"
             register={register}
             errors={errors.password}
-          />
-          <Password
-            name="passwordConfirmation"
-            label="Password Confirmation"
-            register={register}
-            errors={errors.passwordConfirmation}
+            className="bg-white dark:bg-gray-800"
           />
           <a
             onClick={toggleIsOpen}
-            className="flex items-center gap-2 text-sm cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
+            className="flex items-center gap-2 text-sm font-medium transition-colors cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
           >
             <InformationCircleIcon />
             Signing up as a charity?

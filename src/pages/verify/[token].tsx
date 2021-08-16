@@ -1,6 +1,6 @@
-import { ArrowRightIcon } from '@heroicons/react/outline'
+import { ArrowRightIcon, BadgeCheckIcon } from '@heroicons/react/outline'
+
 import Body from 'components/layout/Body'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useVerifyUserMutation } from 'generated/graphql'
@@ -15,7 +15,9 @@ export default function VerifyUser() {
       <div className="flex flex-col items-start justify-center flex-auto gap-3 p-5">
         {status === 'PENDING' ? (
           <>
-            <p>Press the button below to complete the verification process.</p>
+            <span className="text-gray-700 dark:text-gray-200">
+              Press the button below to complete the verification process.
+            </span>
             <button
               onClick={async () => {
                 const response = await verifyUser({
@@ -27,24 +29,26 @@ export default function VerifyUser() {
                   setStatus('REJECTED')
                 }
               }}
+              className="btn-primary"
             >
+              <BadgeCheckIcon />
               Verify My Account
             </button>
           </>
         ) : status === 'VERIFIED' ? (
           <>
             <h2>You&apos;re successfully verified!</h2>
-            <Link
-              href={{
-                pathname: '/user-profile'
-              }}
-              replace
+            <button
+              onClick={() =>
+                router.replace({
+                  pathname: '/user-profile'
+                })
+              }
+              className="btn-primary"
             >
-              <a className="text-rose-600 hover:text-rose-700">
-                Proceed to fill in your user profile
-                <ArrowRightIcon className="text-rose-600 hover:text-rose-700" />
-              </a>
-            </Link>
+              Proceed to fill in your User Profile
+              <ArrowRightIcon />
+            </button>
           </>
         ) : (
           <>
