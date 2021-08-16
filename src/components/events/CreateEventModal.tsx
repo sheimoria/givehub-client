@@ -178,7 +178,7 @@ export default function CreateEventModal({
                     className="btn-primary"
                   >
                     {isSubmitting ? (
-                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                      <div className="w-4 h-4 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
                     ) : (
                       <CalendarIcon />
                     )}

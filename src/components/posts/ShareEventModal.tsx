@@ -122,7 +122,7 @@ export default function ShareEventModal({
                     className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-rose-600 hover:bg-rose-700"
                   >
                     {isSubmitting ? (
-                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                      <div className="w-4 h-4 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
                     ) : (
                       <ShareIcon />
                     )}
