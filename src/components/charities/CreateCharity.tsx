@@ -15,8 +15,9 @@ import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ClipboardIcon } from '@heroicons/react/outline'
 
 export default function CreateCharity() {
   const {
@@ -176,9 +177,13 @@ export default function CreateCharity() {
 
   return (
     <Transit onEveryMount>
-      <Form handleSubmit={handleSubmit} onSubmit={handleCreateCharity}>
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={handleCreateCharity}
+        className="flex flex-col w-full gap-4 p-6 bg-white rounded-lg dark:bg-gray-800"
+      >
         <h5>Charity Sign Up</h5>
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-4">
           <Input
             name="name"
             label="Charity Name"
@@ -214,8 +219,9 @@ export default function CreateCharity() {
           placeholder="Let others understand what your charity does."
           register={register}
           errors={errors.about}
+          className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
         />
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-4">
           <Input
             name="email"
             label="Email Address"
@@ -235,7 +241,7 @@ export default function CreateCharity() {
           register={register}
           errors={errors.links}
         />
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-4">
           <Input
             name="physicalAddress"
             label="Address"
@@ -249,10 +255,20 @@ export default function CreateCharity() {
             errors={errors.postalCode}
           />
         </div>
-        <div />
-        <UploadImageButton label="Upload Profile Picture" setImage={setImage} />
-        <div />
-        <FormButton label="Sign Up" isSubmitting={isSubmitting} />
+        <div className="flex justify-end gap-2">
+          <UploadImageButton
+            label="Upload Profile Picture"
+            setImage={setImage}
+          />
+          <button type="submit" disabled={isSubmitting} className="btn-primary">
+            {isSubmitting ? (
+              <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+            ) : (
+              <ClipboardIcon />
+            )}
+            Sign Up
+          </button>
+        </div>
       </Form>
     </Transit>
   )
