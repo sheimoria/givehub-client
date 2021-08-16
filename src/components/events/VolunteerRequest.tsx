@@ -1,14 +1,12 @@
 import {
-  FriendRequestsDocument,
   UserHeaderFragment,
   VolunteerRequestsDocument,
   useAcceptVolunteerMutation
 } from 'generated/graphql'
 
-import Link from 'next/link'
 import Picture from 'components/Picture'
 import { useRouter } from 'next/router'
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid'
 
 export default function VolunteerRequest({
   user
@@ -39,7 +37,7 @@ export default function VolunteerRequest({
           </span>
         </div>
       </div>
-      <div className="flex flex-none gap-2">
+      <div className="flex items-center flex-none gap-2">
         <XCircleIcon
           onClick={() =>
             acceptVolunteer({
@@ -58,7 +56,7 @@ export default function VolunteerRequest({
               ]
             })
           }
-          className="w-8 h-8 text-gray-500 transition-colors cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          className="w-7 h-7 clickable"
         />
         <CheckCircleIcon
           onClick={() =>
@@ -78,7 +76,7 @@ export default function VolunteerRequest({
               ]
             })
           }
-          className="w-8 h-8 transition-colors cursor-pointer text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+          className="transition-colors cursor-pointer w-7 h-7 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
         />
       </div>
     </div>
