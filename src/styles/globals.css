@@ -83,9 +83,6 @@
   .button-outline {
     @apply bg-white dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-rose-700 text-rose-600;
   }
-  .button-upload {
-    @apply flex items-center justify-center gap-1 px-4 py-2 text-gray-700 transition bg-white rounded-full hover:text-gray-900 dark:text-gray-200 dark:hover:text-white hover:bg-gray-100 bordered clickable-float dark:bg-gray-800 dark:hover:bg-gray-900;
-  }
   .button-secondary {
     @apply border-none bg-rose-200 dark:bg-rose-200 hover:bg-rose-300 dark:hover:bg-rose-300 text-rose-600 dark:text-rose-600 dark:border-none;
   }
@@ -97,12 +94,6 @@
   }
   .clickable {
     @apply text-gray-500 cursor-pointer dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300;
-  }
-  .clickable-float {
-    @apply transition-transform cursor-pointer hover:-translate-y-px active:translate-y-px;
-  }
-  .clickable-scale {
-    @apply transition-transform cursor-pointer hover:scale-110 active:translate-y-px;
   }
   .bordered {
     @apply border border-gray-200 dark:border-gray-700;
