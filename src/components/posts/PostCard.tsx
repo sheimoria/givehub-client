@@ -80,7 +80,7 @@ export default function PostCard({ post, event, lineclamp }: PostProps) {
         />
       </div>
       {comments && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-6">
           <PostCardCommentInput
             post={filter(PostCardCommentInputFragmentDoc, post)}
           />

@@ -2,7 +2,7 @@ import Picture from 'components/Picture'
 import Transit from 'components/Transit'
 import { formatDistanceToNow } from 'date-fns'
 import { usePostCommentsQuery } from 'generated/graphql'
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 
 export default function PostCardComments({ postId }: { postId: number }) {
   const { data } = usePostCommentsQuery({
