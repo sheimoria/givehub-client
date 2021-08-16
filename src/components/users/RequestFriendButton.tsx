@@ -29,10 +29,7 @@ export default function RequestFriendButton({ user, className }: Props) {
   switch (user.friendStatus) {
     case FriendRequestStatus.Accepted:
       return (
-        <button
-          onClick={() => requestFriend()}
-          className="px-4 py-2 text-sm font-medium transition-colors rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200"
-        >
+        <button onClick={() => requestFriend()} className="btn-secondary">
           <UsersIcon />
           Friends
         </button>
