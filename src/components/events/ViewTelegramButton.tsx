@@ -1,9 +1,14 @@
 import { PaperAirplaneIcon } from '@heroicons/react/solid'
 import Transit from 'components/Transit'
+import { UserHeaderFragment } from 'generated/graphql'
+import ViewTelegramModal from './ViewTelegramModal'
 import useToggle from 'utils/useToggle'
-import CreateTelegramModal from './CreateTelegramModal'
 
-export default function CreateTelegramButton() {
+export default function ViewTelegramButton({
+  volunteers
+}: {
+  volunteers: UserHeaderFragment[]
+}) {
   const [isOpen, toggleIsOpen] = useToggle()
 
   return (
@@ -14,9 +19,14 @@ export default function CreateTelegramButton() {
         onClick={toggleIsOpen}
       >
         <PaperAirplaneIcon />
-        Create Telegram Group
+        View Telegram Usernames
       </Transit>
-      {isOpen && <CreateTelegramModal toggleIsOpen={toggleIsOpen} />}
+      {isOpen && (
+        <ViewTelegramModal
+          toggleIsOpen={toggleIsOpen}
+          volunteers={volunteers}
+        />
+      )}
     </>
   )
 }

@@ -1,5 +1,8 @@
 query Event($id: Int!) {
   event(id: $id) {
     ...EventCard
+    currentEventVolunteers {
+      ...UserHeader
+    }
   }
 }

@@ -1207,6 +1207,10 @@ export type EventQuery = (
   { __typename?: 'Query' }
   & { event?: Maybe<(
     { __typename?: 'Event' }
+    & { currentEventVolunteers?: Maybe<Array<(
+      { __typename?: 'User' }
+      & UserHeaderFragment
+    )>> }
     & EventCardFragment
   )> }
 );
@@ -2907,9 +2911,13 @@ export const EventDocument = gql`
     query Event($id: Int!) {
   event(id: $id) {
     ...EventCard
+    currentEventVolunteers {
+      ...UserHeader
+    }
   }
 }
-    ${EventCardFragmentDoc}`;
+    ${EventCardFragmentDoc}
+${UserHeaderFragmentDoc}`;
 
 /**
  * __useEventQuery__
