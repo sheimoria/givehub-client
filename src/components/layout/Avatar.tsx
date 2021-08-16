@@ -76,7 +76,7 @@ export default function Avatar({ me }: { me: HeaderFragment }) {
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    className="px-5 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-5c cursor-pointer py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
                     onClick={handleLogOut}
                   >
                     Log Out
