@@ -12,18 +12,19 @@ import { Dialog, Transition } from '@headlessui/react'
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
 import FormButton from 'components/forms/FormButton'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import Input from 'components/forms/Input'
-import { XIcon } from '@heroicons/react/outline'
+import { RefreshIcon, XIcon } from '@heroicons/react/outline'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { TrashIcon } from '@heroicons/react/outline'
 
 type Props = {
-  setIsOpen: (arg0: boolean) => void
+  toggleIsOpen: () => void
   event: EventInfoFragment
 }
 
-export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
+export default function UpdateDeleteEventModal({ toggleIsOpen, event }: Props) {
   const {
     register,
     handleSubmit,
@@ -76,7 +77,7 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
         <p key={error.field}>{error.message}</p>
       ))
     } else {
-      setIsOpen(false)
+      toggleIsOpen()
     }
   }
 
@@ -84,7 +85,7 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => setIsOpen(false)}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -108,14 +109,15 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-10">
-              <Form handleSubmit={handleSubmit} onSubmit={handleUpdateEvent}>
+            <div className="z-10 w-full">
+              <Form
+                handleSubmit={handleSubmit}
+                onSubmit={handleUpdateEvent}
+                className="mx-auto modal"
+              >
                 <div className="flex justify-between">
                   <Dialog.Title as="h5">Update Event</Dialog.Title>
-                  <XIcon
-                    onClick={() => setIsOpen(false)}
-                    className="clickable-scale"
-                  />
+                  <XIcon onClick={toggleIsOpen} className="clickable" />
                 </div>
 
                 <Dialog.Description>
@@ -133,7 +135,7 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
                   register={register}
                   errors={errors.description}
                 />
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-4">
                   <Datetime
                     name="dateStart"
                     label="Starts"
@@ -154,17 +156,29 @@ export default function UpdateDeleteEventModal({ setIsOpen, event }: Props) {
                   errors={errors.venue}
                 />
                 <div />
-                <div className="flex gap-2">
+                <div className="flex justify-end gap-2">
                   <button
                     onClick={() => {
-                      setIsOpen(false)
+                      toggleIsOpen()
                       deleteEvent()
                     }}
-                    className="flex-auto button-outline"
+                    className="btn-secondary"
                   >
-                    Delete
+                    <TrashIcon />
+                    Delete Event
                   </button>
-                  <FormButton label="Update" isSubmitting={isSubmitting} />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
+                    ) : (
+                      <RefreshIcon />
+                    )}
+                    Update Event
+                  </button>
                 </div>
               </Form>
             </div>
