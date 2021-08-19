@@ -1,5 +1,5 @@
 import {
-  UserEventsFragmentDoc,
+  UserPostsEventsFragmentDoc,
   UserProfileFragmentDoc,
   useUserQuery
 } from 'generated/graphql'
@@ -8,8 +8,8 @@ import Body from 'components/layout/Body'
 import CharitiesToFollow from 'components/users/CharitiesToFollow'
 import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
-import UserEventButtons from 'components/users/UserEvents'
-import UserEvents from 'components/users/YourEvents'
+import UserPostsEvents from 'components/users/UserPostsEvents'
+import UserEvents from 'components/users/UserEvents'
 import UserProfile from 'components/users/UserProfile'
 import { filter } from 'graphql-anywhere'
 import { useRouter } from 'next/router'
@@ -37,7 +37,9 @@ export default withAuth(function User({ me }) {
       {data?.user && (
         <>
           <UserProfile user={filter(UserProfileFragmentDoc, data.user)} />
-          <UserEventButtons user={filter(UserEventsFragmentDoc, data.user)} />
+          <UserPostsEvents
+            user={filter(UserPostsEventsFragmentDoc, data.user)}
+          />
         </>
       )}
     </Body>

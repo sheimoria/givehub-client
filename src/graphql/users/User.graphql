@@ -2,6 +2,6 @@ query User($id: Float!) {
   user(id: $id) {
     ...UserHeader
     ...UserProfile
-    ...UserEvents
+    ...UserPostsEvents
   }
 }

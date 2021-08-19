@@ -1,8 +1,0 @@
-fragment UserEvents on User {
-  likedEvents {
-    ...EventCard
-  }
-  volunteeredEvents {
-    ...EventCard
-  }
-}

@@ -1845,7 +1845,7 @@ export type UserQuery = (
     { __typename?: 'User' }
     & UserHeaderFragment
     & UserProfileFragment
-    & UserEventsFragment
+    & UserPostsEventsFragment
   )> }
 );
 
@@ -1856,17 +1856,6 @@ export type UserCharitiesFragment = (
     { __typename?: 'Charity' }
     & CharityHeaderFragment
   )> }
-);
-
-export type UserEventsFragment = (
-  { __typename?: 'User' }
-  & { likedEvents: Array<(
-    { __typename?: 'Event' }
-    & EventCardFragment
-  )>, volunteeredEvents?: Maybe<Array<(
-    { __typename?: 'Event' }
-    & EventCardFragment
-  )>> }
 );
 
 export type UserFriendFragment = (
@@ -1900,6 +1889,26 @@ export type UserPictureFragment = (
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'id' | 'displayPicture'>
   )> }
+);
+
+export type UserPostsEventsFragment = (
+  { __typename?: 'User' }
+  & { posts?: Maybe<Array<(
+    { __typename?: 'EPost' }
+    & { post: (
+      { __typename?: 'Post' }
+      & PostCardFragment
+    ), event?: Maybe<(
+      { __typename?: 'Event' }
+      & EventInfoFragment
+    )> }
+  )>>, likedEvents: Array<(
+    { __typename?: 'Event' }
+    & EventCardFragment
+  )>, volunteeredEvents?: Maybe<Array<(
+    { __typename?: 'Event' }
+    & EventCardFragment
+  )>> }
 );
 
 export type UserProfileFragment = (
@@ -2102,46 +2111,6 @@ export const CommentSnippetFragmentDoc = gql`
   text
 }
     `;
-export const PostHeaderFragmentDoc = gql`
-    fragment PostHeader on Post {
-  id
-  creator {
-    id
-    profile {
-      firstName
-      lastName
-      displayPicture
-    }
-    username
-  }
-  createdAt
-}
-    `;
-export const PostInfoFragmentDoc = gql`
-    fragment PostInfo on Post {
-  id
-  text
-}
-    `;
-export const PostLikesFragmentDoc = gql`
-    fragment PostLikes on Post {
-  id
-  likeStatus
-  likeNumber
-}
-    `;
-export const PostCardFragmentDoc = gql`
-    fragment PostCard on Post {
-  creatorStatus
-  ...PostHeader
-  ...PostInfo
-  imageUrl
-  ...PostLikes
-  commentNumber
-}
-    ${PostHeaderFragmentDoc}
-${PostInfoFragmentDoc}
-${PostLikesFragmentDoc}`;
 export const PostCardCommentInputFragmentDoc = gql`
     fragment PostCardCommentInput on Post {
   id
@@ -2266,8 +2235,62 @@ export const HeaderFragmentDoc = gql`
   }
 }
     `;
-export const UserEventsFragmentDoc = gql`
-    fragment UserEvents on User {
+export const UserFriendFragmentDoc = gql`
+    fragment UserFriend on User {
+  id
+  friendStatus
+}
+    `;
+export const PostHeaderFragmentDoc = gql`
+    fragment PostHeader on Post {
+  id
+  creator {
+    id
+    profile {
+      firstName
+      lastName
+      displayPicture
+    }
+    username
+  }
+  createdAt
+}
+    `;
+export const PostInfoFragmentDoc = gql`
+    fragment PostInfo on Post {
+  id
+  text
+}
+    `;
+export const PostLikesFragmentDoc = gql`
+    fragment PostLikes on Post {
+  id
+  likeStatus
+  likeNumber
+}
+    `;
+export const PostCardFragmentDoc = gql`
+    fragment PostCard on Post {
+  creatorStatus
+  ...PostHeader
+  ...PostInfo
+  imageUrl
+  ...PostLikes
+  commentNumber
+}
+    ${PostHeaderFragmentDoc}
+${PostInfoFragmentDoc}
+${PostLikesFragmentDoc}`;
+export const UserPostsEventsFragmentDoc = gql`
+    fragment UserPostsEvents on User {
+  posts {
+    post {
+      ...PostCard
+    }
+    event {
+      ...EventInfo
+    }
+  }
   likedEvents {
     ...EventCard
   }
@@ -2275,13 +2298,9 @@ export const UserEventsFragmentDoc = gql`
     ...EventCard
   }
 }
-    ${EventCardFragmentDoc}`;
-export const UserFriendFragmentDoc = gql`
-    fragment UserFriend on User {
-  id
-  friendStatus
-}
-    `;
+    ${PostCardFragmentDoc}
+${EventInfoFragmentDoc}
+${EventCardFragmentDoc}`;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $newPassword: String!) {
   changePassword(token: $token, newPassword: $newPassword) {
@@ -4026,12 +4045,12 @@ export const UserDocument = gql`
   user(id: $id) {
     ...UserHeader
     ...UserProfile
-    ...UserEvents
+    ...UserPostsEvents
   }
 }
     ${UserHeaderFragmentDoc}
 ${UserProfileFragmentDoc}
-${UserEventsFragmentDoc}`;
+${UserPostsEventsFragmentDoc}`;
 
 /**
  * __useUserQuery__

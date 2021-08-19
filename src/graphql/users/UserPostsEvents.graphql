@@ -1,0 +1,16 @@
+fragment UserPostsEvents on User {
+  posts {
+    post {
+      ...PostCard
+    }
+    event {
+      ...EventInfo
+    }
+  }
+  likedEvents {
+    ...EventCard
+  }
+  volunteeredEvents {
+    ...EventCard
+  }
+}
