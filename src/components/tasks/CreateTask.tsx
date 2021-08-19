@@ -3,15 +3,15 @@ import * as yup from 'yup'
 import { Dialog, Transition } from '@headlessui/react'
 import { EventDocument, useCreateTaskMutation } from 'generated/graphql'
 
+import { ClipboardCheckIcon } from '@heroicons/react/outline'
 import Datetime from 'components/forms/Datetime'
 import Form from 'components/forms/Form'
 import { Fragment } from 'react'
 import Textarea from 'components/forms/Textarea'
-import { useForm } from 'react-hook-form'
-import router from 'next/router'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { XIcon } from '@heroicons/react/outline'
-import { ClipboardCheckIcon } from '@heroicons/react/outline'
+import router from 'next/router'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 type CreateTaskProps = {
   isOpen: boolean
@@ -105,7 +105,7 @@ export default function CreateTask({ isOpen, toggleIsOpen }: CreateTaskProps) {
                   errors={errors.description}
                   placeholder="Description"
                   srOnly
-                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-500 dark:bg-gray-700"
                 />
                 <Datetime
                   name="deadline"

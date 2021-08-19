@@ -1,11 +1,13 @@
 import * as yup from 'yup'
 
+import React, { useState } from 'react'
 import {
   useCreateCharityMutation,
   useUpdateCharityProfileMutation
 } from 'generated/graphql'
 
 import Checkbox from '../forms/Checkbox'
+import { ClipboardIcon } from '@heroicons/react/outline'
 import Form from '../forms/Form'
 import FormButton from 'components/forms/FormButton'
 import Input from '../forms/Input'
@@ -15,9 +17,7 @@ import UploadImageButton from 'components/UploadImageButton'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ClipboardIcon } from '@heroicons/react/outline'
 
 export default function CreateCharity() {
   const {
@@ -219,7 +219,7 @@ export default function CreateCharity() {
           placeholder="Let others understand what your charity does."
           register={register}
           errors={errors.about}
-          className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
+          className="w-full h-24 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-500 dark:bg-gray-700"
         />
         <div className="flex flex-wrap gap-4">
           <Input

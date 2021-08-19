@@ -12,12 +12,12 @@ import EventPreview from '../events/EventPreview'
 import Form from 'components/forms/Form'
 import FormButton from 'components/forms/FormButton'
 import { Fragment } from 'react'
+import { ShareIcon } from '@heroicons/react/outline'
 import Textarea from 'components/forms/Textarea'
 import { XIcon } from '@heroicons/react/solid'
+import router from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import router from 'next/router'
-import { ShareIcon } from '@heroicons/react/outline'
 
 type ShareEventPostProps = {
   isOpen: boolean
@@ -112,7 +112,7 @@ export default function ShareEventModal({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-500 border-none resize-none dark:placeholder-gray-400 dark:text-gray-200 focus:outline-none focus:ring-0"
+                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-400 border-none resize-none dark:placeholder-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0"
                 />
                 <EventPreview event={event} />
                 <div className="flex justify-end">

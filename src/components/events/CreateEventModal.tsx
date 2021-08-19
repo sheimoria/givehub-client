@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 
+import { CalendarIcon, XIcon } from '@heroicons/react/outline'
 import {
   CharityDocument,
   EventInput,
@@ -14,7 +15,6 @@ import FormButton from 'components/forms/FormButton'
 import Input from 'components/forms/Input'
 import Textarea from 'components/forms/Textarea'
 import UploadImageButton from 'components/UploadImageButton'
-import { CalendarIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -148,7 +148,7 @@ export default function CreateEventModal({
                   label="Description"
                   register={register}
                   errors={errors.description}
-                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-500 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-700"
+                  className="w-full h-24 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 border-none rounded-md resize-none focus:ring-1 focus:ring-rose-600 focus:outline-none dark:text-gray-200 dark:placeholder-gray-500 dark:bg-gray-700"
                 />
                 <div className="flex flex-wrap gap-4">
                   <Datetime

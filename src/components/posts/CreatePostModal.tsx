@@ -1,23 +1,23 @@
 import * as yup from 'yup'
 
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
 import {
   PostInput,
   PostsDocument,
   useCreatePostMutation
 } from 'generated/graphql'
+import React, { Fragment, useState } from 'react'
 
 import Form from 'components/forms/Form'
 import FormButton from 'components/forms/FormButton'
 import Textarea from 'components/forms/Textarea'
+import { UploadIcon } from '@heroicons/react/outline'
 import UploadImageButton from 'components/UploadImageButton'
 import { XIcon } from '@heroicons/react/solid'
 import axios from 'axios'
+import router from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UploadIcon } from '@heroicons/react/outline'
-import router from 'next/router'
 
 export default function CreatePostModal({
   toggleIsOpen
@@ -132,7 +132,7 @@ export default function CreatePostModal({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-500 border-none resize-none dark:placeholder-gray-400 dark:text-gray-200 focus:outline-none focus:ring-0"
+                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-400 bg-white border-none resize-none dark:bg-gray-800 dark:placeholder-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0"
                   srOnly
                 />
                 <div className="flex justify-end gap-2">
