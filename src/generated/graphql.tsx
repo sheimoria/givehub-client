@@ -1849,6 +1849,15 @@ export type UserQuery = (
   )> }
 );
 
+export type UserCharitiesFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'followedCharitiesNumber'>
+  & { followedCharities: Array<(
+    { __typename?: 'Charity' }
+    & CharityHeaderFragment
+  )> }
+);
+
 export type UserEventsFragment = (
   { __typename?: 'User' }
   & { likedEvents: Array<(
@@ -1895,7 +1904,7 @@ export type UserPictureFragment = (
 
 export type UserProfileFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'email' | 'friendStatus' | 'followedCharitiesNumber' | 'viewerStatus'>
+  & Pick<User, 'email' | 'friendStatus' | 'viewerStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'id' | 'about'>
@@ -1915,6 +1924,7 @@ export type UserProfileFragment = (
   )> }
   & UserHeaderFragment
   & UserFriendsFragment
+  & UserCharitiesFragment
 );
 
 export type UserTasksQueryVariables = Exact<{ [key: string]: never; }>;
@@ -2172,6 +2182,14 @@ export const UserFriendsFragmentDoc = gql`
   }
 }
     ${UserHeaderFragmentDoc}`;
+export const UserCharitiesFragmentDoc = gql`
+    fragment UserCharities on User {
+  followedCharitiesNumber
+  followedCharities {
+    ...CharityHeader
+  }
+}
+    ${CharityHeaderFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
     fragment UserProfile on User {
   ...UserHeader
@@ -2198,11 +2216,12 @@ export const UserProfileFragmentDoc = gql`
   }
   ...UserFriends
   friendStatus
-  followedCharitiesNumber
+  ...UserCharities
   viewerStatus
 }
     ${UserHeaderFragmentDoc}
-${UserFriendsFragmentDoc}`;
+${UserFriendsFragmentDoc}
+${UserCharitiesFragmentDoc}`;
 export const TaskCardFragmentDoc = gql`
     fragment TaskCard on Task {
   id

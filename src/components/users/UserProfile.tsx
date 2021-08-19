@@ -9,6 +9,7 @@ import RequestFriend from 'components/users/RequestFriendButton'
 import UpdateUserProfileButton from 'components/users/UpdateUserProfileButton'
 import {
   CharityHeaderFragmentDoc,
+  UserCharitiesFragmentDoc,
   UserFriendFragmentDoc,
   UserFriendsFragmentDoc,
   UserProfileFragment
@@ -19,6 +20,7 @@ import CharityHeader from 'components/charities/CharityHeader'
 import Transit from 'components/Transit'
 import React from 'react'
 import UserFriendsButton from './UserFriendsButton'
+import UserCharitiesButton from './UserCharitiesButton'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
@@ -43,13 +45,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
       <p className="place-self-center">{user.profile?.about}</p>
       <div className="flex flex-wrap gap-6 place-self-center">
         <UserFriendsButton user={filter(UserFriendsFragmentDoc, user)} />
-        <div className="flex items-center gap-2">
-          <UserGroupIcon className="text-gray-400 dark:text-gray-500" />
-          <h5>
-            {user.followedCharitiesNumber}{' '}
-            {user.followedCharitiesNumber === 1 ? 'charity' : 'charities'}
-          </h5>
-        </div>
+        <UserCharitiesButton user={filter(UserCharitiesFragmentDoc, user)} />
       </div>
       <div className="flex items-center gap-2">
         <HeartIcon className="secondary" />

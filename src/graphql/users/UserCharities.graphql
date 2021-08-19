@@ -1,0 +1,6 @@
+fragment UserCharities on User {
+  followedCharitiesNumber
+  followedCharities {
+    ...CharityHeader
+  }
+}
