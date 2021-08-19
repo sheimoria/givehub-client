@@ -26,7 +26,7 @@ export default function SearchBar() {
       <div className="relative">
         <input
           {...register('search')}
-          className="w-full px-12 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-full dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-600"
+          className="w-full px-12 py-2 text-sm text-gray-700 transition-colors bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-600"
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
