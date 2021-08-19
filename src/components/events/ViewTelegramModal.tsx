@@ -15,7 +15,7 @@ export default function ViewTelegramModal({ toggleIsOpen, volunteers }: Props) {
     <Transition appear show as={Fragment}>
       <Dialog
         open
-        onClose={() => toggleIsOpen()}
+        onClose={toggleIsOpen}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">

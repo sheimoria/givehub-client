@@ -21,8 +21,8 @@ fragment UserProfile on User {
     }
     adminStatus
   }
+  ...UserFriends
   friendStatus
-  friendNumber
   followedCharitiesNumber
   viewerStatus
 }

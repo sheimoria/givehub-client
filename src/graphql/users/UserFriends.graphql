@@ -1,0 +1,6 @@
+fragment UserFriends on User {
+  friendNumber
+  friends {
+    ...UserHeader
+  }
+}

@@ -1865,6 +1865,15 @@ export type UserFriendFragment = (
   & Pick<User, 'id' | 'friendStatus'>
 );
 
+export type UserFriendsFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'friendNumber'>
+  & { friends: Array<(
+    { __typename?: 'User' }
+    & UserHeaderFragment
+  )> }
+);
+
 export type UserHeaderFragment = (
   { __typename?: 'User' }
   & Pick<User, 'username' | 'friendStatus'>
@@ -1886,7 +1895,7 @@ export type UserPictureFragment = (
 
 export type UserProfileFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'email' | 'friendStatus' | 'friendNumber' | 'followedCharitiesNumber' | 'viewerStatus'>
+  & Pick<User, 'email' | 'friendStatus' | 'followedCharitiesNumber' | 'viewerStatus'>
   & { profile?: Maybe<(
     { __typename?: 'Userprofile' }
     & Pick<Userprofile, 'id' | 'about'>
@@ -1905,6 +1914,7 @@ export type UserProfileFragment = (
     )> }
   )> }
   & UserHeaderFragment
+  & UserFriendsFragment
 );
 
 export type UserTasksQueryVariables = Exact<{ [key: string]: never; }>;
@@ -2154,6 +2164,14 @@ export const UserHeaderFragmentDoc = gql`
   friendStatus
 }
     ${UserPictureFragmentDoc}`;
+export const UserFriendsFragmentDoc = gql`
+    fragment UserFriends on User {
+  friendNumber
+  friends {
+    ...UserHeader
+  }
+}
+    ${UserHeaderFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
     fragment UserProfile on User {
   ...UserHeader
@@ -2178,12 +2196,13 @@ export const UserProfileFragmentDoc = gql`
     }
     adminStatus
   }
+  ...UserFriends
   friendStatus
-  friendNumber
   followedCharitiesNumber
   viewerStatus
 }
-    ${UserHeaderFragmentDoc}`;
+    ${UserHeaderFragmentDoc}
+${UserFriendsFragmentDoc}`;
 export const TaskCardFragmentDoc = gql`
     fragment TaskCard on Task {
   id

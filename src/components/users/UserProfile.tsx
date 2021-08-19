@@ -10,12 +10,15 @@ import UpdateUserProfileButton from 'components/users/UpdateUserProfileButton'
 import {
   CharityHeaderFragmentDoc,
   UserFriendFragmentDoc,
+  UserFriendsFragmentDoc,
   UserProfileFragment
 } from 'generated/graphql'
 import router from 'next/router'
 import { filter } from 'graphql-anywhere'
 import CharityHeader from 'components/charities/CharityHeader'
 import Transit from 'components/Transit'
+import React from 'react'
+import UserFriendsButton from './UserFriendsButton'
 
 export default function UserProfile({ user }: { user: UserProfileFragment }) {
   return (
@@ -39,12 +42,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
       </div>
       <p className="place-self-center">{user.profile?.about}</p>
       <div className="flex flex-wrap gap-6 place-self-center">
-        <div className="flex items-center gap-2">
-          <UsersIcon className="text-gray-400 dark:text-gray-500" />
-          <h5>
-            {user.friendNumber} {user.friendNumber === 1 ? 'friend' : 'friends'}
-          </h5>
-        </div>
+        <UserFriendsButton user={filter(UserFriendsFragmentDoc, user)} />
         <div className="flex items-center gap-2">
           <UserGroupIcon className="text-gray-400 dark:text-gray-500" />
           <h5>
@@ -54,7 +52,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <HeartIcon className="text-gray-400 dark:text-gray-500" />
+        <HeartIcon className="secondary" />
         <h5>Interests</h5>
       </div>
       <div className="flex flex-wrap gap-2 place-self-stretch">
