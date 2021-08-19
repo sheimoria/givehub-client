@@ -14,9 +14,9 @@ export default withAuth(function CharitySignUp({ me }) {
       aside={
         <>
           <FriendRequests />
+          <UserEvents />
           <PeopleToFollow />
           <CharitiesToFollow />
-          <UserEvents />
         </>
       }
     >

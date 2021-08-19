@@ -25,9 +25,9 @@ export default withAuth(function Charity({ me }) {
       aside={
         <>
           <FriendRequests />
+          <UserEvents />
           <PeopleToFollow />
           <CharitiesToFollow />
-          <UserEvents />
         </>
       }
     >

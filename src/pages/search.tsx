@@ -11,7 +11,7 @@ import FriendRequests from 'components/users/FriendRequests'
 import PeopleToFollow from 'components/users/PeopleToFollow'
 import Picture from 'components/Picture'
 import Transit from 'components/Transit'
-import UserTasks from 'components/users/YourEvents'
+import UserEvents from 'components/users/YourEvents'
 import { useRouter } from 'next/router'
 import withAuth from 'utils/withAuth'
 import EventSnippet from 'components/events/EventSnippet'
@@ -35,9 +35,9 @@ export default withAuth(function Home({ me }) {
       aside={
         <>
           <FriendRequests />
+          <UserEvents />
           <PeopleToFollow />
           <CharitiesToFollow />
-          <UserTasks />
         </>
       }
     >
