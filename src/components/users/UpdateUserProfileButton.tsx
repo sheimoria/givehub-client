@@ -12,10 +12,7 @@ export default function UpdateUserProfileButton({
   const [isOpen, toggleIsOpen] = useToggle()
   return (
     <>
-      <button
-        onClick={toggleIsOpen}
-        className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
-      >
+      <button onClick={toggleIsOpen} className="btn-primary">
         <PencilAltIcon />
         Update Profile
       </button>
