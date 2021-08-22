@@ -33,9 +33,9 @@ export default withAuth(function ViewEvent({ me }) {
           ) : (
             <>
               <FriendRequests />
+              <UserEvents />
               <PeopleToFollow />
               <CharitiesToFollow />
-              <UserEvents />
             </>
           )}
         </>
