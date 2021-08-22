@@ -1,0 +1,8 @@
+mutation DeleteComment($commentId: Float!) {
+  deleteCommentOnPost(commentId: $commentId) {
+    errors {
+      field
+      message
+    }
+  }
+}

@@ -49,7 +49,7 @@ export default function PostCardCommentInput({
                     query: PostCommentsDocument,
                     variables: {
                       depth: null,
-                      limit: 3,
+                      limit: 10,
                       postId: post.id
                     }
                   }
