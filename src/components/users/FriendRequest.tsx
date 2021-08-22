@@ -21,7 +21,7 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
             query: { userId: user.id }
           })
         }
-        className="flex items-center gap-4"
+        className="flex items-center gap-4 cursor-pointer"
       >
         <Picture pictureId={user.profile?.displayPicture} />
         <div className="flex flex-col">

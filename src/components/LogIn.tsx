@@ -50,7 +50,7 @@ export default function LogIn() {
   }
 
   return (
-    <Transit onEveryMount as="section" className="w-full px-6 sm:w-96 sm:px-0">
+    <Transit onEveryMount as="section" className="w-full sm:w-96">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={handleSubmit(handleLogIn)}
