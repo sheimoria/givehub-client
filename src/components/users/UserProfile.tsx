@@ -58,7 +58,7 @@ export default function UserProfile({ user }: { user: UserProfileFragment }) {
             onClick={() =>
               router.push({ pathname: '/home', query: { view: category.id } })
             }
-            className="px-4 py-2 text-sm font-medium transition-colors rounded-full hover:bg-rose-200 bg-rose-100 text-rose-600 dark:hover:text-rose-500 hover:text-rose-700"
+            className="px-4 py-2 text-sm font-medium transition-colors rounded-full dark:hover:bg-rose-800 dark:bg-rose-900 hover:bg-rose-200 bg-rose-100 text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 hover:text-rose-700"
           >
             {category.name}
           </button>

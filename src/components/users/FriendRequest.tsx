@@ -50,7 +50,7 @@ export default function FriendRequest({ user }: { user: UserHeaderFragment }) {
               refetchQueries: [{ query: FriendRequestsDocument }]
             })
           }
-          className="transition-colors cursor-pointer w-7 h-7 text-rose-600 hover:text-rose-700 dark:text-rose-500"
+          className="transition-colors cursor-pointer w-7 h-7 text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
         />
       </div>
     </div>

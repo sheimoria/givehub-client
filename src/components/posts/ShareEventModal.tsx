@@ -112,14 +112,14 @@ export default function ShareEventModal({
                   placeholder="What's on your mind?"
                   register={register}
                   errors={errors.text}
-                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-400 border-none resize-none dark:placeholder-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0"
+                  className="w-full h-24 p-0 text-gray-700 placeholder-gray-400 bg-transparent border-none resize-none dark:placeholder-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0"
                 />
                 <EventPreview event={event} />
                 <div className="flex justify-end">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-rose-600 hover:bg-rose-700"
+                    className="btn-primary"
                   >
                     {isSubmitting ? (
                       <div className="w-4 h-4 border-2 rounded-full border-t-white border-rose-100 animate-spin" />
