@@ -52,7 +52,7 @@ export default function SearchPreview({
           {users.searchUsers.items.map((user) => (
             <div
               key={user.id}
-              className="flex items-center gap-4"
+              className="flex items-center gap-4 cursor-pointer"
               onClick={() =>
                 router.push({
                   pathname: '/user',
