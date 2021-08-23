@@ -36,10 +36,10 @@
   }
   /* Text */
   h1 {
-    @apply text-3xl font-bold font-display text-rose-600;
+    @apply text-3xl font-medium text-rose-600;
   }
   h2 {
-    @apply text-2xl font-bold font-display text-rose-600;
+    @apply text-2xl font-medium text-rose-600;
   }
   h3 {
     @apply text-xl font-medium text-gray-700 dark:text-gray-200;
