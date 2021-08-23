@@ -11,8 +11,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: 'Gilroy'
+        sans: ['Inter', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         rose: colors.rose,

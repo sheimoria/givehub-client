@@ -1,13 +1,14 @@
 import Body from 'components/layout/Body'
+import Image from 'next/image'
 import LogIn from 'components/LogIn'
 import Transit from 'components/Transit'
+import router from 'next/router'
 import { useMeQuery } from 'generated/graphql'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
+import { useTheme } from 'next-themes'
 
 export default function Index() {
   const { data } = useMeQuery()
-  const router = useRouter()
+  const { theme, setTheme } = useTheme()
 
   return (
     <Body title="Givehub">
@@ -23,14 +24,25 @@ export default function Index() {
             as="div"
             className="relative w-full h-64 max-w-2xl sm:h-full"
           >
-            <Image
-              src="/hero.svg"
-              alt="Hero"
-              layout="fill"
-              objectFit="contain"
-              objectPosition="left"
-              priority
-            />
+            {theme !== 'dark' ? (
+              <Image
+                src="/hero.svg"
+                alt="Hero"
+                layout="fill"
+                objectFit="contain"
+                objectPosition="left"
+                priority
+              />
+            ) : (
+              <Image
+                src="/hero-dark.svg"
+                alt="Hero"
+                layout="fill"
+                objectFit="contain"
+                objectPosition="left"
+                priority
+              />
+            )}
           </Transit>
           <LogIn />
         </div>
