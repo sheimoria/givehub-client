@@ -24,7 +24,7 @@ export default function Index() {
             as="div"
             className="relative w-full h-64 max-w-2xl sm:h-full"
           >
-            {theme !== 'dark' ? (
+            {theme === 'light' ? (
               <Image
                 src="/hero.svg"
                 alt="Hero"

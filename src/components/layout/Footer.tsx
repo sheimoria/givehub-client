@@ -1,5 +1,6 @@
-import { MoonIcon } from '@heroicons/react/solid'
+import { MoonIcon, SunIcon } from '@heroicons/react/solid'
 import { useTheme } from 'next-themes'
+import React from 'react'
 
 export default function Footer() {
   const { theme, setTheme } = useTheme()
@@ -28,10 +29,17 @@ export default function Footer() {
           </a>
         </p>
         <div className="flex gap-4">
-          <MoonIcon
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="transition-colors cursor-pointer text-rose-600 hover:text-rose-700 dark:hover:text-rose-500"
-          />
+          {theme === 'light' ? (
+            <MoonIcon
+              onClick={() => setTheme('dark')}
+              className="transition-colors cursor-pointer text-rose-600 hover:text-rose-700"
+            />
+          ) : (
+            <SunIcon
+              onClick={() => setTheme('light')}
+              className="transition-colors cursor-pointer text-rose-600 hover:text-rose-500"
+            />
+          )}
           <a
             href="https://github.com/sheimoria/givehub-next-client"
             target="_blank"
