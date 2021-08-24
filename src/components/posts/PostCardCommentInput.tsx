@@ -35,42 +35,38 @@ export default function PostCardCommentInput({
   }, [isSubmitSuccessful, reset])
 
   return (
-    <>
-      {data && (
-        <Transit onEveryMount as="div" className="flex gap-4">
-          <Picture pictureId={data.me?.profile?.displayPicture} />
-          <Form
-            handleSubmit={handleSubmit}
-            onSubmit={(data) =>
-              createComment({
-                variables: { input: { text: data.comment }, postId: post.id },
-                refetchQueries: [
-                  {
-                    query: PostCommentsDocument,
-                    variables: {
-                      depth: null,
-                      limit: 10,
-                      postId: post.id
-                    }
-                  }
-                ]
-              })
-            }
-            className="flex items-center flex-1 gap-4"
-          >
-            <Input
-              name="comment"
-              label="comment"
-              srOnly
-              placeholder="Add Comment..."
-              register={register}
-              errors={errors.comment}
-              className="w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 rounded-full dark:placeholder-gray-500 dark:text-gray-200 dark:bg-gray-700 focus:outline-none"
-            />
-            <FormButton label="Add" isSubmitting={isSubmitting} />
-          </Form>
-        </Transit>
-      )}
-    </>
+    <Transit onEveryMount as="div" className="flex items-center gap-4">
+      <Picture pictureId={data?.me?.profile?.displayPicture} />
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={(data) =>
+          createComment({
+            variables: { input: { text: data.comment }, postId: post.id },
+            refetchQueries: [
+              {
+                query: PostCommentsDocument,
+                variables: {
+                  depth: null,
+                  limit: 10,
+                  postId: post.id
+                }
+              }
+            ]
+          })
+        }
+        className="flex items-center flex-1 gap-4"
+      >
+        <Input
+          name="comment"
+          label="comment"
+          srOnly
+          placeholder="Add Comment..."
+          register={register}
+          errors={errors.comment}
+          className="w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-gray-100 rounded-full dark:placeholder-gray-500 dark:text-gray-200 dark:bg-gray-700 focus:outline-none"
+        />
+        <FormButton label="Add" isSubmitting={isSubmitting} />
+      </Form>
+    </Transit>
   )
 }
