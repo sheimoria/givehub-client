@@ -2,7 +2,8 @@
 
 
 <p align="center">
-  <img src="/public/162999508698.png" />
+  <img src="/public/poster.png" />
+  <img src="/public/badge.png" />
 </p>
 
 
