@@ -6,7 +6,7 @@
 # Givehub
 
 
-[Givehub](https://givehub.vercel.app) is a one-stop social platform for the community to discover volunteer opportunities and for charities to manage volunteers. Developed under the [Orbital Programme](https://orbital.comp.nus.edu.sg/) at the [Artemis (Extreme) Level](https://credentials.nus.edu.sg/b434c087-61bd-42f5-a157-607779dfcb84) organised by the [National University of Singapore's School of Computing](https://www.comp.nus.edu.sg/).
+[Givehub](https://givehub.vercel.app) is a one-stop social platform for the community to discover volunteer opportunities and for charities to manage volunteers. Developed under the [Orbital Programme](https://orbital.comp.nus.edu.sg/) organised by the [National University of Singapore's School of Computing](https://www.comp.nus.edu.sg/) at the [Artemis (Extreme) Level](https://credentials.nus.edu.sg/b434c087-61bd-42f5-a157-607779dfcb84).
 
 
 [Video Demo](https://drive.google.com/file/d/1X8tT1lfV0-4gXMUvU47GiLnEsxqBprgZ/view?usp=sharing)
