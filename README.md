@@ -48,7 +48,7 @@ yarn dev
 ### Backend
 
 
-[Backend Repo](https://github.com/vigneshsankariyer1234567890/ghn)
+[Link to Repo](https://github.com/vigneshsankariyer1234567890/ghn)
 
 
 1. [Express](https://expressjs.com/)
