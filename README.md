@@ -1,7 +1,9 @@
 # Givehub
 
 
-![Orbital Badge](/public/162999508698.png)
+<p align="center">
+  <img src="/public/162999508698.png" />
+</p>
 
 
 [Givehub](https://givehub.vercel.app) is a one-stop social platform for the community to discover volunteer opportunities and for charities to manage volunteers. Developed under the [Orbital Programme Artemis (Extreme) Level](https://orbital.comp.nus.edu.sg/) organised by the [National University of Singapore's School of Computing](https://www.comp.nus.edu.sg/).
