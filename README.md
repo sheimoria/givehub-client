@@ -1,8 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img src="/public/badge.png" />
+</p>
 
-## Getting Started
 
-First, run the development server:
+# Givehub
+
+
+[Givehub](https://givehub.vercel.app) is a one-stop social platform for the community to discover volunteer opportunities and for charities to manage volunteers. Developed under the [Orbital Programme](https://orbital.comp.nus.edu.sg/) organised by the [National University of Singapore's School of Computing](https://www.comp.nus.edu.sg/) at the [Artemis (Extreme) Level](https://credentials.nus.edu.sg/b434c087-61bd-42f5-a157-607779dfcb84).
+
+
+[Video Demo](https://drive.google.com/file/d/1X8tT1lfV0-4gXMUvU47GiLnEsxqBprgZ/view?usp=sharing)
+
+
+<p align="center">
+  <img src="/public/poster.png" />
+</p>
+
+
+## Installation
+
+
+1. Run the development server:
+
 
 ```bash
 npm run dev
@@ -10,25 +29,29 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Tech Stack
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+### Frontend
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. [Typescript](https://www.typescriptlang.org/)
+2. [Next.js](https://nextjs.org/)
+3. [TailwindCSS](https://tailwindcss.com/)
+4. [Apollo Client](https://www.apollographql.com/docs/react/)
+5. [Cloudinary React](https://cloudinary.com/documentation/react_integration)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Backend
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Link to Repo](https://github.com/vigneshsankariyer1234567890/ghn)
+
+
+1. [Express](https://expressjs.com/)
+2. [TypeGraphQL](https://typegraphql.com/)
+3. [PostgreSQL](https://www.postgresql.org/)
+4. [Docker](https://www.docker.com/)
