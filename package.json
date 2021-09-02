@@ -51,5 +51,6 @@
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
-  }
+  },
+  "packageManager": "yarn@latest"
 }
