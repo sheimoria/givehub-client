@@ -24,25 +24,27 @@ export default function Index() {
             as="div"
             className="relative w-full h-64 max-w-2xl sm:h-full"
           >
-            {theme === 'light' ? (
-              <Image
-                src="/hero.svg"
-                alt="Hero"
-                layout="fill"
-                objectFit="contain"
-                objectPosition="left"
-                priority
-              />
-            ) : (
-              <Image
-                src="/hero-dark.svg"
-                alt="Hero"
-                layout="fill"
-                objectFit="contain"
-                objectPosition="left"
-                priority
-              />
-            )}
+            {theme ? (
+              theme === 'light' ? (
+                <Image
+                  src="/hero.svg"
+                  alt="Hero"
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="left"
+                  priority
+                />
+              ) : (
+                <Image
+                  src="/hero-dark.svg"
+                  alt="Hero"
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="left"
+                  priority
+                />
+              )
+            ) : null}
           </Transit>
           <LogIn />
         </div>
