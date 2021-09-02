@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"npm run generate --watch \"src/**/*.graphql\"\" ",
+    "dev": "concurrently \"next dev\" \"yarn generate --watch \"src/**/*.graphql\"\" ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
